@@ -2,10 +2,11 @@
  * MyGraphLeaf class, representing a leaf in the scene graph.
  * @constructor
 **/
-function MyGraphLeaf(graph, xmlelem) {
-	var type = graph.reader.getItem(descendants[j], 'type',
-		['rectangle', 'cylinder', 'sphere', 'triangle']);
+function MyGraphLeaf(scene) {
+	CGFobject.call(this, graph.scene);
+};
 
-	console.log("Leaf was " + leafType);
-}
+MyGraphLeaf.prototype = Object.create(CGFobject.prototype);
+MyGraphLeaf.prototype.constructor = MyGraphLeaf;
+
 
