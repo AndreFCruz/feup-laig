@@ -16,10 +16,10 @@ function MyRectangle(scene, minX, minY, maxX, maxY) {
     this.initBuffers();
 };
 
-MyQuad.prototype = Object.create(MyGraphLeaf.prototype);
-MyQuad.prototype.constructor = MyRectangle;
+MyRectangle.prototype = Object.create(MyGraphLeaf.prototype);
+MyRectangle.prototype.constructor = MyRectangle;
 
-MyQuad.prototype.initBuffers = function() {
+MyRectangle.prototype.initBuffers = function() {
     this.vertices = [
         this.minX, this.minY, 0.0,
         this.maxX, this.minY, 0.0,

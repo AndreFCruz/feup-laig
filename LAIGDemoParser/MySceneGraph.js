@@ -1377,16 +1377,16 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 		case 'rectangle':
 			return this.createRectangle(args);
 			break;
+		case 'sphere':
+			return this.createSphere(args);
+			break;
 		case 'cylinder':
 			// return this.createCylinder(args)
-			break;
-		case 'sphere':
-			// return this.createSphere(args);
 			break;
 	}
 }
 
-MySceneGraph.prototype.createTryangle = function(args) {
+MySceneGraph.prototype.createTriangle = function(args) {
 	if (args.length != 9) {
 		this.warn("Invalid arguments in triangle leaf.");
 		return null;
@@ -1402,14 +1402,6 @@ MySceneGraph.prototype.createRectangle = function(args) {
 	return new MyRectangle(this.scene, args[0], args[1], args[2], args[3]);
 }
 
-MySceneGraph.prototype.createCylinder = function(args) {
-	if (args.length != 5) {
-		this.warn("Invalid arguments in cylinder leaf.");
-		return null;
-	}
-	return new MyCylinder(this.scene, args);
-}
-
 MySceneGraph.prototype.createSphere = function(args) {
 	if (args.length != 3) {
 		this.warn("Invalid arguments in sphere leaf.");
@@ -1417,7 +1409,14 @@ MySceneGraph.prototype.createSphere = function(args) {
 	}
 	return new MySphere(this.scene, args[0], args[1], args[2]);
 }
-/* ...fill with remaining constructor methods */
+
+MySceneGraph.prototype.createCylinder = function(args) {
+	if (args.length != 5) {
+		this.warn("Invalid arguments in cylinder leaf.");
+		return null;
+	}
+	return new MyCylinder(this.scene, args);
+}
 
 /*
  * Callback to be executed on any read error

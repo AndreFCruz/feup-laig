@@ -13,10 +13,10 @@ function MyTriangle(scene, pointsArray) {
     this.initBuffers();
 };
 
-MyQuad.prototype = Object.create(MyGraphLeaf.prototype);
-MyQuad.prototype.constructor = MyRectangle;
+MyTriangle.prototype = Object.create(MyGraphLeaf.prototype);
+MyTriangle.prototype.constructor = MyTriangle;
 
-MyQuad.prototype.initBuffers = function() {
+MyTriangle.prototype.initBuffers = function() {
     this.vertices = [
         this.pointA[0], this.pointA[1], this.pointA[2],
         this.pointB[0], this.pointB[1], this.pointB[2],
