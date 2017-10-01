@@ -3,7 +3,7 @@
  * @constructor
 **/
 function MyGraphLeaf(scene) {
-	CGFobject.call(this, graph.scene);
+	CGFobject.call(this, scene);
 };
 
 MyGraphLeaf.prototype = Object.create(CGFobject.prototype);

@@ -1368,8 +1368,10 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 		return null;
 	}
 
-	this.log("   Leaf: "+ type);
+	this.log("   Leaf: " + type);
 	this.log("   Leaf args: " + args);
+
+	args = args.split(" ");
 
 	switch (type) {
 		case 'rectangle':

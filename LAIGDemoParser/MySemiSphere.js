@@ -3,7 +3,7 @@
  * @constructor
  */
 function MySemiSphere(scene, slices, stacks) {
-    CGFobject.call(this, scene);
+    MyGraphLeaf.call(this, scene);
 
     this.slices = slices;
     this.stacks = stacks;
@@ -11,7 +11,7 @@ function MySemiSphere(scene, slices, stacks) {
     this.initBuffers();
 }
 ;
-MySemiSphere.prototype = Object.create(CGFobject.prototype);
+MySemiSphere.prototype = Object.create(MyGraphLeaf.prototype);
 MySemiSphere.prototype.constructor = MySemiSphere;
 
 MySemiSphere.prototype.initBuffers = function() {
