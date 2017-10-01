@@ -1361,7 +1361,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 MySceneGraph.prototype.createLeaf = function(xmlelem) {
 	var type = this.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
-	var args = this.reader.getString(xmlelem, 'args');
+	var args = this.reader.getString(xmlelem, 'args').split(' ');;
 
 	if (type == null || args == null) {
 		this.warn("Error in leaf");
@@ -1369,32 +1369,53 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 	}
 
 	this.log("   Leaf: " + type);
-	this.log("   Leaf args: " + args);
-
-	args = args.split(" ");
 
 	switch (type) {
+		case 'triangle':
+			return this.createTriangle(args);
+			break;
 		case 'rectangle':
-			return this.createRectangle(xmlelem, args);
+			return this.createRectangle(args);
 			break;
 		case 'cylinder':
+			// return this.createCylinder(args)
 			break;
 		case 'sphere':
-			break;
-		case 'triangle':
+			// return this.createSphere(args);
 			break;
 	}
 }
 
-MySceneGraph.prototype.createRectangle = function(xmlelem, args) {
-
-	// split string and interpret arguments
-	// return new MyRectangle with appropriate proportions 
+MySceneGraph.prototype.createTryangle = function(args) {
+	if (args.length != 9) {
+		this.warn("Invalid arguments in triangle leaf.");
+		return null;
+	}
+	return new MyTriangle(this.scene, args);
 }
 
-MySceneGraph.prototype.createSphere = function(xmlelem, args) {
-	// split string and interpret arguments
-	// return new MySphere with appropriate proportions 
+MySceneGraph.prototype.createRectangle = function(args) {
+	if (args.length != 4) {
+		this.warn("Invalid arguments in rectangle leaf.");
+		return null;
+	}
+	return new MyRectangle(this.scene, args[0], args[1], args[2], args[3]);
+}
+
+MySceneGraph.prototype.createCylinder = function(args) {
+	if (args.length != 5) {
+		this.warn("Invalid arguments in cylinder leaf.");
+		return null;
+	}
+	return new MyCylinder(this.scene, args);
+}
+
+MySceneGraph.prototype.createSphere = function(args) {
+	if (args.length != 3) {
+		this.warn("Invalid arguments in sphere leaf.");
+		return null;
+	}
+	return new MySphere(this.scene, args[0], args[1], args[2]);
 }
 /* ...fill with remaining constructor methods */
 

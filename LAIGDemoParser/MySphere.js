@@ -1,20 +1,25 @@
 /**
- * MySemiSphere
+ * MySphere
  * @constructor
  */
-function MySemiSphere(scene, slices, stacks) {
+function MySphere(scene, radius, slices, stacks) {
     MyGraphLeaf.call(this, scene);
 
+    this.radius = radius;
     this.slices = slices;
     this.stacks = stacks;
 
     this.initBuffers();
 }
 ;
-MySemiSphere.prototype = Object.create(MyGraphLeaf.prototype);
-MySemiSphere.prototype.constructor = MySemiSphere;
+MySphere.prototype = Object.create(MyGraphLeaf.prototype);
+MySphere.prototype.constructor = MySphere;
 
-MySemiSphere.prototype.initBuffers = function() {
+// REVIEW EVERYTHING
+// I'M JUST TRYING TO GET THIS TO DISPLAY GOD DAMN IT
+// THIS IS A SEMI SPHERE
+
+MySphere.prototype.initBuffers = function() {
     this.vertices = [];
     this.indices = [];
     this.texCoords = [];
@@ -26,9 +31,9 @@ MySemiSphere.prototype.initBuffers = function() {
     for (var i = 0; i <= this.stacks; i++) {
         for (var j = 0; j < this.slices; j++) {
             var new_vertex = [
-                Math.cos(deltaTheta * j) * Math.sin(i * deltaFi),
-                Math.sin(deltaTheta * j) * Math.sin(i * deltaFi),
-                Math.cos(i * deltaFi)];
+                Math.cos(deltaTheta * j) * Math.sin(i * deltaFi) * this.radius,
+                Math.sin(deltaTheta * j) * Math.sin(i * deltaFi) * this.radius,
+                Math.cos(i * deltaFi)] * this.radius;
 
             this.texCoords.push (Math.cos(deltaTheta * j) * Math.sin(i * deltaFi) / 2 + 0.5,
                 -Math.sin(deltaTheta * j) * Math.sin(i * deltaFi) / 2 + 0.5);

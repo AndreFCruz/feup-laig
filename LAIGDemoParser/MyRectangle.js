@@ -11,7 +11,7 @@ function MyRectangle(scene, minX, minY, maxX, maxY) {
     this.maxX = maxX;
     this.maxY = maxY;
 
-    // TODO set amp texture settigns
+    // TODO set amp texture settings
 
     this.initBuffers();
 };
