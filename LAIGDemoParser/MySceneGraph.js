@@ -1385,7 +1385,7 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 			return this.createSphere(args);
 			break;
 		case 'cylinder':
-			// return this.createCylinder(args)
+			return this.createCylinder(args)
 			break;
 	}
 }
@@ -1403,7 +1403,7 @@ MySceneGraph.prototype.createRectangle = function(args) {
 		this.warn("Invalid arguments in rectangle leaf.");
 		return null;
 	}
-	return new MyRectangle(this.scene, args[0], args[1], args[2], args[3]);
+	return new MyRectangle(this.scene, args);
 }
 
 MySceneGraph.prototype.createSphere = function(args) {
@@ -1411,7 +1411,7 @@ MySceneGraph.prototype.createSphere = function(args) {
 		this.warn("Invalid arguments in sphere leaf.");
 		return null;
 	}
-	return new MySphere(this.scene, args[0], args[1], args[2]);
+	return new MySphere(this.scene, args);
 }
 
 MySceneGraph.prototype.createCylinder = function(args) {

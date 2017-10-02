@@ -3,13 +3,13 @@
  * @param TODO
  * @constructor
  */
-function MyRectangle(scene, minX, minY, maxX, maxY) {
+function MyRectangle(scene, args) {
     MyGraphLeaf.call(this, scene);
 
-    this.minX = minX;
-    this.minY = minY;
-    this.maxX = maxX;
-    this.maxY = maxY;
+    this.minX = args[0];
+    this.minY = args[1];
+    this.maxX = args[2];
+    this.maxY = args[3];
 
     // TODO set amp texture settings
 
