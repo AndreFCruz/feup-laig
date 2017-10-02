@@ -22,7 +22,7 @@ function MySceneGraph(filename, scene) {
 	
 	this.nodes = [];
 	
-	this.idRoot = null;                    // The id of the root element.
+	this.rootIdx = null;                    // The id of the root element.
 
 	this.axisCoords = [];
 	this.axisCoords['x'] = [1, 0, 0];
@@ -1171,13 +1171,13 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 		var nodeName;
 		if ((nodeName = children[i].nodeName) == "ROOT") {
 			// Retrieves root node.
-			if (this.idRoot != null )
+			if (this.rootIdx != null )
 				return "there can only be one root node";
 			else {
 				var root = this.reader.getString(children[i], 'id');
 				if (root == null )
 					return "failed to retrieve root node ID";
-				this.idRoot = root;
+				this.rootIdx = i;
 			}
 		} 
 		else if (nodeName == "NODE") {
@@ -1474,7 +1474,22 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function() {
-	// entry point for graph rendering
-	// remove log below to avoid performance issues
-	this.log("Graph should be rendered here...");
+	var rootNode = this.nodes[this.rootIdx];
+	var rootMaterial = this.materialDefault;
+
+	this.scene.pushMatrix();
+	this.processNode(rootNode, rootMaterial);
+	this.scene.popMatrix();
 }
+
+
+MySceneGraph.prototype.processNode = function(currentNode, currentMaterial) {
+	this.scene.multMatrix(currentNode.transformMatrix);
+}
+
+
+
+
+
+
+
