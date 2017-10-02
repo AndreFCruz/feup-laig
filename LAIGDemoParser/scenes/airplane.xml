@@ -15,7 +15,7 @@
 <!-- Illumination and clear colour -->
 <ILLUMINATION>
     <ambient r="0.2" g="0.2" b="0.2" a="1" />       
-    <background r="0" g="0" b="0" a="1" />          
+    <background r="0" g="0.75" b="1" a="1" />          
 </ILLUMINATION>
 
 <!-- Lights -->
@@ -48,6 +48,10 @@
     </MATERIAL>
 </MATERIALS>
 
+<!-- The leaves -->
+<LEAVES>
+	
+</LEAVES>
 
 <!-- The nodes -->
 <NODES>
@@ -60,9 +64,83 @@
         <TEXTURE id="clear" />  
 
         <DESCENDANTS>
-
+			<NODEREF id="wings" /> <!--
+			<NODEREF id="wheels" />
+			<NODEREF id="tail" />
+			<NODEREF id="fan" />
+			<NODEREF id="body" /> -->
         </DESCENDANTS>
 
     </NODE>
+
+    <!-- The wings -->
+   <NODE id="wings">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+   		<DESCENDANTS>
+			<NODEREF id="up wing" />
+			<NODEREF id="down wing" />
+			<!--<NODEREF id="wing support" />-->
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- The Up wing -->
+   <NODE id="up wing">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+		
+   		<DESCENDANTS>
+			<NODEREF id="up wing top" />
+			<NODEREF id="up wing back" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- The up wing top -->
+   <NODE id="up wing top">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0.8" z="0" />
+   		<ROTATION axis="x" angle="-90" />
+		
+   		<DESCENDANTS>
+			<LEAF type="rectangle" args="-4.05 1.44 4.05 -1.44" />
+				<!-- TODO PORQUE E QUE OS TRAINGULOS TEM AQL ORDEM RETARDADA -->
+   		</DESCENDANTS>
+   	
+   </NODE> 
+
+   <!-- The up wing back -->
+   <NODE id="up wing back">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0.8" z="0" />
+   		<ROTATION axis="x" angle="90" />
+		
+   		<DESCENDANTS>
+			<LEAF type="rectangle" args="-4.05 1.44 4.05 -1.44" />
+				<!-- TODO PORQUE E QUE OS TRAINGULOS TEM AQL ORDEM RETARDADA -->
+   		</DESCENDANTS>
+   	
+   </NODE>  
+
+   <!-- The down wing -->
+   <NODE id="down wing">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-1.6" z="0" />
+		
+   		<DESCENDANTS>
+			<NODEREF id="up wing" />
+   		</DESCENDANTS>
+   	
+   </NODE> 
+
+</NODES>
 
 </SCENE>
