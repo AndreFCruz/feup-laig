@@ -22,7 +22,7 @@ function MySceneGraph(filename, scene) {
 	
 	this.nodes = [];
 	
-	this.rootIdx = null;                    // The id of the root element.
+	this.rootId = null;                    // The id of the root element.
 
 	this.axisCoords = [];
 	this.axisCoords['x'] = [1, 0, 0];
@@ -1171,13 +1171,13 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 		var nodeName;
 		if ((nodeName = children[i].nodeName) == "ROOT") {
 			// Retrieves root node.
-			if (this.rootIdx != null )
+			if (this.rootId != null )
 				return "there can only be one root node";
 			else {
 				var root = this.reader.getString(children[i], 'id');
 				if (root == null )
 					return "failed to retrieve root node ID";
-				this.rootIdx = i;
+				this.rootId = root;
 			}
 		} 
 		else if (nodeName == "NODE") {
@@ -1361,7 +1361,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 MySceneGraph.prototype.createLeaf = function(xmlelem) {
 	var type = this.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
-	var args = this.reader.getString(xmlelem, 'args').split(' ');;
+	var strArgs = this.reader.getString(xmlelem, 'args').split(' ');
+
+	var args = [];
+	for (let str of strArgs)
+		args.push(parseInt(str));
 
 	if (type == null || args == null) {
 		this.warn("Error in leaf");
@@ -1474,8 +1478,8 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function() {
-	var rootNode = this.nodes[this.rootIdx];
-	var rootMaterial = this.materialDefault;
+	var rootNode = this.nodes[this.rootId];
+	var rootMaterial = this.materials[this.defaultMaterialID];
 
 	this.scene.pushMatrix();
 	this.processNode(rootNode, rootMaterial);
@@ -1483,9 +1487,32 @@ MySceneGraph.prototype.displayScene = function() {
 }
 
 
-MySceneGraph.prototype.processNode = function(currentNode, currentMaterial) {
-	this.scene.multMatrix(currentNode.transformMatrix);
+MySceneGraph.prototype.processNode = function(node, material) {
+
+	this.scene.multMatrix(node.transformMatrix);
+
+	var currentMaterial = this.materials[node.materialID];
+	if (currentMaterial == null) {
+		currentMaterial = material;
+	}
+
+	currentMaterial.apply();
+
+	for (let childNodeID of node.children) {
+		var childNode = this.nodes[childNodeID];
+
+		this.scene.pushMatrix();
+		this.processNode(childNode, currentMaterial);
+		this.scene.popMatrix();
+	}
+
+	for (let leaf of node.leaves) {
+		leaf.display();
+	}
+
 }
+
+
 
 
 
