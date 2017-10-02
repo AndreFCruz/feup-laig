@@ -7,9 +7,9 @@ function MyRectangle(scene, args) {
     MyGraphLeaf.call(this, scene);
 
     this.minX = args[0];
-    this.minY = args[1];
+    this.maxY = args[1];
     this.maxX = args[2];
-    this.maxY = args[3];
+    this.minY = args[3];
 
     // TODO set amp texture settings
 
@@ -23,12 +23,13 @@ MyRectangle.prototype.initBuffers = function() {
     this.vertices = [
         this.minX, this.minY, 0.0,
         this.maxX, this.minY, 0.0,
-        this.minX, this.maxY, 0.0,
-        this.maxX, this.maxY, 0.0
+        this.maxX, this.maxY, 0.0,
+        this.minX, this.maxY, 0.0
     ];
 
     this.indices = [
-        0, 1, 2, 3
+        0, 1, 2,
+        2, 3, 0
     ];
 
     this.texCoords = [
@@ -45,7 +46,7 @@ MyRectangle.prototype.initBuffers = function() {
         0.0, 0.0, 1.0
     ];
 
-    this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
+    this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 }
 ;
