@@ -74,7 +74,7 @@
         <DESCENDANTS>
 			<NODEREF id="wings" />
 			<NODEREF id="body" />
-			<NODEREF id="wheels" />
+			<NODEREF id="wheels" /> 
 			<NODEREF id="fan" /> <!--
 			<NODEREF id="tail" />
 			 -->
@@ -82,7 +82,7 @@
 
     </NODE>
 
-	<!---------------------------------------- WINGS ----------------------------------------------->
+	<!-- *********************************** WINGS ******************************************* -->
 
     <!-- The wings -->
    <NODE id="wings">
@@ -294,9 +294,9 @@
    			<NODEREF id="holder" />
 		</DESCENDANTS>
    	
-   </NODE>  
+   </NODE>
 
-   <!---------------------------------------- BODY ----------------------------------------------->
+	<!-- *********************************** BODY ******************************************* -->
 
    <!-- Airplane's Body -->
    <NODE id="body">
@@ -355,7 +355,7 @@
    	
    </NODE>
 
-   <!---------------------------------------- WHEELS ----------------------------------------------->
+	<!-- *********************************** WHEELS ******************************************* -->
 
    <!-- wheels -->
    <NODE id="wheels">
@@ -394,7 +394,7 @@
    	
    </NODE>
 
-   <!-- leftmwheel and support-->
+   <!-- left wheel and support-->
    <NODE id="left wheel support">
    		<MATERIAL id="null" />
    		<TEXTURE id="null" />
@@ -517,12 +517,15 @@
    	
    </NODE>
 
-   <!---------------------------------------- FAN ----------------------------------------------->
+	<!-- *********************************** FAN ******************************************* -->
 
-   <!-- The fan -->
+  <!-- The fan -->
    <NODE id="fan">
    		<MATERIAL id="null" />
    		<TEXTURE id="null" />
+
+   		<TRANSLATION x ="0" y="-0.55" z="2.13" />
+   		<TRANSLATION x="0" y="0" z="0.4" />
 
    		<DESCENDANTS>
 			<NODEREF id="fan propeller" />
@@ -539,7 +542,6 @@
    		<DESCENDANTS>
 			<LEAF type="sphere" args="0.4 20 20" />
 			<NODEREF id="propeller helix" />
-			<NODEREF id="cube" />
    		</DESCENDANTS>
    	
    </NODE>
@@ -549,16 +551,31 @@
    		<MATERIAL id="null" />
    		<TEXTURE id="null" />
 
-		<TRANSLATION x="0" y="0" z="0.2" />
-		<SCALE sx="2" sy="0.3" sz="0.1" />
+		<TRANSLATION x="0" y="0" z="0.15" />
+		<ROTATION axis="z" angle="20" />
+		<SCALE sx="1.6" sy="0.25" sz="0.1" />
 
    		<DESCENDANTS>
-			<NODEREF id="cube" />
+			<NODEREF id="covered cylinder" />
    		</DESCENDANTS>
-   	
+  	
    </NODE>
 
-   <!---------------------------------------- UTILS ------------------------------------------------>
+   <!-- The Fan's Back -->
+   <NODE id="fan back">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+   		<SCALE sx="0.82" sy="0.82" sz="0.4" />
+   		<TRANSLATION x="0" y="0" z="-1" />
+
+   		<DESCENDANTS>
+			<NODEREF id="covered cylinder" />
+   		</DESCENDANTS>
+  	
+   </NODE>
+
+	<!-- *********************************** UTILS ******************************************* -->
 
    <!-- Unit Cube -->
    <NODE id="cube">
@@ -711,7 +728,7 @@
    			<LEAF type="cylinder" args="1.6 0.1 0.1 20 20" />
 		</DESCENDANTS>
    	
-   </NODE>  
+   </NODE>    
 
 </NODES>
 
