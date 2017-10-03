@@ -2,14 +2,17 @@
  * MyCylinder
  * @constructor
  */
-function MyCylinder(scene, slices, stacks) {
+function MyCylinder(scene, args) {
     MyGraphLeaf.call(this, scene);
 
-    this.slices = slices;
-    this.stacks = stacks;
+    this.height = args[0];
+    this.botRadius = args[1];
+    this.topRadius = args[2];
+    this.stacks = args[3];
+    this.slices = args[4];
 
     this.initBuffers();
-}
+};
 
 MyCylinder.prototype = Object.create(MyGraphLeaf.prototype);
 MyCylinder.prototype.constructor = MyCylinder;
@@ -20,36 +23,42 @@ MyCylinder.prototype.initBuffers = function() {
     this.normals = [];
     this.texCoords = [];
 
-    var radsConst = (Math.PI / 180) * (360 / this.slices);
-    var deltaZ = 1 / this.stacks;
+    var deltaRadius = (this.topRadius - this.botRadius) / this.stacks;
 
-    var deltaX = 1 / this.slices;
-    var deltaY = 1 / this.stacks;
-    var xCoord = 0;
-    var yCoord = 0;
+    var deltaTheta = (2 * Math.PI) / this.slices;
+    var deltaHeight = this.height / this.stacks;
+
+    var deltaTexS = 1.0 / this.slices;
+    var deltaTexT = 1.0 / this.stacks;
+    var vertexNumber = 1;
 
     // Vertices, Texture Coordinates & Normals
-    for(var i = 0; i <= this.stacks; i++) {
-        for(var j = 0; j < this.slices; j++) {
-            this.vertices.push(Math.cos(radsConst * j), Math.sin(radsConst * j), i * deltaZ);
-            this.normals.push(Math.cos(radsConst * j), Math.sin(radsConst * j), 0);
+    for (var i = 0; i <= this.slices; i++) {
+        var theta = i * deltaTheta;
+        var sCoord = i * deltaTexS;
+        var tCoord = 1.0;
+        var x = Math.cos(theta);
+        var y = Math.sin(theta);
 
-            this.vertices.push(Math.cos(radsConst * (j+1)), Math.sin(radsConst * (j+1)), i * deltaZ);
-            this.normals.push(Math.cos(radsConst * (j+1)), Math.sin(radsConst * (j+1)), 0);
-                        
-            this.texCoords.push(xCoord, yCoord);
-            xCoord += deltaX;
-            this.texCoords.push(xCoord, yCoord);
+        for (var j = 0; j <= this.stacks; j++) {
+            var currentRadius = this.botRadius + j * deltaRadius;
+            var tCoord = 1 - j * deltaTexT;
+            var z = j * deltaHeight;
+
+            this.vertices.push(x * currentRadius, y * currentRadius, z) ;
+            this.normals.push(x * currentRadius, y * currentRadius, 0);
+            this.texCoords.push(sCoord, tCoord);
+
+            if (i > 0 && j > 0) {
+                this.indices.push(vertexNumber, vertexNumber + this.stacks, vertexNumber + this.stacks + 1);
+                this.indices.push(vertexNumber + this.stacks, vertexNumber, vertexNumber - 1);
+
+                vertexNumber++;
+            }
         }
-        xCoord = 0;
-        yCoord += deltaY;
-    }
-    
-    // Indices
-    for(i = 0; i < this.stacks; i++) {
-        for(j = 0; j < this.slices; j++) {
-            this.indices.push(i*this.slices*2 + j*2, i*this.slices*2 + j*2+1, (i+1)*this.slices*2 + j*2);
-            this.indices.push(i*this.slices*2 + j*2+1, (i+1)*this.slices*2 + j*2+1, (i+1)*this.slices*2 + j*2);
+
+        if (i > 0) {
+            vertexNumber++;
         }
     }
 
