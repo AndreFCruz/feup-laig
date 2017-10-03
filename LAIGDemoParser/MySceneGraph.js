@@ -1504,10 +1504,10 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	} else if (this.textures[node.textureID] == null) {
 		this.warn("ERROR: textureID not found, was " + node.textureID);
 	} else {
-		currentTexture = this.textures[node.textureID][0];
+		currentTexture = this.textures[node.textureID];
 	}
 
-	currentMaterial.setTexture(currentTexture);
+	currentMaterial.setTexture(currentTexture == null ? null : currentTexture[0]);
 	currentMaterial.apply();
 
 	for (let childNodeID of node.children) {
@@ -1519,9 +1519,10 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	}
 
 	for (let leaf of node.leaves) {
+		if (currentTexture != null)
+			leaf.setTexAmplification(currentTexture[1], currentTexture[2]);
 		leaf.display();
 	}
-
 }
 
 

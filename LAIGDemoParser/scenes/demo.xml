@@ -160,8 +160,8 @@
     <ROOT id="root" />     
 
     <!-- The root node -->
-    <NODE id="root">       
-        <MATERIAL id="defaultMaterial" />         
+    <NODE id="root">
+        <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
 
         <DESCENDANTS>

@@ -18,7 +18,7 @@ MySphere.prototype.constructor = MySphere;
 MySphere.prototype.initBuffers = function() {
     this.vertices = [];
     this.indices = [];
-    this.texCoords = [];
+    this.originalTexCoords = [];
     this.normals = [];
 
     var deltaTheta = Math.PI / this.stacks;
@@ -41,7 +41,7 @@ MySphere.prototype.initBuffers = function() {
             var y = Math.cos(j * deltaTheta) * this.radius;
 
             var tCoord = j * deltaTexT;
-            this.texCoords.push(sCoord, tCoord);
+            this.originalTexCoords.push(sCoord, tCoord);
 
             this.vertices.push(x, y, z);
             this.normals.push(x, y, z);
@@ -65,6 +65,8 @@ MySphere.prototype.initBuffers = function() {
         if (i > 0)
             vertexCount++;
     }
+
+    this.texCoords = this.originalTexCoords.slice(); // clone array
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

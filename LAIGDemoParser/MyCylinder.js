@@ -21,7 +21,7 @@ MyCylinder.prototype.initBuffers = function() {
     this.vertices = [];
     this.indices = [];
     this.normals = [];
-    this.texCoords = [];
+    this.originalTexCoords = [];
 
     var deltaRadius = (this.topRadius - this.botRadius) / this.stacks;
 
@@ -47,7 +47,7 @@ MyCylinder.prototype.initBuffers = function() {
 
             this.vertices.push(x * currentRadius, y * currentRadius, z) ;
             this.normals.push(x * currentRadius, y * currentRadius, 0);
-            this.texCoords.push(sCoord, tCoord);
+            this.originalTexCoords.push(sCoord, tCoord);
 
             if (i > 0 && j > 0) {
                 this.indices.push(vertexNumber, vertexNumber + this.stacks, vertexNumber + this.stacks + 1);
@@ -61,6 +61,8 @@ MyCylinder.prototype.initBuffers = function() {
             vertexNumber++;
         }
     }
+
+    this.texCoords = this.originalTexCoords.slice(); // clone array
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

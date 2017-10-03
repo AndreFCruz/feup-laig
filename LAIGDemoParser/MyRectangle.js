@@ -32,7 +32,7 @@ MyRectangle.prototype.initBuffers = function() {
         2, 3, 0
     ];
 
-    this.texCoords = [
+    this.originalTexCoords = [
         0.0, 0.0,
         1.0, 0.0,
         1.0, 1.0,
@@ -46,6 +46,7 @@ MyRectangle.prototype.initBuffers = function() {
         0.0, 0.0, 1.0
     ];
 
+    this.texCoords = this.originalTexCoords.slice(); // clone array
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 }

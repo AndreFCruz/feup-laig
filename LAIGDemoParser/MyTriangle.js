@@ -27,47 +27,61 @@ MyTriangle.prototype.initBuffers = function() {
         0, 1, 2
     ];
 
-    this.texCoords = this.vertices; // TODO do this properly
+    // Set-up texture coordinates
+    this.calcTexCoords();
+    this.texCoords = this.originalTexCoords.slice();
 
     var normalVec = this.calcNormal();
     this.normals = [];
-    for (var i = 0; i < 3; i++)
-        this.normals = this.normals.concat(normalVec);
+    for (var i = 0; i < 3; i++) {
+        this.normals.push(normalVec[0], normalVec[1], normalVec[2]);
+    }
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
 
+MyTriangle.prototype.calcTexCoords = function() {
+    this.originalTexCoords = [0, 0];
+
+    var distAB = vec3.distance(this.pointA, this.pointB);
+    this.originalTexCoords.push(distAB, 0);
+
+    var vecAB = vec3.create();
+    vec3.sub(vecAB, this.pointB, this.pointA);
+
+    var vecAC = vec3.create();
+    vec3.sub(vecAC, this.pointC, this.pointA);
+
+    // projection of AC in AB
+    var projACinAB = vec3.dot(vecAC, vecAB) / distAB;
+
+    // triangle's height
+    var distAC = vec3.len(vecAC);
+    var theta = Math.acos(projACinAB / distAC);
+    var height = Math.sin(theta) * distAC;
+
+    this.originalTexCoords.push(projACinAB, height);
+}
+
 MyTriangle.prototype.calcNormal = function() {
-    var a = [
+    var a = vec3.fromValues(
         this.pointB[0] - this.pointA[0],
         this.pointB[1] - this.pointA[1],
         this.pointB[2] - this.pointA[2]
-    ];
+    );
 
-    var b = [
+    var b = vec3.fromValues(
         this.pointC[0] - this.pointA[0],
         this.pointC[1] - this.pointA[1],
         this.pointC[2] - this.pointA[2]
-    ];
+    );
 
-    var vec = crossProduct(a, b);
+    var normalVec = vec3.create();
+    vec3.cross(normalVec, a, b);
 
-    return normalizeVector(vec);
+    vec3.normalize(normalVec, normalVec);
+
+    return normalVec;
 };
 
-function normalizeVector(a) {
-    var len = Math.sqrt(a[0]*a[0] + a[1]*a[1] + a[2]*a[2]);
-    return [a[0] / len, a[1] / len, a[2] / len];
-}
-
-function crossProduct(a, b) {
-    if (a.length != 3 || b.length != 3)
-        return null;
-
-    return [
-        a[1] * b[2] - a[2] * b[1],
-        a[2] * b[0] - a[0] * b[2],
-        a[0] * b[1] - a[1] * b[0]
-    ];
-}
