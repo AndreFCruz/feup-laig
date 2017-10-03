@@ -20,7 +20,7 @@ function MySceneGraph(filename, scene) {
 	this.scene = scene;
 	scene.graph = this;
 	
-	this.nodes = [];
+	this.nodes = {};
 	
 	this.rootId = null;                    // The id of the root element.
 
@@ -1365,7 +1365,7 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 
 	var args = [];
 	for (let str of strArgs)
-		args.push(parseInt(str));
+		args.push(parseFloat(str));
 
 	if (type == null || args == null) {
 		this.warn("Error in leaf");
