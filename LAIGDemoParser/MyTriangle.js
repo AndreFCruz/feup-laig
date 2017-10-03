@@ -29,26 +29,36 @@ MyTriangle.prototype.initBuffers = function() {
 
     this.texCoords = this.vertices; // TODO do this properly
 
-    this.normals = this.calcNormals();
+    var normalVec = this.calcNormal();
+    this.normals = [];
+    for (var i = 0; i < 3; i++)
+        this.normals = this.normals.concat(normalVec);
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
 
-MyTriangle.prototype.calcNormals = function() {
+MyTriangle.prototype.calcNormal = function() {
     var a = [
         this.pointB[0] - this.pointA[0],
         this.pointB[1] - this.pointA[1],
-        this.pointB[2] - this.pointA[2],
+        this.pointB[2] - this.pointA[2]
     ];
 
     var b = [
-        this.pointC[0] - this.pointB[0],
-        this.pointC[1] - this.pointB[1],
-        this.pointC[2] - this.pointB[2],
+        this.pointC[0] - this.pointA[0],
+        this.pointC[1] - this.pointA[1],
+        this.pointC[2] - this.pointA[2]
     ];
 
-    return crossProduct(a,b);
+    var vec = crossProduct(a, b);
+
+    return normalizeVector(vec);
+};
+
+function normalizeVector(a) {
+    var len = Math.sqrt(a[0]*a[0] + a[1]*a[1] + a[2]*a[2]);
+    return [a[0] / len, a[1] / len, a[2] / len];
 }
 
 function crossProduct(a, b) {
