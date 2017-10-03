@@ -850,7 +850,7 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
  */
 MySceneGraph.prototype.parseTextures = function(texturesNode) {
 	
-	this.textures = [];
+	this.textures = {};
 	
 	var eachTexture = texturesNode.children;
 	// Each texture.
@@ -933,7 +933,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 	var children = materialsNode.children;
 	// Each material.
 	
-	this.materials = [];
+	this.materials = {};
 
 	var oneMaterialDefined = false;
 	
@@ -1487,7 +1487,7 @@ MySceneGraph.prototype.displayScene = function() {
 }
 
 
-MySceneGraph.prototype.processNode = function(node, material) {
+MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 
 	this.scene.multMatrix(node.transformMatrix);
 
@@ -1496,13 +1496,25 @@ MySceneGraph.prototype.processNode = function(node, material) {
 		currentMaterial = material;
 	}
 
+	var currentTexture;
+	if (node.textureID == "clear") {
+		currentTexture = null;
+	} else if (node.textureID == "null") {
+		currentTexture = texture;
+	} else if (this.textures[node.textureID] == null) {
+		this.warn("ERROR: textureID not found, was " + node.textureID);
+	} else {
+		currentTexture = this.textures[node.textureID][0];
+	}
+
+	currentMaterial.setTexture(currentTexture);
 	currentMaterial.apply();
 
 	for (let childNodeID of node.children) {
 		var childNode = this.nodes[childNodeID];
 
 		this.scene.pushMatrix();
-		this.processNode(childNode, currentMaterial);
+		this.processNode(childNode, currentMaterial, currentTexture);
 		this.scene.popMatrix();
 	}
 
