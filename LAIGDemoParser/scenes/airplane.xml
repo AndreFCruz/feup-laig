@@ -15,7 +15,7 @@
 <!-- Illumination and clear colour -->
 <ILLUMINATION>
     <ambient r="0.2" g="0.2" b="0.2" a="1" />       
-    <background r="0" g="0.75" b="1" a="1" />          
+    <background r="0.2" g="0.6" b="0.8" a="1" />          
 </ILLUMINATION>
 
 <!-- Lights -->
@@ -64,11 +64,12 @@
         <TEXTURE id="clear" />  
 
         <DESCENDANTS>
-			<NODEREF id="wings" /> <!--
+			<NODEREF id="wings" />
+			<NODEREF id="body" /> <!--
 			<NODEREF id="wheels" />
 			<NODEREF id="tail" />
 			<NODEREF id="fan" />
-			<NODEREF id="body" /> -->
+			 -->
         </DESCENDANTS>
 
     </NODE>
@@ -86,60 +87,185 @@
    	
    </NODE>
 
-   <!-- The Up wing -->
+   <!-- The up wing -->
    <NODE id="up wing">
    		<MATERIAL id="null" />
    		<TEXTURE id="null" />
 		
+		<TRANSLATION x="0" y="0.8" z="0" />
+
    		<DESCENDANTS>
-			<NODEREF id="up wing top" />
-			<NODEREF id="up wing back" />
+			<NODEREF id="wing" />
    		</DESCENDANTS>
    	
    </NODE>
 
-   <!-- The up wing top -->
-   <NODE id="up wing top">
-   		<MATERIAL id="null" />
-   		<TEXTURE id="null" />
-
-		<TRANSLATION x="0" y="0.8" z="0" />
-   		<ROTATION axis="x" angle="-90" />
-		
-   		<DESCENDANTS>
-			<LEAF type="rectangle" args="-4.05 1.44 4.05 -1.44" />
-				<!-- TODO PORQUE E QUE OS TRAINGULOS TEM AQL ORDEM RETARDADA -->
-   		</DESCENDANTS>
-   	
-   </NODE> 
-
-   <!-- The up wing back -->
-   <NODE id="up wing back">
-   		<MATERIAL id="null" />
-   		<TEXTURE id="null" />
-
-		<TRANSLATION x="0" y="0.8" z="0" />
-   		<ROTATION axis="x" angle="90" />
-		
-   		<DESCENDANTS>
-			<LEAF type="rectangle" args="-4.05 1.44 4.05 -1.44" />
-				<!-- TODO PORQUE E QUE OS TRAINGULOS TEM AQL ORDEM RETARDADA -->
-   		</DESCENDANTS>
-   	
-   </NODE>  
-
-   <!-- The down wing -->
+      <!-- The down wing -->
    <NODE id="down wing">
    		<MATERIAL id="null" />
    		<TEXTURE id="null" />
-
-		<TRANSLATION x="0" y="-1.6" z="0" />
 		
+		<TRANSLATION x="0" y="-0.8" z="0" />
+
    		<DESCENDANTS>
-			<NODEREF id="up wing" />
+			<NODEREF id="wing" />
    		</DESCENDANTS>
    	
+   </NODE>
+
+   <!-- A generic wing -->
+   <NODE id="wing">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<SCALE sx="8.10" sy="0.1" sz="2.88" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="cube" />
+		</DESCENDANTS>
+   	
    </NODE> 
+
+   <!-- Airplane's Body -->
+   <NODE id="body">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="main body" />
+   			<NODEREF id="cockpit" />
+   			<!-- <NODEREF id="back body" /> -->
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Main Body -->
+   <NODE id="main body">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-0.7" z="-1.5"/> 
+		
+   		<DESCENDANTS>
+            <LEAF type="cylinder" args="3.63 0.7 0.7 20 20" /> 
+		</DESCENDANTS>
+   	
+   </NODE> 
+
+   <!-- Cockpit -->
+   <NODE id="cockpit">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-0.1" z="0.8" />
+		<SCALE sx="1" sy="1" sz="2" />
+				
+   		<DESCENDANTS>
+            <LEAF type="sphere" args="0.4 20 20" /> 
+		</DESCENDANTS>
+   	
+   </NODE> 
+
+   <!-- UTILS -->
+
+   <!-- Unit Cube -->
+   <NODE id="cube">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+		
+   		<DESCENDANTS>
+			<NODEREF id="cube top" />
+			<NODEREF id="cube front" />
+			<NODEREF id="cube left" />
+			<NODEREF id="cube right" />
+			<NODEREF id="cube back" />
+			<NODEREF id="cube under" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Cube's top -->
+   <NODE id="cube top">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0.5" z="0" />
+   		<ROTATION axis="x" angle="-90" />
+		
+   		<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Cube's front -->
+   <NODE id="cube front">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="0.5" />
+		
+   		<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Cube's left -->
+   <NODE id="cube left">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="-0.5" y="0" z="0" />
+   		<ROTATION axis="y" angle="-90" />
+		
+   		<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Cube's right -->
+   <NODE id="cube right">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0.5" y="0" z="0" />
+   		<ROTATION axis="y" angle="90" />
+		
+   		<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Cube's back -->
+   <NODE id="cube back">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="-0.5" />
+   		<ROTATION axis="x" angle="180" />
+		
+   		<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Cube's under -->
+   <NODE id="cube under">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-0.5" z="0" />
+   		<ROTATION axis="x" angle="90" />
+		
+   		<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+   		</DESCENDANTS>
+   	
+   </NODE>
 
 </NODES>
 
