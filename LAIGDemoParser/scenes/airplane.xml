@@ -24,6 +24,14 @@
         <enable value ="1" />                              
         <position  x="0" y="10" z="0" w="1" />             
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
+        <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />        
+        <specular r="0.5" g="0.5" b="0.5" a="1.0" />      
+    </LIGHT>
+
+    <LIGHT id="light1">                                    
+        <enable value ="1" />                              
+        <position  x="10" y="0" z="15" w="1" />             
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
     </LIGHT>
@@ -66,9 +74,9 @@
         <DESCENDANTS>
 			<NODEREF id="wings" />
 			<NODEREF id="body" /> <!--
-			<NODEREF id="wheels" />
-			<NODEREF id="tail" />
+			<NODEREF id="wheels" /> 
 			<NODEREF id="fan" />
+			<NODEREF id="tail" />
 			 -->
         </DESCENDANTS>
 
@@ -355,7 +363,19 @@
             <LEAF type="sphere" args="0.4 20 20" /> 
 		</DESCENDANTS>
    	
-   </NODE>  
+   </NODE>
+
+   <!-- wheels -->
+<!--   <NODE id="wheels">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+				
+   		<DESCENDANTS>
+            <NODEREF id="wheel and support 1" /> 
+            <NODEREF id="wheel and support 2" /> 
+		</DESCENDANTS>
+   	
+   </NODE> -->
 
    <!-- UTILS -->
 
@@ -454,6 +474,46 @@
 		
    		<DESCENDANTS>
 			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Generic covered cylinder with radius 1 and height 1 -->
+   <NODE id="covered cylinder">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+		
+   		<DESCENDANTS>
+			<LEAF type="cylinder" args="1 1 1 20 20" />
+			<NODEREF id="cover circle1" />
+			<NODEREF id="cover circle2" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- cover circle1 -->
+   <NODE id="cover circle1">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="1" />
+   		<SCALE sx="1" sy="1" sz="0.01" />
+		
+   		<DESCENDANTS>
+			<LEAF type="sphere" args="1 20 20" />
+   		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- cover circle2 -->
+   <NODE id="cover circle2">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+   		<SCALE sx="1" sy="1" sz="0.01" />
+		
+   		<DESCENDANTS>
+			<LEAF type="sphere" args="1 20 20" />
    		</DESCENDANTS>
    	
    </NODE>
