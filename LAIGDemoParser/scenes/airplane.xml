@@ -82,7 +82,7 @@
    		<DESCENDANTS>
 			<NODEREF id="up wing" />
 			<NODEREF id="down wing" />
-			<!--<NODEREF id="wing support" />-->
+			<NODEREF id="wing support" />
    		</DESCENDANTS>
    	
    </NODE>
@@ -126,15 +126,191 @@
    	
    </NODE> 
 
-   <!-- Airplane's Body -->
-   <NODE id="body">
+   <!-- Wing's Support -->
+   <NODE id="wing support">
    		<MATERIAL id="null" />
    		<TEXTURE id="null" />
 		
    		<DESCENDANTS>
+   			<NODEREF id="holder vertical1" />
+   			<NODEREF id="holder vertical2" />
+   			<NODEREF id="holder vertical3" />
+   			<NODEREF id="holder vertical4" />
+   			<NODEREF id="holder inclined1" />
+   			<NODEREF id="holder inclined2" />
+   			<NODEREF id="holder inclined3" />
+   			<NODEREF id="holder inclined4" />
+   			<NODEREF id="holder middle1" />
+   			<NODEREF id="holder middle2" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- holder vertical1 -->
+   <NODE id="holder vertical1">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="3" y="0" z="0.9" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- holder vertical1 -->
+   <NODE id="holder vertical2">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="3" y="0" z="-0.9" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE> 
+
+   <!-- holder vertical1 -->
+   <NODE id="holder vertical3">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="-3" y="0" z="0.9" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE> 
+
+   <!-- holder vertical1 -->
+   <NODE id="holder vertical4">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="-3" y="0" z="-0.9" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE> 
+
+   <!-- holder inclined1 -->
+   <NODE id="holder inclined1">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="-0.5" y="0.15" z="0.8" />
+		<ROTATION axis="x" angle="20" />
+		<ROTATION axis="z" angle="30" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- holder inclined2 -->
+   <NODE id="holder inclined2">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="-0.5" y="0.15" z="-0.8" />
+		<ROTATION axis="x" angle="-20" />
+		<ROTATION axis="z" angle="30" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- holder inclined3 -->
+   <NODE id="holder inclined3">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0.5" y="0.15" z="0.8" />
+		<ROTATION axis="x" angle="20" />
+		<ROTATION axis="z" angle="-30" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- holder inclined4 -->
+   <NODE id="holder inclined4">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0.5" y="0.15" z="-0.8" />
+		<ROTATION axis="x" angle="-20" />
+		<ROTATION axis="z" angle="-30" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- holder middle1 -->
+   <NODE id="holder middle1">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="-1.6" y="0" z="0" />
+		<ROTATION axis="z" angle="-17" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- holder middle2 -->
+   <NODE id="holder middle2">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="1.6" y="0" z="0" />
+		<ROTATION axis="z" angle="17" />
+		
+   		<DESCENDANTS>
+   			<NODEREF id="holder" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Generic holder -->
+   <NODE id="holder">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0.8" z="0" />
+		<ROTATION axis="x" angle="90" />
+		
+   		<DESCENDANTS>
+   			<LEAF type="cylinder" args="1.6 0.1 0.1 20 20" />
+		</DESCENDANTS>
+   	
+   </NODE>    
+
+   <!-- Airplane's Body -->
+   <NODE id="body">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+   		<TRANSLATION x="0" y="0.15" z="0" />
+		 
+   		<DESCENDANTS>
    			<NODEREF id="main body" />
-   			<NODEREF id="cockpit" />
-   			<!-- <NODEREF id="back body" /> -->
+   			<NODEREF id="back body" />
+   			<NODEREF id="cockpit" /> 
 		</DESCENDANTS>
    	
    </NODE>
@@ -153,6 +329,21 @@
    </NODE> 
 
    <!-- Cockpit -->
+   <NODE id="back body">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+		
+		<TRANSLATION x="0" y="-0.7" z="-1.5" />
+		<SCALE sx="0.7" sy="0.7" sz="2.63" />
+				
+   		<DESCENDANTS>
+            <LEAF type="sphere" args="1 20 20" /> 
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- Cockpit -->
    <NODE id="cockpit">
    		<MATERIAL id="null" />
    		<TEXTURE id="null" />
@@ -164,7 +355,7 @@
             <LEAF type="sphere" args="0.4 20 20" /> 
 		</DESCENDANTS>
    	
-   </NODE> 
+   </NODE>  
 
    <!-- UTILS -->
 
