@@ -72,7 +72,7 @@
     <!-- Rocks -->
     <TEXTURE id="rocks">
         <file path="images/rocks.jpg" />                
-        <amplif_factor s="1" t="1" />                           
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
 
     <!-- Glass work -->
@@ -84,7 +84,7 @@
     <!-- Street bench -->
     <TEXTURE id="banco">
         <file path="images/bank.jpg" />                
-        <amplif_factor s="1" t="1" />                           
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
     
 </TEXTURES>

@@ -11,7 +11,8 @@ function MyRectangle(scene, args) {
     this.maxX = args[2];
     this.minY = args[3];
 
-    // TODO set amp texture settings
+    this.width = this.maxX - this.minX;
+    this.height = this.maxY - this.minY;
 
     this.initBuffers();
 };
@@ -34,9 +35,9 @@ MyRectangle.prototype.initBuffers = function() {
 
     this.originalTexCoords = [
         0.0, 0.0,
-        1.0, 0.0,
-        1.0, 1.0,
-        0.0, 1.0
+        this.width, 0.0,
+        this.width, this.height,
+        0.0, this.height
     ];
 
     this.normals = [
@@ -49,5 +50,4 @@ MyRectangle.prototype.initBuffers = function() {
     this.texCoords = this.originalTexCoords.slice(); // clone array
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
-}
-;
+};
