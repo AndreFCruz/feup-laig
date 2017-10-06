@@ -16,4 +16,6 @@ MyGraphLeaf.prototype.setTexAmplification = function(ampS, ampT) {
 		this.texCoords[i] = this.originalTexCoords[i] / ampS;
 		this.texCoords[i+1] = this.originalTexCoords[i+1] / ampT;
 	}
+
+	this.updateTexCoordsGLBuffers();
 }
