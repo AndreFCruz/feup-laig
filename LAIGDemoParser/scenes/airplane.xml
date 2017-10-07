@@ -38,11 +38,48 @@
 </LIGHTS>
 
 <TEXTURES>
-    <!-- Tree trunk -->
+    <!-- Glass Texture -->
     <TEXTURE id="glass">
         <file path="myimages/glass.jpg" />               
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>	
+
+    <!-- Wood Texture -->
+    <TEXTURE id="wood">
+        <file path="myimages/wood.jpg" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Steel Texture -->
+    <TEXTURE id="steel">
+        <file path="myimages/steel.jpg" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Steel Texture for the helix -->
+    <TEXTURE id="helix steel">
+        <file path="myimages/steel.jpg" />               
+        <amplif_factor s="1" t="2" />                           
+    </TEXTURE>
+
+    <!-- Airplane design Texture 1-->
+    <TEXTURE id="design1">
+        <file path="myimages/camouflage.jpg" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Airplane design Texture 2-->
+    <TEXTURE id="design2">
+        <file path="myimages/wood.jpg" />               
+        <amplif_factor s="1" t="3" />                           
+    </TEXTURE>
+
+    <!-- Side wheel Texture-->
+    <TEXTURE id="wheel">
+        <file path="myimages/wheel.jpg" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
 </TEXTURES>
 
 <MATERIALS>
@@ -67,17 +104,17 @@
     <!-- Wood Material -->
     <MATERIAL id="wood">                                  
         <shininess value="1" />
-        <specular r="0" g="0" b="0" a="1" />        
-        <diffuse r="0.35" g="0.2" b="0.1" a="1" />        
-        <ambient r="0.2" g="0.2" b="0.2" a="1" />         
+        <specular r="0.1" g="0.1" b="0.1" a="1" />        
+        <diffuse r="0.3" g="0.3" b="0.3" a="1" />        
+        <ambient r="0.5" g="0.5" b="0.5" a="1" />         
         <emission r="0.0" g="0.0" b="0.0" a="1" />        
     </MATERIAL>
 
     <!-- steel Material -->
     <MATERIAL id="steel">                                  
         <shininess value="1" />
-        <specular r="0.5" g="0.5" b="0.5" a="1" />        
-        <diffuse r="0.4" g="0.4" b="0.4" a="1" />        
+        <specular r="0.4" g="0.4" b="0.4" a="1" />        
+        <diffuse r="0.7" g="0.7" b="0.7" a="1" />        
         <ambient r="0.3" g="0.3" b="0.3" a="1" />         
         <emission r="0.0" g="0.0" b="0.0" a="1" />        
     </MATERIAL>    
@@ -90,6 +127,15 @@
         <ambient r="0.3" g="0.3" b="0.3" a="1" />         
         <emission r="0.0" g="0.0" b="0.0" a="1" />        
     </MATERIAL>    
+
+    <!-- Wheel Material -->
+    <MATERIAL id="wheel">                                  
+        <shininess value="1" />
+        <specular r="0" g="0" b="0" a="1" />        
+        <diffuse r="0" g="0" b="0" a="1" />        
+        <ambient r="1" g="1" b="1" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>  
 
 </MATERIALS>
 
@@ -106,7 +152,7 @@
     <!-- The root node -->
     <NODE id="root">       
         <MATERIAL id="defaultMaterial" />         
-        <TEXTURE id="clear" />  
+        <TEXTURE id="design1" />  
 
         <DESCENDANTS>
 			<NODEREF id="wings" />
@@ -175,7 +221,7 @@
    <!-- Wing's Support -->
    <NODE id="wing support">
    		<MATERIAL id="wood" />
-   		<TEXTURE id="null" />
+   		<TEXTURE id="wood" />
 		
    		<DESCENDANTS>
    			<NODEREF id="holder vertical1" />
@@ -337,7 +383,7 @@
    <!-- Airplane's Body -->
    <NODE id="body">
    		<MATERIAL id="steel" />
-   		<TEXTURE id="null" />
+   		<TEXTURE id="design2" />
 
    		<TRANSLATION x="0" y="0.15" z="0" />
 		 
@@ -431,10 +477,10 @@
    	
    </NODE>
 
-   <!-- left wheel and support-->
+   <!-- left wheel support-->
    <NODE id="left wheel support">
    		<MATERIAL id="wood" />
-   		<TEXTURE id="null" />
+   		<TEXTURE id="wood" />
 
    		<TRANSLATION x="-0.5" y="-1.3" z="0.8" />
    		<ROTATION axis="z" angle="-30" />
@@ -445,10 +491,10 @@
    	
    </NODE>
 
-      <!-- right wheel and support-->
+      <!-- right wheel support-->
    <NODE id="right wheel support">
    		<MATERIAL id="wood" />
-   		<TEXTURE id="null" />
+   		<TEXTURE id="wood" />
 
    		<TRANSLATION x="0.5" y="-1.3" z="0.8" />
    		<ROTATION axis="z" angle="30" />
@@ -528,8 +574,8 @@
 
    <!-- Generic wheel-->
    <NODE id="wheel">
-   		<MATERIAL id="null" />
-   		<TEXTURE id="null" />
+   		<MATERIAL id="wheel" />
+   		<TEXTURE id="wheel" />
 
 		<ROTATION axis="y" angle="90" />
 		<SCALE sx="0.35" sy="0.35" sz="0.4" />
@@ -543,7 +589,7 @@
    <!-- connecting support-->
    <NODE id="connecting support">
    		<MATERIAL id="wood" />
-   		<TEXTURE id="null" />
+   		<TEXTURE id="wood" />
 
 		<TRANSLATION x="0" y="-1.9" z="0.55" />
 		<ROTATION axis="z" angle="90" />
@@ -559,7 +605,7 @@
   <!-- The fan -->
    <NODE id="fan">
    		<MATERIAL id="steel" />
-   		<TEXTURE id="null" />
+   		<TEXTURE id="steel" />
 
    		<TRANSLATION x ="0" y="-0.55" z="2.13" />
    		<TRANSLATION x="0" y="0" z="0.4" />
@@ -574,7 +620,7 @@
    <!-- The fan's propeller -->
    <NODE id="fan propeller">
    		<MATERIAL id="fan" />
-   		<TEXTURE id="null" />
+   		<TEXTURE id="clear" />
 
    		<DESCENDANTS>
 			<LEAF type="sphere" args="0.4 20 20" />
@@ -586,7 +632,7 @@
    <!-- The Propeller's Helix -->
    <NODE id="propeller helix">
    		<MATERIAL id="steel" />
-   		<TEXTURE id="null" />
+   		<TEXTURE id="helix steel" />
 
 		<TRANSLATION x="0" y="0" z="0.15" />
 		<ROTATION axis="z" angle="20" />
