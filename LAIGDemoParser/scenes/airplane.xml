@@ -62,14 +62,20 @@
         <amplif_factor s="1" t="2" />                           
     </TEXTURE>
 
-    <!-- Airplane design Texture 1-->
+    <!-- Airplane design Texture 1 -->
     <TEXTURE id="design1">
         <file path="myimages/camouflage.jpg" />               
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
 
-    <!-- Airplane design Texture 2-->
+    <!-- Airplane design Texture 2 -->
     <TEXTURE id="design2">
+        <file path="myimages/usa.jpg" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <!-- Airplane design Texture 3 -->
+    <TEXTURE id="design3">
         <file path="myimages/wood.jpg" />               
         <amplif_factor s="1" t="3" />                           
     </TEXTURE>
@@ -574,6 +580,41 @@
 
    <!-- Generic wheel-->
    <NODE id="wheel">
+   		<MATERIAL id="null" />
+   		<TEXTURE id="null" />
+
+   		<DESCENDANTS>
+            <NODEREF id="tire" />
+            <NODEREF id="rim1" />
+            <NODEREF id="rim2" />
+		</DESCENDANTS>
+   	
+   </NODE>
+
+   <!-- One side of the tire's rim -->
+   <NODE id="rim1">
+   		<MATERIAL id="steel" />
+   		<TEXTURE id="steel" />
+
+   		<DESCENDANTS>
+   			<LEAF type="sphere" args="0.15 20 20" />
+   		</DESCENDANTS>
+   	</NODE>
+
+   <!-- The other side of the tire's rim -->
+   	<NODE id="rim2">
+   		<MATERIAL id="steel" />
+   		<TEXTURE id="steel" />
+
+   		<TRANSLATION x="0.4" y="0" z="0" />
+
+   		<DESCENDANTS>
+   			<LEAF type="sphere" args="0.15 20 20" />
+   		</DESCENDANTS>
+   	</NODE>
+
+   	<!-- The wheel's tire -->
+   	<NODE id="tire">
    		<MATERIAL id="wheel" />
    		<TEXTURE id="wheel" />
 
