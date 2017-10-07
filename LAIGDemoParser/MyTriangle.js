@@ -47,21 +47,16 @@ MyTriangle.prototype.calcTexCoords = function() {
     var distAB = vec3.distance(this.pointA, this.pointB);
     this.originalTexCoords.push(distAB, 0);
 
-    var vecAB = vec3.create();
-    vec3.sub(vecAB, this.pointB, this.pointA);
+    var distBC = vec3.distance(this.pointB, this.pointC);
+    var distAC = vec3.distance(this.pointA, this.pointC);
 
-    var vecAC = vec3.create();
-    vec3.sub(vecAC, this.pointC, this.pointA);
-
-    // projection of AC in AB
-    var projACinAB = vec3.dot(vecAC, vecAB) / distAB;
-
-    // triangle's height
-    var distAC = vec3.len(vecAC);
-    var theta = Math.acos(projACinAB / distAC);
-    var height = Math.sin(theta) * distAC;
-
-    this.originalTexCoords.push(projACinAB, height);
+    // beta == angABC
+    var cosBeta = Math.pow(distBC, 2) - Math.pow(distAC, 2) + Math.pow(distAB, 2);
+    cosBeta /= 2 * distBC * distAB;
+    var beta = Math.acos(cosBeta);
+    this.originalTexCoords.push(
+        distAB - distBC * cosBeta,
+        distBC * Math.sin(beta));
 }
 
 MyTriangle.prototype.calcNormal = function() {
