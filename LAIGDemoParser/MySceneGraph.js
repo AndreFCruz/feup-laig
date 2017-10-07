@@ -1489,6 +1489,10 @@ MySceneGraph.prototype.displayScene = function() {
 
 MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 
+	if (node.nodeID == "fan") {
+		this.log("Found the fan!");
+	}
+
 	this.scene.multMatrix(node.transformMatrix);
 
 	var currentMaterial = this.materials[node.materialID];
@@ -1510,18 +1514,18 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	currentMaterial.setTexture(currentTexture == null ? null : currentTexture[0]);
 	currentMaterial.apply();
 
+	for (let leaf of node.leaves) {
+		if (currentTexture != null)
+			leaf.setTexAmplification(currentTexture[1], currentTexture[2]);
+		leaf.display();
+	}
+	
 	for (let childNodeID of node.children) {
 		var childNode = this.nodes[childNodeID];
 
 		this.scene.pushMatrix();
 		this.processNode(childNode, currentMaterial, currentTexture);
 		this.scene.popMatrix();
-	}
-
-	for (let leaf of node.leaves) {
-		if (currentTexture != null)
-			leaf.setTexAmplification(currentTexture[1], currentTexture[2]);
-		leaf.display();
 	}
 }
 
