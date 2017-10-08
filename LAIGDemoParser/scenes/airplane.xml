@@ -29,7 +29,7 @@
     </LIGHT>
 
     <LIGHT id="fleet light1">                                    
-        <enable value ="1" />                              
+        <enable value ="0" />                              
         <position  x="-45" y="0.2" z="-30" w="0" />             
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
         <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />        
@@ -94,6 +94,12 @@
     <TEXTURE id="design3">
         <file path="myimages/wood.jpg" />               
         <amplif_factor s="1" t="3" />                           
+    </TEXTURE>
+
+    <!-- Airplane design Texture 4 -->
+    <TEXTURE id="design4">
+        <file path="myimages/pattern.jpg" />               
+        <amplif_factor s="1" t="1" />                           
     </TEXTURE>
 
     <!-- Side wheel Texture-->
@@ -515,7 +521,7 @@
    <!-- Airplane's Body -->
    <NODE id="body">
    		<MATERIAL id="steel" />
-   		<TEXTURE id="design2" />
+   		<TEXTURE id="design4" />
 
    		<TRANSLATION x="0" y="0.15" z="0" />
 		 
