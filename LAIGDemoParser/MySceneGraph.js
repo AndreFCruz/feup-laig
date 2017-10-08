@@ -1415,7 +1415,7 @@ MySceneGraph.prototype.createSphere = function(args) {
 }
 
 MySceneGraph.prototype.createCylinder = function(args) {
-	if (args.length != 5) {
+	if (args.length != 7) {
 		this.warn("Invalid arguments in cylinder leaf.");
 		return null;
 	}
