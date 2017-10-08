@@ -541,7 +541,7 @@
 		<TRANSLATION x="0" y="-0.7" z="-1.5"/> 
 		
    		<DESCENDANTS>
-            <LEAF type="cylinder" args="3.63 0.7 0.7 20 20" /> 
+            <LEAF type="cylinder" args="3.63 0.7 0.7 20 20 0 0" /> 
 		</DESCENDANTS>
    	
    </NODE> 
@@ -557,7 +557,7 @@
 				
    		<DESCENDANTS>
             <!-- <LEAF type="sphere" args="1 20 20" /> -->
-            <LEAF type="cylinder" args="1 0 1 20 20" />
+            <LEAF type="cylinder" args="1 0 1 20 20 0 0" />
 		</DESCENDANTS>
    	
    </NODE>
@@ -1068,36 +1068,7 @@
    		<TEXTURE id="null" />
 		
    		<DESCENDANTS>
-			<LEAF type="cylinder" args="1 1 1 20 20" />
-			<NODEREF id="cover circle1" />
-			<NODEREF id="cover circle2" />
-   		</DESCENDANTS>
-   	
-   </NODE>
-
-   <!-- cover circle1 -->
-   <NODE id="cover circle1">
-   		<MATERIAL id="null" />
-   		<TEXTURE id="null" />
-
-		<TRANSLATION x="0" y="0" z="1" />
-   		<SCALE sx="1" sy="1" sz="0.01" />
-		
-   		<DESCENDANTS>
-			<LEAF type="sphere" args="1 20 20" />
-   		</DESCENDANTS>
-   	
-   </NODE>
-
-   <!-- cover circle2 -->
-   <NODE id="cover circle2">
-   		<MATERIAL id="null" />
-   		<TEXTURE id="null" />
-
-   		<SCALE sx="1" sy="1" sz="0.01" />
-		
-   		<DESCENDANTS>
-			<LEAF type="sphere" args="1 20 20" />
+			<LEAF type="cylinder" args="1 1 1 20 20 1 1" />
    		</DESCENDANTS>
    	
    </NODE>
@@ -1111,7 +1082,7 @@
 		<ROTATION axis="x" angle="90" />
 		
    		<DESCENDANTS>
-   			<LEAF type="cylinder" args="1.6 0.1 0.1 20 20" />
+   			<LEAF type="cylinder" args="1.6 0.1 0.1 20 20 0 0" />
 		</DESCENDANTS>
    	
    </NODE>
