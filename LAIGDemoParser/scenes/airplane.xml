@@ -3,10 +3,10 @@
 <!-- Initial values -->
 <INITIALS>
     <frustum near="0.1" far="500"/>                 
-    <translation x="-1" y="1" z="0" />               
-    <rotation axis="x" angle="0" />                
-    <rotation axis="y" angle="0" />                
-    <rotation axis="z" angle="0" />                
+    <translation x="-51" y="-54" z="-73" />               
+    <rotation axis="x" angle="-10" />                
+    <rotation axis="y" angle="-10" />                
+    <rotation axis="z" angle="15" />                
     <scale sx="1" sy="1" sz="1" />         
     <reference length="5" />                        
 </INITIALS>
@@ -14,7 +14,7 @@
 
 <!-- Illumination and clear colour -->
 <ILLUMINATION>
-    <ambient r="0.2" g="0.2" b="0.2" a="1" />       
+    <ambient r="0.4" g="0.4" b="0.4" a="1" />       
     <background r="0.2" g="0.6" b="0.8" a="1" />          
 </ILLUMINATION>
 
@@ -166,7 +166,7 @@
         <shininess value="1" />
         <specular r="0" g="0" b="0" a="1" />        
         <diffuse r="0.8" g="0.8" b="0.8" a="1" />        
-        <ambient r="1" g="1" b="1" a="1" />         
+        <ambient r="0.8" g="0.8" b="0.8" a="1" />         
         <emission r="0.0" g="0.0" b="0.0" a="1" />        
     </MATERIAL> 
 
@@ -185,10 +185,24 @@
     <!-- The root node -->
     <NODE id="root">       
         <MATERIAL id="defaultMaterial" />         
-        <TEXTURE id="design1" />  
+        <TEXTURE id="null" />  
 
         <DESCENDANTS>
 			<NODEREF id="airport" />
+			<NODEREF id="landing airplane" />
+		</DESCENDANTS>
+
+    </NODE>
+
+    <!-- The landing airplane node -->
+    <NODE id="landing airplane">       
+        <MATERIAL id="defaultMaterial" />         
+        <TEXTURE id="design1" /> 
+
+        <TRANSLATION x="30" y="10" z="30" />
+        <ROTATION axis="x" angle="-20" />
+
+        <DESCENDANTS>
 			<NODEREF id="airplane" />
 		</DESCENDANTS>
 
@@ -197,7 +211,9 @@
     <!-- A generic airplane - change design for different styles -->
     <NODE id="airplane">       
         <MATERIAL id="defaultMaterial" />         
-        <TEXTURE id="design1" />  
+        <TEXTURE id="design1" />
+
+        <SCALE sx="2" sy="2" sz="2" />  
 
         <DESCENDANTS>
 			<NODEREF id="wings" />
