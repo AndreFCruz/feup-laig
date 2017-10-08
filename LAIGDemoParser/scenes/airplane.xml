@@ -189,7 +189,62 @@
 
         <DESCENDANTS>
 			<NODEREF id="airport" />
+			<NODEREF id="fleet" />
 			<NODEREF id="landing airplane" />
+		</DESCENDANTS>
+
+    </NODE>
+
+    <!-- The landing airplane node -->
+    <NODE id="fleet">       
+        <MATERIAL id="null" />         
+        <TEXTURE id="null" />
+
+		<TRANSLATION x="-50" y="4.2" z="20" />
+		<ROTATION axis="z" angle="7" />
+        <ROTATION axis="y" angle="90" />
+
+        <DESCENDANTS>
+			<NODEREF id="airplane 1" />
+			<NODEREF id="airplane 2" />
+			<NODEREF id="airplane 3" />
+		</DESCENDANTS>
+
+    </NODE>
+
+    <!-- Airplane 1 from the fleet -->
+    <NODE id="airplane 1">       
+        <MATERIAL id="null" />         
+        <TEXTURE id="design1" /> 
+
+        <DESCENDANTS>
+			<NODEREF id="airplane" />
+		</DESCENDANTS>
+
+    </NODE>
+
+    <!-- Airplane 2 from the fleet -->
+    <NODE id="airplane 2">       
+        <MATERIAL id="null" />         
+        <TEXTURE id="design2" /> 
+
+        <TRANSLATION x="25" y="0" z="0" /> 
+
+        <DESCENDANTS>
+			<NODEREF id="airplane" />
+		</DESCENDANTS>
+
+    </NODE>
+
+    <!-- Airplane 3 from the fleet -->
+    <NODE id="airplane 3">       
+        <MATERIAL id="null" />         
+        <TEXTURE id="design3" />
+
+        <TRANSLATION x="50" y="0" z="0" /> 
+
+        <DESCENDANTS>
+			<NODEREF id="airplane" />
 		</DESCENDANTS>
 
     </NODE>
@@ -211,7 +266,7 @@
     <!-- A generic airplane - change design for different styles -->
     <NODE id="airplane">       
         <MATERIAL id="defaultMaterial" />         
-        <TEXTURE id="design1" />
+        <TEXTURE id="null" />
 
         <SCALE sx="2" sy="2" sz="2" />  
 
