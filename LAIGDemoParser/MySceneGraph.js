@@ -1364,8 +1364,13 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 	var strArgs = this.reader.getString(xmlelem, 'args').split(' ');
 
 	var args = [];
-	for (let str of strArgs)
-		args.push(parseFloat(str));
+	for (let str of strArgs) {
+		var value = parseFloat(str);
+		if (isNaN(value))
+			console.warn("Found inconsistency while parsing leaf's arguments.");
+		else
+			args.push(value);
+	}
 
 	if (type == null || args == null) {
 		console.warn("Error in leaf");
