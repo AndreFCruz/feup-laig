@@ -1368,7 +1368,7 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 		args.push(parseFloat(str));
 
 	if (type == null || args == null) {
-		this.warn("Error in leaf");
+		console.warn("Error in leaf");
 		return null;
 	}
 
@@ -1392,7 +1392,7 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 
 MySceneGraph.prototype.createTriangle = function(args) {
 	if (args.length != 9) {
-		this.warn("Invalid arguments in triangle leaf.");
+		console.warn("Invalid arguments in triangle leaf.");
 		return null;
 	}
 	return new MyTriangle(this.scene, args);
@@ -1400,7 +1400,7 @@ MySceneGraph.prototype.createTriangle = function(args) {
 
 MySceneGraph.prototype.createRectangle = function(args) {
 	if (args.length != 4) {
-		this.warn("Invalid arguments in rectangle leaf.");
+		console.warn("Invalid arguments in rectangle leaf.");
 		return null;
 	}
 	return new MyRectangle(this.scene, args);
@@ -1408,7 +1408,7 @@ MySceneGraph.prototype.createRectangle = function(args) {
 
 MySceneGraph.prototype.createSphere = function(args) {
 	if (args.length != 3) {
-		this.warn("Invalid arguments in sphere leaf.");
+		console.warn("Invalid arguments in sphere leaf.");
 		return null;
 	}
 	return new MySphere(this.scene, args);
@@ -1416,7 +1416,7 @@ MySceneGraph.prototype.createSphere = function(args) {
 
 MySceneGraph.prototype.createCylinder = function(args) {
 	if (args.length != 7) {
-		this.warn("Invalid arguments in cylinder leaf.");
+		console.warn("Invalid arguments in cylinder leaf.");
 		return null;
 	}
 	return new MyCylinder(this.scene, args);
@@ -1502,7 +1502,7 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	} else if (node.textureID == "null") {
 		currentTexture = texture;
 	} else if (this.textures[node.textureID] == null) {
-		this.warn("ERROR: textureID not found, was " + node.textureID);
+		console.warn("ERROR: textureID not found, was " + node.textureID);
 	} else {
 		currentTexture = this.textures[node.textureID];
 	}
@@ -1513,7 +1513,10 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	for (let leaf of node.leaves) {
 		if (currentTexture != null)
 			leaf.setTexAmplification(currentTexture[1], currentTexture[2]);
-		leaf.display();
+		if (leaf != null)
+			leaf.display();
+		else
+			console.warn("Null leaf in nodes' leaves");
 	}
 
 	for (let childNodeID of node.children) {

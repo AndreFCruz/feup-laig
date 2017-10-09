@@ -28,12 +28,12 @@ MyCaplessCylinder.prototype.initBuffers = function() {
     var deltaTheta = (2 * Math.PI) / this.slices;
     var deltaHeight = this.height / this.stacks;
 
-    var deltaTexS = 1.0 / this.slices;
-    var deltaTexT = 1.0 / this.stacks;
+    var deltaX = 1.0 / this.slices;
+    var deltaY = 1.0 / this.stacks;
     var vertexNumber = 1;
 
-    var sCoord = 0;
-    var tCoord = 0;
+    var xCoord = 0;
+    var yCoord = 0;
 
     for (i = 0; i <= this.stacks; i++) {
         for (j = 0; j < this.slices; j++) {
@@ -41,27 +41,35 @@ MyCaplessCylinder.prototype.initBuffers = function() {
                 Math.cos(deltaTheta * j) * (i * deltaRadius + this.botRadius),
                 Math.sin(deltaTheta * j) * (i * deltaRadius + this.botRadius),
                 i * deltaHeight);
-
             this.normals.push(
                 Math.cos(deltaTheta * j),
                 Math.sin(deltaTheta * j),
                 0);
 
-            this.originalTexCoords.push(sCoord, tCoord);
-            sCoord += deltaTexS;
+            this.vertices.push(
+                Math.cos(deltaTheta * (j+1)) * (i * deltaRadius + this.botRadius),
+                Math.sin(deltaTheta * (j+1)) * (i * deltaRadius + this.botRadius),
+                i * deltaHeight);
+            this.normals.push(
+                Math.cos(deltaTheta * (j+1)),
+                Math.sin(deltaTheta * (j+1)),
+                0);
+
+            this.originalTexCoords.push(xCoord, yCoord);
+            xCoord += deltaX;
+            this.originalTexCoords.push(xCoord, yCoord);
         }
-        sCoord = 0;
-        tCoord += deltaTexT;
+
+        xCoord = 0;
+        yCoord += deltaY;
     }
 
-    for (i = 0; i < this.stacks; i++) {
-        for (j = 0; j < this.slices - 1; j++) {
-            this.indices.push(i * this.slices + j, i * this.slices + j + 1, (i + 1) * this.slices + j);
-            this.indices.push(i * this.slices + j + 1, (i + 1) * this.slices + j + 1, (i + 1) * this.slices + j);
+    // Indices
+    for(i = 0; i < this.stacks; i++) {
+        for(j = 0; j < this.slices; j++) {
+            this.indices.push(i*this.slices*2 + j*2, i*this.slices*2 + j*2+1, (i+1)*this.slices*2 + j*2);
+            this.indices.push(i*this.slices*2 + j*2+1, (i+1)*this.slices*2 + j*2+1, (i+1)*this.slices*2 + j*2);
         }
-
-        this.indices.push(i * this.slices + this.slices - 1, i * this.slices, (i + 1) * this.slices + this.slices - 1);
-        this.indices.push(i * this.slices, i * this.slices + this.slices, (i + 1) * this.slices + this.slices - 1);
     }
 
     this.texCoords = this.originalTexCoords.slice();

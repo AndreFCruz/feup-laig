@@ -46,5 +46,5 @@ MyCylinder.prototype.display = function() {
 }
 
 MyCylinder.prototype.setTexAmplification = function(ampS, ampT) {
-    this.caplessCylinder.setTexAmplification(ampS, ampT);
+    // this.caplessCylinder.setTexAmplification(ampS, ampT);
 }
