@@ -202,46 +202,48 @@
 <!-- The nodes -->
 <NODES>
 
-		<ROOT id="root" />     
+		<ROOT id="root" />
 
 		<!-- The root node -->
-		<NODE id="root">       
-				<MATERIAL id="defaultMaterial" />         
-				<TEXTURE id="null" />  
+		<NODE id="root">
+				<MATERIAL id="defaultMaterial" />
+				<TEXTURE id="null" />
+
+				<TRANSLATION x="20" y="0" z="20" />
 
 				<DESCENDANTS>
-			<NODEREF id="airport" />
-			<NODEREF id="fleet" />
-			<NODEREF id="landing airplane" />
-		</DESCENDANTS>
+					<NODEREF id="airport" />
+					<NODEREF id="fleet" />
+					<NODEREF id="landing airplane" />
+				</DESCENDANTS>
 
 		</NODE>
 
 		<!-- The landing airplane node -->
-		<NODE id="fleet">       
-				<MATERIAL id="null" />         
+		<NODE id="fleet">
+				<MATERIAL id="null" />
 				<TEXTURE id="null" />
 
-		<TRANSLATION x="-50" y="4.2" z="20" />
-		<ROTATION axis="z" angle="7" />
+				<TRANSLATION x="-50" y="4.2" z="20" />
+				<ROTATION axis="z" angle="7" />
 				<ROTATION axis="y" angle="90" />
 
 				<DESCENDANTS>
-			<NODEREF id="airplane 1" />
-			<NODEREF id="airplane 2" />
-			<NODEREF id="airplane 3" />
-		</DESCENDANTS>
+					<NODEREF id="airplane 1" />
+					<NODEREF id="airplane 2" />
+					<NODEREF id="airplane 3" />
+			</DESCENDANTS>
 
 		</NODE>
 
 		<!-- Airplane 1 from the fleet -->
-		<NODE id="airplane 1">       
-				<MATERIAL id="null" />         
-				<TEXTURE id="design1" /> 
+		<NODE id="airplane 1">
+				<MATERIAL id="null" />
+				<TEXTURE id="design1" />
 
 				<DESCENDANTS>
-			<NODEREF id="airplane" />
-		</DESCENDANTS>
+					<NODEREF id="airplane" />
+				</DESCENDANTS>
 
 		</NODE>
 
@@ -253,8 +255,8 @@
 				<TRANSLATION x="25" y="0" z="0" /> 
 
 				<DESCENDANTS>
-			<NODEREF id="airplane" />
-		</DESCENDANTS>
+					<NODEREF id="airplane" />
+				</DESCENDANTS>
 
 		</NODE>
 
@@ -266,8 +268,8 @@
 				<TRANSLATION x="50" y="0" z="0" /> 
 
 				<DESCENDANTS>
-			<NODEREF id="airplane" />
-		</DESCENDANTS>
+					<NODEREF id="airplane" />
+				</DESCENDANTS>
 
 		</NODE>
 
@@ -280,8 +282,8 @@
 				<ROTATION axis="x" angle="-20" />
 
 				<DESCENDANTS>
-			<NODEREF id="airplane" />
-		</DESCENDANTS>
+					<NODEREF id="airplane" />
+				</DESCENDANTS>
 
 		</NODE>
 
@@ -293,11 +295,11 @@
 				<SCALE sx="2" sy="2" sz="2" />  
 
 				<DESCENDANTS>
-			<NODEREF id="wings" />
-			<NODEREF id="body" />
-			<NODEREF id="wheels" /> 
-			<NODEREF id="fan" />
-			<NODEREF id="tail" />
+					<NODEREF id="wings" />
+					<NODEREF id="body" />
+					<NODEREF id="wheels" /> 
+					<NODEREF id="fan" />
+					<NODEREF id="tail" />
 				</DESCENDANTS>
 
 		</NODE>
