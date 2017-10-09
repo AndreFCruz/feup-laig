@@ -34,10 +34,10 @@ MyRectangle.prototype.initBuffers = function() {
     ];
 
     this.originalTexCoords = [
-        0.0, 0.0,
-        this.width, 0.0,
+        0.0, this.height,
         this.width, this.height,
-        0.0, this.height
+        this.width, 0.0,
+        0.0, 0.0
     ];
 
     this.normals = [

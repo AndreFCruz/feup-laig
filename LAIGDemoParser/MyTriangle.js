@@ -56,7 +56,7 @@ MyTriangle.prototype.calcTexCoords = function() {
     var beta = Math.acos(cosBeta);
     this.originalTexCoords.push(
         distAB - distBC * cosBeta,
-        distBC * Math.sin(beta));
+        -1 * (distBC * Math.sin(beta)));
 }
 
 MyTriangle.prototype.calcNormal = function() {
@@ -78,5 +78,4 @@ MyTriangle.prototype.calcNormal = function() {
     vec3.normalize(normalVec, normalVec);
 
     return normalVec;
-};
-
+}
