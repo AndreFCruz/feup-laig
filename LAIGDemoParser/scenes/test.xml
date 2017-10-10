@@ -64,8 +64,8 @@
     </TEXTURE>
 
     <!-- Glass work -->
-    <TEXTURE id="vidral">
-        <file path="images/vidral.jpg" />               
+    <TEXTURE id="patch texture">
+        <file path="images/patch_texture.jpg" />               
         <amplif_factor s="15" t="10" />                           
     </TEXTURE>
     
@@ -112,16 +112,27 @@
         <TEXTURE id="clear" />
 
         <DESCENDANTS>
-            <NODEREF id="cylinder node" />
+            <NODEREF id="patch node" />
         </DESCENDANTS>
     </NODE>
     
-    <NODE id="cylinder node">
+    <NODE id="patch node">
         <MATERIAL id="trunkTreeMaterial" />
-        <TEXTURE id="vidral" />
+        <TEXTURE id="patch texture" />
         
         <DESCENDANTS>
-            <LEAF type="cylinder" args="10 6 10 10 10 1 0" />
+            <LEAF type="patch" args="20 20" >
+                <CPLINE>
+                    <CPOINT xx="1" yy="1" zz="1" ww="1" />
+                    <CPOINT xx="3" yy="3" zz="3" ww="1" />
+                    <CPOINT xx="6" yy="3" zz="6" ww="1" />
+                </CPLINE>
+                <CPLINE>
+                    <CPOINT xx="1" yy="1" zz="1" ww="1" />
+                    <CPOINT xx="0" yy="0" zz="3" ww="1" />
+                    <CPOINT xx="0" yy="123" zz="6" ww="1" />
+                </CPLINE>
+            </LEAF>
         </DESCENDANTS>
     </NODE>
 

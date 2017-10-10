@@ -1360,7 +1360,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 }
 
 MySceneGraph.prototype.createLeaf = function(xmlelem) {
-	var type = this.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+	var type = this.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
 	var strArgs = this.reader.getString(xmlelem, 'args').split(' ');
 
 	var args = [];
@@ -1391,6 +1391,9 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 			break;
 		case 'cylinder':
 			return this.createCylinder(args)
+			break;
+		case 'patch':
+			return this.createPatch(xmlelem, args);
 			break;
 	}
 }
@@ -1425,6 +1428,63 @@ MySceneGraph.prototype.createCylinder = function(args) {
 		return null;
 	}
 	return new MyCylinder(this.scene, args);
+}
+
+MySceneGraph.prototype.createPatch = function(xmlelem, args) {
+	if (args.length != 2) {
+		console.warn("Invalid arguments in patch leaf.");
+		return null;
+	}
+
+	var leafChildren = xmlelem.children;
+	var degU = leafChildren.length - 1;
+	var degV = leafChildren[0].children.length - 1;
+
+	var controlPoints = [];
+
+	for (let cpline of leafChildren) {
+		if (cpline.children.length != (degV + 1))
+			console.warn("Invalid number of CPOINTs in CPLINE");
+		var innerArray = [];
+		for (let cpoint of cpline.children) {
+			var xx = this.reader.getFloat(cpoint, 'xx', true);
+			var yy = this.reader.getFloat(cpoint, 'yy', true);
+			var zz = this.reader.getFloat(cpoint, 'zz', true);
+			var ww = this.reader.getFloat(cpoint, 'ww', true);
+
+			innerArray.push([xx, yy, zz, ww]);
+		}
+		controlPoints.push(innerArray);
+	}
+
+	return this.makeSurface(degU, degV, controlPoints, parseInt(args[0]), parseInt(args[1]));
+}
+
+MySceneGraph.prototype.makeSurface = function(degU, degV, controlVertexes, partsU, partsV) {
+		
+	var knots1 = getKnotsVector(degU);
+	var knots2 = getKnotsVector(degV);
+		
+	var nurbsSurface = new CGFnurbsSurface(degU, degV, knots1, knots2, controlVertexes);
+	getSurfacePoint = function(u, v) {
+		return nurbsSurface.getPoint(u, v);
+	};
+
+	var obj = new CGFnurbsObject(this.scene, getSurfacePoint, partsU, partsV);
+
+	return obj;
+}
+
+function getKnotsVector(degree) {
+	
+	var v = new Array();
+	for (var i=0; i<=degree; i++) {
+		v.push(0);
+	}
+	for (var i=0; i<=degree; i++) {
+		v.push(1);
+	}
+	return v;
 }
 
 /*
@@ -1516,7 +1576,7 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	currentMaterial.apply();
 
 	for (let leaf of node.leaves) {
-		if (currentTexture != null)
+		if (currentTexture != null && leaf instanceof MyGraphLeaf)
 			leaf.setTexAmplification(currentTexture[1], currentTexture[2]);
 		if (leaf != null)
 			leaf.display();
@@ -1532,12 +1592,6 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 		this.scene.popMatrix();
 	}
 }
-
-
-
-
-
-
 
 
 
