@@ -21,31 +21,31 @@
 <LIGHTS>    
 		<LIGHT id="sun">                                    
 				<enable value ="0" />                              
-				<position  x="0" y="30" z="0" w="1" />             
-				<ambient r="0.7" g="0.5" b="0.38" a="1" />          
+				<position  x="40" y="50" z="20" w="1" />             
+				<ambient r="0.6" g="0.5" b="0.4" a="1" />          
 				<diffuse r="0.5" g="0.5" b="0.5" a="1.0" />        
 				<specular r="0.5" g="0.5" b="0.5" a="1.0" />      
 		</LIGHT>
 
-		<LIGHT id="fleet light1">                                    
+		<LIGHT id="fleet light 1">                                    
 				<enable value ="0" />                              
-				<position  x="-45" y="0.2" z="-30" w="0" />             
+				<position  x="-20" y="0.2" z="-5" w="1" />             
 				<ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
 				<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />        
 				<specular r="0.7" g="0.7" b="0.7" a="1" />      
 		</LIGHT>
 
-		<LIGHT id="fleet light2">                                    
+		<LIGHT id="fleet light 2">                                    
 				<enable value ="1" />                                        
-				<position  x="-45" y="0.2" z="-5" w="0" />             
+				<position  x="-20" y="0.2" z="20" w="1" />             
 				<ambient r="0.5" g="0.5" b="0.5" a="1.0" />          
 				<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />        
 				<specular r="0.7" g="0.7" b="0.7" a="1" />      
 		</LIGHT>
 
-		<LIGHT id="fleet light3">                                    
+		<LIGHT id="fleet light 3">                                    
 				<enable value ="1" />                              
-				<position  x="-45" y="0.2" z="20" w="0" />             
+				<position  x="-20" y="0.2" z="45" w="1" />             
 				<ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
 				<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />        
 				<specular r="0.7" g="0.7" b="0.7" a="1" />  
@@ -201,7 +201,7 @@
 <!-- The nodes -->
 <NODES>
 
-		<ROOT id="hangar" />
+		<ROOT id="root" />
 
 		<!-- The root node -->
 		<NODE id="root">
@@ -211,7 +211,7 @@
 				<TRANSLATION x="20" y="0" z="20" />
 
 				<DESCENDANTS>
-					<NODEREF id="airport" />
+					<NODEREF id="ground elements" />
 					<NODEREF id="fleet" />
 					<NODEREF id="landing airplane" />
 					<NODEREF id="hangar" />
@@ -224,7 +224,7 @@
 				<MATERIAL id="null" />
 				<TEXTURE id="null" />
 
-				<TRANSLATION x="-50" y="4.2" z="20" />
+				<TRANSLATION x="-50" y="4.2" z="25" />
 				<ROTATION axis="z" angle="7" />
 				<ROTATION axis="y" angle="90" />
 
@@ -906,8 +906,8 @@
 
 	<!-- ********************************* BACKGROUND **************************************** -->
 
-	 <!-- Airport Elements -->
-	 <NODE id="airport">
+	 <!-- Ground Elements -->
+	 <NODE id="ground elements">
 			<MATERIAL id="defaultMaterial" />
 			<TEXTURE id="null" />
 
@@ -969,6 +969,10 @@
 	 <NODE id="hangar">
 			<MATERIAL id="defaultMaterial" />
 			<TEXTURE id="clear" />
+
+			<TRANSLATION x="-50" y="10" z="0" />
+			<ROTATION axis="y" angle="90" />
+			<SCALE sx="80" sy="20" sz="40" />
 
 			<DESCENDANTS>
 				<NODEREF id="hangar walls" /> 
@@ -1127,12 +1131,12 @@
 	            <LEAF type="patch" args="20 20" >
 	                <CPLINE>
 	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
-	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.3" />
+	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.5" />
 	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
 	                </CPLINE>
 	                <CPLINE>
 	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
-	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.3" />
+	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.5" />
 	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
 	                </CPLINE>
 	            </LEAF> 
@@ -1140,12 +1144,12 @@
 	            <LEAF type="patch" args="20 20" >
 	                <CPLINE>
 	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
-	                    <CPOINT xx="0" yy="0" zz="-0.6" ww="0.3" />
+	                    <CPOINT xx="0" yy="0" zz="-0.6" ww="0.5" />
 	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
 	                </CPLINE>
 	                <CPLINE>
 	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
-	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.3" />
+	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.5" />
 	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
 	                </CPLINE>
 	            </LEAF> 
@@ -1153,12 +1157,12 @@
 	            <LEAF type="patch" args="20 20" >
 	                <CPLINE>
 	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
-	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.3" />
+	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.5" />
 	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
 	                </CPLINE>
 	                <CPLINE>
 	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
-	                    <CPOINT xx="0" yy="0" zz="0.6" ww="0.3" />
+	                    <CPOINT xx="0" yy="0" zz="0.6" ww="0.5" />
 	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
 	                </CPLINE>
 	            </LEAF> 
