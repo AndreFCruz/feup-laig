@@ -1,6 +1,9 @@
 /**
- * MyTriangle
- * @param pointsArray an array of 9 floating point numbers, 3 points with 3 coordinates
+ * Constructor for Class MyTriangle
+ *
+ * @augment MyGraphLeaf
+ * @param {CGFScene} scene - CGFScene where the triangle will be drawn
+ * @param {Array} args - Array containing the triangle's points coordinates
  * @constructor
  */
 function MyTriangle(scene, pointsArray) {
@@ -16,6 +19,11 @@ function MyTriangle(scene, pointsArray) {
 MyTriangle.prototype = Object.create(MyGraphLeaf.prototype);
 MyTriangle.prototype.constructor = MyTriangle;
 
+/**
+ * Initialize the triangle WebGL data buffers
+ *
+ * @return {null}
+ */
 MyTriangle.prototype.initBuffers = function() {
     this.vertices = [
         this.pointA[0], this.pointA[1], this.pointA[2],
@@ -41,6 +49,11 @@ MyTriangle.prototype.initBuffers = function() {
     this.initGLBuffers();
 };
 
+/**
+ * Calculate the Triangle's texture coordinates
+ *
+ * @return {null}
+ */
 MyTriangle.prototype.calcTexCoords = function() {
     this.originalTexCoords = [0, 0];
 
@@ -59,6 +72,11 @@ MyTriangle.prototype.calcTexCoords = function() {
         -1 * (distBC * Math.sin(beta)));
 }
 
+/**
+ * Calculate the Triangle's normal vector
+ *
+ * @return {Vec3} - array containing the 3 normal vector's coordinates
+ */
 MyTriangle.prototype.calcNormal = function() {
     var a = vec3.fromValues(
         this.pointB[0] - this.pointA[0],

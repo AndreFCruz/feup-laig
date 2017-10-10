@@ -1,5 +1,9 @@
 /**
- * MySphere
+ * Constructor for Class MySphere
+ *
+ * @augment MyGraphLeaf
+ * @param {CGFScene} scene - CGFScene where the sphere will be drawn
+ * @param {Array} args - Array containing the Sphere's height, number of sections along height and number of parts per section 
  * @constructor
  */
 function MySphere(scene, args) {
@@ -15,6 +19,11 @@ function MySphere(scene, args) {
 MySphere.prototype = Object.create(MyGraphLeaf.prototype);
 MySphere.prototype.constructor = MySphere;
 
+/**
+ * Initialize the sphere WebGL data buffers
+ *
+ * @return {null}
+ */
 MySphere.prototype.initBuffers = function() {
     this.vertices = [];
     this.indices = [];
@@ -70,5 +79,4 @@ MySphere.prototype.initBuffers = function() {
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
-}
-;
+};

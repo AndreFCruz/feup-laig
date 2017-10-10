@@ -1,6 +1,9 @@
 /**
- * MyRectangle
- * @param TODO
+ * Constructor for Class MyRectangle
+ *
+ * @augment MyGraphLeaf
+ * @param {CGFScene} scene - CGFScene where the rectangle will be drawn
+ * @param {Array} args - Array containing the rectangle left-top and right-bottom vertices coordinates
  * @constructor
  */
 function MyRectangle(scene, args) {
@@ -20,6 +23,11 @@ function MyRectangle(scene, args) {
 MyRectangle.prototype = Object.create(MyGraphLeaf.prototype);
 MyRectangle.prototype.constructor = MyRectangle;
 
+/**
+ * Initialize the rectangle WebGL data buffers
+ *
+ * @return {null}
+ */
 MyRectangle.prototype.initBuffers = function() {
     this.vertices = [
         this.minX, this.minY, 0.0,

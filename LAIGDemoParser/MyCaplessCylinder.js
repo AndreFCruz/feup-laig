@@ -1,5 +1,13 @@
 /**
- * MyCaplessCylinder
+ * Constructor for Class MyCaplessCylinder
+ *
+ * @augment MyGraphLeaf
+ * @param {CGFScene} scene - CGFScene where the capless cylinder will be drawn
+ * @param {Number} height - Cylinder's height
+ * @param {Number} botRadius - Cylinder's bottom base radius
+ * @param {Number} topRadius - Cylinder's top base radius
+ * @param {Number} stacks - Cylinder's number of sections along height
+ * @param {Number} slices - Cylinder's number of parts per section
  * @constructor
  */
 function MyCaplessCylinder(scene, height, botRadius, topRadius, stacks, slices) {
@@ -17,6 +25,11 @@ function MyCaplessCylinder(scene, height, botRadius, topRadius, stacks, slices) 
 MyCaplessCylinder.prototype = Object.create(MyGraphLeaf.prototype);
 MyCaplessCylinder.prototype.constructor = MyCaplessCylinder;
 
+/**
+ * Initialize the capless cylinder WebGL data buffers
+ *
+ * @return {null}
+ */
 MyCaplessCylinder.prototype.initBuffers = function() {
     this.vertices = [];
     this.indices = [];
