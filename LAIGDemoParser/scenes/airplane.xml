@@ -943,8 +943,37 @@
 			<DESCENDANTS>
 				<LEAF type="rectangle"  args="-75 50 -25 -50"/>
 				<LEAF type="rectangle"  args="10 90 70 -90"/>
-				<LEAF type="rectangle"  args="-25 -20 10 -40"/>
-				<LEAF type="rectangle"  args="-25 40 10 20"/>
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-25" yy="25" zz="0" ww="1" />
+	                    <CPOINT xx="-7.5" yy="25" zz="0" ww="0.3" />
+	                    <CPOINT xx="-7.5" yy="55" zz="0" ww="0.3" />
+	                    <CPOINT xx="10" yy="55" zz="0" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-25" yy="-5" zz="0" ww="1" />
+	                    <CPOINT xx="-7.5" yy="-5" zz="0" ww="0.3" />
+	                    <CPOINT xx="-7.5" yy="25" zz="0" ww="0.3" />
+	                    <CPOINT xx="10" yy="25" zz="0" ww="1" />
+	                </CPLINE>
+	            </LEAF>
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-25" yy="5" zz="0" ww="1" />
+	                    <CPOINT xx="-7.5" yy="5" zz="0" ww="0.3" />
+	                    <CPOINT xx="-7.5" yy="-25" zz="0" ww="0.3" />
+	                    <CPOINT xx="10" yy="-25" zz="0" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-25" yy="-25" zz="0" ww="1" />
+	                    <CPOINT xx="-7.5" yy="-25" zz="0" ww="0.3" />
+	                    <CPOINT xx="-7.5" yy="-55" zz="0" ww="0.3" />
+	                    <CPOINT xx="10" yy="-55" zz="0" ww="1" />
+	                </CPLINE>
+	            </LEAF> 
+
 			</DESCENDANTS>
 		
 	 </NODE>
