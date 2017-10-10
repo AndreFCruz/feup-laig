@@ -3,7 +3,7 @@
  *
  * @augment MyGraphLeaf
  * @param {CGFScene} scene - CGFScene where the triangle will be drawn
- * @param {Array} args - Array containing the Triangle's points coordinates
+ * @param {Array} args - Array containing the triangle's points coordinates
  * @constructor
  */
 function MyTriangle(scene, pointsArray) {

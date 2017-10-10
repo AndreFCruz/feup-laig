@@ -3,7 +3,8 @@
  *
  * @augment MyGraphLeaf
  * @param {CGFScene} scene - CGFScene where the cylinder will be drawn
- * @param {Array} args - Array containing the cylinder height, bottom radius, top raidus, number of stacks and number of slices
+ * @param {Array} args - Array containing the cylinder height, bottom base radius, top base raidus, number of sections along height,
+ *		 number of parts per section, flag controlling bottom cap existence and flag controlling top cap existence
  * @constructor
  */
 function MyCylinder(scene, args) {
@@ -57,8 +58,8 @@ MyCylinder.prototype.display = function() {
 /**
  * Set the Texture amplification factors
  *
- * @param Horziontal amplification factor
- * @param Vertical amplication factor
+ * @param {Number} ampS - Horziontal amplification factor
+ * @param {Number} ampT - Vertical amplication factor
  * @return {null}
  */
 MyCylinder.prototype.setTexAmplification = function(ampS, ampT) {
