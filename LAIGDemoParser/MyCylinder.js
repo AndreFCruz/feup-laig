@@ -1,5 +1,9 @@
 /**
- * MyCylinder
+ * Constructor for Class MyCylinder
+ *
+ * @augment MyGraphLeaf
+ * @param {CGFScene} scene - CGFScene where the cylinder will be drawn
+ * @param {Array} args - Array containing the cylinder height, bottom radius, top raidus, number of stacks and number of slices
  * @constructor
  */
 function MyCylinder(scene, args) {
@@ -25,6 +29,11 @@ function MyCylinder(scene, args) {
 MyCylinder.prototype = Object.create(MyGraphLeaf.prototype);
 MyCylinder.prototype.constructor = MyCylinder;
 
+/**
+ * Display the Cylinder in the CGFScene
+ *
+ * @return {null}
+ */
 MyCylinder.prototype.display = function() {
 
     this.caplessCylinder.display();
@@ -45,6 +54,13 @@ MyCylinder.prototype.display = function() {
 
 }
 
+/**
+ * Set the Texture amplification factors
+ *
+ * @param Horziontal amplification factor
+ * @param Vertical amplication factor
+ * @return {null}
+ */
 MyCylinder.prototype.setTexAmplification = function(ampS, ampT) {
     // this.caplessCylinder.setTexAmplification(ampS, ampT);
 }

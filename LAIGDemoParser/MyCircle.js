@@ -1,6 +1,10 @@
 /**
- * MyCircle
- * @param gl {WebGLRenderingContext}
+ * Constructor for Class MyCircle
+ *
+ * @augment MyGraphLeaf
+ * @param {CGFScene} scene - CGFScene where the circle will be drawn
+ * @param {Number} radius - Circle's radius
+ * @param {Number} slices - Circle's number of parts
  * @constructor
  */
 function MyCircle(scene, radius, slices) {
@@ -15,6 +19,11 @@ function MyCircle(scene, radius, slices) {
 MyCircle.prototype = Object.create(MyGraphLeaf.prototype);
 MyCircle.prototype.constructor = MyCircle;
 
+/**
+ * Initialize the circle WebGL data buffers
+ *
+ * @return {null}
+ */
 MyCircle.prototype.initBuffers = function() {
     this.vertices = [];
     this.indices = [];
