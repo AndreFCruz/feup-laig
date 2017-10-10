@@ -1359,6 +1359,12 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 	return null ;
 }
 
+/**
+ * Creates a Primitve correspondig to the Leaf type
+ *
+ * @param {XmlElement} xmlelem - the xml element corresponding to the leaf
+ * @return {CGFObject} - The created primitive
+ */
 MySceneGraph.prototype.createLeaf = function(xmlelem) {
 	var type = this.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
 	var strArgs = this.reader.getString(xmlelem, 'args').split(' ');
@@ -1398,6 +1404,12 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 	}
 }
 
+/**
+ * Creats a triangle primitive witht the given args
+ *
+ * @param {Array} args - Array containing the triangle specifications
+ * @return {CGFLeaf} - the created triangle
+ */
 MySceneGraph.prototype.createTriangle = function(args) {
 	if (args.length != 9) {
 		console.warn("Invalid arguments in triangle leaf.");
@@ -1406,6 +1418,12 @@ MySceneGraph.prototype.createTriangle = function(args) {
 	return new MyTriangle(this.scene, args);
 }
 
+/**
+ * Creats a rectangle primitive witht the given args
+ *
+ * @param {Array} args - Array containing the rectangle specifications
+ * @return {CGFLeaf} - the created rectangle
+ */
 MySceneGraph.prototype.createRectangle = function(args) {
 	if (args.length != 4) {
 		console.warn("Invalid arguments in rectangle leaf.");
@@ -1414,6 +1432,12 @@ MySceneGraph.prototype.createRectangle = function(args) {
 	return new MyRectangle(this.scene, args);
 }
 
+/**
+ * Creats a sphere primitive witht the given args
+ *
+ * @param {Array} args - Array containing the sphere specifications
+ * @return {CGFLeaf} - the created sphere
+ */
 MySceneGraph.prototype.createSphere = function(args) {
 	if (args.length != 3) {
 		console.warn("Invalid arguments in sphere leaf.");
@@ -1422,6 +1446,12 @@ MySceneGraph.prototype.createSphere = function(args) {
 	return new MySphere(this.scene, args);
 }
 
+/**
+ * Creats a cylinder primitive witht the given args
+ *
+ * @param {Array} args - Array containing the cylinder specifications
+ * @return {CGFLeaf} - the created cylinder
+ */
 MySceneGraph.prototype.createCylinder = function(args) {
 	if (args.length != 7) {
 		console.warn("Invalid arguments in cylinder leaf.");
@@ -1430,6 +1460,13 @@ MySceneGraph.prototype.createCylinder = function(args) {
 	return new MyCylinder(this.scene, args);
 }
 
+/**
+ * Creats a patch primitive witht the given args
+ *
+ * @param {XmlElement} xmlelem - XML Element referring to the patch
+ * @param {Array} args - Array containing the patch specifications
+ * @return {CGFnurbsObject} - the created patch
+ */
 MySceneGraph.prototype.createPatch = function(xmlelem, args) {
 	if (args.length != 2) {
 		console.warn("Invalid arguments in patch leaf.");
@@ -1460,6 +1497,16 @@ MySceneGraph.prototype.createPatch = function(xmlelem, args) {
 	return this.makeSurface(degU, degV, controlPoints, parseInt(args[0]), parseInt(args[1]));
 }
 
+/**
+ * Function that creates the patch surface
+ *
+ * @param {Number} degU - degree in the U direction
+ * @param {Number} degV - degree in the V direction
+ * @param {Array} controlVertexes - array containing the control vertices
+ * @param {Number} partsU - number of parts in the U direction
+ * @param {Number} partsV - number of parts in the V direciton
+ * @return {CGFnurbsObject}
+ */
 MySceneGraph.prototype.makeSurface = function(degU, degV, controlVertexes, partsU, partsV) {
 		
 	var knots1 = getKnotsVector(degU);
@@ -1475,6 +1522,12 @@ MySceneGraph.prototype.makeSurface = function(degU, degV, controlVertexes, parts
 	return obj;
 }
 
+/**
+ * Creater of the Knot Vector.
+ * Important to characterize the parametric space of the curve
+ *
+ * @return {Array} - Array containing the Knots.
+ */
 function getKnotsVector(degree) {
 	
 	var v = new Array();
@@ -1551,7 +1604,15 @@ MySceneGraph.prototype.displayScene = function() {
 	this.scene.popMatrix();
 }
 
-
+/**
+ * Process a Node by calculating its transform Matrix, material and texture.
+ * It also processes the Node's descendants, and the Node's descendants' descendants and on and on. 
+ *
+ * @param {String} node - The node id
+ * @param {String} material - The node material
+ * @param {String} texture - The node texture
+ * @return {null}
+ */
 MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	
 	this.scene.multMatrix(node.transformMatrix);
