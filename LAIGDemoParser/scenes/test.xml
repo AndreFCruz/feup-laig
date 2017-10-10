@@ -121,16 +121,16 @@
         <TEXTURE id="patch texture" />
         
         <DESCENDANTS>
-            <LEAF type="patch" args="20 20" >
+            <LEAF type="patch" args="10 10" >
                 <CPLINE>
-                    <CPOINT xx="1" yy="1" zz="1" ww="1" />
-                    <CPOINT xx="3" yy="3" zz="3" ww="1" />
-                    <CPOINT xx="6" yy="3" zz="6" ww="1" />
+                    <CPOINT xx="10" yy="0" zz="0" ww="0.5" />
+                    <CPOINT xx="10" yy="10" zz="3" ww="0.3" />
+                    <CPOINT xx="10" yy="-4" zz="4" ww="0.7" />
                 </CPLINE>
                 <CPLINE>
-                    <CPOINT xx="1" yy="1" zz="1" ww="1" />
-                    <CPOINT xx="0" yy="0" zz="3" ww="1" />
-                    <CPOINT xx="0" yy="123" zz="6" ww="1" />
+                    <CPOINT xx="0" yy="0" zz="0" ww="0.5" />
+                    <CPOINT xx="0" yy="0" zz="3" ww="0.5" />
+                    <CPOINT xx="0" yy="0" zz="4" ww="0.5" />
                 </CPLINE>
             </LEAF>
         </DESCENDANTS>

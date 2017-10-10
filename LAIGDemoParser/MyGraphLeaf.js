@@ -5,7 +5,6 @@
  * @param {CGFScene} scene - CGFScene where the capless the LEAF will be drawn
  * @constructor
  */
-function
 function MyGraphLeaf(scene) {
 	CGFobject.call(this, scene);
 
