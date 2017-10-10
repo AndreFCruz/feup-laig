@@ -2,15 +2,14 @@
 
 <!-- Initial values -->
 <INITIALS>
-		<frustum near="0.1" far="500"/>
-		<translation x="-51" y="-54" z="-73" />               
-		<rotation axis="x" angle="-10" />                
-		<rotation axis="y" angle="-10" />                
-		<rotation axis="z" angle="15" />                
-		<scale sx="1" sy="1" sz="1" />         
-		<reference length="5" />                        
+        <frustum near="0.1" far="500"/>
+        <translation x="-51" y="-54" z="-73" />               
+        <rotation axis="x" angle="-10" />                
+        <rotation axis="y" angle="-10" />                
+        <rotation axis="z" angle="15" />                
+        <scale sx="1" sy="1" sz="1" />         
+        <reference length="5" />                        
 </INITIALS>
-
 
 <!-- Illumination and clear colour -->
 <ILLUMINATION>
@@ -202,7 +201,7 @@
 <!-- The nodes -->
 <NODES>
 
-		<ROOT id="root" />
+		<ROOT id="hangar" />
 
 		<!-- The root node -->
 		<NODE id="root">
@@ -215,11 +214,12 @@
 					<NODEREF id="airport" />
 					<NODEREF id="fleet" />
 					<NODEREF id="landing airplane" />
+					<NODEREF id="hangar" />
 				</DESCENDANTS>
 
 		</NODE>
 
-		<!-- The landing airplane node -->
+		<!-- The fleet -->
 		<NODE id="fleet">
 				<MATERIAL id="null" />
 				<TEXTURE id="null" />
@@ -913,8 +913,8 @@
 
 			<DESCENDANTS>
 				<NODEREF id="grass" />
-			<NODEREF id="floor" />
-			<NODEREF id="runaway" />
+				<NODEREF id="floor" />
+				<NODEREF id="runaway" />
 			</DESCENDANTS>
 		
 	 </NODE>
@@ -959,6 +959,223 @@
 
 			<DESCENDANTS>
 				<LEAF type="rectangle"  args="15 80 65 -80"/>
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	<!-- ********************************* HANGAR **************************************** -->
+
+	 <!-- The hangar -->
+	 <NODE id="hangar">
+			<MATERIAL id="defaultMaterial" />
+			<TEXTURE id="clear" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar walls" /> 
+				<NODEREF id="hangar roof" /> <!--
+				<NODEREF id="hangar gates" /> -->
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar walls -->
+	 <NODE id="hangar walls">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+				<NODEREF id="back wall" />
+				<NODEREF id="left wall" />
+				<NODEREF id="right wall" />
+				<NODEREF id="front left wall" />
+				<NODEREF id="front right wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar back wall -->
+	 <NODE id="back wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="0" z="-0.5" />
+			<ROTATION axis="y" angle="180" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar left wall -->
+	 <NODE id="left wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="-0.5" y="0" z="0" />
+			<ROTATION axis="y" angle="-90" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar right wall -->
+	 <NODE id="right wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0.5" y="0" z="0" />
+			<ROTATION axis="y" angle="90" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar front left wall -->
+	 <NODE id="front left wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0.4" y="0" z="0.5" />
+			<SCALE sx="0.2" sy="1" sz="1" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar front right wall -->
+	 <NODE id="front right wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="-0.4" y="0" z="0.5" />
+			<SCALE sx="0.2" sy="1" sz="1" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A hangar generic wall -->
+	 <NODE id="hangar wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+				<NODEREF id="wall" />
+				<NODEREF id="wall inside" />
+				<NODEREF id="wall window" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar wall -->
+	 <NODE id="wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar wall inside -->
+	 <NODE id="wall inside">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<ROTATION axis="y" angle="180" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar wall -->
+	 <NODE id="wall window">
+			<MATERIAL id="glass" />
+			<TEXTURE id="glass" />
+
+			<TRANSLATION x="0" y="0.2" z="0.01" />
+			<SCALE sx="1.02" sy="0.2" sz="1" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar roof -->
+	 <NODE id="hangar roof">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="0.5" z="0" />
+
+			<DESCENDANTS>
+				<NODEREF id="roof base" />
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.3" />
+	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.3" />
+	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+	                </CPLINE>
+	            </LEAF> 
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+	                    <CPOINT xx="0" yy="0" zz="-0.6" ww="0.3" />
+	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.3" />
+	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+	                </CPLINE>
+	            </LEAF> 
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.3" />
+	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+	                    <CPOINT xx="0" yy="0" zz="0.6" ww="0.3" />
+	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+	                </CPLINE>
+	            </LEAF> 
+
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar roof -->
+	 <NODE id="roof base">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<ROTATION axis="x" angle="90" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.6 0.6 0.6 -0.6" />
 			</DESCENDANTS>
 		
 	 </NODE>
