@@ -2,13 +2,13 @@
 
 <!-- Initial values -->
 <INITIALS>
-    <frustum near="0.1" far="500"/>                 
-    <translation x="0" y="0" z="0" />
-    <rotation axis="x" angle="0" />                
-    <rotation axis="y" angle="0" />                
-    <rotation axis="z" angle="0" />                
-    <scale sx="0.25" sy="0.25" sz="0.25" />         
-    <reference length="5" />                        
+        <frustum near="0.1" far="500"/>
+        <translation x="-51" y="-54" z="-73" />               
+        <rotation axis="x" angle="-10" />                
+        <rotation axis="y" angle="-10" />                
+        <rotation axis="z" angle="15" />                
+        <scale sx="1" sy="1" sz="1" />         
+        <reference length="5" />                        
 </INITIALS>
 
 
@@ -119,18 +119,38 @@
     <NODE id="patch node">
         <MATERIAL id="trunkTreeMaterial" />
         <TEXTURE id="patch texture" />
+
+        <SCALE sx="3" sy="3" sz="3" />
         
         <DESCENDANTS>
-            <LEAF type="patch" args="10 10" >
+            <LEAF type="patch" args="20 20" >
                 <CPLINE>
-                    <CPOINT xx="10" yy="0" zz="0" ww="0.5" />
-                    <CPOINT xx="10" yy="10" zz="3" ww="0.3" />
-                    <CPOINT xx="10" yy="-4" zz="4" ww="0.7" />
+                    <CPOINT xx="2" yy="0" zz="2.5" ww="1" />
+                    <CPOINT xx="2" yy="0" zz="2.5" ww="1" />
+                    <CPOINT xx="2" yy="0" zz="5" ww="1" />
+                    <CPOINT xx="2" yy="0" zz="7.5" ww="1" />
+                    <CPOINT xx="2" yy="0" zz="7.5" ww="1" />
                 </CPLINE>
                 <CPLINE>
-                    <CPOINT xx="0" yy="0" zz="0" ww="0.5" />
-                    <CPOINT xx="0" yy="0" zz="3" ww="0.5" />
-                    <CPOINT xx="0" yy="0" zz="4" ww="0.5" />
+                    <CPOINT xx="2" yy="0" zz="2.5" ww="1" />
+                    <CPOINT xx="2" yy="0" zz="0" ww="1" />
+                    <CPOINT xx="2" yy="10" zz="5" ww="0.5" />
+                    <CPOINT xx="2" yy="0" zz="10" ww="1" />
+                    <CPOINT xx="2" yy="0" zz="7.5" ww="1" />
+                </CPLINE>
+                <CPLINE>
+                    <CPOINT xx="0" yy="0" zz="2.5" ww="1" />
+                    <CPOINT xx="0" yy="0" zz="0" ww="1" />
+                    <CPOINT xx="0" yy="10" zz="5" ww="0.5" />
+                    <CPOINT xx="0" yy="0" zz="10" ww="1" />
+                    <CPOINT xx="0" yy="0" zz="7.5" ww="1" />
+                </CPLINE>
+                <CPLINE>
+                    <CPOINT xx="0" yy="0" zz="2.5" ww="1" />
+                    <CPOINT xx="0" yy="0" zz="2.5" ww="1" />
+                    <CPOINT xx="0" yy="0" zz="5" ww="1" />
+                    <CPOINT xx="0" yy="0" zz="7.5" ww="1" />
+                    <CPOINT xx="0" yy="0" zz="7.5" ww="1" />
                 </CPLINE>
             </LEAF>
         </DESCENDANTS>

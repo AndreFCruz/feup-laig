@@ -3,7 +3,7 @@
 <!-- Initial values -->
 <INITIALS>
         <frustum near="0.1" far="500"/>
-        <translation x="-51" y="-54" z="-73" />               
+        <translation x="-110" y="-114" z="-133" />               
         <rotation axis="x" angle="-10" />                
         <rotation axis="y" angle="-10" />                
         <rotation axis="z" angle="15" />                
@@ -125,6 +125,18 @@
 				<amplif_factor s="25" t="12" />                           
 		</TEXTURE>
 
+		<!-- Wharehouse Texture-->
+		<TEXTURE id="wharehouse">
+				<file path="myimages/wharehouse.jpg" />               
+				<amplif_factor s="0.8" t="1" />                           
+		</TEXTURE>
+
+		<!-- Window Texture-->
+		<TEXTURE id="window">
+				<file path="myimages/window.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>
+
 </TEXTURES>
 
 <MATERIALS>
@@ -142,7 +154,7 @@
 				<shininess value="1" />
 				<specular r="0.7" g="0.7" b="0.7" a="1" />        
 				<diffuse r="0" g="0" b="0" a="1" />        
-				<ambient r="0.8" g="0.8" b="0.8" a="1" />         
+				<ambient r="0.8" g="0.8" b="1" a="1" />         
 				<emission r="0.0" g="0.0" b="0.0" a="1" />        
 		</MATERIAL>
 
@@ -997,7 +1009,7 @@
 	 <!-- The hangar -->
 	 <NODE id="hangar">
 			<MATERIAL id="defaultMaterial" />
-			<TEXTURE id="clear" />
+			<TEXTURE id="wharehouse" />
 
 			<TRANSLATION x="-50" y="10" z="0" />
 			<ROTATION axis="y" angle="90" />
@@ -1005,8 +1017,8 @@
 
 			<DESCENDANTS>
 				<NODEREF id="hangar walls" /> 
-				<NODEREF id="hangar roof" /> <!--
-				<NODEREF id="hangar gates" /> -->
+				<NODEREF id="hangar roof" />
+				<NODEREF id="hangar gates" />
 			</DESCENDANTS>
 		
 	 </NODE>
@@ -1136,10 +1148,10 @@
 	 <!-- The hangar wall -->
 	 <NODE id="wall window">
 			<MATERIAL id="glass" />
-			<TEXTURE id="glass" />
+			<TEXTURE id="window" />
 
-			<TRANSLATION x="0" y="0.2" z="0.01" />
-			<SCALE sx="1.02" sy="0.2" sz="1" />
+			<TRANSLATION x="0" y="0.2" z="0.001" />
+			<SCALE sx="1" sy="0.2" sz="1" />
 
 			<DESCENDANTS>
 				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
@@ -1210,6 +1222,167 @@
 			<DESCENDANTS>
 				<LEAF type="rectangle" args="-0.6 0.6 0.6 -0.6" />
 			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar gates -->
+	 <NODE id="hangar gates">
+			<MATERIAL id="wood" />
+			<TEXTURE id="wharehouse" />
+
+			<DESCENDANTS>
+				<NODEREF id="gate support" />
+				<NODEREF id="gate left door" />
+				<NODEREF id="gate right door" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The gates support-->
+	 <NODE id="gate support">
+			<MATERIAL id="steel" />
+			<TEXTURE id="steel" />
+
+			<DESCENDANTS>
+				<NODEREF id="horizontal support" /> 
+				<NODEREF id="vertical left support" />
+				<NODEREF id="vertical right support" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar gate horizontal support -->
+	 <NODE id="horizontal support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="0.42" z="0.52" />
+			<SCALE sx="1.3" sy="0.06" sz="0.06" />
+
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar gate vertical left support -->
+	 <NODE id="vertical left support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="-0.55" y="-0.08" z="0.52" />
+
+			<DESCENDANTS>
+				<NODEREF id="gate vertical support" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar vertical right support -->
+	 <NODE id="vertical right support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0.55" y="-0.08" z="0.52" />
+
+			<DESCENDANTS>
+				<NODEREF id="gate vertical support" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate vertical support -->
+	 <NODE id="gate vertical support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<SCALE sx="0.05" sy="0.96" sz="0.05" />
+
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- gate left door -->
+	 <NODE id="gate left door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="-0.25" y="-0.08" z="0.52" />
+
+			<DESCENDANTS>
+				<NODEREF id="generic gate door" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- gate right door -->
+	 <NODE id="gate right door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0.25" y="-0.08" z="0.52" />
+
+			<DESCENDANTS>
+				<NODEREF id="generic gate door" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate door -->
+	 <NODE id="generic gate door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<SCALE sx="1.4" sy="1" sz="1" />
+
+			<DESCENDANTS>
+				<NODEREF id="gate door" />
+				<NODEREF id="gate puller" /> 
+				<NODEREF id="gate window" /> 
+ 			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate door -->
+	 <NODE id="gate door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<SCALE sx="0.2" sy="0.96" sz="0.05" />
+
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+ 			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate door -->
+	 <NODE id="gate puller">
+			<MATERIAL id="fan" />
+			<TEXTURE id="clear" />
+
+			<TRANSLATION x="0.04" y="-0.07" z="0.03" />
+			<SCALE sx="0.08" sy="0.15" sz="0.02" />
+
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+ 			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate door -->
+	 <NODE id="gate window">
+			<MATERIAL id="glass" />
+			<TEXTURE id="window" />
+
+			<TRANSLATION x="0" y="0.25" z="0.031" />
+			<SCALE sx="0.15" sy="0.3" sz="0.02" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+ 			</DESCENDANTS>
 		
 	 </NODE>
 
