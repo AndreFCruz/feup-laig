@@ -1,7 +1,7 @@
 /**
  * Constructor for Class MyCaplessCylinder
  *
- * @augment MyGraphLeaf
+ * @augments MyGraphLeaf
  * @param {CGFScene} scene - CGFScene where the capless cylinder will be drawn
  * @param {Number} height - Cylinder's height
  * @param {Number} botRadius - Cylinder's bottom base radius

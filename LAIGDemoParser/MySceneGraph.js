@@ -1399,13 +1399,13 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 			return this.createLeafNode(MyCylinder, args, 7);
 			break;
 		case 'patch':
-			return new MyPatch(this.scene, this.reader, xmlelem, args);
+			return this.createPatchLeafNode(xmlelem, args);
 			break;
 	}
 }
 
 /**
- * Creats a leaf primitive with the given args.
+ * Creates a MyGraphLeaf with the given args.
  *
  * @param {Function} MyConstructor - The leaf's constructor function.
  * @param {Array} args - Array containing the leaf's specifications.
@@ -1414,13 +1414,52 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
  */
 MySceneGraph.prototype.createLeafNode = function(MyConstructor, args, numArgs) {
 	if (args.length < numArgs) {
-		console.error("CreateLeaf: Invalid number of arguments.");
+		this.onXMLError("CreateLeaf: Invalid number of arguments.");
 		return null;
 	} else if (args.length > numArgs) {
-		console.warn("CreateLeaf: Arguments in excess.");
+		this.onXMLMinorError("CreateLeaf: Arguments in excess.");
 	}
 
 	return new MyConstructor(this.scene, args);
+}
+
+/**
+ * Creates a Patch leaf
+ *
+ * @param {Function} MyConstructor - The leaf's constructor function.
+ * @param {Array} args - Array containing the leaf's specifications.
+ * @param {int} numArgs - Intended number of arguments in args array.
+ * @return {CGFLeaf} - the created leaf.
+ */
+MySceneGraph.prototype.createPatchLeafNode = function(xmlelem, args) {
+	if (args.length < 2) {
+		this.onXMLError("CreateLeaf: Invalid number of arguments.");
+		return null;
+	} else if (args.length > 2) {
+		this.onXMLMinorError("CreateLeaf: Arguments in excess.");
+	}
+
+    var leafChildren = xmlelem.children;
+    var degV = leafChildren[0].children.length - 1;
+
+    var controlPoints = [];
+
+    for (let cpline of leafChildren) {
+        if (cpline.children.length != (degV + 1))
+            console.warn("Invalid number of CPOINTs in CPLINE");
+        var innerArray = [];
+        for (let cpoint of cpline.children) {
+            var xx = this.reader.getFloat(cpoint, 'xx', true);
+            var yy = this.reader.getFloat(cpoint, 'yy', true);
+            var zz = this.reader.getFloat(cpoint, 'zz', true);
+            var ww = this.reader.getFloat(cpoint, 'ww', true);
+
+            innerArray.push([xx, yy, zz, ww]);
+        }
+        controlPoints.push(innerArray);
+    }
+
+    return new MyPatch(this.scene, args, controlPoints);
 }
 
 /*

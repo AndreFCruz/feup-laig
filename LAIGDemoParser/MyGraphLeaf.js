@@ -1,7 +1,7 @@
 /**
  * Constructor for Class MyGraphLeaf
  *
- * @augment CGFObject
+ * @augments CGFObject
  * @param {CGFScene} scene - CGFScene where the capless the LEAF will be drawn
  * @constructor
  */

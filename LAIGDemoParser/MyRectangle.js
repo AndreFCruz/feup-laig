@@ -1,7 +1,7 @@
 /**
  * Constructor for Class MyRectangle
  *
- * @augment MyGraphLeaf
+ * @augments MyGraphLeaf
  * @param {CGFScene} scene - CGFScene where the rectangle will be drawn
  * @param {Array} args - Array containing the rectangle left-top and right-bottom vertices coordinates
  * @constructor

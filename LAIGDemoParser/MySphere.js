@@ -1,7 +1,7 @@
 /**
  * Constructor for Class MySphere
  *
- * @augment MyGraphLeaf
+ * @augments MyGraphLeaf
  * @param {CGFScene} scene - CGFScene where the sphere will be drawn
  * @param {Array} args - Array containing the Sphere's height, number of sections along height and number of parts per section 
  * @constructor

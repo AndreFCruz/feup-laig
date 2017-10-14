@@ -1,7 +1,7 @@
 /**
  * Constructor for Class MyCylinder
  *
- * @augment MyGraphLeaf
+ * @augments MyGraphLeaf
  * @param {CGFScene} scene - CGFScene where the cylinder will be drawn
  * @param {Array} args - Array containing the cylinder height, bottom base radius, top base raidus, number of sections along height,
  *		 number of parts per section, flag controlling bottom cap existence and flag controlling top cap existence

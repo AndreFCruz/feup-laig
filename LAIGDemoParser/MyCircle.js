@@ -1,7 +1,7 @@
 /**
  * Constructor for Class MyCircle
  *
- * @augment MyGraphLeaf
+ * @augments MyGraphLeaf
  * @param {CGFScene} scene - CGFScene where the circle will be drawn
  * @param {Number} radius - Circle's radius
  * @param {Number} slices - Circle's number of parts
