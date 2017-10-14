@@ -1360,7 +1360,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 }
 
 /**
- * Creates a Primitve correspondig to the Leaf type
+ * Creates a Primitve from the XmlElement Object
  *
  * @param {XmlElement} xmlelem - the xml element corresponding to the leaf
  * @return {CGFObject} - The created primitive
@@ -1387,16 +1387,16 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 
 	switch (type) {
 		case 'triangle':
-			return this.createTriangle(args);
+			return this.createLeafNode(MyTriangle, args, 9);
 			break;
 		case 'rectangle':
-			return this.createRectangle(args);
+			return this.createLeafNode(MyRectangle, args, 4);
 			break;
 		case 'sphere':
-			return this.createSphere(args);
+			return this.createLeafNode(MySphere, args, 3);
 			break;
 		case 'cylinder':
-			return this.createCylinder(args)
+			return this.createLeafNode(MyCylinder, args, 7);
 			break;
 		case 'patch':
 			return this.createPatch(xmlelem, args);
@@ -1405,59 +1405,22 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 }
 
 /**
- * Creats a triangle primitive witht the given args
+ * Creats a leaf primitive with the given args.
  *
- * @param {Array} args - Array containing the triangle specifications
- * @return {CGFLeaf} - the created triangle
+ * @param {Function} MyConstructor - The leaf's constructor function.
+ * @param {Array} args - Array containing the leaf's specifications.
+ * @param {int} numArgs - Intended number of arguments in args array.
+ * @return {CGFLeaf} - the created leaf.
  */
-MySceneGraph.prototype.createTriangle = function(args) {
-	if (args.length != 9) {
-		console.warn("Invalid arguments in triangle leaf.");
+MySceneGraph.prototype.createLeafNode = function(MyConstructor, args, numArgs) {
+	if (args.length < numArgs) {
+		console.error("CreateLeaf: Invalid number of arguments.");
 		return null;
+	} else if (args.length > numArgs) {
+		console.warn("CreateLeaf: Arguments in excess.");
 	}
-	return new MyTriangle(this.scene, args);
-}
 
-/**
- * Creats a rectangle primitive witht the given args
- *
- * @param {Array} args - Array containing the rectangle specifications
- * @return {CGFLeaf} - the created rectangle
- */
-MySceneGraph.prototype.createRectangle = function(args) {
-	if (args.length != 4) {
-		console.warn("Invalid arguments in rectangle leaf.");
-		return null;
-	}
-	return new MyRectangle(this.scene, args);
-}
-
-/**
- * Creats a sphere primitive witht the given args
- *
- * @param {Array} args - Array containing the sphere specifications
- * @return {CGFLeaf} - the created sphere
- */
-MySceneGraph.prototype.createSphere = function(args) {
-	if (args.length != 3) {
-		console.warn("Invalid arguments in sphere leaf.");
-		return null;
-	}
-	return new MySphere(this.scene, args);
-}
-
-/**
- * Creats a cylinder primitive witht the given args
- *
- * @param {Array} args - Array containing the cylinder specifications
- * @return {CGFLeaf} - the created cylinder
- */
-MySceneGraph.prototype.createCylinder = function(args) {
-	if (args.length != 7) {
-		console.warn("Invalid arguments in cylinder leaf.");
-		return null;
-	}
-	return new MyCylinder(this.scene, args);
+	return new MyConstructor(this.scene, args);
 }
 
 /**

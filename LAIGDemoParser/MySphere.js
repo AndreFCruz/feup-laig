@@ -79,4 +79,15 @@ MySphere.prototype.initBuffers = function() {
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
-};
+}
+
+/**
+ * Sets the Texture amplification factors
+ *
+ * @param {Number} ampS - Horziontal amplification factor
+ * @param {Number} ampT - Vertical amplication factor
+ * @return {null}
+ */
+MySphere.prototype.setTexAmplification = function(ampS, ampT) {
+    // no amplification factors on 3D surfaces
+}

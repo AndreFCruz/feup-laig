@@ -56,12 +56,12 @@ MyCylinder.prototype.display = function() {
 }
 
 /**
- * Set the Texture amplification factors
+ * Sets the Texture amplification factors
  *
  * @param {Number} ampS - Horziontal amplification factor
  * @param {Number} ampT - Vertical amplication factor
  * @return {null}
  */
 MyCylinder.prototype.setTexAmplification = function(ampS, ampT) {
-    // this.caplessCylinder.setTexAmplification(ampS, ampT);
+    // no amplification factors on 3D surfaces
 }
