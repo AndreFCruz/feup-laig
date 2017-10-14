@@ -1399,7 +1399,7 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 			return this.createLeafNode(MyCylinder, args, 7);
 			break;
 		case 'patch':
-			return this.createPatch(xmlelem, args);
+			return new MyPatch(this.scene, this.reader, xmlelem, args);
 			break;
 	}
 }
@@ -1421,86 +1421,6 @@ MySceneGraph.prototype.createLeafNode = function(MyConstructor, args, numArgs) {
 	}
 
 	return new MyConstructor(this.scene, args);
-}
-
-/**
- * Creats a patch primitive witht the given args
- *
- * @param {XmlElement} xmlelem - XML Element referring to the patch
- * @param {Array} args - Array containing the patch specifications
- * @return {CGFnurbsObject} - the created patch
- */
-MySceneGraph.prototype.createPatch = function(xmlelem, args) {
-	if (args.length != 2) {
-		console.warn("Invalid arguments in patch leaf.");
-		return null;
-	}
-
-	var leafChildren = xmlelem.children;
-	var degU = leafChildren.length - 1;
-	var degV = leafChildren[0].children.length - 1;
-
-	var controlPoints = [];
-
-	for (let cpline of leafChildren) {
-		if (cpline.children.length != (degV + 1))
-			console.warn("Invalid number of CPOINTs in CPLINE");
-		var innerArray = [];
-		for (let cpoint of cpline.children) {
-			var xx = this.reader.getFloat(cpoint, 'xx', true);
-			var yy = this.reader.getFloat(cpoint, 'yy', true);
-			var zz = this.reader.getFloat(cpoint, 'zz', true);
-			var ww = this.reader.getFloat(cpoint, 'ww', true);
-
-			innerArray.push([xx, yy, zz, ww]);
-		}
-		controlPoints.push(innerArray);
-	}
-
-	return this.makeSurface(degU, degV, controlPoints, parseInt(args[0]), parseInt(args[1]));
-}
-
-/**
- * Function that creates the patch surface
- *
- * @param {Number} degU - degree in the U direction
- * @param {Number} degV - degree in the V direction
- * @param {Array} controlVertexes - array containing the control vertices
- * @param {Number} partsU - number of parts in the U direction
- * @param {Number} partsV - number of parts in the V direciton
- * @return {CGFnurbsObject}
- */
-MySceneGraph.prototype.makeSurface = function(degU, degV, controlVertexes, partsU, partsV) {
-		
-	var knots1 = getKnotsVector(degU);
-	var knots2 = getKnotsVector(degV);
-		
-	var nurbsSurface = new CGFnurbsSurface(degU, degV, knots1, knots2, controlVertexes);
-	getSurfacePoint = function(u, v) {
-		return nurbsSurface.getPoint(u, v);
-	};
-
-	var obj = new CGFnurbsObject(this.scene, getSurfacePoint, partsU, partsV);
-
-	return obj;
-}
-
-/**
- * Creater of the Knot Vector.
- * Important to characterize the parametric space of the curve
- *
- * @return {Array} - Array containing the Knots.
- */
-function getKnotsVector(degree) {
-	
-	var v = new Array();
-	for (var i=0; i<=degree; i++) {
-		v.push(0);
-	}
-	for (var i=0; i<=degree; i++) {
-		v.push(1);
-	}
-	return v;
 }
 
 /*
@@ -1600,12 +1520,12 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	currentMaterial.apply();
 
 	for (let leaf of node.leaves) {
-		if (currentTexture != null && leaf instanceof MyGraphLeaf)
+		if (currentTexture != null)
 			leaf.setTexAmplification(currentTexture[1], currentTexture[2]);
 		if (leaf != null)
 			leaf.display();
 		else
-			console.warn("Null leaf in nodes' leaves");
+			console.error("Null leaf in nodes' leaves");
 	}
 
 	for (let childNodeID of node.children) {

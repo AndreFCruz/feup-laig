@@ -15,6 +15,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
              'MyGraphNode.js', 'MyGraphLeaf.js', 'MyInterface.js',
              'MyTriangle.js', 'MyRectangle.js', 'MySphere.js',
              'MyCircle.js', 'MyCaplessCylinder.js', 'MyCylinder.js',
+             'MyPatch.js',
 
 main=function()
 {
