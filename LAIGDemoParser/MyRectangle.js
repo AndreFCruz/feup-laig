@@ -58,4 +58,4 @@ MyRectangle.prototype.initBuffers = function() {
     this.texCoords = this.originalTexCoords.slice(); // clone array
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
-};
+}
