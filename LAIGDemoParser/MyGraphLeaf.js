@@ -16,7 +16,7 @@ MyGraphLeaf.prototype.constructor = MyGraphLeaf;
 
 
 /**
- * Set the Leaf's exture amplification factors
+ * Sets the Leaf's texture amplification factors
  *
  * @param {Number} ampS - Horziontal amplification factor
  * @param {Number} ampT - Vertical amplication factor

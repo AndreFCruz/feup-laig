@@ -82,7 +82,7 @@ MySphere.prototype.initBuffers = function() {
 }
 
 /**
- * Sets the Texture amplification factors
+ * Sets the texture amplification factors
  *
  * @param {Number} ampS - Horziontal amplification factor
  * @param {Number} ampT - Vertical amplication factor

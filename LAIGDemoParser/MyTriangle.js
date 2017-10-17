@@ -69,7 +69,7 @@ MyTriangle.prototype.calcTexCoords = function() {
     var beta = Math.acos(cosBeta);
     this.originalTexCoords.push(
         distAB - distBC * cosBeta,
-        -1 * (distBC * Math.sin(beta)));
+        distBC * Math.sin(beta));
 }
 
 /**
@@ -97,3 +97,20 @@ MyTriangle.prototype.calcNormal = function() {
 
     return normalVec;
 }
+
+/**
+ * Sets the Leaf's texture amplification factors
+ *
+ * @param {Number} ampS - Horziontal amplification factor
+ * @param {Number} ampT - Vertical amplication factor
+ * @return {null}
+ */
+MyGraphLeaf.prototype.setTexAmplification = function(ampS, ampT) {
+    for (var i = 0; i < this.texCoords.length; i += 2) {
+        this.texCoords[i] = this.originalTexCoords[i] / ampS;
+        this.texCoords[i+1] = 1 - (this.originalTexCoords[i+1] / ampT);
+    }
+
+    this.updateTexCoordsGLBuffers();
+}
+
