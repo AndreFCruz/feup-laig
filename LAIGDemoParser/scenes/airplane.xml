@@ -2,33 +2,33 @@
 
 <!-- Initial values -->
 <INITIALS>
-        <frustum near="0.1" far="500"/>
-        <translation x="-110" y="-114" z="-133" />               
-        <rotation axis="x" angle="-10" />                
-        <rotation axis="y" angle="-10" />                
-        <rotation axis="z" angle="15" />                
-        <scale sx="1" sy="1" sz="1" />         
+        <frustum near="0" far="500"/>
+        <translation x="-1" y="-2" z="-4" />
+        <rotation axis="x" angle="-15" />
+        <rotation axis="y" angle="-15" />
+        <rotation axis="z" angle="15" />
+        <scale sx="0.15" sy="0.15" sz="0.15" />
         <reference length="5" />                        
 </INITIALS>
 
 <!-- Illumination and clear colour -->
 <ILLUMINATION>
 		<ambient r="0.4" g="0.4" b="0.4" a="1" />       
-		<background r="0.2" g="0.6" b="0.8" a="1" />          
+		<background r="0.2" g="0.6" b="0.8" a="1" />
 </ILLUMINATION>
 
 <!-- Lights -->
 <LIGHTS>    
-		<LIGHT id="sun">                                    
+		<LIGHT id="exterior light">
 				<enable value ="0" />                              
-				<position  x="40" y="50" z="20" w="1" />             
-				<ambient r="0.6" g="0.5" b="0.4" a="1" />          
-				<diffuse r="0.5" g="0.5" b="0.5" a="1.0" />        
-				<specular r="0.5" g="0.5" b="0.5" a="1.0" />      
+				<position  x="40" y="50" z="20" w="1" />
+				<ambient r="0.6" g="0.5" b="0.4" a="1" />
+				<diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
+				<specular r="0.5" g="0.5" b="0.5" a="1.0" />
 		</LIGHT>
 
 		<LIGHT id="fleet light 1">                                    
-				<enable value ="0" />                              
+				<enable value ="1" />                              
 				<position  x="-20" y="0.2" z="-5" w="1" />             
 				<ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
 				<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />        
