@@ -37,10 +37,14 @@ MySphere.prototype.initBuffers = function() {
     var deltaTexT = 1.0 / this.stacks;
 
     for (var i = 0; i <= this.stacks; i++) {
+        var deltaX = this.radius * Math.sin(i * deltaTheta);
+        var deltaY = this.radius * Math.sin(i * deltaTheta);
+        var currentZ = this.radius * Math.cos(i * deltaTheta);
+
         for (var j = 0; j <= this.slices; j++) {
-            var x = this.radius * Math.sin(i * deltaTheta) * Math.cos(j * deltaPhi);
-            var y = this.radius * Math.sin(i * deltaTheta) * Math.sin(j * deltaPhi);
-            var z = this.radius * Math.cos(i * deltaTheta);
+            var x = deltaX * Math.cos(j * deltaPhi);
+            var y = deltaY * Math.sin(j * deltaPhi);
+            var z = currentZ;
 
             this.vertices.push(x, y, z);
 
@@ -50,8 +54,8 @@ MySphere.prototype.initBuffers = function() {
                 Math.cos(i * deltaTheta));
 
             this.originalTexCoords.push(
-                j / this.slices,
-                i / this.stacks);
+                j * deltaTexS,
+                i * deltaTexT);
         }
     }
 
