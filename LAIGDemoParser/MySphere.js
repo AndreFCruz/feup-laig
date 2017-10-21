@@ -25,58 +25,50 @@ MySphere.prototype.constructor = MySphere;
  * @return {null}
  */
 MySphere.prototype.initBuffers = function() {
-    this.vertices = [];
     this.indices = [];
-    this.originalTexCoords = [];
+    this.vertices = [];
     this.normals = [];
+    this.originalTexCoords = [];
 
     var deltaTheta = Math.PI / this.stacks;
-    var deltaPhi = (2 * Math.PI) / this.slices;
+    var deltaPhi = 2 * Math.PI / this.slices;
 
-    var deltaTexT = 1.0 / this.stacks;
     var deltaTexS = 1.0 / this.slices;
+    var deltaTexT = 1.0 / this.stacks;
 
-    var vertexCount = 1;
-
-    // Vertices - Using Spherical Coordinates
-    for (var i = 0; i <= this.slices; i++) {
-        var deltaX = Math.cos(i * deltaPhi) * this.radius;
-        var deltaY = Math.sin(i * deltaPhi) * this.radius;
-        var sCoord = 1 - i * deltaTexS;
-
-        for (var j = 0; j <= this.stacks; j++) {
-            var x = Math.sin(j * deltaTheta) * deltaX;
-            var z = Math.sin(j * deltaTheta) * deltaY;
-            var y = Math.cos(j * deltaTheta) * this.radius;
-
-            var tCoord = j * deltaTexT;
-            this.originalTexCoords.push(sCoord, tCoord);
+    for (var i = 0; i <= this.stacks; i++) {
+        for (var j = 0; j <= this.slices; j++) {
+            var x = this.radius * Math.sin(i * deltaTheta) * Math.cos(j * deltaPhi);
+            var y = this.radius * Math.sin(i * deltaTheta) * Math.sin(j * deltaPhi);
+            var z = this.radius * Math.cos(i * deltaTheta);
 
             this.vertices.push(x, y, z);
-            this.normals.push(x, y, z);
 
-            if (i > 0 && j > 0) {
-                this.indices.push(
-                    vertexCount,
-                    vertexCount + this.stacks,
-                    vertexCount + this.stacks + 1
-                    );
-                this.indices.push(
-                    vertexCount + this.stacks,
-                    vertexCount,
-                    vertexCount - 1
-                    );
+            this.normals.push(
+                Math.sin(i * deltaTheta) * Math.cos(j * deltaPhi),
+                Math.sin(i * deltaTheta) * Math.sin(j * deltaPhi),
+                Math.cos(i * deltaTheta));
 
-                vertexCount++;
-            }
+            this.originalTexCoords.push(
+                j / this.slices,
+                i / this.stacks);
         }
-
-        if (i > 0)
-            vertexCount++;
     }
 
-    this.texCoords = this.originalTexCoords.slice(); // clone array
+    for (var i = 0; i < this.stacks; i++) {
+        for (var j = 0; j < this.slices; j++) {
+            this.indices.push(
+                i * (this.slices + 1) + j,
+                (i + 1) * (this.slices + 1) + j,
+                (i + 1) * (this.slices + 1) + j + 1);
+            this.indices.push(
+                i * (this.slices + 1) + j,
+                (i + 1) * (this.slices + 1) + j + 1,
+                i * (this.slices + 1) + j + 1);
+        }
+    }
 
+    this.texCoords = this.originalTexCoords.slice();
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 }
