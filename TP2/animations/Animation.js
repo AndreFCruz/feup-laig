@@ -1,9 +1,8 @@
 class Animation {
 
-    constructor(scene, id, time) {
-      this.span = span;
+    constructor(scene) {
+      this.scene = scene;
       this.active = false;
-      this.matrix = mat4.create();
     }
 
     // steps the animation delta seconds

@@ -1,1 +1,3 @@
-
+class BezierAnimation extends Animation {
+  
+}

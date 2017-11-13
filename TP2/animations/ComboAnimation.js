@@ -1,1 +1,3 @@
-
+class ComboAnimation extends Animation {
+  
+}
