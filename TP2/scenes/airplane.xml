@@ -1,0 +1,1595 @@
+<SCENE>
+
+<!-- Initial values -->
+<INITIALS>
+        <frustum near="0.1" far="500"/>
+        <translation x="-1" y="-2" z="-4" />
+        <rotation axis="x" angle="-15" />
+        <rotation axis="y" angle="-15" />
+        <rotation axis="z" angle="15" />
+        <scale sx="0.15" sy="0.15" sz="0.15" />
+        <reference length="5" />                        
+</INITIALS>
+
+<!-- Illumination and clear colour -->
+<ILLUMINATION>
+		<ambient r="0.4" g="0.4" b="0.4" a="1" />       
+		<background r="0.2" g="0.6" b="0.8" a="1" />
+</ILLUMINATION>
+
+<!-- Lights -->
+<LIGHTS>    
+		<LIGHT id="exterior light">
+				<enable value ="0" />                              
+				<position  x="40" y="50" z="20" w="1" />
+				<ambient r="0.6" g="0.5" b="0.4" a="1" />
+				<diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
+				<specular r="0.5" g="0.5" b="0.5" a="1.0" />
+		</LIGHT>
+
+		<LIGHT id="fleet light 1">                                    
+				<enable value ="1" />                              
+				<position  x="-20" y="0.2" z="-5" w="1" />             
+				<ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
+				<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />        
+				<specular r="0.7" g="0.7" b="0.7" a="1" />      
+		</LIGHT>
+
+		<LIGHT id="fleet light 2">                                    
+				<enable value ="1" />                                        
+				<position  x="-20" y="0.2" z="20" w="1" />             
+				<ambient r="0.5" g="0.5" b="0.5" a="1.0" />          
+				<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />        
+				<specular r="0.7" g="0.7" b="0.7" a="1" />      
+		</LIGHT>
+
+		<LIGHT id="fleet light 3">                                    
+				<enable value ="1" />                              
+				<position  x="-20" y="0.2" z="45" w="1" />             
+				<ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
+				<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />        
+				<specular r="0.7" g="0.7" b="0.7" a="1" />  
+		</LIGHT>
+</LIGHTS>
+
+<TEXTURES>
+		<!-- Glass Texture -->
+		<TEXTURE id="glass">
+				<file path="myimages/glass.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>	
+
+		<!-- Wood Texture -->
+		<TEXTURE id="wood">
+				<file path="myimages/wood.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>
+
+		<!-- Steel Texture -->
+		<TEXTURE id="steel">
+				<file path="myimages/steel.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>
+
+		<!-- Steel Texture for the helix -->
+		<TEXTURE id="helix steel">
+				<file path="myimages/steel.jpg" />               
+				<amplif_factor s="1" t="2" />                           
+		</TEXTURE>
+
+		<!-- Airplane design Texture 1 -->
+		<TEXTURE id="design1">
+				<file path="myimages/camouflage.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>
+
+		<!-- Airplane design Texture 2 -->
+		<TEXTURE id="design2">
+				<file path="myimages/usa.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>
+
+		<!-- Airplane design Texture 3 -->
+		<TEXTURE id="design3">
+				<file path="myimages/wood.jpg" />               
+				<amplif_factor s="1" t="3" />                           
+		</TEXTURE>
+
+		<!-- Airplane design Texture 4 -->
+		<TEXTURE id="design4">
+				<file path="myimages/pattern.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>
+
+		<!-- Side wheel Texture-->
+		<TEXTURE id="wheel">
+				<file path="myimages/wheel.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>
+
+		<!-- Grass Texture-->
+		<TEXTURE id="grass">
+				<file path="myimages/grass.jpg" />               
+				<amplif_factor s="20" t="20" />                           
+		</TEXTURE>
+
+		<!-- Asphalt Texture-->
+		<TEXTURE id="asphalt">
+				<file path="myimages/asphalt.jpg" />               
+				<amplif_factor s="5" t="5" />                           
+		</TEXTURE>
+
+		<!-- Runaway Texture-->
+		<TEXTURE id="runaway">
+				<file path="myimages/runaway.jpg" />               
+				<amplif_factor s="25" t="12" />                           
+		</TEXTURE>
+
+		<!-- Wharehouse Texture-->
+		<TEXTURE id="wharehouse">
+				<file path="myimages/wharehouse.jpg" />               
+				<amplif_factor s="0.8" t="1" />                           
+		</TEXTURE>
+
+		<!-- Window Texture-->
+		<TEXTURE id="window">
+				<file path="myimages/window.jpg" />               
+				<amplif_factor s="1" t="1" />                           
+		</TEXTURE>
+
+</TEXTURES>
+
+<MATERIALS>
+		<!-- Default material -->
+		<MATERIAL id="defaultMaterial">                                  
+				<shininess value="1" />
+				<specular r="0" g="0" b="0" a="1" />        
+				<diffuse r="1.0" g="1.0" b="1.0" a="1" />        
+				<ambient r="0.2" g="0.2" b="0.2" a="1" />         
+				<emission r="0.0" g="0.0" b="0.0" a="1" />        
+		</MATERIAL>
+
+		<!-- Glass Material -->
+		<MATERIAL id="glass">                                  
+				<shininess value="1" />
+				<specular r="0.7" g="0.7" b="0.7" a="1" />        
+				<diffuse r="0" g="0" b="0" a="1" />        
+				<ambient r="0.8" g="0.8" b="1" a="1" />         
+				<emission r="0.0" g="0.0" b="0.0" a="1" />        
+		</MATERIAL>
+
+		<!-- Wood Material -->
+		<MATERIAL id="wood">                                  
+				<shininess value="1" />
+				<specular r="0.1" g="0.1" b="0.1" a="1" />        
+				<diffuse r="0.3" g="0.3" b="0.3" a="1" />        
+				<ambient r="0.5" g="0.5" b="0.5" a="1" />         
+				<emission r="0.0" g="0.0" b="0.0" a="1" />        
+		</MATERIAL>
+
+		<!-- steel Material -->
+		<MATERIAL id="steel">                                  
+				<shininess value="1" />
+				<specular r="0.4" g="0.4" b="0.4" a="1" />        
+				<diffuse r="0.7" g="0.7" b="0.7" a="1" />        
+				<ambient r="0.3" g="0.3" b="0.3" a="1" />         
+				<emission r="0.0" g="0.0" b="0.0" a="1" />        
+		</MATERIAL>    
+
+		<!-- fan Material -->
+		<MATERIAL id="fan">                                  
+				<shininess value="1" />
+				<specular r="0.5" g="0.5" b="0.5" a="1" />        
+				<diffuse r="0" g="0" b="0" a="1" />        
+				<ambient r="0.3" g="0.3" b="0.3" a="1" />         
+				<emission r="0.0" g="0.0" b="0.0" a="1" />        
+		</MATERIAL>    
+
+		<!-- Wheel Material -->
+		<MATERIAL id="wheel">                                  
+				<shininess value="1" />
+				<specular r="0" g="0" b="0" a="1" />        
+				<diffuse r="0" g="0" b="0" a="1" />        
+				<ambient r="1" g="1" b="1" a="1" />         
+				<emission r="0.0" g="0.0" b="0.0" a="1" />        
+		</MATERIAL> 
+
+		<!-- Hihglight Material for non specular surfaces-->
+		<MATERIAL id="highlight">                                  
+				<shininess value="1" />
+				<specular r="0" g="0" b="0" a="1" />        
+				<diffuse r="0.8" g="0.8" b="0.8" a="1" />        
+				<ambient r="0.8" g="0.8" b="0.8" a="1" />         
+				<emission r="0.0" g="0.0" b="0.0" a="1" />        
+		</MATERIAL> 
+
+</MATERIALS>
+
+<!-- The leaves -->
+<LEAVES>
+	
+</LEAVES>
+
+<!-- The nodes -->
+<NODES>
+
+		<ROOT id="root" />
+
+		<!-- The root node -->
+		<NODE id="root">
+				<MATERIAL id="defaultMaterial" />
+				<TEXTURE id="null" />
+
+				<TRANSLATION x="20" y="0" z="20" />
+
+				<DESCENDANTS>
+					<NODEREF id="ground elements" />
+					<NODEREF id="fleet" />
+					<NODEREF id="landing airplane" />
+					<NODEREF id="hangar" />
+				</DESCENDANTS>
+
+		</NODE>
+
+		<!-- The fleet -->
+		<NODE id="fleet">
+				<MATERIAL id="null" />
+				<TEXTURE id="null" />
+
+				<TRANSLATION x="-50" y="4.2" z="25" />
+				<ROTATION axis="z" angle="7" />
+				<ROTATION axis="y" angle="90" />
+
+				<DESCENDANTS>
+					<NODEREF id="airplane 1" />
+					<NODEREF id="airplane 2" />
+					<NODEREF id="airplane 3" />
+			</DESCENDANTS>
+
+		</NODE>
+
+		<!-- Airplane 1 from the fleet -->
+		<NODE id="airplane 1">
+				<MATERIAL id="null" />
+				<TEXTURE id="design1" />
+
+				<DESCENDANTS>
+					<NODEREF id="airplane" />
+				</DESCENDANTS>
+
+		</NODE>
+
+		<!-- Airplane 2 from the fleet -->
+		<NODE id="airplane 2">       
+				<MATERIAL id="null" />         
+				<TEXTURE id="design2" /> 
+
+				<TRANSLATION x="25" y="0" z="0" /> 
+
+				<DESCENDANTS>
+					<NODEREF id="airplane" />
+				</DESCENDANTS>
+
+		</NODE>
+
+		<!-- Airplane 3 from the fleet -->
+		<NODE id="airplane 3">       
+				<MATERIAL id="null" />         
+				<TEXTURE id="design3" />
+
+				<TRANSLATION x="50" y="0" z="0" /> 
+
+				<DESCENDANTS>
+					<NODEREF id="airplane" />
+				</DESCENDANTS>
+
+		</NODE>
+
+		<!-- The landing airplane node -->
+		<NODE id="landing airplane">       
+				<MATERIAL id="defaultMaterial" />         
+				<TEXTURE id="design1" /> 
+
+				<TRANSLATION x="30" y="10" z="30" />
+				<ROTATION axis="x" angle="-20" />
+
+				<DESCENDANTS>
+					<NODEREF id="airplane" />
+				</DESCENDANTS>
+
+		</NODE>
+
+		<!-- A generic airplane - change design for different styles -->
+		<NODE id="airplane">       
+				<MATERIAL id="defaultMaterial" />         
+				<TEXTURE id="null" />
+
+				<SCALE sx="2" sy="2" sz="2" />  
+
+				<DESCENDANTS>
+					<NODEREF id="wings" />
+					<NODEREF id="body" />
+					<NODEREF id="wheels" /> 
+					<NODEREF id="fan" />
+					<NODEREF id="tail" />
+				</DESCENDANTS>
+
+		</NODE>
+
+	<!-- *********************************** WINGS ******************************************* -->
+
+		<!-- The wings -->
+	 <NODE id="wings">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+			<NODEREF id="up wing" />
+			<NODEREF id="down wing" />
+			<NODEREF id="wing support" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The up wing -->
+	 <NODE id="up wing">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+		
+		<TRANSLATION x="0" y="0.8" z="0" />
+
+			<DESCENDANTS>
+			<NODEREF id="wing" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+			<!-- The down wing -->
+	 <NODE id="down wing">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+		
+		<TRANSLATION x="0" y="-0.8" z="0" />
+
+			<DESCENDANTS>
+			<NODEREF id="wing" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A generic wing -->
+	 <NODE id="wing">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<SCALE sx="8.10" sy="0.1" sz="2.88" />
+		
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+		</DESCENDANTS>
+		
+	 </NODE> 
+
+	 <!-- Wing's Support -->
+	 <NODE id="wing support">
+			<MATERIAL id="wood" />
+			<TEXTURE id="wood" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder vertical1" />
+				<NODEREF id="holder vertical2" />
+				<NODEREF id="holder vertical3" />
+				<NODEREF id="holder vertical4" />
+				<NODEREF id="holder inclined1" />
+				<NODEREF id="holder inclined2" />
+				<NODEREF id="holder inclined3" />
+				<NODEREF id="holder inclined4" />
+				<NODEREF id="holder middle1" />
+				<NODEREF id="holder middle2" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- holder vertical1 -->
+	 <NODE id="holder vertical1">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="3" y="0" z="0.9" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- holder vertical1 -->
+	 <NODE id="holder vertical2">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="3" y="0" z="-0.9" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE> 
+
+	 <!-- holder vertical1 -->
+	 <NODE id="holder vertical3">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="-3" y="0" z="0.9" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE> 
+
+	 <!-- holder vertical1 -->
+	 <NODE id="holder vertical4">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="-3" y="0" z="-0.9" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE> 
+
+	 <!-- holder inclined1 -->
+	 <NODE id="holder inclined1">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="-0.5" y="0.14" z="0.8" />
+		<ROTATION axis="x" angle="20" />
+		<ROTATION axis="z" angle="30" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- holder inclined2 -->
+	 <NODE id="holder inclined2">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="-0.5" y="0.14" z="-0.8" />
+		<ROTATION axis="x" angle="-20" />
+		<ROTATION axis="z" angle="30" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- holder inclined3 -->
+	 <NODE id="holder inclined3">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0.5" y="0.14" z="0.8" />
+		<ROTATION axis="x" angle="20" />
+		<ROTATION axis="z" angle="-30" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- holder inclined4 -->
+	 <NODE id="holder inclined4">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0.5" y="0.14" z="-0.8" />
+		<ROTATION axis="x" angle="-20" />
+		<ROTATION axis="z" angle="-30" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- holder middle1 -->
+	 <NODE id="holder middle1">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="-1.6" y="0" z="0" />
+		<ROTATION axis="z" angle="-17" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- holder middle2 -->
+	 <NODE id="holder middle2">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="1.6" y="0" z="0" />
+		<ROTATION axis="z" angle="17" />
+		
+			<DESCENDANTS>
+				<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	<!-- *********************************** BODY ******************************************* -->
+
+	 <!-- Airplane's Body -->
+	 <NODE id="body">
+			<MATERIAL id="steel" />
+			<TEXTURE id="design4" />
+
+			<TRANSLATION x="0" y="0.15" z="0" />
+		 
+			<DESCENDANTS>
+				<NODEREF id="main body" />
+				<NODEREF id="back body" />
+				<NODEREF id="cockpit" /> 
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Main Body -->
+	 <NODE id="main body">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-0.7" z="-1.5"/> 
+		
+			<DESCENDANTS>
+						<LEAF type="cylinder" args="3.63 0.7 0.7 20 20 0 0" /> 
+		</DESCENDANTS>
+		
+	 </NODE> 
+
+	 <!-- Airplane back body -->
+	 <NODE id="back body">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="-3.5" /> <!-- Comment if using sphere, uncomment if using cylinder -->
+		<TRANSLATION x="0" y="-0.7" z="-1.5" />
+		<SCALE sx="0.7" sy="0.7" sz="3.5" />
+				
+			<DESCENDANTS>
+						<!-- <LEAF type="sphere" args="1 20 20" /> -->
+						<LEAF type="cylinder" args="1 0 1 20 20 0 0" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Cockpit -->
+	 <NODE id="cockpit">
+			<MATERIAL id="glass" />
+			<TEXTURE id="glass" />
+
+		<TRANSLATION x="0" y="-0.1" z="0.8" />
+		<SCALE sx="1" sy="1" sz="2" />
+				
+			<DESCENDANTS>
+						<LEAF type="sphere" args="0.4 20 20" /> 
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	<!-- *********************************** WHEELS ******************************************* -->
+
+	 <!-- wheels -->
+	 <NODE id="wheels">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+				
+			<DESCENDANTS>
+						<NODEREF id="left wheel and support" /> 
+						<NODEREF id="right wheel and support" />
+						<NODEREF id="connecting support" /> 
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- left wheel and support -->
+	 <NODE id="left wheel and support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+				
+			<DESCENDANTS>
+						<NODEREF id="left wheel support" />
+						<NODEREF id="left wheel" /> 
+		</DESCENDANTS>
+		
+	 </NODE>
+
+			<!-- right wheel and support -->
+	 <NODE id="right wheel and support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+				
+			<DESCENDANTS>
+						<NODEREF id="right wheel support" /> 
+						<NODEREF id="right wheel" /> 
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- left wheel support-->
+	 <NODE id="left wheel support">
+			<MATERIAL id="wood" />
+			<TEXTURE id="wood" />
+
+			<TRANSLATION x="-0.5" y="-1.3" z="0.8" />
+			<ROTATION axis="z" angle="-30" />
+				
+			<DESCENDANTS>
+						<NODEREF id="wheel support" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+			<!-- right wheel support-->
+	 <NODE id="right wheel support">
+			<MATERIAL id="wood" />
+			<TEXTURE id="wood" />
+
+			<TRANSLATION x="0.5" y="-1.3" z="0.8" />
+			<ROTATION axis="z" angle="30" />
+				
+			<DESCENDANTS>
+						<NODEREF id="wheel support" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic wheel support-->
+	 <NODE id="wheel support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+						<NODEREF id="wheel support vertical" />
+						<NODEREF id="wheel support inclined" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- wheel support vertical-->
+	 <NODE id="wheel support vertical">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<ROTATION axis="x" angle="18" />
+
+			<DESCENDANTS>
+						<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- wheel support inclined-->
+	 <NODE id="wheel support inclined">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-0.1" z="-0.88" />
+		<ROTATION axis="x" angle="-45" />
+		<SCALE sx="1" sy="1.2" sz="1" />
+
+			<DESCENDANTS>
+						<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- left wheel-->
+	 <NODE id="left wheel">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="-0.8" y="-1.8" z="0.5" />
+		<ROTATION axis="y" angle="180" />
+
+			<DESCENDANTS>
+						<NODEREF id="wheel" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- right wheel-->
+	 <NODE id="right wheel">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0.8" y="-1.8" z="0.5" />
+
+			<DESCENDANTS>
+						<NODEREF id="wheel" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic wheel-->
+	 <NODE id="wheel">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+						<NODEREF id="tire" />
+						<NODEREF id="rim1" />
+						<NODEREF id="rim2" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- One side of the tire's rim -->
+	 <NODE id="rim1">
+			<MATERIAL id="steel" />
+			<TEXTURE id="steel" />
+
+			<DESCENDANTS>
+				<LEAF type="sphere" args="0.15 20 20" />
+			</DESCENDANTS>
+		</NODE>
+
+	 <!-- The other side of the tire's rim -->
+		<NODE id="rim2">
+			<MATERIAL id="steel" />
+			<TEXTURE id="steel" />
+
+			<TRANSLATION x="0.4" y="0" z="0" />
+
+			<DESCENDANTS>
+				<LEAF type="sphere" args="0.15 20 20" />
+			</DESCENDANTS>
+		</NODE>
+
+		<!-- The wheel's tire -->
+		<NODE id="tire">
+			<MATERIAL id="wheel" />
+			<TEXTURE id="wheel" />
+
+		<ROTATION axis="y" angle="90" />
+		<SCALE sx="0.35" sy="0.35" sz="0.4" />
+
+			<DESCENDANTS>
+						<NODEREF id="covered cylinder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- connecting support-->
+	 <NODE id="connecting support">
+			<MATERIAL id="wood" />
+			<TEXTURE id="wood" />
+
+		<TRANSLATION x="0" y="-1.9" z="0.55" />
+		<ROTATION axis="z" angle="90" />
+
+			<DESCENDANTS>
+						<NODEREF id="holder" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	<!-- *********************************** FAN ******************************************* -->
+
+	<!-- The fan -->
+	 <NODE id="fan">
+			<MATERIAL id="steel" />
+			<TEXTURE id="steel" />
+
+			<TRANSLATION x ="0" y="-0.55" z="2.13" />
+			<TRANSLATION x="0" y="0" z="0.4" />
+
+			<DESCENDANTS>
+			<NODEREF id="fan propeller" />
+			<NODEREF id="fan back" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The fan's propeller -->
+	 <NODE id="fan propeller">
+			<MATERIAL id="fan" />
+			<TEXTURE id="clear" />
+
+			<DESCENDANTS>
+			<LEAF type="sphere" args="0.4 20 20" />
+			<NODEREF id="propeller helix" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The Propeller's Helix -->
+	 <NODE id="propeller helix">
+			<MATERIAL id="steel" />
+			<TEXTURE id="helix steel" />
+
+		<TRANSLATION x="0" y="0" z="0.15" />
+		<ROTATION axis="z" angle="20" />
+		<SCALE sx="2" sy="0.25" sz="0.1" />
+
+			<DESCENDANTS>
+			<NODEREF id="covered cylinder" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The Fan's Back -->
+	 <NODE id="fan back">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<SCALE sx="0.82" sy="0.82" sz="0.4" />
+			<TRANSLATION x="0" y="0" z="-1" />
+
+			<DESCENDANTS>
+			<NODEREF id="covered cylinder" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	<!-- *********************************** TAIL ******************************************* -->
+
+	 <!-- The tail -->
+	 <NODE id="tail">
+			<MATERIAL id="steel" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="-0.55" z="-4.25" />
+
+			<DESCENDANTS>
+			<NODEREF id="horizontal flap" />
+			<NODEREF id="vertical flap" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- horizontal flap -->
+	 <NODE id="horizontal flap">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<SCALE sx="3" sy="0.1" sz="1.5" />
+
+			<DESCENDANTS>
+			<NODEREF id="cube" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- vertical flap -->
+	 <NODE id="vertical flap">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+			<NODEREF id="big triangle" />
+			<NODEREF id="small triangle" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- big triangle -->
+	 <NODE id="big triangle">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0.8" z="0" />
+		<SCALE sx="0.1" sy="1.6" sz="1.5" />
+		<ROTATION axis="y" angle="180" />
+
+			<DESCENDANTS>
+			<NODEREF id="triangle 3d" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- small triangle -->
+	 <NODE id="small triangle">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-0.5" z="0" />
+		<SCALE sx="0.1" sy="1" sz="1.5" />
+		<ROTATION axis="x" angle="180" />
+
+			<DESCENDANTS>
+			<NODEREF id="triangle 3d" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	<!-- ********************************* BACKGROUND **************************************** -->
+
+	 <!-- Ground Elements -->
+	 <NODE id="ground elements">
+			<MATERIAL id="defaultMaterial" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+				<NODEREF id="grass" />
+				<NODEREF id="floor" />
+				<NODEREF id="runaway" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Airport's grass -->
+	 <NODE id="grass">
+			<MATERIAL id="highlight" />
+			<TEXTURE id="grass" />
+
+		<ROTATION axis="x" angle="-90" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-100 100 100 -100" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The airport's floor -->
+	 <NODE id="floor">
+			<MATERIAL id="highlight" />
+			<TEXTURE id="asphalt" />
+
+		<TRANSLATION x="0" y="0.1" z="0" />
+		<ROTATION axis="x" angle="-90" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle"  args="-75 50 -25 -50"/>
+				<LEAF type="rectangle"  args="10 90 70 -90"/>
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-25" yy="25" zz="0" ww="1" />
+	                    <CPOINT xx="-7.5" yy="25" zz="0" ww="0.3" />
+	                    <CPOINT xx="-7.5" yy="55" zz="0" ww="0.3" />
+	                    <CPOINT xx="10" yy="55" zz="0" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-25" yy="-5" zz="0" ww="1" />
+	                    <CPOINT xx="-7.5" yy="-5" zz="0" ww="0.3" />
+	                    <CPOINT xx="-7.5" yy="25" zz="0" ww="0.3" />
+	                    <CPOINT xx="10" yy="25" zz="0" ww="1" />
+	                </CPLINE>
+	            </LEAF>
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-25" yy="5" zz="0" ww="1" />
+	                    <CPOINT xx="-7.5" yy="5" zz="0" ww="0.3" />
+	                    <CPOINT xx="-7.5" yy="-25" zz="0" ww="0.3" />
+	                    <CPOINT xx="10" yy="-25" zz="0" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-25" yy="-25" zz="0" ww="1" />
+	                    <CPOINT xx="-7.5" yy="-25" zz="0" ww="0.3" />
+	                    <CPOINT xx="-7.5" yy="-55" zz="0" ww="0.3" />
+	                    <CPOINT xx="10" yy="-55" zz="0" ww="1" />
+	                </CPLINE>
+	            </LEAF> 
+
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The airport's runaway -->
+	 <NODE id="runaway">
+			<MATERIAL id="highlight" />
+			<TEXTURE id="runaway" />
+
+		<TRANSLATION x="0" y="0.2" z="0" />
+		<ROTATION axis="x" angle="-90" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle"  args="15 80 65 -80"/>
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	<!-- ********************************* HANGAR **************************************** -->
+
+	 <!-- The hangar -->
+	 <NODE id="hangar">
+			<MATERIAL id="defaultMaterial" />
+			<TEXTURE id="wharehouse" />
+
+			<TRANSLATION x="-50" y="10" z="0" />
+			<ROTATION axis="y" angle="90" />
+			<SCALE sx="80" sy="20" sz="40" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar walls" /> 
+				<NODEREF id="hangar roof" />
+				<NODEREF id="hangar gates" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar walls -->
+	 <NODE id="hangar walls">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+				<NODEREF id="back wall" />
+				<NODEREF id="left wall" />
+				<NODEREF id="right wall" />
+				<NODEREF id="front left wall" />
+				<NODEREF id="front right wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar back wall -->
+	 <NODE id="back wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="0" z="-0.5" />
+			<ROTATION axis="y" angle="180" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar left wall -->
+	 <NODE id="left wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="-0.5" y="0" z="0" />
+			<ROTATION axis="y" angle="-90" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar right wall -->
+	 <NODE id="right wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0.5" y="0" z="0" />
+			<ROTATION axis="y" angle="90" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar front left wall -->
+	 <NODE id="front left wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0.4" y="0" z="0.5" />
+			<SCALE sx="0.2" sy="1" sz="1" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar front right wall -->
+	 <NODE id="front right wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="-0.4" y="0" z="0.5" />
+			<SCALE sx="0.2" sy="1" sz="1" />
+
+			<DESCENDANTS>
+				<NODEREF id="hangar wall" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A hangar generic wall -->
+	 <NODE id="hangar wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+				<NODEREF id="wall" />
+				<NODEREF id="wall inside" />
+				<NODEREF id="wall window" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar wall -->
+	 <NODE id="wall">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar wall inside -->
+	 <NODE id="wall inside">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<ROTATION axis="y" angle="180" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar wall -->
+	 <NODE id="wall window">
+			<MATERIAL id="glass" />
+			<TEXTURE id="window" />
+
+			<TRANSLATION x="0" y="0.2" z="0.001" />
+			<SCALE sx="1" sy="0.2" sz="1" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar roof -->
+	 <NODE id="hangar roof">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="0.5" z="0" />
+
+			<DESCENDANTS>
+				<NODEREF id="roof base" />
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.5" />
+	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.5" />
+	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+	                </CPLINE>
+	            </LEAF> 
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+	                    <CPOINT xx="0" yy="0" zz="-0.6" ww="0.5" />
+	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.5" />
+	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+	                </CPLINE>
+	            </LEAF> 
+
+	            <LEAF type="patch" args="20 20" >
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.5" />
+	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+	                </CPLINE>
+	                <CPLINE>
+	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+	                    <CPOINT xx="0" yy="0" zz="0.6" ww="0.5" />
+	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+	                </CPLINE>
+	            </LEAF> 
+
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar roof -->
+	 <NODE id="roof base">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<ROTATION axis="x" angle="90" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.6 0.6 0.6 -0.6" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar gates -->
+	 <NODE id="hangar gates">
+			<MATERIAL id="wood" />
+			<TEXTURE id="wharehouse" />
+
+			<DESCENDANTS>
+				<NODEREF id="gate support" />
+				<NODEREF id="gate left door" />
+				<NODEREF id="gate right door" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The gates support-->
+	 <NODE id="gate support">
+			<MATERIAL id="steel" />
+			<TEXTURE id="steel" />
+
+			<DESCENDANTS>
+				<NODEREF id="horizontal support" /> 
+				<NODEREF id="vertical left support" />
+				<NODEREF id="vertical right support" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar gate horizontal support -->
+	 <NODE id="horizontal support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="0.42" z="0.52" />
+			<SCALE sx="1.3" sy="0.06" sz="0.06" />
+
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar gate vertical left support -->
+	 <NODE id="vertical left support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="-0.55" y="-0.08" z="0.52" />
+
+			<DESCENDANTS>
+				<NODEREF id="gate vertical support" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The hangar vertical right support -->
+	 <NODE id="vertical right support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0.55" y="-0.08" z="0.52" />
+
+			<DESCENDANTS>
+				<NODEREF id="gate vertical support" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate vertical support -->
+	 <NODE id="gate vertical support">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<SCALE sx="0.05" sy="0.96" sz="0.05" />
+
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- gate left door -->
+	 <NODE id="gate left door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="-0.25" y="-0.08" z="0.52" />
+
+			<DESCENDANTS>
+				<NODEREF id="generic gate door" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- gate right door -->
+	 <NODE id="gate right door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0.25" y="-0.08" z="0.52" />
+
+			<DESCENDANTS>
+				<NODEREF id="generic gate door" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate door -->
+	 <NODE id="generic gate door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<SCALE sx="1.4" sy="1" sz="1" />
+
+			<DESCENDANTS>
+				<NODEREF id="gate door" />
+				<NODEREF id="gate puller" /> 
+				<NODEREF id="gate window" /> 
+ 			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate door -->
+	 <NODE id="gate door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<SCALE sx="0.2" sy="0.96" sz="0.05" />
+
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+ 			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate door -->
+	 <NODE id="gate puller">
+			<MATERIAL id="fan" />
+			<TEXTURE id="clear" />
+
+			<TRANSLATION x="0.04" y="-0.07" z="0.03" />
+			<SCALE sx="0.08" sy="0.15" sz="0.02" />
+
+			<DESCENDANTS>
+				<NODEREF id="cube" />
+ 			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic gate door -->
+	 <NODE id="gate window">
+			<MATERIAL id="glass" />
+			<TEXTURE id="window" />
+
+			<TRANSLATION x="0" y="0.25" z="0.031" />
+			<SCALE sx="0.15" sy="0.3" sz="0.02" />
+
+			<DESCENDANTS>
+				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+ 			</DESCENDANTS>
+		
+	 </NODE>
+
+	<!-- *********************************** UTILS ******************************************* -->
+
+	 <!-- Unit Cube -->
+	 <NODE id="cube">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+		
+			<DESCENDANTS>
+			<NODEREF id="cube top" />
+			<NODEREF id="cube front" />
+			<NODEREF id="cube left" />
+			<NODEREF id="cube right" />
+			<NODEREF id="cube back" />
+			<NODEREF id="cube under" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Cube's top -->
+	 <NODE id="cube top">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0.5" z="0" />
+			<ROTATION axis="x" angle="-90" />
+		
+			<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Cube's front -->
+	 <NODE id="cube front">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="0.5" />
+		
+			<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Cube's left -->
+	 <NODE id="cube left">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="-0.5" y="0" z="0" />
+			<ROTATION axis="y" angle="-90" />
+		
+			<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Cube's right -->
+	 <NODE id="cube right">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0.5" y="0" z="0" />
+			<ROTATION axis="y" angle="90" />
+		
+			<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Cube's back -->
+	 <NODE id="cube back">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="-0.5" />
+			<ROTATION axis="x" angle="180" />
+		
+			<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Cube's under -->
+	 <NODE id="cube under">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-0.5" z="0" />
+			<ROTATION axis="x" angle="90" />
+		
+			<DESCENDANTS>
+			<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic covered cylinder with radius 1 and height 1 -->
+	 <NODE id="covered cylinder">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+		
+			<DESCENDANTS>
+			<LEAF type="cylinder" args="1 1 1 20 20 1 1" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic holder (airplane's support bar) -->
+	 <NODE id="holder">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0.8" z="0" />
+		<ROTATION axis="x" angle="90" />
+		
+			<DESCENDANTS>
+				<LEAF type="cylinder" args="1.6 0.1 0.1 20 20 0 0" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- Generic Triangle 3d  (Isosceles traingle with common sides 1uni) depth: 1 -->
+	 <NODE id="triangle 3d">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+			<NODEREF id="isosceles front" />
+			<NODEREF id="isosceles back" />
+			<NODEREF id="front face" />
+			<NODEREF id="back face" />
+			<NODEREF id="under face" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- isosceles front -->
+	 <NODE id="isosceles front">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+			<LEAF type="triangle" args = "0.5 -0.5 0.5 0.5 -0.5 -0.5 0.5 0.5 0.5"/>
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- isosceles back -->
+	 <NODE id="isosceles back">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<DESCENDANTS>
+			<LEAF type="triangle" args = "-0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5"/>
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- front face -->
+	 <NODE id="front face">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="0" z="0.5" />
+
+			<DESCENDANTS>
+			<LEAF type="rectangle" args = "-0.5 0.5 0.5 -0.5"/>
+			</DESCENDANTS>
+ 
+	 </NODE>
+
+	 <!-- back face -->
+	 <NODE id="back face">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<ROTATION axis="x" angle="-135" />
+			<SCALE sx="1" sy="1.4142" sz="1" />
+
+			<DESCENDANTS>
+			<LEAF type="rectangle" args = "-0.5 0.5 0.5 -0.5"/>
+			</DESCENDANTS>
+ 
+	 </NODE>
+
+	 <!-- under face -->
+	 <NODE id="under face">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<TRANSLATION x="0" y="-0.5" z="0" />
+			<ROTATION axis="x" angle="90" />
+
+			<DESCENDANTS>
+			<LEAF type="rectangle" args = "-0.5 0.5 0.5 -0.5"/>
+			</DESCENDANTS>
+ 
+	 </NODE>
+
+</NODES>
+
+</SCENE>
