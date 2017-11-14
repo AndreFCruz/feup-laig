@@ -31,7 +31,7 @@ class LinearAnimation extends Animation {
   	this.position[1] += yInc;
   	this.position[2] += zInc;
 
-  	this.runDist += Math.sqrt(Math.pow(xInc, 2) + Math.pow(yInc, 2) + Math.pow(zInc, 2)));
+  	this.runDist += Math.sqrt(Math.pow(xInc, 2) + Math.pow(yInc, 2) + Math.pow(zInc, 2));
   }
 
   checkEndOfSeg() {
