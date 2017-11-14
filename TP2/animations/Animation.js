@@ -4,7 +4,6 @@ class Animation {
     this.id = id;
     this.active = false;
 
-    // TODO calcular duracao da animacao e matriz em funcao do tempo
     this.duration;
     this.matrix = mat4.create();
 
@@ -13,8 +12,7 @@ class Animation {
   }
 
   update(elapsedTime) {
-    // update matrix according to received elapsed time
-
+    // update matrix in subclass function
     return null;
   }
 
