@@ -1499,7 +1499,8 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
  * @return {CGFObject} - The created primitive
  */
 MySceneGraph.prototype.createLeaf = function(xmlelem) {
-	var type = this.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
+	var type = this.reader.getItem(xmlelem, 'type', ['rectangle', 'cylinder', 'sphere',
+		'triangle', 'patch']);
 	var strArgs = this.reader.getString(xmlelem, 'args').split(' ');
 
 	var args = [];
@@ -1615,8 +1616,8 @@ MySceneGraph.prototype.log = function(message) {
 }
 
 /**
- * Generates a default material, with a random name. This material will be passed onto the root node, which
- * may override it.
+ * Generates a default material, with a random name. This material will be passed
+ * onto the root node, which may override it.
  */
 MySceneGraph.prototype.generateDefaultMaterial = function() {
 	var materialDefault = new CGFappearance(this.scene);
@@ -1707,6 +1708,15 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 		this.processNode(childNode, currentMaterial, currentTexture);
 		this.scene.popMatrix();
 	}
+}
+
+
+MySceneGraph.prototype.updateScene = function(currTime) {
+
+	for (let anim in this.animations) {
+		anim.update(currTime);
+	}
+
 }
 
 
