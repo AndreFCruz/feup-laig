@@ -1178,14 +1178,15 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
 	var children = animationsNode.children;
 
-	for (let anim in children) {
-		var animID = this.reader.getString(anim, 'id');
+	for (let i = 0; i < children.length; ++i) {
+		var animID = this.reader.getString(children[i], 'id');
+
 		if (animID == null)
 			return "failed to retrieve animation ID";
 		if (this.animations[animID] != null)
 			return "animation ID must be unique (conflict: ID = " + animID + ")";
 
-		this.animations[animID] = this.constructAnimation(anim);
+		this.animations[animID] = this.constructAnimation(children[i], animID);
 	}
 
 }
@@ -1259,10 +1260,10 @@ MySceneGraph.prototype.fetchControlPoints = function(node) {
 
 	let controlPoints = [];
 
-	for (let child in node.children) {
-		let xx = this.reader.getFloat(child, 'xx', true);
-		let yy = this.reader.getFloat(child, 'yy', true);
-		let zz = this.reader.getFloat(child, 'zz', true);
+	for (let i=0; i < node.children.length; ++i) {
+		let xx = this.reader.getFloat(node.children[i], 'xx', true);
+		let yy = this.reader.getFloat(node.children[i], 'yy', true);
+		let zz = this.reader.getFloat(node.children[i], 'zz', true);
 
 		controlPoints.push([xx, yy, zz]);
 	}
@@ -1272,8 +1273,8 @@ MySceneGraph.prototype.fetchControlPoints = function(node) {
 
 MySceneGraph.prototype.constructLinearAnimation = function(animNode, id, speed) {
 
-	let controlPoints = fetchControlPoints(animNode);
-	if (controlPoints.length >= 2) {
+	let controlPoints = this.fetchControlPoints(animNode);
+	if (controlPoints.length < 2) {
 		this.onXMLError("LinearAnimation must have control points >= 2. ID: " + id);
 		return null;
 	}
@@ -1283,7 +1284,7 @@ MySceneGraph.prototype.constructLinearAnimation = function(animNode, id, speed) 
 
 MySceneGraph.prototype.constructBezierAnimation = function(animNode, id, speed) {
 
-	let controlPoints = fetchControlPoints(animNode);
+	let controlPoints = this.fetchControlPoints(animNode);
 	if (controlPoints.length != 4) {
 		this.onXMLError("BezierAnimation must have exactly 4 control points. ID: " + id);
 		return null;
