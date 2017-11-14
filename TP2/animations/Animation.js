@@ -4,12 +4,34 @@ class Animation {
     this.id = id;
     this.active = false;
 
+    // TODO calcular duracao da animacao e matriz em funcao do tempo
+    this.duration;
+    this.matrix = mat4.create();
+
     this.theta_ang = 0; // rotation around xx axis
     this.phi_ang = 0; // rotation around yy axis
   }
 
-  update(delta) {
+  update(elapsedTime) {
+    // update matrix according to received elapsed time
+
     return null;
+  }
+
+  start() {
+    active = true;
+  }
+
+  stop() {
+    active = false;
+  }
+
+  isActive() {
+    return this.isActive;
+  }
+
+  get matrix() {
+    return this.matrix;
   }
 
   // Converts Cartesian coordinates (from orientation 3D vector) to Spherical Coordinates
