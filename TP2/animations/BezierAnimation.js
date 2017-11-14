@@ -6,8 +6,7 @@ class BezierAnimation extends Animation {
     if (controlPoints.length != 4)
       throw new Error("ControlPoints for Bezier Curve must be exactly 4");
 
-    // TODO calcular length com o algoritmo de Casteljou - ver enunciado
-    this.length = 1; 
+    this.length = calcCurveLength();
     this.duration = this.length / this.speed;
 
     this.p1 = controlPoints[0];
@@ -15,9 +14,9 @@ class BezierAnimation extends Animation {
     this.p3 = controlPoints[2];
     this.p4 = controlPoints[3];
 
-    this.diffP1 = this.pointDiff(point2, point1, 4);
-    this.diffP2 = this.pointDiff(point3, point2, 4);
-    this.diffP3 = this.pointDiff(point4, point3, 4);
+    this.diffP1 = this.pointDiff(this.p2, this.p1, 4);
+    this.diffP2 = this.pointDiff(this.p3, this.p2, 4);
+    this.diffP3 = this.pointDiff(this.p4, this.p3, 4);
   }
 
   update(elapsedTime) {
@@ -31,6 +30,27 @@ class BezierAnimation extends Animation {
     // TODO check if pos can be used interchangeably with vec3
 
     this.setOrientation(calcDerivative(t));
+  }
+
+  // Approximation of curve's arc length
+  calcCurveLength() {
+    let steps = 20; // approximation steps
+    let length = 0;
+
+    let currPoint = this.p1;
+
+    for (let i = 1; i <= steps; i++) {
+      let p = calcPosition(i / steps);
+      let change = pointDiff(p, currPoint);
+
+      length += Math.sqrt(
+                      Math.pow(change[0], 2) + 
+                      Math.pow(change[1], 2) + 
+                      Math.pow(change[2], 2)); 
+      currPoint = p;
+    }
+
+    return length;
   }
 
   pointDiff(p1, p2, scale = 1) {
