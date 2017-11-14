@@ -1264,7 +1264,7 @@ MySceneGraph.prototype.fetchControlPoints = function(node) {
 		let yy = this.reader.getFloat(child, 'yy', true);
 		let zz = this.reader.getFloat(child, 'zz', true);
 
-		controlPoints.push([xx, yy, zz]]);
+		controlPoints.push([xx, yy, zz]);
 	}
 
 	return controlPoints;
