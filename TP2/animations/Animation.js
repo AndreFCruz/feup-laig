@@ -9,11 +9,14 @@ class Animation {
   }
 
   update(delta) {
-
+    return null;
   }
 
   // Converts Cartesian coordinates (from orientation 3D vector) to Spherical Coordinates
   setOrientation(orientation) { 
+    if (orientation.length != 3)
+      throw new Error("Orientation vector must have 3 coordinates");
+
     var r = Math.sqrt( Math.pow(this.orientation[0], 2) + Math.pow(this.orientation[1], 2) + Math.pow(this.orientation[2], 2) );
 
     this.theta_ang = Math.acos(this.orientation[1] / r) - Math.PI / 2;
