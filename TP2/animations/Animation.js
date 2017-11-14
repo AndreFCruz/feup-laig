@@ -1,7 +1,7 @@
 class Animation {
 
-    constructor(scene) {
-      this.scene = scene;
+    constructor(id) {
+      this.id = id;
       this.active = false;
     }
 
