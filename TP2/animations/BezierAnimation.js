@@ -14,9 +14,9 @@ class BezierAnimation extends Animation {
     this.p3 = controlPoints[2];
     this.p4 = controlPoints[3];
 
-    this.diffP1 = this.pointDiff(this.p2, this.p1, 4);
-    this.diffP2 = this.pointDiff(this.p3, this.p2, 4);
-    this.diffP3 = this.pointDiff(this.p4, this.p3, 4);
+    this.diffP1 = pointDiff(this.p2, this.p1, 4);
+    this.diffP2 = pointDiff(this.p3, this.p2, 4);
+    this.diffP3 = pointDiff(this.p4, this.p3, 4);
   }
 
   update(elapsedTime) {
@@ -51,14 +51,6 @@ class BezierAnimation extends Animation {
     }
 
     return length;
-  }
-
-  pointDiff(p1, p2, scale = 1) {
-    return [
-        scale * (p1[0] - p2[0]),
-        scale * (p1[1] - p2[1]),
-        scale * (p1[2] - p2[2])
-    ];
   }
 
   calcPosition(t) {
