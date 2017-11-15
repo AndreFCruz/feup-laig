@@ -11,20 +11,8 @@ class LinearAnimation extends Animation {
     this.segmentIdx = 0;
     this.divisions = [0];	//Percentages were new segments start
 
-  	for (let i = 1; i < this.controlPoints.length; ++i) {
-			let segX = this.controlPoints[i][0] - this.controlPoints[i-1][0];
-			let segY = this.controlPoints[i][1] - this.controlPoints[i-1][1];
-			let segZ = this.controlPoints[i][2] - this.controlPoints[i-1][2];
-			this.lineSegments.push([segX, segY, segZ]);
-
-			this.length += Math.sqrt(Math.pow(segX, 2) + Math.pow(segY, 2) + Math.pow(segZ, 2));
-			this.divisions.push(this.length);
-		}
-
-		this.duration = this.length / this.speed;
-
-		for (let i = 0; i < this.divisions.length; ++i)
-			this.divisions[i] /= this.length;		
+    this.calcLengthAndDivions();
+    this.duration = this.length / this.speed;
   }
 
   update(elapsedTime) {
@@ -35,6 +23,19 @@ class LinearAnimation extends Animation {
 
     let pos = this.calcPosition(t);
     mat4.translate(this.matrix, pos);
+  }
+
+  calcLengthAndDivions() {
+  	for (let i = 1; i < this.controlPoints.length; ++i) {
+			let newSegment = pointDiff(this.controlPoints[i], this.controlPoints[i-1]);
+			this.lineSegments.push(newSegment);
+
+			this.length += Math.sqrt(Math.pow(newSegment[0], 2) + Math.pow(newSegment[1], 2) + Math.pow(newSegment[2], 2));
+			this.divisions.push(this.length);
+		}
+
+		for (let i = 0; i < this.divisions.length; ++i)
+			this.divisions[i] /= this.length;
   }
 
   calcPosition(t) {
