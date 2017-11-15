@@ -12,7 +12,7 @@ class BezierAnimation extends Animation {
     this.p4 = controlPoints[3];
 
     this.length = this.calcCurveLength();
-    this.duration = this.length / this.speed;
+    this.duration = this.length / this.speed * 1000;
 
     this.diffP1 = pointDiff(this.p2, this.p1, 4);
     this.diffP2 = pointDiff(this.p3, this.p2, 4);

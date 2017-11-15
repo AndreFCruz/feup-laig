@@ -22,7 +22,7 @@ class LinearAnimation extends Animation {
     let t = elapsedTime / this.duration;
 
     let pos = this.calcPosition(t);
-    
+
     //mat4.fromTranslation(this.matrix, pos);
     mat4.identity(this.matrix);
     mat4.translate(this.matrix, this.matrix, pos);
@@ -50,13 +50,13 @@ class LinearAnimation extends Animation {
 			this.setOrientation(this.lineSegments[this.segmentIdx]);
 		}
 
-		let currSegmentPercentage = (t - this.divisions[this.segmentIdx]);
+		let currSegmentPercentage = ((t - this.divisions[this.segmentIdx]) / (this.divisions[this.segmentIdx + 1] - this.divisions[this.segmentIdx]));
 		let currentSeg = this.lineSegments[this.segmentIdx];
 
 		return [
-			this.controlPoints[this.segmentIdx][0] + currentSeg[0] * currSegmentPercentage,
-			this.controlPoints[this.segmentIdx][1] + currentSeg[1] * currSegmentPercentage,
-			this.controlPoints[this.segmentIdx][2] + currentSeg[2] * currSegmentPercentage,
+			this.controlPoints[this.segmentIdx][0] + currentSeg[0]* currSegmentPercentage,
+			this.controlPoints[this.segmentIdx][1] + currentSeg[1]* currSegmentPercentage,
+			this.controlPoints[this.segmentIdx][2] + currentSeg[2]* currSegmentPercentage
 		];
   }
 
