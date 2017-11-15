@@ -6,13 +6,13 @@ class BezierAnimation extends Animation {
     if (controlPoints.length != 4)
       throw new Error("ControlPoints for Bezier Curve must be exactly 4");
 
-    this.length = this.calcCurveLength();
-    this.duration = this.length / this.speed;
-
     this.p1 = controlPoints[0];
     this.p2 = controlPoints[1];
     this.p3 = controlPoints[2];
     this.p4 = controlPoints[3];
+
+    this.length = this.calcCurveLength();
+    this.duration = this.length / this.speed;
 
     this.diffP1 = pointDiff(this.p2, this.p1, 4);
     this.diffP2 = pointDiff(this.p3, this.p2, 4);
@@ -54,7 +54,7 @@ class BezierAnimation extends Animation {
   }
 
   calcPosition(t) {
-    if (t <= 0 || t >= 1)
+    if (t < 0 || t > 1)
         throw new Error("Invalid t parameter to Bezier curve");
 
     return [

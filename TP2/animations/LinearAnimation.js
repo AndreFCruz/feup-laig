@@ -22,7 +22,7 @@ class LinearAnimation extends Animation {
     let t = elapsedTime / this.duration;
 
     let pos = this.calcPosition(t);
-    mat4.translate(this.matrix, pos);
+    mat4.fromTranslation(this.matrix, pos);
   }
 
   calcLengthAndDivions() {
@@ -39,7 +39,7 @@ class LinearAnimation extends Animation {
   }
 
   calcPosition(t) {
-    if (t <= 0 || t >= 1)
+    if (t < 0 || t > 1)
         throw new Error("Invalid t parameter to Linear Animation");
 
 		if (t > this.divisions[this.segmentIdx + 1]) {
