@@ -22,6 +22,9 @@ function MyGraphNode(graph, nodeID) {
 
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
+
+    // Animation progress
+    this.elapsedTime = 0;
 }
 
 /**
@@ -36,4 +39,18 @@ MyGraphNode.prototype.addChild = function(nodeID) {
  */
 MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
+}
+
+/**
+ * Update elapsed time
+ */
+MyGraphNode.prototype.update = function(elapsedTime) {
+    this.elapsedTime = elapsedTime;
+}
+
+/**
+ * Update elapsed time
+ */
+MyGraphNode.prototype.getElapsedTime = function() {
+    return this.elapsedTime;
 }

@@ -1714,8 +1714,8 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 
 MySceneGraph.prototype.updateScene = function(currTime) {
 
-	for (let anim in this.animations) {
-		anim.update(currTime);
+	for (let node in this.nodes) {
+		node.update(currTime);
 	}
 
 }
