@@ -6,7 +6,7 @@ class BezierAnimation extends Animation {
     if (controlPoints.length != 4)
       throw new Error("ControlPoints for Bezier Curve must be exactly 4");
 
-    this.length = calcCurveLength();
+    this.length = this.calcCurveLength();
     this.duration = this.length / this.speed;
 
     this.p1 = controlPoints[0];
@@ -29,7 +29,7 @@ class BezierAnimation extends Animation {
     mat4.translate(this.matrix, pos);
     // TODO check if pos can be used interchangeably with vec3
 
-    this.setOrientation(calcDerivative(t));
+    this.setOrientation(this.calcDerivative(t));
   }
 
   // Approximation of curve's arc length
@@ -40,7 +40,7 @@ class BezierAnimation extends Animation {
     let currPoint = this.p1;
 
     for (let i = 1; i <= steps; i++) {
-      let p = calcPosition(i / steps);
+      let p = this.calcPosition(i / steps);
       let change = pointDiff(p, currPoint);
 
       length += Math.sqrt(
