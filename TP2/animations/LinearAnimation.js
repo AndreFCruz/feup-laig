@@ -50,9 +50,9 @@ class LinearAnimation extends Animation {
 		let currentSeg = this.lineSegments[this.segmentIdx];
 
 		return [
-			this.controlPoint[this.segmentIdx] + currentSeg[0] * currentSegment,
-			this.controlPoint[this.segmentIdx] + currentSeg[1] * currentSegment,
-			this.controlPoint[this.segmentIdx] + currentSeg[2] * currentSegment,
+			this.controlPoint[this.segmentIdx] + currentSeg[0] * currSegmentPercentage,
+			this.controlPoint[this.segmentIdx] + currentSeg[1] * currSegmentPercentage,
+			this.controlPoint[this.segmentIdx] + currentSeg[2] * currSegmentPercentage,
 		];
   }
 
