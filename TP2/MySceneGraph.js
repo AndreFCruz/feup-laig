@@ -1459,8 +1459,8 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 						if (animId == null )
 							this.onXMLMinorError("unable to parse animation id");
 						else
-							console.log("TODO - ADD NODE");
-							//this.nodes[nodeID].addAnimation(animID);
+							//console.log("TODO - ADD NODE");
+							this.nodes[nodeID].animation = this.animations[animId];
 					}
 					else
 						this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
@@ -1695,6 +1695,7 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	
 	this.scene.multMatrix(node.transformMatrix);
 
+
 	var currentMaterial = this.materials[node.materialID];
 	if (currentMaterial == null) {
 		currentMaterial = material;
@@ -1735,13 +1736,13 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 
 MySceneGraph.prototype.updateScene = function(currTime) {
 
-	/*for (let node in this.nodes) {
-		nodeupdate(currTime);
-	}*/
-
-	for (let i = 0; i < this.nodes.length; ++i) {
-		nodes[i].update(currTime);
+	for (let node in this.nodes) {
+		this.nodes[node].update(currTime);
 	}
+
+	/*for (let i = 0; i < this.nodes.length; ++i) {
+		nodes[i].update(currTime);
+	}*/
 
 }
 

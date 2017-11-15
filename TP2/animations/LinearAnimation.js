@@ -12,7 +12,7 @@ class LinearAnimation extends Animation {
     this.divisions = [0];	//Percentages were new segments start
 
     this.calcLengthAndDivions();
-    this.duration = this.length / this.speed;
+    this.duration = this.length / this.speed * 1000;
   }
 
   update(elapsedTime) {
@@ -22,7 +22,10 @@ class LinearAnimation extends Animation {
     let t = elapsedTime / this.duration;
 
     let pos = this.calcPosition(t);
-    mat4.fromTranslation(this.matrix, pos);
+    
+    //mat4.fromTranslation(this.matrix, pos);
+    mat4.identity(this.matrix);
+    mat4.translate(this.matrix, this.matrix, pos);
   }
 
   calcLengthAndDivions() {
@@ -51,9 +54,9 @@ class LinearAnimation extends Animation {
 		let currentSeg = this.lineSegments[this.segmentIdx];
 
 		return [
-			this.controlPoint[this.segmentIdx] + currentSeg[0] * currSegmentPercentage,
-			this.controlPoint[this.segmentIdx] + currentSeg[1] * currSegmentPercentage,
-			this.controlPoint[this.segmentIdx] + currentSeg[2] * currSegmentPercentage,
+			this.controlPoints[this.segmentIdx][0] + currentSeg[0] * currSegmentPercentage,
+			this.controlPoints[this.segmentIdx][1] + currentSeg[1] * currSegmentPercentage,
+			this.controlPoints[this.segmentIdx][2] + currentSeg[2] * currSegmentPercentage,
 		];
   }
 

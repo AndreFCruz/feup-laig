@@ -20,11 +20,14 @@ function MyGraphNode(graph, nodeID) {
     // The texture ID.
     this.textureID = null ;
 
+    this.animation = null;
+
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
 
     // Animation progress
     this.elapsedTime = 0;
+    this.initialTime = 0;
 }
 
 /**
@@ -45,11 +48,16 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
  * Update elapsed time
  */
 MyGraphNode.prototype.update = function(elapsedTime) {
+    if (this.initialTime == 0)
+            this.initialTime = elapsedTime;
     this.elapsedTime = elapsedTime;
+    
+    if (this.animation != null)
+        this.animation.update(this.elapsedTime - this.initialTime);
 }
 
 /**
- * Update elapsed time
+ * Getter for elapsed time
  */
 MyGraphNode.prototype.getElapsedTime = function() {
     return this.elapsedTime;
