@@ -32,6 +32,10 @@ class Animation {
     return this.matrix;
   }
 
+  set matrix(mat) {
+    this.matrix = mat;
+  }
+
   // Converts Cartesian coordinates (from orientation 3D vector) to Spherical Coordinates
   setOrientation(orientation) { 
     if (orientation.length != 3)
