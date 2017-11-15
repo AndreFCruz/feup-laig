@@ -29,11 +29,11 @@ class Animation {
   }
 
   get matrix() {
-    return this.matrix;
+    return this._matrix;
   }
 
   set matrix(mat) {
-    this.matrix = mat;
+    this._matrix = mat;
   }
 
   // Converts Cartesian coordinates (from orientation 3D vector) to Spherical Coordinates
