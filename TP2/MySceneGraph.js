@@ -588,7 +588,7 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
 		
 		nodeNames = [];
 		for (var j = 0; j < grandChildren.length; j++) {
-			console.log(grandChildren[j].nodeName);
+			// console.log(grandChildren[j].nodeName);
 			nodeNames.push(grandChildren[j].nodeName);
 		}
 		
@@ -1176,10 +1176,10 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
  */
 MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
-	var children = animationsNode.children;
+	let children = animationsNode.children;
 
 	for (let i = 0; i < children.length; ++i) {
-		var animID = this.reader.getString(children[i], 'id');
+		let animID = this.reader.getString(children[i], 'id');
 
 		if (animID == null)
 			return "failed to retrieve animation ID";
@@ -1323,7 +1323,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			if (this.nodes[nodeID] != null )
 				return "node ID must be unique (conflict: ID = " + nodeID + ")";
 			
-			this.log("Processing node "+nodeID);
+			// this.log("Processing node "+nodeID);
 
 			// Creates node.
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
@@ -1460,7 +1460,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					
 					var curId = this.reader.getString(descendants[j], 'id');
 
-					this.log("   Descendant: "+curId);
+					// this.log("   Descendant: "+curId);
 
 					if (curId == null )
 						this.onXMLMinorError("unable to parse descendant id");
@@ -1518,7 +1518,7 @@ MySceneGraph.prototype.createLeaf = function(xmlelem) {
 		return null;
 	}
 
-	this.log("   Leaf: " + type);
+	// this.log("   Leaf: " + type);
 
 	switch (type) {
 		case 'triangle':

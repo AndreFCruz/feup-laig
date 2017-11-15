@@ -159,9 +159,9 @@
         <controlpoint xx="5" yy="2" zz="1"/>
     </ANIMATION>
 
-    <ANIMATION id="test_circular" speed="1" type="circular"
+<!--     <ANIMATION id="test_circular" speed="1" type="circular"
         centerx="5" centery="5" centerz="5"
-        radius="5" startang="0" rotang="90"/>
+        radius="5" startang="0" rotang="90"/> -->
 
     <ANIMATION id="test_bezier" speed="1" type="bezier">
         <controlpoint xx="1" yy="1" zz="1"/>
@@ -170,10 +170,10 @@
         <controlpoint xx="-5" yy="-5" zz="-5"/>
     </ANIMATION>
 
-    <ANIMATION id="teste_combo" type="combo">
+<!--     <ANIMATION id="teste_combo" type="combo">
         <SPANREF id="teste_linear"/>
         <SPANREF id="teste_circular"/>
-    </ANIMATION>
+    </ANIMATION> -->
 
 </ANIMATIONS>
 

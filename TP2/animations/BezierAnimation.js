@@ -26,7 +26,7 @@ class BezierAnimation extends Animation {
     let t = elapsedTime / this.duration;
 
     let pos = this.calcPosition(t);
-    mat4.translate(this.matrix, pos);
+    mat4.fromTranslation(this.matrix, pos);
     // TODO check if pos can be used interchangeably with vec3
 
     this.setOrientation(this.calcDerivative(t));
