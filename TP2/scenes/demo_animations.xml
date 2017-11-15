@@ -260,9 +260,13 @@
     <!-- The third light -->
     <NODE id="luz3">       
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       			
+        <TEXTURE id="null" />    			
 
         <TRANSLATION x="0" y="0" z="20" />
+
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="teste_linear" />
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
            <NODEREF id="luz_candeeiro" />   

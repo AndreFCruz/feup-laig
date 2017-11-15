@@ -1331,7 +1331,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			// Gathers child nodes.
 			var nodeSpecs = children[i].children;
 			var specsNames = [];
-			var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
+			var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "ANIMATIONREFS", "DESCENDANTS"];
 			for (var j = 0; j < nodeSpecs.length; j++) {
 				var name = nodeSpecs[j].nodeName;
 				specsNames.push(nodeSpecs[j].nodeName);
@@ -1445,7 +1445,28 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					break;
 				}
 			}
-			
+
+			//Retrieves information about possible animations
+			let informationsIndex = specsNames.indexOf("ANIMATIONREFS"); 
+			if (informationsIndex != -1) { //Not required
+
+				let animations = nodeSpecs[informationsIndex].children;
+				for (let j = 0; j < animations.length; ++j) {
+					
+					if (animations[j].nodeName == "ANIMATIONREF") {
+						let animId = this.reader.getString(animations[j], 'id');
+
+						if (animId == null )
+							this.onXMLMinorError("unable to parse animation id");
+						else
+							console.log("TODO - ADD NODE");
+							//this.nodes[nodeID].addAnimation(animID);
+					}
+					else
+						this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
+				}
+			}
+
 			// Retrieves information about children.
 			var descendantsIndex = specsNames.indexOf("DESCENDANTS");
 			if (descendantsIndex == -1)
@@ -1714,8 +1735,12 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 
 MySceneGraph.prototype.updateScene = function(currTime) {
 
-	for (let node in this.nodes) {
-		node.update(currTime);
+	/*for (let node in this.nodes) {
+		nodeupdate(currTime);
+	}*/
+
+	for (let i = 0; i < this.nodes.length; ++i) {
+		nodes[i].update(currTime);
 	}
 
 }
