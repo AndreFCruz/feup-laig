@@ -41,10 +41,10 @@ class Animation {
     if (orientation.length != 3)
       throw new Error("Orientation vector must have 3 coordinates");
 
-    var r = Math.sqrt( Math.pow(this.orientation[0], 2) + Math.pow(this.orientation[1], 2) + Math.pow(this.orientation[2], 2) );
+    var r = Math.sqrt( Math.pow(orientation[0], 2) + Math.pow(orientation[1], 2) + Math.pow(orientation[2], 2) );
 
-    this.theta_ang = Math.acos(this.orientation[1] / r) - Math.PI / 2;
-    this.phi_ang = Math.atan(this.orientation[0] / this.orientation[2]) + (this.orientation[2] < 0 ? Math.PI : 0);
+    this.theta_ang = Math.acos(orientation[1] / r) - Math.PI / 2;
+    this.phi_ang = Math.atan(orientation[0] / orientation[2]) + (orientation[2] < 0 ? Math.PI : 0);
   }
 
   displayOrientation(scene) {
