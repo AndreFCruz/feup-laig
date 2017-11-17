@@ -1,8 +1,39 @@
 class ComboAnimation extends Animation {
-  constructor(id, animationsIDs) {
+  constructor(id, animations) {
     super(id);
-    this.animationsIDs = animationsIDs;
+    this.animations = animations;
+    this.cumulative = 0;
+    this.animIdx = 0;
 
-    // calcular duracao e matrizes
+    this.calcComboDuration();
+  }
+
+  calcComboDuration() {
+    this.duration = 0;
+    for (let i = 0; i < this.animations.length; i++) {
+      this.duration += this.animations[i].duration;
+    }
+  }
+
+  increaseAnimIdx() {
+    if (this.animIdx + 1 < this.animations.length) {
+      this.animIdx++;
+    }
+  }
+
+  update(elapsedTime) {
+    if (elapsedTime > this.duration)
+      return null;
+
+    let anim = this.animations[this.animIdx];
+    if (elapsedTime > anim.duration) {
+      this.cumulative += anim.duration;
+      increaseAnimIdx();
+      anim = this.animations[this.animIdx];
+    }
+
+    let localElapsedTime = elapsedTime - this.cumulative;
+    anim.update(localElapsedTime);
+    this.matrix = anim.matrix;
   }
 }

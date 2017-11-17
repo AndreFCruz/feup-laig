@@ -16,18 +16,6 @@ class Animation {
     return null;
   }
 
-  start() {
-    active = true;
-  }
-
-  stop() {
-    active = false;
-  }
-
-  isActive() {
-    return this.isActive;
-  }
-
   get matrix() {
     return this._matrix;
   }

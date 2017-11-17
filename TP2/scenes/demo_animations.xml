@@ -21,8 +21,8 @@
 
 <!-- Lights -->
 <LIGHTS>	
-	<LIGHT id="light0">                                    
-        <enable value ="1" />                   	       
+	<LIGHT id="light0">
+        <enable value ="1" />
         <position  x="0" y="10" z="0" w="1" />       	   
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />        	 
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
@@ -172,10 +172,10 @@
         <controlpoint xx="0" yy="0" zz="10"/>
     </ANIMATION>
 
-<!--     <ANIMATION id="test_combo" type="combo">
-        <SPANREF id="test_linear"/>
-        <SPANREF id="test_circular"/>
-    </ANIMATION> -->
+    <ANIMATION id="test_combo" type="combo">
+        <SPANREF id="test_linear2"/>
+        <SPANREF id="test_bezier"/>
+    </ANIMATION>
 
 </ANIMATIONS>
 

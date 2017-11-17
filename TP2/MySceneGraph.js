@@ -1221,10 +1221,11 @@ MySceneGraph.prototype.constructAnimation = function(animNode, id) {
 
 MySceneGraph.prototype.constructComboAnimation = function(animNode, id) {
 
-	let childAnimationsIDs = [];
+	let childAnimations = [];
 
 	let children = animNode.children;
-	for (let child in children) {
+	for (let i = 0; i < children.length; i++) {
+		let child = children[i];
 		if (child.nodeName != 'SPANREF') {
 			this.onXMLError("Invalid TAG in combo animation, expected 'SPANREF'");
 			return null;
@@ -1236,10 +1237,10 @@ MySceneGraph.prototype.constructComboAnimation = function(animNode, id) {
 			return null;
 		}
 
-		childAnimationsIDs.push(childID);
+		childAnimations.push(this.animations[childID]);
 	}
 
-	return new ComboAnimation(id, childAnimationsIDs);
+	return new ComboAnimation(id, childAnimations);
 }
 
 MySceneGraph.prototype.constructCircularAnimation = function(animNode, id, speed) {
