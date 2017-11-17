@@ -48,8 +48,8 @@ class Animation {
   }
 
   calcMatrixOrientation() {
-    mat4.rotate(this.matrix, this.matrix, this.phi_ang, 0, 1, 0);
-    mat4.rotate(this.matrix, this.matrix, this.theta_ang, 1, 0, 0);
+    mat4.rotate(this.matrix, this.matrix, this.phi_ang, [0, 1, 0]);
+    mat4.rotate(this.matrix, this.matrix, this.theta_ang, [1, 0, 0]);
   }
 
 }

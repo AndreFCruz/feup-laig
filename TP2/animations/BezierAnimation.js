@@ -48,7 +48,8 @@ class BezierAnimation extends Animation {
       length += Math.sqrt(
                       Math.pow(change[0], 2) + 
                       Math.pow(change[1], 2) + 
-                      Math.pow(change[2], 2)); 
+                      Math.pow(change[2], 2)
+                      ); 
       currPoint = p;
     }
 
