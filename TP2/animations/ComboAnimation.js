@@ -26,9 +26,9 @@ class ComboAnimation extends Animation {
       return null;
 
     let anim = this.animations[this.animIdx];
-    if (elapsedTime > anim.duration) {
+    if (elapsedTime - this.cumulative > anim.duration) {
       this.cumulative += anim.duration;
-      increaseAnimIdx();
+      this.increaseAnimIdx();
       anim = this.animations[this.animIdx];
     }
 

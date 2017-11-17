@@ -267,7 +267,7 @@
         <TRANSLATION x="0" y="0" z="20" />
 
         <ANIMATIONREFS>
-            <ANIMATIONREF id="test_bezier" />
+            <ANIMATIONREF id="test_combo" />
         </ANIMATIONREFS>
 
         <DESCENDANTS>
