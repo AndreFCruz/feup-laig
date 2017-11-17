@@ -47,9 +47,9 @@ class Animation {
     this.phi_ang = Math.atan(orientation[0] / orientation[2]) + (orientation[2] < 0 ? Math.PI : 0);
   }
 
-  displayOrientation(scene) {
-    scene.rotate(this.phi_ang, 0, 1, 0);
-    scene.rotate(this.theta_ang, 1, 0, 0);
+  orientate() {
+    mat4.rotateY(this.matrix, this.matrix, this.phi_ang);
+    mat4.rotateX(this.matrix, this.matrix, this.theta_ang);
   }
 
 }

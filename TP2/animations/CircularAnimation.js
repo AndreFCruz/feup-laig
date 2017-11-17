@@ -23,6 +23,7 @@ class CircularAnimation extends Animation {
 
   	mat4.identity(this.matrix);
   	mat4.translate(this.matrix, this.matrix, pos);
+  	this.orientate();
   }
 
   calcPosition(t) {
@@ -30,6 +31,7 @@ class CircularAnimation extends Animation {
         throw new Error("Invalid t parameter to Circular Animation");
 
     let currentAng = this.startAng + t * this.rotAng;
+    this.setOrientation([-Math.sin(currentAng) , 0, Math.cos(-currentAng)]);
     return [Math.cos(currentAng) * this.radius, 0, Math.sin(currentAng) * this.radius];
   }
 }

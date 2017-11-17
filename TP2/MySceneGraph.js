@@ -1694,9 +1694,8 @@ MySceneGraph.prototype.displayScene = function() {
 MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	
 	this.scene.multMatrix(node.transformMatrix);
-	if (node.animation != null) {
+	if (node.animation != null)
 		this.scene.multMatrix(node.animation.matrix);
-	}
 
 	var currentMaterial = this.materials[node.materialID];
 	if (currentMaterial == null) {
@@ -1741,11 +1740,6 @@ MySceneGraph.prototype.updateScene = function(currTime) {
 	for (let node in this.nodes) {
 		this.nodes[node].update(currTime);
 	}
-
-	/*for (let i = 0; i < this.nodes.length; ++i) {
-		nodes[i].update(currTime);
-	}*/
-
 }
 
 
