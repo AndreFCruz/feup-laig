@@ -148,7 +148,7 @@
 </MATERIALS>
 
 <ANIMATIONS>
-    <ANIMATION id="teste_linear" speed="1" type="linear">
+    <ANIMATION id="test_linear" speed="1" type="linear">
         <controlpoint xx="0" yy="0" zz="0"/>
         <controlpoint xx="5" yy="5" zz="5"/>
     </ANIMATION>
@@ -161,9 +161,9 @@
         <controlpoint xx="0" yy="0" zz="0" />
     </ANIMATION>
 
-<!--     <ANIMATION id="test_circular" speed="1" type="circular"
-        centerx="5" centery="5" centerz="5"
-        radius="5" startang="0" rotang="90"/> -->
+    <ANIMATION id="test_circular" speed="15" type="circular"
+        centerx="0" centery="0" centerz="0"
+        radius="20" startang="0" rotang="360"/>
 
     <ANIMATION id="test_bezier" speed="5" type="bezier">
         <controlpoint xx="1" yy="1" zz="1"/>
@@ -172,9 +172,9 @@
         <controlpoint xx="-10" yy="0" zz="10"/>
     </ANIMATION>
 
-<!--     <ANIMATION id="teste_combo" type="combo">
-        <SPANREF id="teste_linear"/>
-        <SPANREF id="teste_circular"/>
+<!--     <ANIMATION id="test_combo" type="combo">
+        <SPANREF id="test_linear"/>
+        <SPANREF id="test_circular"/>
     </ANIMATION> -->
 
 </ANIMATIONS>
@@ -561,6 +561,10 @@
 
         <TRANSLATION x="12" y="5.8" z="4.75" />
         <SCALE sx="0.4" sy="2" sz="0.4" />
+
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="test_circular" />
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
        		<NODEREF id="meiaPiramide1" /> 

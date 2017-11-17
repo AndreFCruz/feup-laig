@@ -22,6 +22,7 @@ function MyGraphNode(graph, nodeID) {
 
     this.animation = null;
 
+    //Geometric Matrix
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
 
