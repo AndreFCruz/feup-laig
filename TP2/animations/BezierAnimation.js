@@ -29,9 +29,9 @@ class BezierAnimation extends Animation {
     //mat4.fromTranslation(this.matrix, pos);
     mat4.identity(this.matrix);
     mat4.translate(this.matrix, this.matrix, pos);
-    // TODO check if pos can be used interchangeably with vec3
 
     this.setOrientation(this.calcDerivative(t));
+    this.calcMatrixOrientation();
   }
 
   // Approximation of curve's arc length

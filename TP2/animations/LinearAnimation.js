@@ -9,7 +9,7 @@ class LinearAnimation extends Animation {
     this.lineSegments = [];
     this.length = 0;
     this.segmentIdx = 0;
-    this.divisions = [0];	//Percentages were new segments start
+    this.divisions = [0];	//Percentages where new segments start
 
     this.calcLengthAndDivions();
     this.duration = this.length / this.speed * 1000;
@@ -26,6 +26,7 @@ class LinearAnimation extends Animation {
     //mat4.fromTranslation(this.matrix, pos);
     mat4.identity(this.matrix);
     mat4.translate(this.matrix, this.matrix, pos);
+    this.calcMatrixOrientation();
   }
 
   calcLengthAndDivions() {
