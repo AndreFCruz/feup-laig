@@ -1,9 +1,6 @@
 class Animation {
 
-  constructor(id) {
-    this.id = id;
-    this.active = false;
-
+  constructor() {
     this.duration;
     this.matrix = mat4.create();
 

@@ -150,7 +150,7 @@
 <ANIMATIONS>
     <ANIMATION id="test_linear" speed="5" type="linear">
         <controlpoint xx="0" yy="0" zz="0"/>
-        <controlpoint xx="5" yy="5" zz="5"/>
+        <controlpoint xx="10" yy="0" zz="10"/>
     </ANIMATION>
 
     <ANIMATION id="test_linear2" speed="5" type="linear">
@@ -161,9 +161,18 @@
         <controlpoint xx="0" yy="0" zz="0" />
     </ANIMATION>
 
+    <ANIMATION id="test_linear3" speed="5" type="linear">
+        <controlpoint xx="-10" yy="0" zz="-10"/>
+        <controlpoint xx="0" yy="0" zz="0"/>
+    </ANIMATION>
+
     <ANIMATION id="test_circular" speed="5" type="circular"
-        centerx="0" centery="0" centerz="0"
-        radius="20" startang="0" rotang="360"/>
+        centerx="15" centery="0" centerz="10"
+        radius="15" startang="0" rotang="360"/>
+
+    <ANIMATION id="test_circular2" speed="5" type="circular"
+        centerx="0" centery="0" centerz="10"
+        radius="14.14" startang="45" rotang="180"/>
 
     <ANIMATION id="test_bezier" speed="5" type="bezier">
         <controlpoint xx="0" yy="0" zz="0"/>
@@ -267,7 +276,9 @@
         <TRANSLATION x="0" y="0" z="20" />
 
         <ANIMATIONREFS>
-            <ANIMATIONREF id="test_combo" />
+            <ANIMATIONREF id="test_linear"/>
+            <ANIMATIONREF id="test_circular2"/>
+            <ANIMATIONREF id="test_linear3"/>
         </ANIMATIONREFS>
 
         <DESCENDANTS>

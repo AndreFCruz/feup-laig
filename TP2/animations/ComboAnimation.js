@@ -1,6 +1,6 @@
 class ComboAnimation extends Animation {
-  constructor(id, animations) {
-    super(id);
+  constructor(animations) {
+    super();
     this.animations = animations;
     this.cumulative = 0;
     this.animIdx = 0;

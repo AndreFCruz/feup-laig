@@ -1,7 +1,7 @@
 class LinearAnimation extends Animation {
   
-  constructor(id, speed, controlPoints) {
-    super(id);
+  constructor(speed, controlPoints) {
+    super();
     this.speed = speed;
 
     this.controlPoints = controlPoints;

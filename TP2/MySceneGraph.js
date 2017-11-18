@@ -1186,12 +1186,12 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 		if (this.animations[animID] != null)
 			return "animation ID must be unique (conflict: ID = " + animID + ")";
 
-		this.animations[animID] = this.constructAnimation(children[i], animID);
+		this.animations[animID] = this.constructAnimation(children[i]);
 	}
 
 }
 
-MySceneGraph.prototype.constructAnimation = function(animNode, id) {
+MySceneGraph.prototype.constructAnimation = function(animNode) {
 
 	let type = this.reader.getItem(animNode, 'type', ['linear', 'circular', 'bezier', 'combo'], true);
 	if (type == null) {
@@ -1201,25 +1201,25 @@ MySceneGraph.prototype.constructAnimation = function(animNode, id) {
 
 	let speed;
 	if (type == 'combo')
-		return this.constructComboAnimation(animNode, id);
+		return this.constructComboAnimation(animNode);
 	else
 		speed = this.reader.getFloat(animNode, 'speed', true);
 
 	switch (type) {
 		case 'linear':
-			return this.constructLinearAnimation(animNode, id, speed);
+			return this.constructLinearAnimation(animNode, speed);
 			break;
 		case 'circular':
-			return this.constructCircularAnimation(animNode, id, speed);
+			return this.constructCircularAnimation(animNode, speed);
 			break;
 		case 'bezier':
-			return this.constructBezierAnimation(animNode, id, speed);
+			return this.constructBezierAnimation(animNode, speed);
 			break;
 	}
 
 }
 
-MySceneGraph.prototype.constructComboAnimation = function(animNode, id) {
+MySceneGraph.prototype.constructComboAnimation = function(animNode) {
 
 	let childAnimations = [];
 
@@ -1240,10 +1240,10 @@ MySceneGraph.prototype.constructComboAnimation = function(animNode, id) {
 		childAnimations.push(this.animations[childID]);
 	}
 
-	return new ComboAnimation(id, childAnimations);
+	return new ComboAnimation(childAnimations);
 }
 
-MySceneGraph.prototype.constructCircularAnimation = function(animNode, id, speed) {
+MySceneGraph.prototype.constructCircularAnimation = function(animNode, speed) {
 	let centerx = this.reader.getFloat(animNode, 'centerx', true);
 	let centery = this.reader.getFloat(animNode, 'centery', true);
 	let centerz = this.reader.getFloat(animNode, 'centerz', true);
@@ -1254,7 +1254,7 @@ MySceneGraph.prototype.constructCircularAnimation = function(animNode, id, speed
 
 	let centerPoint = [centerx, centery, centerz];
 
-	return new CircularAnimation(id, speed, centerPoint, radius, startang, rotang);
+	return new CircularAnimation(speed, centerPoint, radius, startang, rotang);
 }
 
 MySceneGraph.prototype.fetchControlPoints = function(node) {
@@ -1272,26 +1272,26 @@ MySceneGraph.prototype.fetchControlPoints = function(node) {
 	return controlPoints;
 }
 
-MySceneGraph.prototype.constructLinearAnimation = function(animNode, id, speed) {
+MySceneGraph.prototype.constructLinearAnimation = function(animNode, speed) {
 
 	let controlPoints = this.fetchControlPoints(animNode);
 	if (controlPoints.length < 2) {
-		this.onXMLError("LinearAnimation must have control points >= 2. ID: " + id);
+		this.onXMLError("LinearAnimation must have 2 or more control points.");
 		return null;
 	}
 
-	return new LinearAnimation(id, speed, controlPoints);
+	return new LinearAnimation(speed, controlPoints);
 }
 
-MySceneGraph.prototype.constructBezierAnimation = function(animNode, id, speed) {
+MySceneGraph.prototype.constructBezierAnimation = function(animNode, speed) {
 
 	let controlPoints = this.fetchControlPoints(animNode);
 	if (controlPoints.length != 4) {
-		this.onXMLError("BezierAnimation must have exactly 4 control points. ID: " + id);
+		this.onXMLError("BezierAnimation must have exactly 4 control points.");
 		return null;
 	}
 
-	return new BezierAnimation(id, speed, controlPoints);
+	return new BezierAnimation(speed, controlPoints);
 }
 
 /**
@@ -1448,10 +1448,10 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			}
 
 			//Retrieves information about possible animations
-			let informationsIndex = specsNames.indexOf("ANIMATIONREFS"); 
-			if (informationsIndex != -1) { //Not required
-
-				let animations = nodeSpecs[informationsIndex].children;
+			let animationsIndex = specsNames.indexOf("ANIMATIONREFS"); 
+			if (animationsIndex != -1) { // Not required
+				let animationsList = [];
+				let animations = nodeSpecs[animationsIndex].children;
 				for (let j = 0; j < animations.length; ++j) {
 					
 					if (animations[j].nodeName == "ANIMATIONREF") {
@@ -1460,12 +1460,14 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 						if (animId == null )
 							this.onXMLMinorError("unable to parse animation id");
 						else
-							//console.log("TODO - ADD NODE");
-							this.nodes[nodeID].animation = this.animations[animId];
+							 animationsList.push(this.animations[animId]);
 					}
-					else
+					else {
 						this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
+					}
 				}
+
+				this.nodes[nodeID].animation = new ComboAnimation(animationsList);
 			}
 
 			// Retrieves information about children.
