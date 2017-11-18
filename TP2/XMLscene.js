@@ -25,7 +25,8 @@ XMLscene.prototype.init = function(application) {
 
     this.enableTextures(true);
     
-    this.gl.clearDepth(100.0);
+    this.gl.clearColor(0,0,0, 1.0);
+    this.gl.clearDepth(1000.0);
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
@@ -35,7 +36,8 @@ XMLscene.prototype.init = function(application) {
     this.setUpdatePeriod(1. / 60);
 
     // TODO
-    // this.setActiveShader(new CGFshader(this.gl, "shaders/selectable.vert", "shaders/selectable.frag"));
+    this.shader = new CGFshader(this.gl, "shaders/selectable.vert", "shaders/selectable.frag");
+    this.setActiveShader(this.shader);
 }
 
 /**
@@ -160,4 +162,13 @@ XMLscene.prototype.display = function() {
 
 XMLscene.prototype.update = function(currTime) {
     this.graph.updateScene(currTime);
+    this.updateShader(currTime);
 }
+
+XMLscene.prototype.updateShader = function(currTime) {
+    let t = Math.sin(currTime / 1000) + 1;
+
+    this.shader.setUniformsValues({timeFactor: t});    
+}
+
+
