@@ -32,6 +32,8 @@ class CircularAnimation extends Animation {
 
     let currentAng = this.startAng + t * this.rotAng;
     this.setOrientation([-Math.sin(currentAng) , 0, Math.cos(-currentAng)]);
-    return [Math.cos(currentAng) * this.radius, 0, Math.sin(currentAng) * this.radius];
+    return [this.center[0] + Math.cos(currentAng) * this.radius, 
+            this.center[1], 
+            this.center[2] + Math.sin(currentAng) * this.radius];
   }
 }
