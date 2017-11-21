@@ -171,7 +171,7 @@
         radius="15" startang="0" rotang="360"/>
 
     <ANIMATION id="test_circular2" speed="5" type="circular"
-        centerx="0" centery="0" centerz="10"
+        centerx="0" centery="0" centerz="0"
         radius="14.14" startang="45" rotang="180"/>
 
     <ANIMATION id="test_bezier" speed="5" type="bezier">
