@@ -37,9 +37,15 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(1. / 60);
 
-    // TODO
-    this.shader = new CGFshader(this.gl, "shaders/selectable.vert", "shaders/selectable.frag");
-    this.setActiveShader(this.shader);
+    let selectedColor = vec4.fromValues(0.2, 1, 0.6, 0.5);
+
+    this.secondaryShader = new CGFshader(this.gl, "shaders/selectable.vert", "shaders/selectable.frag");
+    this.secondaryShader.setUniformsValues({
+      secondaryColor: selectedColor,
+      timeFactor: 0
+    });
+
+    this.setSecondaryShader();
 }
 
 /**
@@ -130,8 +136,8 @@ XMLscene.prototype.display = function() {
         // Applies initial transformations.
         this.multMatrix(this.graph.initialTransforms);
 
-		// Draw axis
-		this.axis.display();
+    // Draw axis
+    this.axis.display();
 
         var i = 0;
         for (var key in this.lightValues) {
@@ -153,11 +159,11 @@ XMLscene.prototype.display = function() {
         this.graph.displayScene();
 
     }
-	else
-	{
-		// Draw axis
-		this.axis.display();
-	}
+  else
+  {
+    // Draw axis
+    this.axis.display();
+  }
     
 
     this.popMatrix();
@@ -170,10 +176,17 @@ XMLscene.prototype.update = function(currTime) {
     this.updateShader(currTime);
 }
 
-XMLscene.prototype.updateShader = function(currTime) {
-    let t = Math.sin(currTime / 1000) + 1;
-
-    this.shader.setUniformsValues({timeFactor: t});    
+XMLscene.prototype.setDefaultShader = function() {
+    this.setActiveShader(this.defaultShader);
 }
 
+XMLscene.prototype.setSecondaryShader = function() {
+    this.setActiveShader(this.secondaryShader);
+}
+
+XMLscene.prototype.updateShader = function(currTime) {
+    let t = (Math.sin(currTime / 1000) + 1) / 2;
+
+    this.secondaryShader.setUniformsValues({timeFactor: t});    
+}
 
