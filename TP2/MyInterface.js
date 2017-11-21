@@ -48,3 +48,10 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     }
 }
 
+/**
+ *
+ */
+MyInterface.prototype.addSelecDropDown = function(selectables) {
+    this.gui.add(this.scene, 'Selectables', selectables);
+}
+

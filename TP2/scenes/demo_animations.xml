@@ -269,7 +269,7 @@
     </NODE>
 
     <!-- The third light -->
-    <NODE id="luz3">       
+    <NODE id="luz3" selectable='true'>       
         <MATERIAL id="null" />     
         <TEXTURE id="null" />    			
 

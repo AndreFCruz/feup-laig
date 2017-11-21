@@ -23,7 +23,7 @@ function MySceneGraph(filename, scene) {
 	
 	this.nodes = {};
 	this.animations = {};
-
+	this.selectables = [];
 	this.rootId = null;                    // The id of the root element.
 
 	this.axisCoords = [];
@@ -1328,6 +1328,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 			// Creates node.
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+
+			//Parse Selectable Feature
+			let nodeSelectable = this.reader.getBoolean(children[i], 'selectable', false);
+			if (nodeSelectable)
+				this.selectables.push(nodeID);
 
 			// Gathers child nodes.
 			var nodeSpecs = children[i].children;
