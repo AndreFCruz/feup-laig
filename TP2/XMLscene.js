@@ -35,7 +35,7 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(1. / 60);
 
-    let selectedColor = vec4.fromValues(0.2, 1, 0.6, 0.5);
+    let selectedColor = vec4.fromValues(0.5, 0.7, 0.6, 1);
 
     this.secondaryShader = new CGFshader(this.gl, "shaders/selectable.vert", "shaders/selectable.frag");
     this.secondaryShader.setUniformsValues({
