@@ -1733,6 +1733,10 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 			console.error("Null leaf in nodes' leaves");
 	}
 
+	let selected = (node.nodeID == this.scene.Selectables);
+	if (selected)
+		this.scene.setSecondaryShader();
+
 	for (let childNodeID of node.children) {
 		var childNode = this.nodes[childNodeID];
 
@@ -1740,6 +1744,9 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 		this.processNode(childNode, currentMaterial, currentTexture);
 		this.scene.popMatrix();
 	}
+
+	if (selected)
+		this.scene.setDefaultShader();
 }
 
 

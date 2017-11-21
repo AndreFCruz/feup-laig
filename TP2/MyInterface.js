@@ -49,9 +49,8 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 }
 
 /**
- *
+ * Adds a dropdown containing the IDs of all the selected nodes
  */
 MyInterface.prototype.addSelecDropDown = function(selectables) {
     this.gui.add(this.scene, 'Selectables', selectables);
 }
-
