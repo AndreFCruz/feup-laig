@@ -50,7 +50,6 @@ uniform materialProperties uBackMaterial;
 varying vec4 vFinalColor;
 varying vec2 vTextureCoord;
 
-uniform vec4 secondaryColor;
 uniform float timeFactor;
 
 vec4 lighting(vec4 vertex, vec3 E, vec3 N) {
@@ -113,6 +112,8 @@ vec4 lighting(vec4 vertex, vec3 E, vec3 N) {
 }
 
 void main() {
+    // Change animation speed
+    float normalChange = timeFactor / 2.;
     
     // Transformed Vertex position
     vec4 vertex = uMVMatrix * vec4(aVertexPosition+aVertexNormal*timeFactor, 1.0);

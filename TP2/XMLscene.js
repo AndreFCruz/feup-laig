@@ -180,7 +180,7 @@ XMLscene.prototype.setSecondaryShader = function() {
 }
 
 XMLscene.prototype.updateShader = function(currTime) {
-    let t = (Math.sin(currTime / 1000 * 2) + 1) / 4;
+    let t = (Math.sin(currTime / 1000) + 1) / 2;
 
     this.secondaryShader.setUniformsValues({timeFactor: t});    
 }
