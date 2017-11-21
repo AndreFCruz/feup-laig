@@ -54,3 +54,10 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 MyInterface.prototype.addSelecDropDown = function(selectables) {
     this.gui.add(this.scene, 'Selectables', selectables);
 }
+
+/**
+ * Adds a color controller for the current selected node
+ */
+MyInterface.prototype.addColorController = function() {
+    this.gui.addColor(this.scene, 'selectedColor');
+}

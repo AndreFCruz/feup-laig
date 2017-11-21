@@ -10,8 +10,12 @@ function XMLscene(interface) {
     this.interface = interface;
 
     this.lightValues = {};
+
     //For dropdown in interface
     this.Selectables = 0;
+
+    //For Color Controller
+    this.selectedColor = "#ffae23";
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -108,6 +112,9 @@ XMLscene.prototype.onGraphLoaded = function()
 
     //Adds Selectables dropdown
     this.interface.addSelecDropDown(this.graph.selectables);
+
+    //Adds Color Controller
+    this.interface.addColorController();
 }
 
 /**
