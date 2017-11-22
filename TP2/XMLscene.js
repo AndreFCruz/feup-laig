@@ -41,11 +41,9 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(1. / 60);
 
-    let selectedColor = vec4.fromValues(0.5, 0.7, 0.6, 1);
-
     this.secondaryShader = new CGFshader(this.gl, "shaders/selectable.vert", "shaders/selectable.frag");
     this.secondaryShader.setUniformsValues({
-      secondaryColor: selectedColor,
+      secondaryColor: hexToRgbVec(this.selectedColor),
       timeFactor: 0
     });
 }
@@ -192,5 +190,11 @@ XMLscene.prototype.updateShader = function(currTime) {
     let t = (Math.sin(currTime / 1000) + 1) / 2;
 
     this.secondaryShader.setUniformsValues({timeFactor: t});    
+}
+
+XMLscene.prototype.updateShaderColor = function(hexValue) {
+    let color = hexToRgbVec(this.selectedColor);
+
+    this.secondaryShader.setUniformsValues({secondaryColor: color})
 }
 

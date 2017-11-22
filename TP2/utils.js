@@ -5,3 +5,15 @@ function pointDiff(p1, p2, scale = 1) {
     scale * (p1[2] - p2[2])
   ];
 }
+
+function hexToRgbVec(hexValue) {
+  if (hexValue.charAt(0)=='#')
+    hexValue = hexValue.substring(1,7);
+
+  //Parsing RGB
+  let red = parseInt(hexValue.substring(0, 2), 16) /255;
+  let blue = parseInt(hexValue.substring(2, 4), 16) /255;
+  let green = parseInt(hexValue.substring(4, 6), 16) /255;
+
+  return vec4.fromValues(red, blue, green, 1);
+}

@@ -59,5 +59,8 @@ MyInterface.prototype.addSelecDropDown = function(selectables) {
  * Adds a color controller for the current selected node
  */
 MyInterface.prototype.addColorController = function() {
-    this.gui.addColor(this.scene, 'selectedColor');
+    this.gui.addColor(this.scene, 'selectedColor').onChange(function(v) {
+        this.object.updateShaderColor(v);
+    });
 }
+
