@@ -1724,6 +1724,11 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	currentMaterial.setTexture(currentTexture == null ? null : currentTexture[0]);
 	currentMaterial.apply();
 
+	//Activating shader if selected node
+	let selected = (node.nodeID == this.scene.Selectables);
+	if (selected)
+		this.scene.setSecondaryShader();
+
 	for (let leaf of node.leaves) {
 		if (currentTexture != null)
 			leaf.setTexAmplification(currentTexture[1], currentTexture[2]);
@@ -1733,10 +1738,6 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 			console.error("Null leaf in nodes' leaves");
 	}
 
-	let selected = (node.nodeID == this.scene.Selectables);
-	if (selected)
-		this.scene.setSecondaryShader();
-
 	for (let childNodeID of node.children) {
 		var childNode = this.nodes[childNodeID];
 
@@ -1745,6 +1746,7 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 		this.scene.popMatrix();
 	}
 
+	//Deactivating Shader after processing all childNodes
 	if (selected)
 		this.scene.setDefaultShader();
 }
