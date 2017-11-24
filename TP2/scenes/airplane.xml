@@ -205,6 +205,73 @@
 
 </MATERIALS>
 
+<ANIMATIONS>
+	
+	<!-- Animation for opening left door -->
+	<ANIMATION id="open_left_door" speed="3" type="linear">
+		<controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="0" yy="0" zz="-10"/>
+	</ANIMATION>
+
+	<!-- Animation for opening right door -->
+	<ANIMATION id="open_right_door" speed="3" type="linear">
+		<controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="0" yy="0" zz="-10"/>
+	</ANIMATION>
+
+	<!-- Animation for making the airplaine's helix spin -->
+	<ANIMATION id="helix_spin" speed="2" id="circular"
+		centerx="0" centery="0" centerz="0"
+		radius="0" startang="0" rotang="720"/>
+
+	<!-- Animation that makes the airplane leave the ground -->
+	<ANIMATION id="leave_ground" speed="3" type="bezier">
+		<controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="0" yy="20" zz="20"/>
+        <controlpoint xx="0" yy="0" zz="10"/>
+	</ANIMATION>
+
+	<!-- Animation for slow airplane speed -->
+	<ANIMATION id="plane_slow_speed" speed="2" type="linear">
+        <controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="0" yy="0" zz="10"/>
+	</ANIMATION>
+
+	<!-- Animation for medium airplane speed -->
+	<ANIMATION id="plane_medium_speed" speed="5" type="linear">
+        <controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="0" yy="0" zz="10"/>
+	</ANIMATION>
+
+	<!-- Animation for medium airplane speed -->
+	<ANIMATION id="plane_high_speed" speed="9" type="linear">
+        <controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="0" yy="0" zz="10"/>
+	</ANIMATION>
+
+	<!-- Airplane's track acceleration -->
+	<ANIMATION id="plane_track_accelerate" type="combo">
+		<SPANREF id="plane_slow_speed"/>
+        <SPANREF id="plane_medium_speed"/>
+		<SPANREF id="plane_high_speed"/>
+    </ANIMATION>
+
+	<!-- Animation for a smooth airplane departure -->
+	<ANIMATION id="plane_departure" type="combo">
+		<SPANREF id="plane_track_accelerate"/>
+        <SPANREF id="leave_ground"/>
+    </ANIMATION>
+
+	<!-- Airplane moving to track -->
+	<!-- pelo menos, dois segmentos de reta (classe LinearAnimation),
+intermediados por um segmento circular (CircularAnimation). -->
+
+	<!-- pelo menos, duas curvas de Bézier (classe BezierAnimation) e
+um ou mais troços com base em segmentos de reta ou circulares.-->
+
+</ANIMATIONS>
+
 <!-- The leaves -->
 <LEAVES>
 	

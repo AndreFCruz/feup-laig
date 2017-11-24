@@ -183,7 +183,7 @@
 <!-- The nodes -->
 <NODES>
     <!-- Change between root1 and root2 for tests> -->
-    <ROOT id="root3" />     
+    <ROOT id="root1" />     
 
     <!-- Testing circular animation -->
     <NODE id="root1" selectable='true'>       
@@ -369,7 +369,7 @@
             <NODEREF id="piramide" />
         </DESCENDANTS>
 
-    </NODE>    
+    </NODE>
 
     <!-- Testing Linear Animation> -->
     <NODE id="root3">
