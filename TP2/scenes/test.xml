@@ -168,7 +168,7 @@
     </ANIMATION>
 
     <ANIMATION id="test_combo" type="combo">
-        <SPANREF id="test_linear2"/>
+        <SPANREF id="test_linear3"/>
         <SPANREF id="test_bezier"/>
     </ANIMATION>
 
@@ -183,7 +183,7 @@
 <!-- The nodes -->
 <NODES>
     <!-- Change between root1 and root2 for tests> -->
-    <ROOT id="root1" />     
+    <ROOT id="root3" />     
 
     <!-- Testing circular animation -->
     <NODE id="root1" selectable='true'>       
@@ -205,8 +205,10 @@
         <MATERIAL id="defaultMaterial" />         
         <TEXTURE id="folhas" />  
 
+        <SCALE sx="0.5" sy="0.5" sz="0.5" />
+
         <DESCENDANTS>
-            <LEAF id="sphere1" type="sphere" args="5 20 20" />
+            <LEAF id="sphere1" type="sphere" args="10 20 20" />
         </DESCENDANTS>
 
     </NODE>
@@ -327,10 +329,24 @@
     </NODE>
 
     <!-- Testing same animation in different nodes and combos -->
-
     <NODE id="root2">       
         <MATERIAL id="defaultMaterial" />         
         <TEXTURE id="null" />  
+
+        <DESCENDANTS>
+            <NODEREF id="combo1" />
+            <NODEREF id="combo2" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="combo1">
+        <MATERIAL id="defaultMaterial" />         
+        <TEXTURE id="trunk" />  
+
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="test_combo" />
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="piramide" />
@@ -338,7 +354,40 @@
 
     </NODE>
 
+    <NODE id="combo2">
+        <MATERIAL id="defaultMaterial" />         
+        <TEXTURE id="folhas" />  
 
+        <TRANSLATION x="0" y="3" z="4" />
+
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="test_circular2" />
+            <ANIMATIONREF id="test_linear3" />
+        </ANIMATIONREFS>
+
+        <DESCENDANTS>
+            <NODEREF id="piramide" />
+        </DESCENDANTS>
+
+    </NODE>    
+
+    <!-- Testing Linear Animation> -->
+    <NODE id="root3">
+        <MATERIAL id="defaultMaterial" />         
+        <TEXTURE id="folhas" />  
+
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="test_linear2" />
+        </ANIMATIONREFS>
+
+        <TRANSLATION x="5" y="-3" z="10" />
+
+        <DESCENDANTS>
+            <NODEREF id="earth" />
+            <NODEREF id="moon" />
+        </DESCENDANTS>
+
+    </NODE>  
 
 </NODES>
 
