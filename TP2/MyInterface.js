@@ -53,7 +53,7 @@ MyInterface.prototype.addLightsGroup = function(lights) {
  */
 MyInterface.prototype.addSelecDropDown = function(selectables) {
 
-    //Addinng option to select nothing
+    //Adding option to select nothing
     selectables.splice(0, 0, " ");
 
     this.gui.add(this.scene, 'Selectables', selectables);
