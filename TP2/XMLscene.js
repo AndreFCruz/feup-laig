@@ -12,7 +12,8 @@ function XMLscene(interface) {
     this.lightValues = {};
 
     //For dropdown in interface
-    this.Selectables = 0;
+    //Starting by selecting nothing
+    this.Selectables = " ";
 
     //For Color Controller
     this.selectedColor = "#ffae23";
