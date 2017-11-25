@@ -207,53 +207,22 @@
 
 <ANIMATIONS>
 
-	<!-- Animation for opening left door -->
-	<ANIMATION id="open_left_door" speed="3" type="linear">
-		<controlpoint xx="0" yy="0" zz="0"/>
-        <controlpoint xx="0" yy="0" zz="-10"/>
+	<!-- Animation for opening the gate left door -->
+	<ANIMATION id="open_left_door" speed="0.02" type="linear">
+		<controlpoint xx="0.11" yy="0" zz="0"/>
+        <controlpoint xx="-0.12" yy="0" zz="0"/>
 	</ANIMATION>
 
-	<!-- Animation for opening right door -->
-	<ANIMATION id="open_right_door" speed="3" type="linear">
-		<controlpoint xx="0" yy="0" zz="0"/>
-        <controlpoint xx="0" yy="0" zz="-10"/>
+	<!-- Animation for opening the gate right door -->
+	<ANIMATION id="open_right_door" speed="0.02" type="linear">
+		<controlpoint xx="-0.11" yy="0" zz="0"/>
+        <controlpoint xx="0.12" yy="0" zz="0"/>
 	</ANIMATION>
 
 	<!-- Animation for making the airplaine's helix spin -->
 	<ANIMATION id="fan_spin" speed="0.1" type="circular"
 		centerx="0" centery="0" centerz="0"
 		radius="0.04" startang="0" rotang="7200000"/>
-
-	<!-- Animation that makes the airplane leave the ground : part1 -->
-	<ANIMATION id="leave_ground_1" speed="12" type="bezier">
-		<controlpoint xx="0" yy="-5.5" zz="-10"/>
-        <controlpoint xx="0" yy="-5.5" zz="5"/>
-        <controlpoint xx="0" yy="2" zz="20"/>
-        <controlpoint xx="0" yy="7" zz="30"/>
-	</ANIMATION>
-
-	<!-- Animation that makes the airplane leave the ground : part2 -->
-	<ANIMATION id="leave_ground_2" speed="12" type="bezier">
-		<controlpoint xx="0" yy="7" zz="30"/>
-        <controlpoint xx="0" yy="12" zz="40"/>
-        <controlpoint xx="10" yy="20" zz="50"/>
-        <controlpoint xx="20" yy="20" zz="50"/>
-	</ANIMATION>
-
-	<!-- Animation that makes the airplane leave the ground : part3 -->
-	<ANIMATION id="leave_ground_3" speed="12" type="bezier">
-		<controlpoint xx="20" yy="20" zz="50"/>
-        <controlpoint xx="30" yy="20" zz="50"/>
-        <controlpoint xx="50" yy="20" zz="40"/>
-        <controlpoint xx="50" yy="20" zz="30"/>
-	</ANIMATION>
-
-	<!-- Animation that makes the airplane leave the ground -->
-	<ANIMATION id="leave_ground"  type="combo">
-		<SPANREF id="leave_ground_1" />
-		<SPANREF id="leave_ground_2" />
-		<SPANREF id="leave_ground_3" />
-	</ANIMATION>
 
 	<!-- Animation for slow airplane speed -->
 	<ANIMATION id="plane_slow_speed" speed="4" type="linear">
@@ -278,20 +247,78 @@
 		<SPANREF id="plane_slow_speed"/>
         <SPANREF id="plane_medium_speed"/>
 		<SPANREF id="plane_high_speed"/>
-    </ANIMATION>
+    </ANIMATION>	
 
+	<!-- Animation that makes the airplane leave the ground : part1 -->
+	<ANIMATION id="leave_ground_1" speed="12" type="bezier">
+		<controlpoint xx="0" yy="-5.5" zz="-10"/>
+        <controlpoint xx="0" yy="-5.5" zz="5"/>
+        <controlpoint xx="0" yy="2" zz="20"/>
+        <controlpoint xx="0" yy="7" zz="30"/>
+	</ANIMATION>
+
+	<!-- Animation that makes the airplane leave the ground : part2 -->
+	<ANIMATION id="leave_ground_2" speed="14" type="bezier">
+		<controlpoint xx="0" yy="7" zz="30"/>
+        <controlpoint xx="0" yy="12" zz="40"/>
+        <controlpoint xx="10" yy="20" zz="50"/>
+        <controlpoint xx="20" yy="20" zz="50"/>
+	</ANIMATION>
+
+	<!-- Animation that makes the airplane leave the ground : part3 -->
+	<ANIMATION id="leave_ground_3" speed="14" type="bezier">
+		<controlpoint xx="20" yy="20" zz="50"/>
+        <controlpoint xx="30" yy="20" zz="50"/>
+        <controlpoint xx="50" yy="20" zz="40"/>
+        <controlpoint xx="50" yy="20" zz="30"/>
+	</ANIMATION>
+
+	<!-- Animation that makes the airplane leave the ground -->
+	<ANIMATION id="leave_ground"  type="combo">
+		<SPANREF id="leave_ground_1" />
+		<SPANREF id="leave_ground_2" />
+		<SPANREF id="leave_ground_3" />
+	</ANIMATION>
+
+	<!-- Animation for making the Airplane fly in loops : part1 -->
+	<ANIMATION id="fly_loop_1" speed="17" type="linear">
+        <controlpoint xx="50" yy="20" zz="30"/>
+        <controlpoint xx="50" yy="20" zz="-40"/>
+	</ANIMATION>
+
+	<!-- Animation for making the Airplane fly in loops : part2 -->
+	<ANIMATION id="fly_loop_2" speed="17" type="bezier">
+		<controlpoint xx="50" yy="20" zz="-40"/>
+        <controlpoint xx="50" yy="20" zz="-70"/>
+        <controlpoint xx="-50" yy="20" zz="-70"/>
+        <controlpoint xx="-50" yy="20" zz="-40"/>
+	</ANIMATION>
+
+	<!-- Animation for making the Airplane fly in loops : part3 -->
+	<ANIMATION id="fly_loop_3" speed="17" type="linear">
+        <controlpoint xx="-50" yy="20" zz="-40"/>
+		<controlpoint xx="-50" yy="20" zz="30"/>
+	</ANIMATION>
+
+	<!-- Animation for making the Airplane fly in loops : part4 -->
+	<ANIMATION id="fly_loop_4" speed="17" type="bezier">
+		<controlpoint xx="-50" yy="20" zz="30"/>
+        <controlpoint xx="-50" yy="20" zz="60"/>
+        <controlpoint xx="50" yy="20" zz="60"/>
+        <controlpoint xx="50" yy="20" zz="30"/>
+	</ANIMATION>
+
+	<!-- Animation for making the Airplane fly in loops -->
 	<ANIMATION id="fly_loop" type="combo">
-		<SPANREF id="plane_slow_speed"/>
-        <SPANREF id="plane_medium_speed"/>
-		<SPANREF id="plane_high_speed"/>
+		<SPANREF id="fly_loop_1"/>
+		<SPANREF id="fly_loop_2"/>
+        <SPANREF id="fly_loop_3"/>
+		<SPANREF id="fly_loop_4"/>
     </ANIMATION>
 
-	<!-- Airplane moving to track -->
 	<!-- pelo menos, dois segmentos de reta (classe LinearAnimation),
 intermediados por um segmento circular (CircularAnimation). -->
-
-	<!-- pelo menos, duas curvas de Bézier (classe BezierAnimation) e
-um ou mais troços com base em segmentos de reta ou circulares.-->
+	<!-- Airplane moving to track -->
 
 </ANIMATIONS>
 
@@ -386,6 +413,11 @@ um ou mais troços com base em segmentos de reta ou circulares.-->
 				<ANIMATIONREFS>
 					<ANIMATIONREF id="plane_track_accelerate" />
 					<ANIMATIONREF id="leave_ground" />
+					<ANIMATIONREF id="fly_loop" />
+					<ANIMATIONREF id="fly_loop" />
+					<ANIMATIONREF id="fly_loop" />
+					<ANIMATIONREF id="fly_loop" />
+					<ANIMATIONREF id="fly_loop" />
 				</ANIMATIONREFS>
 
 				<DESCENDANTS>
@@ -1345,8 +1377,8 @@ um ou mais troços com base em segmentos de reta ou circulares.-->
 
 			<DESCENDANTS>
 				<NODEREF id="gate support" />
-				<NODEREF id="gate left door" />
-				<NODEREF id="gate right door" />
+				<NODEREF id="gate animated left door" />
+				<NODEREF id="gate animated right door" />
 			</DESCENDANTS>
 		
 	 </NODE>
@@ -1418,11 +1450,15 @@ um ou mais troços com base em segmentos de reta ou circulares.-->
 	 </NODE>
 
 	 <!-- gate left door -->
-	 <NODE id="gate left door">
+	 <NODE id="gate animated left door">
 			<MATERIAL id="null" />
 			<TEXTURE id="null" />
 
 			<TRANSLATION x="-0.25" y="-0.08" z="0.52" />
+
+			<ANIMATIONREFS>
+				<ANIMATIONREF id="open_left_door" />
+			</ANIMATIONREFS>
 
 			<DESCENDANTS>
 				<NODEREF id="generic gate door" />
@@ -1431,11 +1467,27 @@ um ou mais troços com base em segmentos de reta ou circulares.-->
 	 </NODE>
 
 	 <!-- gate right door -->
-	 <NODE id="gate right door">
+	 <NODE id="gate animated right door">
 			<MATERIAL id="null" />
 			<TEXTURE id="null" />
 
 			<TRANSLATION x="0.25" y="-0.08" z="0.52" />
+
+			<ANIMATIONREFS>
+				<ANIMATIONREF id="open_right_door" />
+			</ANIMATIONREFS>
+
+			<DESCENDANTS>
+				<NODEREF id="gate right door" />
+			</DESCENDANTS>
+		
+	 </NODE>
+
+	 <NODE id="gate right door">
+			<MATERIAL id="null" />
+			<TEXTURE id="null" />
+
+			<ROTATION axis="y" angle="180" />
 
 			<DESCENDANTS>
 				<NODEREF id="generic gate door" />
@@ -1448,6 +1500,7 @@ um ou mais troços com base em segmentos de reta ou circulares.-->
 			<MATERIAL id="null" />
 			<TEXTURE id="null" />
 
+			<ROTATION axis="y" angle="90" />
 			<SCALE sx="1.4" sy="1" sz="1" />
 
 			<DESCENDANTS>

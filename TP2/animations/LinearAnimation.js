@@ -12,6 +12,8 @@ class LinearAnimation extends Animation {
     this.divisions = [0];	//Percentages where new segments start
 
     this.calcLengthAndDivions();
+    this.setOrientation(this.lineSegments[0]); //Setting the orientation of the first segment
+    
     this.duration = this.length / this.speed * 1000;
   }
 
@@ -47,7 +49,7 @@ class LinearAnimation extends Animation {
         throw new Error("Invalid t parameter to Linear Animation");
 
 		if (t > this.divisions[this.segmentIdx + 1]) {
-			this.segmentIdx++;
+      this.segmentIdx++;
 			this.setOrientation(this.lineSegments[this.segmentIdx]);
 		}
 
