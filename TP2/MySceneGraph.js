@@ -1179,6 +1179,11 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 	let children = animationsNode.children;
 
 	for (let i = 0; i < children.length; ++i) {
+		if (children[i].nodeName != "ANIMATION") {
+			this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
+			continue;
+		}
+
 		let animID = this.reader.getString(children[i], 'id');
 
 		if (animID == null)
@@ -1202,8 +1207,20 @@ MySceneGraph.prototype.constructAnimation = function(animNode) {
 	let speed;
 	if (type == 'combo')
 		return this.constructComboAnimation(animNode);
-	else
+	else {
 		speed = this.reader.getFloat(animNode, 'speed', true);
+
+		if (speed == null ) {
+			this.onXMLError("unable to parse speed value for animation");
+			return null;
+		} else if (isNaN(speed)) {
+			this.onXMLError("'speed' is a non numeric value");
+			return null;
+		} else if (speed <= 0) {
+			this.onXMLError("'speed' must be positive");
+			return null;
+		}
+	}
 
 	switch (type) {
 		case 'linear':
@@ -1245,12 +1262,61 @@ MySceneGraph.prototype.constructComboAnimation = function(animNode) {
 
 MySceneGraph.prototype.constructCircularAnimation = function(animNode, speed) {
 	let centerx = this.reader.getFloat(animNode, 'centerx', true);
+	if (centerx == null ) {
+		this.onXMLError("unable to parse centerx value for circular animation");
+		return null;
+	} else if (isNaN(centerx)) {
+		this.onXMLError("'centerx' is a non numeric value");
+		return null;
+	}
+
 	let centery = this.reader.getFloat(animNode, 'centery', true);
+	if (centery == null ) {
+		this.onXMLError("unable to parse centery value for circular animation");
+		return null;
+	} else if (isNaN(centery)) {
+		this.onXMLError("'centery' is a non numeric value");
+		return null;
+	}
+
 	let centerz = this.reader.getFloat(animNode, 'centerz', true);
+	if (centerz == null ) {
+		this.onXMLError("unable to parse centerz value for circular animation");
+		return null;
+	} else if (isNaN(centerz)) {
+		this.onXMLError("'centerz' is a non numeric value");
+		return null;
+	}
 
 	let radius = this.reader.getFloat(animNode, 'radius', true);
+	if (radius == null ) {
+		this.onXMLError("unable to parse radius value for circular animation");
+		return null;
+	} else if (isNaN(radius)) {
+		this.onXMLError("'radius' is a non numeric value");
+		return null;
+	} else if (radius <= 0) {
+		this.onXMLError("'radius' must be positive");
+		return null;
+	}
+
 	let startang = this.reader.getFloat(animNode, 'startang', true);
+	if (startang == null ) {
+		this.onXMLError("unable to parse startang value for circular animation");
+		return null;
+	} else if (isNaN(startang)) {
+		this.onXMLError("'startang' is a non numeric value");
+		return null;
+	}
+
 	let rotang = this.reader.getFloat(animNode, 'rotang', true);
+	if (rotang == null ) {
+		this.onXMLError("unable to parse rotang value for circular animation");
+		return null;
+	} else if (isNaN(rotang)) {
+		this.onXMLError("'rotang' is a non numeric value");
+		return null;
+	}
 
 	let centerPoint = [centerx, centery, centerz];
 
@@ -1263,8 +1329,31 @@ MySceneGraph.prototype.fetchControlPoints = function(node) {
 
 	for (let i=0; i < node.children.length; ++i) {
 		let xx = this.reader.getFloat(node.children[i], 'xx', true);
+		if (xx == null ) {
+			this.onXMLError("unable to parse xx value for control point");
+			return null;
+		} else if (isNaN(xx)) {
+			this.onXMLError("'xx' is a non numeric value");
+			return null;
+		}
+
 		let yy = this.reader.getFloat(node.children[i], 'yy', true);
+		if (yy == null ) {
+			this.onXMLError("unable to parse yy value for control point");
+			return null;
+		} else if (isNaN(yy)) {
+			this.onXMLError("'yy' is a non numeric value");
+			return null;
+		}
+		
 		let zz = this.reader.getFloat(node.children[i], 'zz', true);
+		if (zz == null ) {
+			this.onXMLError("unable to parse zz value for control point");
+			return null;
+		} else if (isNaN(zz)) {
+			this.onXMLError("'zz' is a non numeric value");
+			return null;
+		}
 
 		controlPoints.push([xx, yy, zz]);
 	}

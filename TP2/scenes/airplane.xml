@@ -245,7 +245,7 @@
 	<!-- Airplane's track acceleration -->
 	<ANIMATION id="plane_track_accelerate" type="combo">
 		<SPANREF id="plane_slow_speed"/>
-				<SPANREF id="plane_medium_speed"/>
+		<SPANREF id="plane_medium_speed"/>
 		<SPANREF id="plane_high_speed"/>
 		</ANIMATION>	
 
