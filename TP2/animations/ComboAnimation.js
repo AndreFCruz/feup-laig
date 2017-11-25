@@ -1,7 +1,6 @@
 class ComboAnimation extends Animation {
   constructor(animations) {
     super();
-    this.checkAnimationsIntegrity(animations);
     this.animations = animations;
     this.cumulative = 0;
     this.animIdx = 0;
@@ -25,6 +24,7 @@ class ComboAnimation extends Animation {
 
   increaseAnimIdx() {
     if (this.animIdx + 1 < this.animations.length) {
+      this.animations[this.animIdx].reset();
       this.animIdx++;
     } else {
       this.reset();

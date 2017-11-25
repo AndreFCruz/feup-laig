@@ -9,6 +9,7 @@ class Animation {
   }
 
   update(elapsedTime) {
+    // Template Method
     // update matrix in subclass function
     return null;
   }
@@ -19,6 +20,11 @@ class Animation {
 
   set matrix(mat) {
     this._matrix = mat;
+  }
+
+  reset() {
+    // Template Method
+    return null;
   }
 
   // Converts Cartesian coordinates (from orientation 3D vector) to Spherical Coordinates
