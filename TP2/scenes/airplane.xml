@@ -448,7 +448,7 @@
 					<ANIMATIONREF id="plane_track_accelerate" />
 					<ANIMATIONREF id="leave_ground" />
 					<ANIMATIONREF id="fly_loop" />
-					<!-- <ANIMATIONREF id="fly_loop" /> -->
+					<ANIMATIONREF id="fly_loop" />
 				</ANIMATIONREFS>
 
 				<DESCENDANTS>
