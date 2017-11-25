@@ -16,7 +16,7 @@ function XMLscene(interface) {
     this.Selectables = " ";
 
     //For Color Controller
-    this.selectedColor = "#ffae23";
+    this.selectedColor = "#ff6322";
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
