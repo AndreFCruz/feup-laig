@@ -437,7 +437,7 @@
 		</NODE>
 
 		<!-- The landing airplane node -->
-		<NODE id="landing airplane">       
+		<NODE id="landing airplane" selectable="true">       
 				<MATERIAL id="defaultMaterial" />         
 				<TEXTURE id="design1" /> 
 
@@ -1103,6 +1103,7 @@
 			<NODEREF id="grass" />
 			<NODEREF id="floor" />
 			<NODEREF id="runaway" />
+			<NODEREF id="runaway night lights" />
 		</DESCENDANTS>
 		
 	 </NODE>
@@ -1167,7 +1168,7 @@
 	 </NODE>
 
 	 <!-- The airport's runaway -->
-	 <NODE id="runaway">
+	 <NODE id="runaway" selectable="true">
 		<MATERIAL id="highlight" />
 		<TEXTURE id="runaway" />
 
@@ -1176,6 +1177,194 @@
 
 		<DESCENDANTS>
 			<LEAF type="rectangle"  args="15 80 65 -80"/>
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The runaway night lights-->
+	 <NODE id="runaway night lights" selectable="true">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<DESCENDANTS>
+			<NODEREF id="night lights line 1" />
+			<NODEREF id="night lights line 2" />
+			<NODEREF id="night lights line 3" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A full line of night lights-->
+	 <NODE id="night lights line 1">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="-25" y="0" z="0" />
+
+		<DESCENDANTS>
+			<NODEREF id="night lights segment 1" />
+			<NODEREF id="night lights segment 2" />
+			<NODEREF id="night lights segment 3" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 	 <!-- A full line of night lights-->
+	 <NODE id="night lights line 2">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="0" />
+
+		<DESCENDANTS>
+			<NODEREF id="night lights segment 1" />
+			<NODEREF id="night lights segment 2" />
+			<NODEREF id="night lights segment 3" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A full line of night lights-->
+	 <NODE id="night lights line 3">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="25" y="0" z="0" />
+		0
+		<DESCENDANTS>
+			<NODEREF id="night lights segment 1" />
+			<NODEREF id="night lights segment 2" />
+			<NODEREF id="night lights segment 3" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The runaway night lights segments-->
+	 <NODE id="night lights segment 1">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="35" />
+
+		<DESCENDANTS>
+			<NODEREF id="night lights segment" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The runaway night lights segments-->
+	 <NODE id="night lights segment 2">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="-15" />
+
+		<DESCENDANTS>
+			<NODEREF id="night lights segment" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- The runaway night lights segments-->
+	 <NODE id="night lights segment 3">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="-65" />
+
+		<DESCENDANTS>
+			<NODEREF id="night lights segment" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- a generic segment of runaway night lights-->
+	 <NODE id="night lights segment">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<DESCENDANTS>
+			<NODEREF id="night_light1" />
+			<NODEREF id="night_light2" />
+			<NODEREF id="night_light3" />
+			<NODEREF id="night_light4" />
+			<NODEREF id="night_light5" />
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A night light for the runaway-->
+	 <NODE id="night_light1" selectable="false">
+		<MATERIAL id="glass" />
+		<TEXTURE id="glass" />
+
+		<TRANSLATION x="40" y="0" z="0" />
+
+		<DESCENDANTS>
+			<NODEREF id="night_light"/>
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A night light for the runaway-->
+	 <NODE id="night_light2" selectable="false">
+		<MATERIAL id="glass" />
+		<TEXTURE id="glass" />
+
+		<TRANSLATION x="40" y="0" z="10" />
+
+		<DESCENDANTS>
+			<NODEREF id="night_light"/>
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A night light for the runaway-->
+	 <NODE id="night_light3" selectable="false">
+		<MATERIAL id="glass" />
+		<TEXTURE id="glass" />
+
+		<TRANSLATION x="40" y="0" z="20" />
+
+		<DESCENDANTS>
+			<NODEREF id="night_light"/>
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A night light for the runaway-->
+	 <NODE id="night_light4" selectable="false">
+		<MATERIAL id="glass" />
+		<TEXTURE id="glass" />
+
+		<TRANSLATION x="40" y="0" z="30" />
+
+		<DESCENDANTS>
+			<NODEREF id="night_light"/>
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A night light for the runaway-->
+	 <NODE id="night_light5" selectable="false">
+		<MATERIAL id="glass" />
+		<TEXTURE id="glass" />
+
+		<TRANSLATION x="40" y="0" z="40" />
+
+		<DESCENDANTS>
+			<NODEREF id="night_light"/>
+		</DESCENDANTS>
+		
+	 </NODE>
+
+	 <!-- A generic night light for the runaway-->
+	 <NODE id="night_light" selectable="false">
+		<MATERIAL id="glass" />
+		<TEXTURE id="glass" />
+
+		<DESCENDANTS>
+			<LEAF type="sphere"  args="0.2 10 10"/>
 		</DESCENDANTS>
 		
 	 </NODE>
