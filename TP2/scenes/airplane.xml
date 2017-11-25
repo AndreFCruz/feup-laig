@@ -2,13 +2,13 @@
 
 <!-- Initial values -->
 <INITIALS>
-        <frustum near="0.1" far="500"/>
-        <translation x="-1" y="-2" z="-4" />
-        <rotation axis="x" angle="-15" />
-        <rotation axis="y" angle="-15" />
-        <rotation axis="z" angle="15" />
-        <scale sx="0.15" sy="0.15" sz="0.15" />
-        <reference length="5" />                        
+				<frustum near="0.1" far="500"/>
+				<translation x="-1" y="-2" z="-4" />
+				<rotation axis="x" angle="-15" />
+				<rotation axis="y" angle="-15" />
+				<rotation axis="z" angle="15" />
+				<scale sx="0.15" sy="0.15" sz="0.15" />
+				<reference length="5" />                        
 </INITIALS>
 
 <!-- Illumination and clear colour -->
@@ -210,13 +210,13 @@
 	<!-- Animation for opening the gate left door -->
 	<ANIMATION id="open_left_door" speed="0.02" type="linear">
 		<controlpoint xx="0.11" yy="0" zz="0"/>
-        <controlpoint xx="-0.12" yy="0" zz="0"/>
+		<controlpoint xx="-0.12" yy="0" zz="0"/>
 	</ANIMATION>
 
 	<!-- Animation for opening the gate right door -->
 	<ANIMATION id="open_right_door" speed="0.02" type="linear">
 		<controlpoint xx="-0.11" yy="0" zz="0"/>
-        <controlpoint xx="0.12" yy="0" zz="0"/>
+		<controlpoint xx="0.12" yy="0" zz="0"/>
 	</ANIMATION>
 
 	<!-- Animation for making the airplaine's helix spin -->
@@ -226,51 +226,51 @@
 
 	<!-- Animation for slow airplane speed -->
 	<ANIMATION id="plane_slow_speed" speed="4" type="linear">
-        <controlpoint xx="0" yy="-5.5" zz="-80"/>
-        <controlpoint xx="0" yy="-5.5" zz="-65"/>
+				<controlpoint xx="0" yy="-5.5" zz="-80"/>
+				<controlpoint xx="0" yy="-5.5" zz="-65"/>
 	</ANIMATION>
 
 	<!-- Animation for medium airplane speed -->
 	<ANIMATION id="plane_medium_speed" speed="8" type="linear">
-        <controlpoint xx="0" yy="-5.5" zz="-65"/>
-        <controlpoint xx="0" yy="-5.5" zz="-40"/>
+				<controlpoint xx="0" yy="-5.5" zz="-65"/>
+				<controlpoint xx="0" yy="-5.5" zz="-40"/>
 	</ANIMATION>
 
 	<!-- Animation for medium airplane speed -->
 	<ANIMATION id="plane_high_speed" speed="12" type="linear">
-        <controlpoint xx="0" yy="-5.5" zz="-40"/>
-        <controlpoint xx="0" yy="-5.5" zz="-10"/>
+				<controlpoint xx="0" yy="-5.5" zz="-40"/>
+				<controlpoint xx="0" yy="-5.5" zz="-10"/>
 	</ANIMATION>
 
 	<!-- Airplane's track acceleration -->
 	<ANIMATION id="plane_track_accelerate" type="combo">
 		<SPANREF id="plane_slow_speed"/>
-        <SPANREF id="plane_medium_speed"/>
+				<SPANREF id="plane_medium_speed"/>
 		<SPANREF id="plane_high_speed"/>
-    </ANIMATION>	
+		</ANIMATION>	
 
 	<!-- Animation that makes the airplane leave the ground : part1 -->
 	<ANIMATION id="leave_ground_1" speed="12" type="bezier">
 		<controlpoint xx="0" yy="-5.5" zz="-10"/>
-        <controlpoint xx="0" yy="-5.5" zz="5"/>
-        <controlpoint xx="0" yy="2" zz="20"/>
-        <controlpoint xx="0" yy="7" zz="30"/>
+		<controlpoint xx="0" yy="-5.5" zz="5"/>
+		<controlpoint xx="0" yy="2" zz="20"/>
+		<controlpoint xx="0" yy="7" zz="30"/>
 	</ANIMATION>
 
 	<!-- Animation that makes the airplane leave the ground : part2 -->
 	<ANIMATION id="leave_ground_2" speed="14" type="bezier">
 		<controlpoint xx="0" yy="7" zz="30"/>
-        <controlpoint xx="0" yy="12" zz="40"/>
-        <controlpoint xx="10" yy="20" zz="50"/>
-        <controlpoint xx="20" yy="20" zz="50"/>
+		<controlpoint xx="0" yy="12" zz="40"/>
+		<controlpoint xx="10" yy="20" zz="50"/>
+		<controlpoint xx="20" yy="20" zz="50"/>
 	</ANIMATION>
 
 	<!-- Animation that makes the airplane leave the ground : part3 -->
 	<ANIMATION id="leave_ground_3" speed="14" type="bezier">
 		<controlpoint xx="20" yy="20" zz="50"/>
-        <controlpoint xx="30" yy="20" zz="50"/>
-        <controlpoint xx="50" yy="20" zz="40"/>
-        <controlpoint xx="50" yy="20" zz="30"/>
+		<controlpoint xx="30" yy="20" zz="50"/>
+		<controlpoint xx="50" yy="20" zz="40"/>
+		<controlpoint xx="50" yy="20" zz="30"/>
 	</ANIMATION>
 
 	<!-- Animation that makes the airplane leave the ground -->
@@ -282,50 +282,50 @@
 
 	<!-- Animation for making the Airplane fly in loops : part1 -->
 	<ANIMATION id="fly_loop_1" speed="17" type="linear">
-        <controlpoint xx="50" yy="20" zz="30"/>
-        <controlpoint xx="50" yy="20" zz="-40"/>
+		<controlpoint xx="50" yy="20" zz="30"/>
+		<controlpoint xx="50" yy="20" zz="-40"/>
 	</ANIMATION>
 
 	<!-- Animation for making the Airplane fly in loops : part2 -->
 	<ANIMATION id="fly_loop_2" speed="17" type="bezier">
 		<controlpoint xx="50" yy="20" zz="-40"/>
-        <controlpoint xx="50" yy="20" zz="-70"/>
-        <controlpoint xx="-50" yy="20" zz="-70"/>
-        <controlpoint xx="-50" yy="20" zz="-40"/>
+		<controlpoint xx="50" yy="20" zz="-70"/>
+		<controlpoint xx="-50" yy="20" zz="-70"/>
+		<controlpoint xx="-50" yy="20" zz="-40"/>
 	</ANIMATION>
 
 	<!-- Animation for making the Airplane fly in loops : part3 -->
 	<ANIMATION id="fly_loop_3" speed="17" type="linear">
-        <controlpoint xx="-50" yy="20" zz="-40"/>
+		<controlpoint xx="-50" yy="20" zz="-40"/>
 		<controlpoint xx="-50" yy="20" zz="30"/>
 	</ANIMATION>
 
 	<!-- Animation for making the Airplane fly in loops : part4 -->
 	<ANIMATION id="fly_loop_4" speed="17" type="bezier">
 		<controlpoint xx="-50" yy="20" zz="30"/>
-        <controlpoint xx="-50" yy="20" zz="60"/>
-        <controlpoint xx="50" yy="20" zz="60"/>
-        <controlpoint xx="50" yy="20" zz="30"/>
+		<controlpoint xx="-50" yy="20" zz="60"/>
+		<controlpoint xx="50" yy="20" zz="60"/>
+		<controlpoint xx="50" yy="20" zz="30"/>
 	</ANIMATION>
 
 	<!-- Animation for making the Airplane fly in loops -->
 	<ANIMATION id="fly_loop" type="combo">
 		<SPANREF id="fly_loop_1"/>
 		<SPANREF id="fly_loop_2"/>
-        <SPANREF id="fly_loop_3"/>
+		<SPANREF id="fly_loop_3"/>
 		<SPANREF id="fly_loop_4"/>
-    </ANIMATION>
+		</ANIMATION>
 
 	<!-- Makes the object wait to seconds almost still -->
 	<ANIMATION id="wait_2s" speed="0.0005" type="linear">
-        <controlpoint xx="0" yy="0" zz="0"/>
+		<controlpoint xx="0" yy="0" zz="0"/>
 		<controlpoint xx="0.001" yy="0" zz="0"/>
 	</ANIMATION>
 
 	<!-- Airplane moving to track -->
 	<ANIMATION id="move_to_track" speed="4" type="linear">
-        <controlpoint xx="0" yy="0" zz="0"/>
-        <controlpoint xx="0" yy="0" zz="20"/>
+		<controlpoint xx="0" yy="0" zz="0"/>
+		<controlpoint xx="0" yy="0" zz="20"/>
 		<controlpoint xx="40" yy="0" zz="60"/>
 		<controlpoint xx="40" yy="0" zz="72"/>
 	</ANIMATION>
@@ -337,7 +337,7 @@
 	
 	<!-- Make the airplane traverse the track -->
 	<ANIMATION id="traverse_track" speed="8" type="linear">
-        <controlpoint xx="35" yy="0" zz="77"/>
+		<controlpoint xx="35" yy="0" zz="77"/>
 		<controlpoint xx="-70" yy="0" zz="77"/>
 	</ANIMATION>
 
@@ -1132,35 +1132,35 @@
 				<LEAF type="rectangle"  args="-75 50 -25 -50"/>
 				<LEAF type="rectangle"  args="10 90 70 -90"/>
 
-	            <LEAF type="patch" args="20 20" >
-	                <CPLINE>
-	                    <CPOINT xx="-25" yy="25" zz="0" ww="1" />
-	                    <CPOINT xx="-7.5" yy="25" zz="0" ww="0.3" />
-	                    <CPOINT xx="-7.5" yy="55" zz="0" ww="0.3" />
-	                    <CPOINT xx="10" yy="55" zz="0" ww="1" />
-	                </CPLINE>
-	                <CPLINE>
-	                    <CPOINT xx="-25" yy="-5" zz="0" ww="1" />
-	                    <CPOINT xx="-7.5" yy="-5" zz="0" ww="0.3" />
-	                    <CPOINT xx="-7.5" yy="25" zz="0" ww="0.3" />
-	                    <CPOINT xx="10" yy="25" zz="0" ww="1" />
-	                </CPLINE>
-	            </LEAF>
+							<LEAF type="patch" args="20 20" >
+									<CPLINE>
+											<CPOINT xx="-25" yy="25" zz="0" ww="1" />
+											<CPOINT xx="-7.5" yy="25" zz="0" ww="0.3" />
+											<CPOINT xx="-7.5" yy="55" zz="0" ww="0.3" />
+											<CPOINT xx="10" yy="55" zz="0" ww="1" />
+									</CPLINE>
+									<CPLINE>
+											<CPOINT xx="-25" yy="-5" zz="0" ww="1" />
+											<CPOINT xx="-7.5" yy="-5" zz="0" ww="0.3" />
+											<CPOINT xx="-7.5" yy="25" zz="0" ww="0.3" />
+											<CPOINT xx="10" yy="25" zz="0" ww="1" />
+									</CPLINE>
+							</LEAF>
 
-	            <LEAF type="patch" args="20 20" >
-	                <CPLINE>
-	                    <CPOINT xx="-25" yy="5" zz="0" ww="1" />
-	                    <CPOINT xx="-7.5" yy="5" zz="0" ww="0.3" />
-	                    <CPOINT xx="-7.5" yy="-25" zz="0" ww="0.3" />
-	                    <CPOINT xx="10" yy="-25" zz="0" ww="1" />
-	                </CPLINE>
-	                <CPLINE>
-	                    <CPOINT xx="-25" yy="-25" zz="0" ww="1" />
-	                    <CPOINT xx="-7.5" yy="-25" zz="0" ww="0.3" />
-	                    <CPOINT xx="-7.5" yy="-55" zz="0" ww="0.3" />
-	                    <CPOINT xx="10" yy="-55" zz="0" ww="1" />
-	                </CPLINE>
-	            </LEAF> 
+							<LEAF type="patch" args="20 20" >
+									<CPLINE>
+											<CPOINT xx="-25" yy="5" zz="0" ww="1" />
+											<CPOINT xx="-7.5" yy="5" zz="0" ww="0.3" />
+											<CPOINT xx="-7.5" yy="-25" zz="0" ww="0.3" />
+											<CPOINT xx="10" yy="-25" zz="0" ww="1" />
+									</CPLINE>
+									<CPLINE>
+											<CPOINT xx="-25" yy="-25" zz="0" ww="1" />
+											<CPOINT xx="-7.5" yy="-25" zz="0" ww="0.3" />
+											<CPOINT xx="-7.5" yy="-55" zz="0" ww="0.3" />
+											<CPOINT xx="10" yy="-55" zz="0" ww="1" />
+									</CPLINE>
+							</LEAF> 
 
 			</DESCENDANTS>
 		
@@ -1345,44 +1345,44 @@
 			<DESCENDANTS>
 				<NODEREF id="roof base" />
 
-	            <LEAF type="patch" args="20 20" >
-	                <CPLINE>
-	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
-	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.5" />
-	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
-	                </CPLINE>
-	                <CPLINE>
-	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
-	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.5" />
-	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
-	                </CPLINE>
-	            </LEAF> 
+							<LEAF type="patch" args="20 20" >
+									<CPLINE>
+											<CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+											<CPOINT xx="0" yy="2" zz="-0.6" ww="0.5" />
+											<CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+									</CPLINE>
+									<CPLINE>
+											<CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+											<CPOINT xx="0" yy="2" zz="0.6" ww="0.5" />
+											<CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+									</CPLINE>
+							</LEAF> 
 
-	            <LEAF type="patch" args="20 20" >
-	                <CPLINE>
-	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
-	                    <CPOINT xx="0" yy="0" zz="-0.6" ww="0.5" />
-	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
-	                </CPLINE>
-	                <CPLINE>
-	                    <CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
-	                    <CPOINT xx="0" yy="2" zz="-0.6" ww="0.5" />
-	                    <CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
-	                </CPLINE>
-	            </LEAF> 
+							<LEAF type="patch" args="20 20" >
+									<CPLINE>
+											<CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+											<CPOINT xx="0" yy="0" zz="-0.6" ww="0.5" />
+											<CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+									</CPLINE>
+									<CPLINE>
+											<CPOINT xx="-0.6" yy="0" zz="-0.6" ww="1" />
+											<CPOINT xx="0" yy="2" zz="-0.6" ww="0.5" />
+											<CPOINT xx="0.6" yy="0" zz="-0.6" ww="1" />
+									</CPLINE>
+							</LEAF> 
 
-	            <LEAF type="patch" args="20 20" >
-	                <CPLINE>
-	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
-	                    <CPOINT xx="0" yy="2" zz="0.6" ww="0.5" />
-	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
-	                </CPLINE>
-	                <CPLINE>
-	                    <CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
-	                    <CPOINT xx="0" yy="0" zz="0.6" ww="0.5" />
-	                    <CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
-	                </CPLINE>
-	            </LEAF> 
+							<LEAF type="patch" args="20 20" >
+									<CPLINE>
+											<CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+											<CPOINT xx="0" yy="2" zz="0.6" ww="0.5" />
+											<CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+									</CPLINE>
+									<CPLINE>
+											<CPOINT xx="-0.6" yy="0" zz="0.6" ww="1" />
+											<CPOINT xx="0" yy="0" zz="0.6" ww="0.5" />
+											<CPOINT xx="0.6" yy="0" zz="0.6" ww="1" />
+									</CPLINE>
+							</LEAF> 
 
 			</DESCENDANTS>
 		
@@ -1538,7 +1538,7 @@
 				<NODEREF id="gate door" />
 				<NODEREF id="gate puller" /> 
 				<NODEREF id="gate window" /> 
- 			</DESCENDANTS>
+			</DESCENDANTS>
 		
 	 </NODE>
 
@@ -1551,7 +1551,7 @@
 
 			<DESCENDANTS>
 				<NODEREF id="cube" />
- 			</DESCENDANTS>
+			</DESCENDANTS>
 		
 	 </NODE>
 
@@ -1565,7 +1565,7 @@
 
 			<DESCENDANTS>
 				<NODEREF id="cube" />
- 			</DESCENDANTS>
+			</DESCENDANTS>
 		
 	 </NODE>
 
@@ -1579,7 +1579,7 @@
 
 			<DESCENDANTS>
 				<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
- 			</DESCENDANTS>
+			</DESCENDANTS>
 		
 	 </NODE>
 
