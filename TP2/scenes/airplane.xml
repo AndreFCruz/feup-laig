@@ -316,9 +316,36 @@
 		<SPANREF id="fly_loop_4"/>
     </ANIMATION>
 
-	<!-- pelo menos, dois segmentos de reta (classe LinearAnimation),
-intermediados por um segmento circular (CircularAnimation). -->
+	<!-- Makes the object wait to seconds almost still -->
+	<ANIMATION id="wait_2s" speed="0.0005" type="linear">
+        <controlpoint xx="0" yy="0" zz="0"/>
+		<controlpoint xx="0.001" yy="0" zz="0"/>
+	</ANIMATION>
+
 	<!-- Airplane moving to track -->
+	<ANIMATION id="move_to_track" speed="4" type="linear">
+        <controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="0" yy="0" zz="20"/>
+		<controlpoint xx="40" yy="0" zz="60"/>
+		<controlpoint xx="40" yy="0" zz="72"/>
+	</ANIMATION>
+
+	<!-- Animation for making the plane line up with the track -->
+	<ANIMATION id="line_with_track" speed="4" type="circular"
+		centerx="35" centery="0" centerz="72"
+		radius="5" startang="0" rotang="-90" />
+	
+	<!-- Make the airplane traverse the track -->
+	<ANIMATION id="traverse_track" speed="8" type="linear">
+        <controlpoint xx="35" yy="0" zz="77"/>
+		<controlpoint xx="-70" yy="0" zz="77"/>
+	</ANIMATION>
+
+	<!-- Animation for making the plane line up with the track -->
+	<ANIMATION id="line_with_track_2" speed="4" type="circular"
+		centerx="-70" centery="0" centerz="79"
+		radius="2" startang="270" rotang="180" />
+
 
 </ANIMATIONS>
 
@@ -353,8 +380,7 @@ intermediados por um segmento circular (CircularAnimation). -->
 				<MATERIAL id="null" />
 				<TEXTURE id="null" />
 
-				<TRANSLATION x="-50" y="4.2" z="25" />
-				<ROTATION axis="z" angle="7" />
+				<TRANSLATION x="-50" y="4.2" z="25" />	
 				<ROTATION axis="y" angle="90" />
 
 				<DESCENDANTS>
@@ -381,7 +407,15 @@ intermediados por um segmento circular (CircularAnimation). -->
 				<MATERIAL id="null" />         
 				<TEXTURE id="design2" /> 
 
-				<TRANSLATION x="25" y="0" z="0" /> 
+				<TRANSLATION x="25" y="0" z="0" />
+
+				<ANIMATIONREFS>
+					<ANIMATIONREF id="wait_2s" />
+					<ANIMATIONREF id="move_to_track" />
+					<ANIMATIONREF id="line_with_track" />
+					<ANIMATIONREF id="traverse_track" />
+					<ANIMATIONREF id="line_with_track_2" />
+				</ANIMATIONREFS>
 
 				<DESCENDANTS>
 					<NODEREF id="airplane" />
@@ -413,9 +447,6 @@ intermediados por um segmento circular (CircularAnimation). -->
 				<ANIMATIONREFS>
 					<ANIMATIONREF id="plane_track_accelerate" />
 					<ANIMATIONREF id="leave_ground" />
-					<ANIMATIONREF id="fly_loop" />
-					<ANIMATIONREF id="fly_loop" />
-					<ANIMATIONREF id="fly_loop" />
 					<ANIMATIONREF id="fly_loop" />
 					<ANIMATIONREF id="fly_loop" />
 				</ANIMATIONREFS>

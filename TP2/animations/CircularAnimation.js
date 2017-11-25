@@ -9,7 +9,7 @@ class CircularAnimation extends Animation {
     let angToRad = Math.PI / 180;
     this.startAng = startang * angToRad;
     this.rotAng = rotang * angToRad;
-    this.length = rotang / 360 * (2 * this.radius * Math.PI);
+    this.length = Math.abs(rotang) / 360 * (2 * this.radius * Math.PI);
 
     this.duration = this.length / this.speed * 1000;
   }
