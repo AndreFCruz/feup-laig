@@ -8,13 +8,6 @@ class ComboAnimation extends Animation {
     this.calcComboDuration();
   }
 
-  checkAnimationsIntegrity(animations) {
-    for (let i = 0; i < animations.length; i++) {
-      if (animations[i] instanceof ComboAnimation)
-        throw new Error("Error: Nested combo animations.");
-    }
-  }
-
   calcComboDuration() {
     this.duration = 0;
     for (let i = 0; i < this.animations.length; i++) {
