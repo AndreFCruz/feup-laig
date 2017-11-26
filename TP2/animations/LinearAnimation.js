@@ -48,7 +48,9 @@ class LinearAnimation extends Animation {
   }
 
   /**
-   * Compute the Length of the total moviment
+   * Computes the Length of the total animation movement.
+   * Computes the Movement segments.
+   * Computes the Time Divisons for the segments.
    * 
    * @return {null}
    */
@@ -65,6 +67,12 @@ class LinearAnimation extends Animation {
 			this.divisions[i] /= this.length;
   }
 
+  /**
+   * Computes the animation current position.
+   * 
+   * @param {Number} t - animation progress, between [0, 1]
+   * @return {Array} - Point of the new computed position
+   */
   calcPosition(t) {
     if (t < 0 || t > 1)
         throw new Error("Invalid t parameter to Linear Animation");

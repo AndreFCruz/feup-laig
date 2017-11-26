@@ -49,7 +49,7 @@ class Animation {
   }
 
   /**
-   * Template method for reseting an animation
+   * Reset an animation
    * 
    * @return {null}
    */

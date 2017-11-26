@@ -1,4 +1,18 @@
+/**
+ * A class used to represent a Bezier Animation
+ * @augments Animation
+ */
 class BezierAnimation extends Animation {
+
+  /**
+   * Constructor for bezier animation class.
+   * Consult 'https://en.wikipedia.org/wiki/B%C3%A9zier_curve' to better understand the bezier animaiton movement.
+   * 
+   * @augments Animation
+   * @param {Number} speed - Animation Speed
+   * @param {Array} controlPoints - Control Points that will define the animation movements.
+   * @constructor
+   */
   constructor(speed, controlPoints) {
     super();
     this.speed = speed;
@@ -19,6 +33,10 @@ class BezierAnimation extends Animation {
     this.diffP3 = pointDiff(this.p4, this.p3, 4);
   }
 
+  /**
+   * @inheritdoc
+   * @override 
+   */
   update(elapsedTime) {
     if (elapsedTime > this.duration)
       return null;
@@ -33,7 +51,14 @@ class BezierAnimation extends Animation {
     this.calcMatrixOrientation();
   }
 
-  // Approximation of curve's arc length
+  /**
+   * Computes the Length of the total animation movement.
+   * The approximation of the curve's length is made by computing some curve
+   * points and calculating the lenght of the segments of those points.
+   * @see @function casteljou for another aproach.
+   * 
+   * @return {Number} - Computed curve length
+   */
   calcCurveLength() {
     let steps = 20; // approximation steps
     let length = 0;
@@ -50,12 +75,20 @@ class BezierAnimation extends Animation {
     return length;
   }
 
-  //Recursive Casteljou algorithm for computing a curve's arc length
-  casteljou(missingIterations, controlPoints) {
-    let cp1 = controlPoints[0];
-    let cp3 = controlPoints[1];
-    let cp7 = controlPoints[2];
-    let cp9 = controlPoints[3];
+  /**
+   * Computes the Length of the total animation movement.
+   * The approximation of the curve's length is made by applying the casteljou algorithm recursivelly.
+   * Consult 'https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm' for more information.
+   * @see @function calcCurveLength for another aproach.
+   * 
+   * @param {Number} - Number of iterations
+   * @return {Number} - Computed curve length
+   */
+  casteljou(missingIterations) {
+    let cp1 = this.p1;
+    let cp3 = this.p2;
+    let cp7 = this.p3;
+    let cp9 = this.p4;
     
     let cp2 = middlePoint(cp1, cp3);
     let cp4 = middlePoint(cp3, cp7);
@@ -77,8 +110,13 @@ class BezierAnimation extends Animation {
       return (this.casteljou(--missingIterations, [cp1, cp2, cp5, midpoint]) +
               this.casteljou(missingIterations, [midpoint, cp6, cp8, cp9]));
   }
-    
 
+  /**
+   * Computes the animation current position.
+   * 
+   * @param {Number} t - animation progress, between [0, 1]
+   * @return {Array} - Point of the new computed position
+   */
   calcPosition(t) {
     if (t < 0 || t > 1)
         throw new Error("Invalid t parameter to Bezier curve");
@@ -90,6 +128,12 @@ class BezierAnimation extends Animation {
     ];
   }
 
+  /**
+   * Compute the tangent vector to the current animation movement
+   * 
+   * @param {Number} t - animation progress, between [0, 1]
+   * @return {Array} - 3D Vector representing the tangent to the current movement
+   */
   calcDerivative(t) {
     if (t < 0 || t > 1)
         throw new Error("Invalid t parameter to Bezier curve");
