@@ -1843,7 +1843,13 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 		this.scene.setDefaultShader();
 }
 
-
+/**
+ * Updates the the scene graph nodes. 
+ * Useful for animations.
+ * 
+ * @param {Number} currTime - current time, in miliseconds.
+ * @return {null}
+ */
 MySceneGraph.prototype.updateScene = function(currTime) {
 
 	for (let node in this.nodes) {

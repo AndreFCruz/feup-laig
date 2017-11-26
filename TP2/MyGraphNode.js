@@ -32,6 +32,8 @@ function MyGraphNode(graph, nodeID) {
 
 /**
  * Adds the reference (ID) of another node to this node's children array.
+ * 
+ * @return {null}
  */
 MyGraphNode.prototype.addChild = function(nodeID) {
     this.children.push(nodeID);
@@ -39,13 +41,17 @@ MyGraphNode.prototype.addChild = function(nodeID) {
 
 /**
  * Adds a leaf to this node's leaves array.
+ * 
+ * @return {null}
  */
 MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
 /**
- * Update elapsed time
+ * Update elapsed time, useful for animations
+ * 
+ * @return {null}
  */
 MyGraphNode.prototype.update = function(elapsedTime) {
     if (this.initialTime == null)

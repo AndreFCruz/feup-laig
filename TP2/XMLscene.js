@@ -174,25 +174,52 @@ XMLscene.prototype.display = function() {
     // ---- END Background, camera and axis setup
 }
 
+/**
+ * Update the entire scene
+ * 
+ * @param {Number} currTime - current time, in miliseconds.
+ * @return {null}
+ */
 XMLscene.prototype.update = function(currTime) {
     this.graph.updateScene(currTime);
     this.updateShader(currTime);
 }
 
+/**
+ * Set the shader to the default shader.
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.setDefaultShader = function() {
     this.setActiveShader(this.defaultShader);
 }
 
+/**
+ * Set the shader to the color shader.
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.setSecondaryShader = function() {
     this.setActiveShader(this.secondaryShader);
 }
 
+/**
+ * Update the color Shader.
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.updateShader = function(currTime) {
     let t = (Math.sin(currTime / 1000) + 1) / 2;
 
     this.secondaryShader.setUniformsValues({timeFactor: t});    
 }
 
+/**
+ * Update the color shader to use a new color.
+ * 
+ * @param {String} hexValue - Hexadecimal value for the new shader color
+ * @return {null}
+ */
 XMLscene.prototype.updateShaderColor = function(hexValue) {
     let color = hexToRgbVec(this.selectedColor);
 
