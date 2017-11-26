@@ -26,6 +26,8 @@ class BezierAnimation extends Animation {
     this.p4 = controlPoints[3];
 
     this.length = this.calcCurveLength();
+    //this.length = this.casteljou(20, controlPoints);
+
     this.duration = this.length / this.speed * 1000;
 
     this.diffP1 = pointDiff(this.p2, this.p1, 4);
@@ -81,14 +83,15 @@ class BezierAnimation extends Animation {
    * Consult 'https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm' for more information.
    * @see @function calcCurveLength for another aproach.
    * 
-   * @param {Number} - Number of iterations
+   * @param {Number} missingIterations - Number of iterations
+   * @param {Array} controlPoints - Control Points for this Casteljou iteration
    * @return {Number} - Computed curve length
    */
-  casteljou(missingIterations) {
-    let cp1 = this.p1;
-    let cp3 = this.p2;
-    let cp7 = this.p3;
-    let cp9 = this.p4;
+  casteljou(missingIterations, controlPoints) {
+    let cp1 = controlPoints[0];
+    let cp3 = controlPoints[1];
+    let cp7 = controlPoints[2];
+    let cp9 = controlPoints[3];
     
     let cp2 = middlePoint(cp1, cp3);
     let cp4 = middlePoint(cp3, cp7);
