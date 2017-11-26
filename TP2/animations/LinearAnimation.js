@@ -25,7 +25,6 @@ class LinearAnimation extends Animation {
 
     let pos = this.calcPosition(t);
 
-    //mat4.fromTranslation(this.matrix, pos);
     mat4.identity(this.matrix);
     mat4.translate(this.matrix, this.matrix, pos);
     this.calcMatrixOrientation();
@@ -36,7 +35,7 @@ class LinearAnimation extends Animation {
 			let newSegment = pointDiff(this.controlPoints[i], this.controlPoints[i-1]);
 			this.lineSegments.push(newSegment);
 
-			this.length += Math.sqrt(Math.pow(newSegment[0], 2) + Math.pow(newSegment[1], 2) + Math.pow(newSegment[2], 2));
+			this.length += vecLength(newSegment);
 			this.divisions.push(this.length);
 		}
 

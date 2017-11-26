@@ -26,7 +26,6 @@ class BezierAnimation extends Animation {
     let t = elapsedTime / this.duration;
 
     let pos = this.calcPosition(t);
-    //mat4.fromTranslation(this.matrix, pos);
     mat4.identity(this.matrix);
     mat4.translate(this.matrix, this.matrix, pos);
 
@@ -43,18 +42,42 @@ class BezierAnimation extends Animation {
 
     for (let i = 1; i <= steps; i++) {
       let p = this.calcPosition(i / steps);
-      let change = pointDiff(p, currPoint);
 
-      length += Math.sqrt(
-                      Math.pow(change[0], 2) + 
-                      Math.pow(change[1], 2) + 
-                      Math.pow(change[2], 2)
-                      ); 
+      length += distPoints(p, currPoint);
       currPoint = p;
     }
 
     return length;
   }
+
+  //Recursive Casteljou algorithm for computing a curve's arc length
+  casteljou(missingIterations, controlPoints) {
+    let cp1 = controlPoints[0];
+    let cp3 = controlPoints[1];
+    let cp7 = controlPoints[2];
+    let cp9 = controlPoints[3];
+    
+    let cp2 = middlePoint(cp1, cp3);
+    let cp4 = middlePoint(cp3, cp7);
+    let cp8 = middlePoint(cp7, cp9);
+    
+    let cp5 = middlePoint(cp2, cp4);
+    let cp6 = middlePoint(cp4, cp8);
+    
+    let midpoint = middlePoint(cp5, cp6);
+  
+    if (missingIterations == 1)
+      return (distPoints(cp1, cp2) +
+              distPoints(cp2, cp5) +
+              distPoints(cp5, midpoint) +
+              distPoints(midpoint, cp6) +
+              distPoints(cp6, cp8) +
+              distPoints(cp8, cp9));
+    else
+      return (this.casteljou(--missingIterations, [cp1, cp2, cp5, midpoint]) +
+              this.casteljou(missingIterations, [midpoint, cp6, cp8, cp9]));
+  }
+    
 
   calcPosition(t) {
     if (t < 0 || t > 1)
