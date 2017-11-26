@@ -548,7 +548,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationNode) {
 	else
 		this.onXMLMinorError("background clear colour undefined; assuming (R, G, B, A) = (0, 0, 0, 1)");
 	
-   console.log("Parsed illumination");
+	 console.log("Parsed illumination");
 	
 	return null ;
 }
@@ -999,11 +999,11 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 		// G.
 		var g = this.reader.getFloat(materialSpecs[specularIndex], 'g');
 		if (g == null )
-		   return "unable to parse G component of specular reflection for material with ID = " + materialID;
+			 return "unable to parse G component of specular reflection for material with ID = " + materialID;
 		else if (isNaN(g))
-		   return "specular 'g' is a non numeric value on the MATERIALS block";
+			 return "specular 'g' is a non numeric value on the MATERIALS block";
 		else if (g < 0 || g > 1)
-		   return "specular 'g' must be a value between 0 and 1 on the MATERIALS block";
+			 return "specular 'g' must be a value between 0 and 1 on the MATERIALS block";
 		specularComponent.push(g);
 		// B.
 		var b = this.reader.getFloat(materialSpecs[specularIndex], 'b');
@@ -1251,6 +1251,9 @@ MySceneGraph.prototype.constructComboAnimation = function(animNode) {
 		let childID = this.reader.getString(child, 'id');
 		if (childID == null || this.animations[childID] == null) {
 			this.onXMLError("Invalid ID in combo animation");
+			return null;
+		} else if (this.animations[childID] instanceof ComboAnimation) {
+			this.onXMLMinorError("Nested COMBO animations found. Child was: " + childID);
 			return null;
 		}
 
@@ -1692,27 +1695,27 @@ MySceneGraph.prototype.createPatchLeafNode = function(xmlelem, args) {
 		this.onXMLMinorError("CreateLeaf: Arguments in excess.");
 	}
 
-    var leafChildren = xmlelem.children;
-    var degV = leafChildren[0].children.length - 1;
+		var leafChildren = xmlelem.children;
+		var degV = leafChildren[0].children.length - 1;
 
-    var controlPoints = [];
+		var controlPoints = [];
 
-    for (let cpline of leafChildren) {
-        if (cpline.children.length != (degV + 1))
-            console.warn("Invalid number of CPOINTs in CPLINE");
-        var innerArray = [];
-        for (let cpoint of cpline.children) {
-            var xx = this.reader.getFloat(cpoint, 'xx', true);
-            var yy = this.reader.getFloat(cpoint, 'yy', true);
-            var zz = this.reader.getFloat(cpoint, 'zz', true);
-            var ww = this.reader.getFloat(cpoint, 'ww', true);
+		for (let cpline of leafChildren) {
+				if (cpline.children.length != (degV + 1))
+						console.warn("Invalid number of CPOINTs in CPLINE");
+				var innerArray = [];
+				for (let cpoint of cpline.children) {
+						var xx = this.reader.getFloat(cpoint, 'xx', true);
+						var yy = this.reader.getFloat(cpoint, 'yy', true);
+						var zz = this.reader.getFloat(cpoint, 'zz', true);
+						var ww = this.reader.getFloat(cpoint, 'ww', true);
 
-            innerArray.push([xx, yy, zz, ww]);
-        }
-        controlPoints.push(innerArray);
-    }
+						innerArray.push([xx, yy, zz, ww]);
+				}
+				controlPoints.push(innerArray);
+		}
 
-    return new MyPatch(this.scene, args, controlPoints);
+		return new MyPatch(this.scene, args, controlPoints);
 }
 
 /*
