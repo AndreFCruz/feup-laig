@@ -1,4 +1,20 @@
+/**
+ * A class used to represent a Circular Animation
+ * @augments Animation
+ */
 class CircularAnimation extends Animation {
+
+  /**
+   * Constructor for circular animation class
+   * 
+   * @augments Animation
+   * @param {Number} speed - Animation speed
+   * @param {Number} center - Center of the circular animation
+   * @param {Number} radius - Radius of the circular animation
+   * @param {Number} startang - Starting angle for the animation
+   * @param {Number} rotang - Total rotation angle for the animation
+   * @constructor
+   */
   constructor(speed, center, radius, startang, rotang) {
     super();
 
@@ -14,6 +30,10 @@ class CircularAnimation extends Animation {
     this.duration = this.length / this.speed * 1000;
   }
 
+  /**
+   * @inheritdoc
+   * @override 
+   */
   update(elapsedTime) {
   	if (elapsedTime > this.duration)
   		return null;

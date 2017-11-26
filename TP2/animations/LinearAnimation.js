@@ -1,5 +1,18 @@
+/**
+ * A class used to represent a Linear Animation
+ * @augments Animation
+ */
 class LinearAnimation extends Animation {
   
+  /**
+   * Constructor for linear animation class.
+   * The animation will be made of (number of controlpoints - 1) segments.
+   * 
+   * @augments Animation
+   * @param {Number} speed - Animation Speed
+   * @param {Array} controlPoints - Control Points that will define the animation movements.
+   * @constructor
+   */
   constructor(speed, controlPoints) {
     super();
     this.speed = speed;
@@ -17,6 +30,10 @@ class LinearAnimation extends Animation {
     this.duration = this.length / this.speed * 1000;
   }
 
+  /**
+   * @inheritdoc
+   * @override 
+   */
   update(elapsedTime) {
   	if (elapsedTime > this.duration)
   		return null;
@@ -30,6 +47,11 @@ class LinearAnimation extends Animation {
     this.calcMatrixOrientation();
   }
 
+  /**
+   * Compute the Length of the total moviment
+   * 
+   * @return {null}
+   */
   calcLengthAndDivions() {
   	for (let i = 1; i < this.controlPoints.length; ++i) {
 			let newSegment = pointDiff(this.controlPoints[i], this.controlPoints[i-1]);
