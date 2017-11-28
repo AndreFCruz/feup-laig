@@ -1564,7 +1564,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					}
 				}
 
-				this.nodes[nodeID].animation = new ComboAnimation(animationsList);
+				if (animationsList.length > 1) {
+					this.nodes[nodeID].animation = new ComboAnimation(animationsList);
+				} else if (animationsList.length == 1) {
+					this.nodes[nodeID].animation = animationsList[0];
+				}
 			}
 
 			// Retrieves information about children.
