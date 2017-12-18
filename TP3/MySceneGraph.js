@@ -10,6 +10,12 @@ var ANIMATIONS_INDEX = 5;
 var LEAVES_INDEX = 6;
 var NODES_INDEX = 7;
 
+// Fixed name ID's for must-have nodes
+const BOARD_NODE = "board";
+const WORKER_NODE = "worker";
+const WHITE_PIECE_NODE = "white piece";
+const BLACK_PIECE_NODE = "black piece";
+
 /**
  * MySceneGraph class, representing the scene graph.
  * @constructor
@@ -1393,6 +1399,12 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 	// Traverses nodes.
 	var children = nodesNode.children;
 
+	//Forced nodes for game representation
+	let hasBoardNode = false;
+	let hasWorkerNode = false;
+	let hasWpieceNode = false;
+	let hasBpieceNode = false;
+
 	for (var i = 0; i < children.length; i++) {
 		var nodeName;
 		if ((nodeName = children[i].nodeName) == "ROOT") {
@@ -1414,6 +1426,25 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			// Checks if ID is valid.
 			if (this.nodes[nodeID] != null )
 				return "node ID must be unique (conflict: ID = " + nodeID + ")";
+			
+			switch (nodeID) {
+				case BOARD_NODE:
+					console.log("found the board");
+					hasBoardNode = true;
+					break;
+				case WORKER_NODE:
+					console.log("found the worker");
+					hasWorkerNode = true;
+					break;
+				case WHITE_PIECE_NODE:
+					console.log("found the wpiece");
+					hasWpieceNode = true;
+					break;
+				case BLACK_PIECE_NODE:
+					console.log("found the bpiece");
+					hasBpieceNode = true;
+					break;
+			}
 
 			// Creates node.
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
@@ -1611,6 +1642,15 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			this.onXMLMinorError("unknown tag name <" + nodeName);
 	}
 
+	if (!hasBoardNode)
+		this.onXMLError("There must be a board node defined with ID = 'board'");
+	else if (!hasWorkerNode)
+		this.onXMLError("There must be a worker node defined with ID = 'worker'");
+	else if (!hasWpieceNode)
+		this.onXMLError("There must be a white piece node defined with ID = 'white piece'");
+	else if (!hasBpieceNode)
+		this.onXMLError("There must be a black piece node defined with ID = 'black piece'");
+	
 	console.log("Parsed nodes");
 	return null ;
 }
