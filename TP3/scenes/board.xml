@@ -125,6 +125,7 @@
 
 		<DESCENDANTS>
 			<NODEREF id="board" />
+			<NODEREF id="board base" />
 			<NODEREF id="white piece" />
 			<NODEREF id="black piece" />
 			<NODEREF id="worker" />
@@ -133,17 +134,6 @@
 	</NODE>
 
 	<NODE id="board">
-		<MATERIAL id="null" />
-		<TEXTURE id="null" />
-
-		<DESCENDANTS>
-			<NODEREF id="board top" />
-			<NODEREF id="board base" />
-		</DESCENDANTS>
-
-	</NODE>
-
-	<NODE id="board top">
 		<MATERIAL id="null" />
 		<TEXTURE id="board" />
 

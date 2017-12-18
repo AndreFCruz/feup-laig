@@ -1426,25 +1426,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			// Checks if ID is valid.
 			if (this.nodes[nodeID] != null )
 				return "node ID must be unique (conflict: ID = " + nodeID + ")";
-			
-			switch (nodeID) {
-				case BOARD_NODE:
-					console.log("found the board");
-					hasBoardNode = true;
-					break;
-				case WORKER_NODE:
-					console.log("found the worker");
-					hasWorkerNode = true;
-					break;
-				case WHITE_PIECE_NODE:
-					console.log("found the wpiece");
-					hasWpieceNode = true;
-					break;
-				case BLACK_PIECE_NODE:
-					console.log("found the bpiece");
-					hasBpieceNode = true;
-					break;
-			}
 
 			// Creates node.
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
@@ -1606,6 +1587,9 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 			var descendants = nodeSpecs[descendantsIndex].children;
 
+			// Flag for non-parsing nodes (eg. board and white piece)
+			let specialDescendant = false;
+
 			var sizeChildren = 0;
 			for (var j = 0; j < descendants.length; j++) {
 				if (descendants[j].nodeName == "NODEREF")
@@ -1620,8 +1604,31 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					else if (curId == nodeID)
 						return "a node may not be a child of its own";
 					else {
-						this.nodes[nodeID].addChild(curId);
-						sizeChildren++;
+						switch (curId) {
+							case BOARD_NODE:
+								console.log("found the board");
+								specialDescendant = true;
+								hasBoardNode = true;
+								break;
+							case WORKER_NODE:
+								console.log("found the worker");
+								specialDescendant = true;
+								hasWorkerNode = true;
+								break;
+							case WHITE_PIECE_NODE:
+								console.log("found the wpiece");
+								specialDescendant = true;
+								hasWpieceNode = true;
+								break;
+							case BLACK_PIECE_NODE:
+								console.log("found the bpiece");
+								specialDescendant = true;
+								hasBpieceNode = true;
+								break;
+							default:
+								this.nodes[nodeID].addChild(curId);
+								sizeChildren++;
+						}
 					}
 				}
 				else
@@ -1635,7 +1642,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 						this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
 
 			}
-			if (sizeChildren == 0)
+			if (sizeChildren == 0 && !specialDescendant)
 				return "at least one descendant must be defined for each intermediate node";
 		}
 		else
