@@ -1624,7 +1624,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					else if (curId == nodeID)
 						return "a node may not be a child of its own";
 					else {
-						if (curId == BOARD_NODE || curId == WORKER_NODE ||
+						if (curId == WORKER_NODE ||
 							curId == WHITE_PIECE_NODE || curId == BLACK_PIECE_NODE) {
 							specialDescendant = true;
 						}
