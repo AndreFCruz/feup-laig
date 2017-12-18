@@ -1400,10 +1400,10 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 	var children = nodesNode.children;
 
 	//Forced nodes for game representation
-	let hasBoardNode = false;
-	let hasWorkerNode = false;
-	let hasWpieceNode = false;
-	let hasBpieceNode = false;
+	let hasBoardNode;
+	let workerNode;
+	let wPieceNode;
+	let bPieceNode;
 
 	for (var i = 0; i < children.length; i++) {
 		var nodeName;
@@ -1427,8 +1427,28 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			if (this.nodes[nodeID] != null )
 				return "node ID must be unique (conflict: ID = " + nodeID + ")";
 
+			let currentNode;
+
 			// Creates node.
-			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+			switch (nodeID) {
+				case WORKER_NODE:
+					console.log("Parsing Worker Node");
+					currentNode = workerNode = new MyGraphNode(this,nodeID);
+					break;
+				case WHITE_PIECE_NODE:
+					console.log("Parsing White Piece Node");
+					currentNode = wPieceNode = new MyGraphNode(this,nodeID);
+					break;
+				case BLACK_PIECE_NODE:
+					console.log("Parsing Black Piece Node");
+					currentNode = bPieceNode = new MyGraphNode(this,nodeID);
+					break;
+				case BOARD_NODE:
+					console.log("Parsing Board Node");
+					hasBoardNode = true;
+				default:
+					currentNode = this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+			}
 
 			// Is node selectable ?
 			let nodeSelectable = this.reader.getBoolean(children[i], 'selectable', false);
@@ -1458,7 +1478,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			if (materialID != "null" && this.materials[materialID] == null )
 				return "ID does not correspond to a valid material (node ID = " + nodeID + ")";
 
-			this.nodes[nodeID].materialID = materialID;
+			currentNode.materialID = materialID;
 
 			// Retrieves texture ID.
 			var textureIndex = specsNames.indexOf("TEXTURE");
@@ -1470,7 +1490,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			if (textureID != "null" && textureID != "clear" && this.textures[textureID] == null )
 				return "ID does not correspond to a valid texture (node ID = " + nodeID + ")";
 
-			this.nodes[nodeID].textureID = textureID;
+			currentNode.textureID = textureID;
 
 			// Retrieves possible transformations.
 			for (var j = 0; j < nodeSpecs.length; j++) {
@@ -1501,7 +1521,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					else if (isNaN(z))
 						return "non-numeric value for z-coordinate of translation (node ID = " + nodeID + ")";
 
-					mat4.translate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [x, y, z]);
+					mat4.translate(currentNode.transformMatrix, currentNode.transformMatrix, [x, y, z]);
 					break;
 				case "ROTATION":
 					// Retrieves rotation parameters.
@@ -1518,7 +1538,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					else if (isNaN(angle))
 						return "non-numeric value for rotation angle (node ID = " + nodeID + ")";
 
-					mat4.rotate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
+					mat4.rotate(currentNode.transformMatrix, currentNode.transformMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
 					break;
 				case "SCALE":
 					// Retrieves scale parameters.
@@ -1546,7 +1566,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					else if (isNaN(sz))
 						return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
 
-					mat4.scale(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [sx, sy, sz]);
+					mat4.scale(currentNode.transformMatrix, currentNode.transformMatrix, [sx, sy, sz]);
 					break;
 				default:
 					break;
@@ -1574,9 +1594,9 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				}
 
 				if (animationsList.length > 1) {
-					this.nodes[nodeID].animation = new ComboAnimation(animationsList);
+					currentNode.animation = new ComboAnimation(animationsList);
 				} else if (animationsList.length == 1) {
-					this.nodes[nodeID].animation = animationsList[0];
+					currentNode.animation = animationsList[0];
 				}
 			}
 
@@ -1604,30 +1624,13 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					else if (curId == nodeID)
 						return "a node may not be a child of its own";
 					else {
-						switch (curId) {
-							case BOARD_NODE:
-								console.log("found the board");
-								specialDescendant = true;
-								hasBoardNode = true;
-								break;
-							case WORKER_NODE:
-								console.log("found the worker");
-								specialDescendant = true;
-								hasWorkerNode = true;
-								break;
-							case WHITE_PIECE_NODE:
-								console.log("found the wpiece");
-								specialDescendant = true;
-								hasWpieceNode = true;
-								break;
-							case BLACK_PIECE_NODE:
-								console.log("found the bpiece");
-								specialDescendant = true;
-								hasBpieceNode = true;
-								break;
-							default:
-								this.nodes[nodeID].addChild(curId);
-								sizeChildren++;
+						if (curId == BOARD_NODE || curId == WORKER_NODE ||
+							curId == WHITE_PIECE_NODE || curId == BLACK_PIECE_NODE) {
+							specialDescendant = true;
+						}
+						else {
+							currentNode.addChild(curId);
+							sizeChildren++;
 						}
 					}
 				}
@@ -1635,7 +1638,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					if (descendants[j].nodeName == "LEAF")
 					{
 						//parse leaf
-						this.nodes[nodeID].addLeaf(this.createLeaf(descendants[j]));
+						currentNode.addLeaf(this.createLeaf(descendants[j]));
 						sizeChildren++;
 					}
 					else
@@ -1651,12 +1654,14 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 	if (!hasBoardNode)
 		this.onXMLError("There must be a board node defined with ID = 'board'");
-	else if (!hasWorkerNode)
+	if (!workerNode)
 		this.onXMLError("There must be a worker node defined with ID = 'worker'");
-	else if (!hasWpieceNode)
+	if (!wPieceNode)
 		this.onXMLError("There must be a white piece node defined with ID = 'white piece'");
-	else if (!hasBpieceNode)
+	if (!bPieceNode)
 		this.onXMLError("There must be a black piece node defined with ID = 'black piece'");
+	
+	//setUpGame(boardNode, workerNode, wPieceNode, bPieceNode);
 	
 	console.log("Parsed nodes");
 	return null ;
