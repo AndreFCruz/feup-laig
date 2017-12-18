@@ -39,7 +39,6 @@ function MySceneGraph(filename, scene) {
 	 * After the file is read, the reader calls onXMLReady on this object.
 	 * If any error occurs, the reader calls onXMLError on this object, with an error message
 	 */
-
 	this.reader.open('scenes/' + filename, this);
 }
 
