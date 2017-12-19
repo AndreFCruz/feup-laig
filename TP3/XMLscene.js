@@ -234,6 +234,32 @@ XMLscene.prototype.updateShaderColor = function(hexValue) {
     this.secondaryShader.setUniformsValues({secondaryColor: color})
 }
 
+/**
+ * Creates all the elements/ pieces need for the game.
+ * 
+ * @return {null}
+ */
+XMLscene.prototype.setUpGame = function() {
+    
+        //For different Pieces
+        this.whitePieces = {};
+        this.blackPieces = {};
+        for (let i = 0; i < NUMBER_PIECES; ++i) {
+            this.whitePieces[i] = new WhitePiece([10, 0, 0]);
+            this.blackPieces[i] = new BlackPiece([0, 0, 10]);
+        }
+    
+        //There are always exactly two workers
+        this.workers = {};
+        this.workers[0] = new Worker([5, 0, 5]);
+        this.workers[1] = new Worker([7, 0, 7]);
+    }
+
+/**
+ * Displays the game pieces
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.displayGame = function() {
     for (wPiece in this.whitePieces)
         this.graph.displayPiece(this.whitePieces[wPiece]);
@@ -244,20 +270,4 @@ XMLscene.prototype.displayGame = function() {
     //There are always exactly two workers
     this.graph.displayPiece(this.workers[0]);
     this.graph.displayPiece(this.workers[1]);
-}
-
-XMLscene.prototype.setUpGame = function() {
-
-    //For different Pieces
-    this.whitePieces = {};
-    this.blackPieces = {};
-    for (let i = 0; i < NUMBER_PIECES; ++i) {
-        this.whitePieces[i] = new WhitePiece([10, 0, 0]);
-        this.blackPieces[i] = new BlackPiece([0, 0, 10]);
-    }
-
-    //There are always exactly two workers
-    this.workers = {};
-    this.workers[0] = new Worker([5, 0, 5]);
-    this.workers[1] = new Worker([7, 0, 7]);
 }

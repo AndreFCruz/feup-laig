@@ -1827,6 +1827,27 @@ MySceneGraph.prototype.displayScene = function() {
 }
 
 /**
+ * Displays a piece in the scene, by processing the respective nodes.
+ * 
+ * @param {Object} piece - Piece to be updated
+ * @return {null}
+ */
+MySceneGraph.prototype.displayPiece = function(piece) {
+	
+	let pieceNode = (this.pieces[piece.getType()]);
+
+	this.scene.pushMatrix();
+		let piecePos = mat4.create();
+		
+		mat4.identity(piecePos);
+		mat4.translate(piecePos, piecePos, piece.getPosition());
+		
+		this.scene.multMatrix(piecePos);
+		this.processNode(pieceNode, null);
+	this.scene.popMatrix();
+}
+
+/**
  * Process a Node by calculating its transform Matrix, material and texture.
  * It also processes the Node's descendants, and the Node's descendants' descendants and on and on.
  *
@@ -1885,21 +1906,6 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	//Deactivating Shader after processing all childNodes
 	if (selected)
 		this.scene.setDefaultShader();
-}
-
-MySceneGraph.prototype.displayPiece = function(piece) {
-
-	let pieceNode = (this.pieces[piece.getType()]);
-
-	this.scene.pushMatrix();
-		let piecePos = mat4.create();
-		
-		mat4.identity(piecePos);
-		mat4.translate(piecePos, piecePos, piece.getPosition());
-		
-		this.scene.multMatrix(piecePos);
-		this.processNode(pieceNode, null);
-	this.scene.popMatrix();
 }
 
 /**

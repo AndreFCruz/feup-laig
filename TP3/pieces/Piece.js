@@ -34,24 +34,12 @@ class Piece {
     }
 
     /**
-     * Updates the animation, by updating the animation matrix
-     * 
-     * @param {Number} elapsedTime - time elapsed since the animation started
-     * @return {null}
-     */
-    update(elapsedTime) {
-    // Template Method
-    // update matrix in subclass function
-    return null;
-    }
-
-    /**
      * Move the piece to a new position
      * 
      * @param {Array} newPosition 
      */
     move(newPosition) {
-        this.obBoard = true;
+        this.onBoard = true;
         return null;
     }
 
