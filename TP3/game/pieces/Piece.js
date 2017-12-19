@@ -16,7 +16,10 @@ class Piece {
         this.onBoard = false;
 
         this.type = type;
-        this.position = pos;
+
+        this.position = mat4.create();
+        mat4.identity(this.position);
+		mat4.translate(this.position, this.position, pos);
     }
 
     /**

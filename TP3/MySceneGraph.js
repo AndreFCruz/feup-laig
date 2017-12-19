@@ -1829,7 +1829,7 @@ MySceneGraph.prototype.displayScene = function() {
 /**
  * Displays a piece in the scene, by processing the respective nodes.
  * 
- * @param {Object} piece - Piece to be updated
+ * @param {Object} piece - Piece to be displayed
  * @return {null}
  */
 MySceneGraph.prototype.displayPiece = function(piece) {
@@ -1837,12 +1837,7 @@ MySceneGraph.prototype.displayPiece = function(piece) {
 	let pieceNode = (this.pieces[piece.getType()]);
 
 	this.scene.pushMatrix();
-		let piecePos = mat4.create();
-		
-		mat4.identity(piecePos);
-		mat4.translate(piecePos, piecePos, piece.getPosition());
-		
-		this.scene.multMatrix(piecePos);
+		this.scene.multMatrix(piece.getPosition());
 		this.processNode(pieceNode, null);
 	this.scene.popMatrix();
 }

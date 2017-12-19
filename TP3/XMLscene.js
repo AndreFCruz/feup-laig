@@ -1,6 +1,7 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 const NUMBER_PIECES = 40;
 const NUMBER_WORKERS = 2;
+const BOARD_SIZE = 9;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -261,6 +262,16 @@ XMLscene.prototype.setUpGame = function() {
     this.workers = {};
     this.workers[0] = new Worker([5, 0, 5]);
     this.workers[1] = new Worker([7, 0, 7]);
+
+    //For the Board Cells
+    this.boardCells = {};
+    for (let i = 0; i < BOARD_SIZE; ++i) {
+        this.boardCells[i] = {};
+        
+        for (let j = 0; j < BOARD_SIZE; ++j) {
+            this.boardCells[i][j] = new BoardCell(this, [j, i]);
+        }
+    }
 }
 
 /**
@@ -278,6 +289,12 @@ XMLscene.prototype.displayGame = function() {
     //There are always exactly two workers
     this.graph.displayPiece(this.workers[0]);
     this.graph.displayPiece(this.workers[1]);
+
+    for (row in this.boardCells) {
+        for (col in this.boardCells[row]) {
+            this.boardCells[row][col].display();
+        }
+    }
 }
 
 XMLscene.prototype.logPicking = function ()
