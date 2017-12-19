@@ -12,7 +12,10 @@ class Piece {
      * @constructor
      */
     constructor(pos, type) {
-        this.pieceType = type;
+        //Flag indicating if piece is on the board
+        this.onBoard = false;
+
+        this.type = type;
         this.position = pos;
     }
 
@@ -20,7 +23,14 @@ class Piece {
      * Getter for the piece position
      */
     getPosition() {
-        return this._position;
+        return this.position;
+    }
+
+    /**
+     * Getter for the piece position
+     */
+    getType() {
+        return this.type;
     }
 
     /**
@@ -41,6 +51,7 @@ class Piece {
      * @param {Array} newPosition 
      */
     move(newPosition) {
+        this.obBoard = true;
         return null;
     }
 

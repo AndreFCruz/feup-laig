@@ -134,7 +134,7 @@
 	</NODE>
 
 	<NODE id="board">
-		<MATERIAL id="null" />
+		<MATERIAL id="defaultMaterial" />
 		<TEXTURE id="board" />
 
 		<TRANSLATION x="0" y="0" z="9" />
@@ -161,7 +161,7 @@
 	</NODE>
 
 	<NODE id="white piece">
-		<MATERIAL id="null" />
+		<MATERIAL id="defaultMaterial" />
 		<TEXTURE id="null" />
 
 		<!--<TRANSLATION x="2" y="0" z="3" />-->

@@ -235,22 +235,28 @@ XMLscene.prototype.updateShaderColor = function(hexValue) {
 }
 
 XMLscene.prototype.displayGame = function() {
-    console.log("I wish to display the game.");
+    for (wPiece in this.whitePieces)
+        this.graph.displayPiece(this.whitePieces[wPiece]);
+
+    for (bPiece in this.blackPieces)
+        this.graph.displayPiece(this.blackPieces[bPiece]);
+    
+    //There are always exactly two workers
+    this.graph.displayPiece(this.workers[0]);
+    this.graph.displayPiece(this.workers[1]);
 }
 
 XMLscene.prototype.setUpGame = function() {
-    //For pieces that are already in the board
-    this.usedPieces = {};
 
-    //For pieces that have not yet been played
-    this.unusedWpieces = {};
-    this.unusedBpieces = {};
+    //For different Pieces
+    this.whitePieces = {};
+    this.blackPieces = {};
     for (let i = 0; i < NUMBER_PIECES; ++i) {
-        this.unusedWpieces[i] = new WhitePiece([10, i, 0]);
-        this.unusedBpieces[i] = new BlackPiece([0, i, 10]);
+        this.whitePieces[i] = new WhitePiece([10, 0, 0]);
+        this.blackPieces[i] = new BlackPiece([0, 0, 10]);
     }
 
-    //There are always two workers
+    //There are always exactly two workers
     this.workers = {};
     this.workers[0] = new Worker([5, 0, 5]);
     this.workers[1] = new Worker([7, 0, 7]);

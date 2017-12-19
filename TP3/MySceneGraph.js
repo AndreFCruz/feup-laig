@@ -1654,8 +1654,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 	if (!this.pieces[BLACK_PIECE_NODE])
 		this.onXMLError("There must be a black piece node defined with ID = 'black piece'");
 	
-	//setUpGame(boardNode, workerNode, wPieceNode, bPieceNode);
-	
 	console.log("Parsed nodes");
 	return null ;
 }
@@ -1887,6 +1885,21 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	//Deactivating Shader after processing all childNodes
 	if (selected)
 		this.scene.setDefaultShader();
+}
+
+MySceneGraph.prototype.displayPiece = function(piece) {
+
+	let pieceNode = (this.pieces[piece.getType()]);
+
+	this.scene.pushMatrix();
+		let piecePos = mat4.create();
+		
+		mat4.identity(piecePos);
+		mat4.translate(piecePos, piecePos, piece.getPosition());
+		
+		this.scene.multMatrix(piecePos);
+		this.processNode(pieceNode, null);
+	this.scene.popMatrix();
 }
 
 /**

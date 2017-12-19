@@ -10,7 +10,7 @@ class Worker extends Piece {
      * @constructor
      */
     constructor(pos) {
-        super(pos, "WORKER_PIECE");
+        super(pos, "worker");
     }
 
 }
