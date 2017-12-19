@@ -47,6 +47,9 @@ XMLscene.prototype.init = function(application) {
       secondaryColor: hexToRgbVec(this.selectedColor),
       timeFactor: 0
     });
+
+    //Creating the necessary pieces for the game to develop
+    this.setUpGame();
 }
 
 /**
@@ -161,6 +164,9 @@ XMLscene.prototype.display = function() {
 
         // Displays the scene.
         this.graph.displayScene();
+
+        //Displays the game pieces
+        this.displayGame();
     }
     else
     {
@@ -226,3 +232,10 @@ XMLscene.prototype.updateShaderColor = function(hexValue) {
     this.secondaryShader.setUniformsValues({secondaryColor: color})
 }
 
+XMLscene.prototype.displayGane = function() {
+    console.log("I wish to display the game.")
+}
+
+XMLscene.prototype.setUpGame = function() {
+    console.log("I wish to set up the game.")
+}

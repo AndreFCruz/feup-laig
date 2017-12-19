@@ -1401,9 +1401,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 	//Forced nodes for game representation
 	let hasBoardNode;
-	let workerNode;
-	let wPieceNode;
-	let bPieceNode;
+	this.pieces = {};
 
 	for (var i = 0; i < children.length; i++) {
 		var nodeName;
@@ -1432,22 +1430,14 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			// Creates node.
 			switch (nodeID) {
 				case WORKER_NODE:
-					console.log("Parsing Worker Node");
-					currentNode = workerNode = new MyGraphNode(this,nodeID);
-					break;
 				case WHITE_PIECE_NODE:
-					console.log("Parsing White Piece Node");
-					currentNode = wPieceNode = new MyGraphNode(this,nodeID);
-					break;
 				case BLACK_PIECE_NODE:
-					console.log("Parsing Black Piece Node");
-					currentNode = bPieceNode = new MyGraphNode(this,nodeID);
+					currentNode = this.pieces[nodeID] = new MyGraphNode(this, nodeID);
 					break;
 				case BOARD_NODE:
-					console.log("Parsing Board Node");
 					hasBoardNode = true;
 				default:
-					currentNode = this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+					currentNode = this.nodes[nodeID] = new MyGraphNode(this, nodeID);
 			}
 
 			// Is node selectable ?
@@ -1624,8 +1614,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					else if (curId == nodeID)
 						return "a node may not be a child of its own";
 					else {
-						if (curId == WORKER_NODE ||
-							curId == WHITE_PIECE_NODE || curId == BLACK_PIECE_NODE) {
+						if (curId == WORKER_NODE || curId == WHITE_PIECE_NODE || curId == BLACK_PIECE_NODE) {
 							specialDescendant = true;
 						}
 						else {
@@ -1652,13 +1641,17 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			this.onXMLMinorError("unknown tag name <" + nodeName);
 	}
 
-	if (!hasBoardNode)
+	//Verifications for special nodes (pieces nodes)
+	if (! hasBoardNode)
 		this.onXMLError("There must be a board node defined with ID = 'board'");
-	if (!workerNode)
+
+	if (! this.pieces[WORKER_NODE])
 		this.onXMLError("There must be a worker node defined with ID = 'worker'");
-	if (!wPieceNode)
+
+	if (!this.pieces[WHITE_PIECE_NODE])
 		this.onXMLError("There must be a white piece node defined with ID = 'white piece'");
-	if (!bPieceNode)
+
+	if (!this.pieces[BLACK_PIECE_NODE])
 		this.onXMLError("There must be a black piece node defined with ID = 'black piece'");
 	
 	//setUpGame(boardNode, workerNode, wPieceNode, bPieceNode);
