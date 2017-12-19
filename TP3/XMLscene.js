@@ -269,7 +269,7 @@ XMLscene.prototype.setUpGame = function() {
         this.boardCells[i] = {};
         
         for (let j = 0; j < BOARD_SIZE; ++j) {
-            this.boardCells[i][j] = new BoardCell(this, [j, i]);
+            this.boardCells[i][j] = new BoardCell(this, [i, j]);
         }
     }
 }
@@ -292,7 +292,10 @@ XMLscene.prototype.displayGame = function() {
 
     for (row in this.boardCells) {
         for (col in this.boardCells[row]) {
-            this.boardCells[row][col].display();
+            let cell = this.boardCells[row][col];
+            cell.display();
+            this.registerForPick(row+col, cell);
+            //console.log(row+col);
         }
     }
 }
@@ -313,4 +316,3 @@ XMLscene.prototype.logPicking = function ()
 		}		
 	}
 }
-//this.registerForPick(i+1, this.objects[i]);
