@@ -1,4 +1,6 @@
 var DEGREE_TO_RAD = Math.PI / 180;
+const NUMBER_PIECES = 40;
+const NUMBER_WORKERS = 2;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -232,10 +234,24 @@ XMLscene.prototype.updateShaderColor = function(hexValue) {
     this.secondaryShader.setUniformsValues({secondaryColor: color})
 }
 
-XMLscene.prototype.displayGane = function() {
-    console.log("I wish to display the game.")
+XMLscene.prototype.displayGame = function() {
+    console.log("I wish to display the game.");
 }
 
 XMLscene.prototype.setUpGame = function() {
-    console.log("I wish to set up the game.")
+    //For pieces that are already in the board
+    this.usedPieces = {};
+
+    //For pieces that have not yet been played
+    this.unusedWpieces = {};
+    this.unusedBpieces = {};
+    for (let i = 0; i < NUMBER_PIECES; ++i) {
+        this.unusedWpieces[i] = new WhitePiece([10, i, 0]);
+        this.unusedBpieces[i] = new BlackPiece([0, i, 10]);
+    }
+
+    //There are always two workers
+    this.workers = {};
+    this.workers[0] = new Worker([5, 0, 5]);
+    this.workers[1] = new Worker([7, 0, 7]);
 }
