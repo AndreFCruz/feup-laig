@@ -12,13 +12,12 @@ class BoardCell {
     constructor(scene, pos) {
         this.scene = scene;
         
-        this.cell = new MyRectangle(scene, [pos[0], pos[1] + 1, pos[0] + 1, pos[1]]);
+        this.cell = new MyRectangle(scene, [pos[1], pos[0] + 1, pos[1] + 1, pos[0]]);
     }
 
     display() {
         this.scene.pushMatrix();
-            this.scene.translate(0, 0.2, 0);
-            this.scene.rotate(Math.PI * -90 / 180, 0, 1, 0);
+            this.scene.translate(0, 0.1, BOARD_SIZE);
             this.scene.rotate(Math.PI * -90 / 180, 1, 0, 0);
             this.cell.display();
         this.scene.popMatrix();

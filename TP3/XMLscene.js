@@ -269,7 +269,10 @@ XMLscene.prototype.setUpGame = function() {
         this.boardCells[i] = {};
         
         for (let j = 0; j < BOARD_SIZE; ++j) {
-            this.boardCells[i][j] = new BoardCell(this, [i, j]);
+            
+            //Because of how rectangles are initially displayed
+            let maxRow = BOARD_SIZE - 1;
+            this.boardCells[i][j] = new BoardCell(this, [maxRow - i, j]);
         }
     }
 }
@@ -293,9 +296,11 @@ XMLscene.prototype.displayGame = function() {
     for (row in this.boardCells) {
         for (col in this.boardCells[row]) {
             let cell = this.boardCells[row][col];
-            cell.display();
-            this.registerForPick(row+col, cell);
-            //console.log(row+col);
+
+            //The id of the pick is number where id / 10 = row and id % 10 = col
+            this.registerForPick((parseInt(row) + 1) * 10 + (parseInt(col) + 1), cell);
+
+            this.boardCells[row][col].display();
         }
     }
 }
@@ -304,11 +309,11 @@ XMLscene.prototype.logPicking = function ()
 {
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
-			for (var i=0; i< this.pickResults.length; i++) {
-				var obj = this.pickResults[i][0];
+			for (pick in this.pickResults) {
+				var obj = this.pickResults[pick][0];
 				if (obj)
 				{
-					var customId = this.pickResults[i][1];				
+					var customId = this.pickResults[pick][1];				
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}
