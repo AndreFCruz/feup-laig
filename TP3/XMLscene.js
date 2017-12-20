@@ -55,7 +55,7 @@ XMLscene.prototype.init = function(application) {
     });
 
     //For not displaying picking elements
-    this.noDisplayShader = new CGFshader(this.gl, "shaders/pick.vert", "shaders/pick.frag");
+    this.noDisplayShader = new CGFshader(this.gl,"shaders/noDisplay.vert", "shaders/noDisplay.frag");
 
     //Creating the necessary pieces for the game to develop
     this.setUpGame();
@@ -178,7 +178,7 @@ XMLscene.prototype.display = function() {
         // Displays the scene.
         this.graph.displayScene();
 
-        //Displays the game pieces
+        //Displays the game elements
         this.displayGame();
     }
     else
@@ -224,7 +224,7 @@ XMLscene.prototype.setSecondaryShader = function() {
 
 
 /**
- * Set the shader for picking objects shader
+ * Set the shader for invisible elements
  * 
  * @return {null}
  */
