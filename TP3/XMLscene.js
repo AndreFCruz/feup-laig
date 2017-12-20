@@ -54,6 +54,9 @@ XMLscene.prototype.init = function(application) {
       timeFactor: 0
     });
 
+    //For not displaying picking elements
+    this.noDisplayShader = new CGFshader(this.gl, "shaders/pick.vert", "shaders/pick.frag");
+
     //Creating the necessary pieces for the game to develop
     this.setUpGame();
 }
@@ -219,6 +222,16 @@ XMLscene.prototype.setSecondaryShader = function() {
     this.setActiveShader(this.secondaryShader);
 }
 
+
+/**
+ * Set the shader for picking objects shader
+ * 
+ * @return {null}
+ */
+XMLscene.prototype.setNoDisplayShader = function() {
+    this.setActiveShader(this.noDisplayShader);
+}
+
 /**
  * Update the color Shader.
  * 
@@ -269,7 +282,7 @@ XMLscene.prototype.setUpGame = function() {
         this.boardCells[i] = {};
         
         for (let j = 0; j < BOARD_SIZE; ++j) {
-            
+
             //Because of how rectangles are initially displayed
             let maxRow = BOARD_SIZE - 1;
             this.boardCells[i][j] = new BoardCell(this, [maxRow - i, j]);
@@ -293,16 +306,20 @@ XMLscene.prototype.displayGame = function() {
     this.graph.displayPiece(this.workers[0]);
     this.graph.displayPiece(this.workers[1]);
 
+    this.setNoDisplayShader();
+
     for (row in this.boardCells) {
         for (col in this.boardCells[row]) {
             let cell = this.boardCells[row][col];
 
-            //The id of the pick is number where id / 10 = row and id % 10 = col
+            //The pick id is a number where id / 10 = row and id % 10 = col
             this.registerForPick((parseInt(row) + 1) * 10 + (parseInt(col) + 1), cell);
 
             this.boardCells[row][col].display();
         }
     }
+
+    this.setDefaultShader();
 }
 
 XMLscene.prototype.logPicking = function ()
