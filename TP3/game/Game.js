@@ -16,6 +16,20 @@ class Game {
     constructor(scene) {
         this.scene = scene;
 
+        this.state = {
+            NO_GAME_RUNNING : 1,
+            HUMAN_VS_HUMAN : 2,
+            HUMAN_VS_AI : 3,
+            AI_VS_AI : 4,
+            HUMAN_FINISHED_MOVE : 5,
+            WAIT_WORKER_H_VS_H : 6,
+            WAIT_PIECE_H_VS_H : 7,
+            WAIT_WORKER_H_VS_AI : 8,
+            WAIT_PIECE_H_VS_AI : 9
+        };
+        this.currentState = this.state.NO_GAME_RUNNING;
+        this.currentTypeGame = this.state.NO_GAME_RUNNING;
+
         this.setUpGame();
     }
 
@@ -59,8 +73,7 @@ class Game {
      * 
      * @return {null}
      */
-    displayGame()
-    {
+    displayGame() {
         for (let wPiece in this.whitePieces)
             this.scene.graph.displayPiece(this.whitePieces[wPiece]);
 
@@ -84,6 +97,53 @@ class Game {
             }
         }
 
+        //For now do CONNECTION TESTS go here
+
         this.scene.setDefaultShader();
+    }
+
+    updateState() {
+        switch (this.currentState) {
+            case this.state.NO_GAME_RUNNING:
+                /* Starting a game leads to either:
+                    - HUMAN_VS_HUMAN;
+                    - HUMAN_VS_AI;
+                    - AI_VS_AI; */
+                break;
+            case this.state.HUMAN_VS_HUMAN:
+                /* Get the 2 workers starting position, till then, stay in this mode.
+                After, go to WAIT_WORKER_H_VS_H */
+                break;
+            case this.state.HUMAN_VS_AI:
+                /* Get the User worker input, then wait for AI move worker.
+                After, go to WAIT_WORKER_AI_VS_AI */
+                break;
+            case this.state.AI_VS_AI:
+                /* Get AI play and stay in this state.
+                When one of the AI's loses, go to NO_GAME_RUNNING */
+                break;
+            case this.state.WAIT_WORKER_H_VS_H:
+                /* If user wants to move worker, get input and go to WAIT_PIECE_H_VS_H
+                If user does not want to move worker, automatically go to WAIT_PIECE_H_VS_H
+                If someone lost, go to NO_GAME_RUNNING */
+                break;
+            case this.state.WAIT_PIECE_H_VS_H:
+                /* Set user piece then go WAIT_WORKER_H_VS_H */
+                break;
+            case this.state.WAIT_WORKER_H_VS_AI:
+                /* If user wants to move worker, get input and go to WAIT_PIECE_H_VS_AI
+                If user does not want to move worker, automatically go to WAIT_PIECE_H_VS_AI
+                If someone lost, go to NO_GAME_RUNNING */
+                break;
+            case this.state.WAIT_PIECE_H_VS_AI:
+                /* Set user piece then go to HUMAN_FINISHED_MOVE */
+                break;
+            case this.state.HUMAN_FINISHED_MOVE:
+                /* After getting AI board, go to WAIT_WOTRKER_H_VS_AI
+                If AI won, go to NO_GAME_RUNNING */
+                break;
+            default:
+                console.warn("Unknown Game state detected...");
+        }
     }
 }
