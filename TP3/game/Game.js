@@ -21,14 +21,18 @@ class Game {
             HUMAN_VS_HUMAN : 2,
             HUMAN_VS_AI : 3,
             AI_VS_AI : 4,
-            HUMAN_FINISHED_MOVE : 5,
-            WAIT_WORKER_H_VS_H : 6,
-            WAIT_PIECE_H_VS_H : 7,
-            WAIT_WORKER_H_VS_AI : 8,
-            WAIT_PIECE_H_VS_AI : 9
+            WAIT_WORKER_H_VS_H : 5,
+            WAIT_PIECE_H_VS_H : 6,
+            WAIT_WORKER_H_VS_AI : 7,
+            WAIT_PIECE_H_VS_AI : 8,
+            AI_PLAY_H_VS_AI : 9
         };
         this.currentState = this.state.NO_GAME_RUNNING;
-        this.currentTypeGame = this.state.NO_GAME_RUNNING;
+
+        // Change to function that initiates it
+        // When board gets updated, see the difference and turn it into an animation
+        // Move this to set game as well mby
+        this.board = null;
 
         this.setUpGame();
     }
@@ -138,8 +142,8 @@ class Game {
             case this.state.WAIT_PIECE_H_VS_AI:
                 /* Set user piece then go to HUMAN_FINISHED_MOVE */
                 break;
-            case this.state.HUMAN_FINISHED_MOVE:
-                /* After getting AI board, go to WAIT_WOTRKER_H_VS_AI
+            case this.state.AI_PLAY_H_VS_AI:
+                /* After getting AI board, go to WAIT_WORKER_H_VS_AI
                 If AI won, go to NO_GAME_RUNNING */
                 break;
             default:
