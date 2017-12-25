@@ -11,7 +11,7 @@ function getPrologRequest(requestString)
     request.onload = function(data) {
         serverAnswer = data.target.response;
         console.log("Request successful. Reply: " + serverAnswer);
-        listsToBoard(serverAnswer);
+        parseToPlog(parseFromPlog(serverAnswer));
     };
     request.onerror = function() {
         console.log("Error waiting for response");
@@ -23,11 +23,25 @@ function getPrologRequest(requestString)
     return serverAnswer;
 }
 
-function boardToLists(board) {
+function parseToPlog(board) {
+    let listLists = "[";
 
+    for (let row in board) {
+        let list = "[";
+
+        for (let element in board[row]) {
+            list = list.concat(board[row][element], ',');
+        }
+
+        //Removing last comma and adding to list
+        listLists = listLists.concat(list.slice(0, list.length - 1), "],");
+    }
+
+    listLists = listLists.concat(listLists.slice(0, listLists.length - 1), "]");
+    return listLists;
 }
 
-function listsToBoard(lists) {
+function parseFromPlog(lists) {
     let rows = lists.match(GET_LISTS_REGEX);
     let board = {};
 
