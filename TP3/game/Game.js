@@ -35,7 +35,7 @@ class Game {
         this.board = null;
 
         let test;
-        test = getPrologRequest('test');
+        test = getPrologRequest('rules');
         console.log('HERE ' + test);
 
         this.setUpGame();

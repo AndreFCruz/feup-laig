@@ -1,17 +1,33 @@
+/**
+ * Port used for communication with PROLOG
+ */
 const COMMMUNICATION_PORT = 8081;
+/**
+ * ReGex used for parsing a prolg list of lists (string) into several objects with those being rows.
+ */
 const GET_LISTS_REGEX = /((?<=\[\[).+?(?=\|))|((?<=],\[).+?(?=\|))/g;
+/**
+ * ReGex used for parsing the row (string) into several objects with those being the elements.
+ */
 const GET_ELEMENTS_REGEX = /[a-z]+(?=,)|(?<=,).+/g;
 
+
+/**
+ * Send a request to Prolog.
+ * Prolog answer will be handled internally
+ * 
+ * @param {String} requestString - String that will be sent to Prolog
+ * @return {null}
+ */
 function getPrologRequest(requestString)
 {
-    var serverAnswer;
     var request = new XMLHttpRequest();
     request.open('GET', 'http://localhost:' + COMMMUNICATION_PORT + '/' + requestString, true);
 
     request.onload = function(data) {
-        serverAnswer = data.target.response;
+        let serverAnswer = data.target.response;
         console.log("Request successful. Reply: " + serverAnswer);
-        parseToPlog(parseFromPlog(serverAnswer));
+        // Do something with serverAnswer;
     };
     request.onerror = function() {
         console.log("Error waiting for response");
@@ -19,10 +35,14 @@ function getPrologRequest(requestString)
 
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
-
-    return serverAnswer;
 }
 
+/**
+ * Parses a Board matrix into a string containg a Prolog List of lists.
+ * 
+ * @param {Object} board - The board to be parsed into the prolog list of lists
+ * @return {String} - Prolog list of lists
+ */
 function parseToPlog(board) {
     let listLists = "[";
 
@@ -41,6 +61,12 @@ function parseToPlog(board) {
     return listLists;
 }
 
+/**
+ * Parses a string containing a Prolog list of lists to a board
+ * 
+ * @param {String} lists - The Prologo list of lists
+ * @return {object} - The board matrix
+ */
 function parseFromPlog(lists) {
     let rows = lists.match(GET_LISTS_REGEX);
     let board = {};
