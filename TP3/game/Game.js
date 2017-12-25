@@ -34,6 +34,10 @@ class Game {
         // Move this to set game as well mby
         this.board = null;
 
+        let test;
+        test = getPrologRequest('test');
+        console.log('HERE ' + test);
+
         this.setUpGame();
     }
 
