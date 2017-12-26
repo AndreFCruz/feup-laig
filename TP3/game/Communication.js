@@ -10,7 +10,10 @@ const GET_LISTS_REGEX = /((?<=\[\[).+?(?=\|))|((?<=],\[).+?(?=\|))/g;
  * ReGex used for parsing the row (string) into several objects with those being the elements.
  */
 const GET_ELEMENTS_REGEX = /[a-z]+(?=,)|(?<=,).+/g;
-
+/**
+ * Variable containing the PLOG answers to the requests
+ */
+var pLogBoard = null;
 
 /**
  * Send a request to Prolog.
@@ -27,7 +30,8 @@ function getPrologRequest(requestString)
     request.onload = function(data) {
         let serverAnswer = data.target.response;
         console.log("Request successful. Reply: " + serverAnswer);
-        // Do something with serverAnswer;
+        
+        handleServerAnswer(serverAnswer);
     };
     request.onerror = function() {
         console.log("Error waiting for response");
@@ -35,6 +39,20 @@ function getPrologRequest(requestString)
 
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
+}
+
+/**
+ * Handle the Prolog andswer to the last made request
+ * 
+ * @param {String} answer - Prolog answer to the made request
+ */
+function handleServerAnswer(answer) {
+
+    //If v from victory is found
+    if (answer.charAt(0) == 'v') {
+        //Do something when victory of someone
+    } else
+        pLogBoard = parseFromPlog(answer);
 }
 
 /**

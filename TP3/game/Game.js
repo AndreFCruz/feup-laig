@@ -88,4 +88,14 @@ class Game {
 
         this.scene.setDefaultShader();
     }
+
+    /**
+     * Update the game elements
+     * 
+     * @param {Number} currTime - current time, in miliseconds.
+     * @return {null}
+     */
+    update(currTime) {
+        this.gameLogic.update();
+    }
 }

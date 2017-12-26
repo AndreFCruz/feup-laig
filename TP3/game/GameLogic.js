@@ -32,14 +32,10 @@ class GameLogic {
         this.player1 = null;
         this.player2 = null;
 
-        // Change to function that initiates it
-        // When board gets updated, see the difference and turn it into an animation
-        // Move this to set game as well mby
         this.board = null;
+        //For State Machine to know whenever the board was updated
+        this.wasBoardUpdated = false;
 
-        let test;
-        test = getPrologRequest('test1(aedaed,black)');
-        console.log('HERE ' + test);
     }
 
     /**
@@ -55,11 +51,13 @@ class GameLogic {
     }
 
     /**
-     * Function used to update the game current state
+     * Update the game logic
      * 
      * @return {null}
      */
-    updateState() {
+    update() {
+        this.board = pLogBoard;
+    
         switch (this.currentState) {
             case this.state.NO_GAME_RUNNING:
                 /* Starting a game leads to either:

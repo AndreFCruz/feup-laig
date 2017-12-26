@@ -198,6 +198,7 @@ XMLscene.prototype.display = function() {
 XMLscene.prototype.update = function(currTime) {
     this.graph.updateScene(currTime);
     this.updateShader(currTime);
+    this.game.update(currTime);
 }
 
 /**
@@ -251,8 +252,13 @@ XMLscene.prototype.updateShaderColor = function(hexValue) {
     this.secondaryShader.setUniformsValues({secondaryColor: color})
 }
 
-XMLscene.prototype.logPicking = function ()
-{
+/**
+ * Show in console information about picked elements
+ * 
+ * @return {null}
+ */
+XMLscene.prototype.logPicking = function() {
+
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (let pick in this.pickResults) {
@@ -260,7 +266,7 @@ XMLscene.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.pickResults[pick][1];				
-					console.log("Picked object: " + obj + ", with pick id " + customId);
+                    console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
