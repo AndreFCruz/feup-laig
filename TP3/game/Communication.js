@@ -14,6 +14,10 @@ const GET_ELEMENTS_REGEX = /[a-z]+(?=,)|(?<=,).+/g;
  * Variable containing the PLOG answers to the requests
  */
 var pLogBoard = null;
+/**
+ * Variable indicating whether the variable pLogBoard truly changed
+ */
+var boardChanged = false;
 
 /**
  * Send a request to Prolog.
@@ -51,8 +55,10 @@ function handleServerAnswer(answer) {
     //If v from victory is found
     if (answer.charAt(0) == 'v') {
         //Do something when victory of someone
-    } else
+    } else {
         pLogBoard = parseFromPlog(answer);
+        boardChanged = true;
+    }
 }
 
 /**
