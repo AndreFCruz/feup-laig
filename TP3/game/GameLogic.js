@@ -38,7 +38,7 @@ class GameLogic {
         this.board = null;
 
         let test;
-        test = getPrologRequest('test');
+        test = getPrologRequest('test1(aedaed,black)');
         console.log('HERE ' + test);
     }
 

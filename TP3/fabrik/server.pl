@@ -104,27 +104,78 @@ print_header_line(_).
 
 % Require your Prolog Files here
 
-parse_input(initHxH, _Board):-
-	initGame(humanPlayer, humanPlayer), !.
+%%%%%%%%%%%%%%% Useful predicates %%%%%%%%%%%%%%%%%%%%%
 
-parse_input(initAxH(AI), _Board):-
-	translateAI(AI, AIfunction)
-	initGame(humanPlayer, AIfunction), !.
-
-parse_input(initAxA(AI1, AI2), _Board):-
-	translateAI(AI1, AIfunction1), translateAI(AI2, AIfunction2),
-	initGame(AIfunction1, AIfunction2), !.
-
+% AI dictionary
 translateAI(random, getRandomPlay).
 translateAI(smart, getGreedyPlay).
 
-%Separate the gameLoop in parts were it needs input
-%gameLoop(_PlayerFuncton1, _PlayerFunction2).
+% When the Player wins
+decideResult(Side, Board, Result):-
+	gameIsWon(Side, Board),
+	gameWon(Side, Result), !.
+%When the Board is full, other player can not play, so player wins
+decideResult(_Side, Board, Board):-
+	boardIsNotFull(Board), !.
+decideResult(Side, _Board, Result):-
+	gameWon(Side, Result), !.
 
+gameWon(black, Result):-
+	Result is 'victory black', !.
+gameWon(white, Result):-
+	Result is 'victory white', !.
+gameLost(black, Result):-
+	Result is 'victory white', !.
+gameLost(white, Result):-
+	Result is 'victory black', !.
+
+%%%%%%%%%%%%%%% Requested Predicates %%%%%%%%%%%%%%%%%%%%%
+
+% For game beggining
+parse_input(init, Board):-
+	genRowColFacts,
+	boardSize(N), !,
+	createBoard(Board, N), !.
+
+% For setting first workers
+parse_input(setHumanWorker(Board, Side, Row, Col), NewBoard):-
+	setPiece(worker, Side, Row, Col, Board, NewBoard), !.
+
+parse_input(setAIWorker(AI, Board, Side), NewBoard):-
+	translateAI(AI, AIfunction),
+	setFirstWorker(AIfunction, Side, Board, NewBoard), !.
+
+% TODO Não esquecer do escolher o side que começa no js
+
+%%%%%%%%%% By calling the following predicates, simulate the game loop
+
+parse_input(aiPlay(AI, Side, Board), Result):-
+	translateAI(AI, AIfunction),
+	call(AIfunction, Side, Board, NewBoard), !,
+	decideResult(Side, NewBoard, Result), !.
+% If piece play is not possible, player loses
+parse_input(aiPlay(_AI, Side, _Board), Result):-
+	gameLost(Side, Result), !.
+
+parse_input(moveWorker(Board, Row, Col, NewRow, NewCol), NewBoard):-
+	moveWorker(Board, Row, Col, NewRow, NewCol, NewBoard), !.
+
+% Setting piece in the board
+parse_input(setPiece(Side, Board, Row, Col), Result):-
+	isPiecePlayPossible(Board), !,
+	pieceInput(Side, Side, Row, Col, NewBoard), !,
+	decideResult(Side, NewBoard, Result), !.
+% If piece play is not possible, player loses
+parse_input(setPiece(Side, _Board, _Row, _Col), Result):-
+	gameLost(Side, Result), !.
+
+%%%%%%%%%%%%%%% Server Tests %%%%%%%%%%%%%%%%%%%%%
 
 % Server Tests
 parse_input(handshake, handshake).
 parse_input(quit, goodbye).
 parse_input(test, B0):-
 	boardSize(N), !,
-	createBoard(B0, N).	
+	createBoard(B0, N).
+parse_input(test1(Answer, black), Answer):-
+	write('This works son'), nl, !.
