@@ -114,4 +114,20 @@ class Game {
     update(currTime) {
         this.gameLogic.update();
     }
+
+    /**
+     * Handle the picked game elements
+     * 
+     * @param {Number} - The ID of the picked element
+     * @return {null}
+     */
+    handlePick(pickedId) {
+        if (pickedId > WORKER_PICK_ID) {
+            //The case it is a worker
+            //TODO the refactor of being gameLogic to include game and not otherwise -> makes more sense
+        } else {
+            //The case it is a cell
+        }
+    }
+
 }

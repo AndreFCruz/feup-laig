@@ -31,7 +31,12 @@ class GameLogic {
         };
         this.player1 = null;
         this.player2 = null;
+        //Either player1 or player2
         this.currentPlayer = null;
+
+        //Indicating wich cell or worker was picked
+        this.pickedWorker = null;
+        this.pickedCell = null;
 
         this.board = null;
 

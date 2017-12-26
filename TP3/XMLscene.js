@@ -129,7 +129,7 @@ XMLscene.prototype.onGraphLoaded = function()
  */
 XMLscene.prototype.display = function() {
 
-    this.handlePicking();
+    this.logPicking();
 	this.clearPickRegistration();
 
     // ---- BEGIN Background, camera and axis setup
@@ -257,22 +257,18 @@ XMLscene.prototype.updateShaderColor = function(hexValue) {
  * 
  * @return {null}
  */
-XMLscene.prototype.handlePicking = function() {
+XMLscene.prototype.logPicking = function() {
 
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (let pick in this.pickResults) {
+
 				let obj = this.pickResults[pick][0];
-				if (obj)
-				{
-					let customId = this.pickResults[pick][1];				
+                if (obj) {
+
+                    let customId = this.pickResults[pick][1];
+                    this.game.handlePick(customId);			
                     console.log("Picked object: " + obj + ", with pick id " + customId);
-
-                    if (customId > WORKER_PICK_ID) {
-
-                    } else {
-                        //Case it is a cell picked
-                    }
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
