@@ -104,14 +104,22 @@ print_header_line(_).
 
 % Require your Prolog Files here
 
-parse_input(initHxH, _Board).
+parse_input(initHxH, _Board):-
+	initGame(humanPlayer, humanPlayer), !.
 
-parse_input(initAxH, _Board).
+parse_input(initAxH(AI), _Board):-
+	translateAI(AI, AIfunction)
+	initGame(humanPlayer, AIfunction), !.
 
-parse_input(initAxA, _Board).
+parse_input(initAxA(AI1, AI2), _Board):-
+	translateAI(AI1, AIfunction1), translateAI(AI2, AIfunction2),
+	initGame(AIfunction1, AIfunction2), !.
+
+translateAI(random, getRandomPlay).
+translateAI(smart, getGreedyPlay).
 
 %Separate the gameLoop in parts were it needs input
-gameLoop(_PlayerFuncton1, _PlayerFunction2).
+%gameLoop(_PlayerFuncton1, _PlayerFunction2).
 
 
 % Server Tests
