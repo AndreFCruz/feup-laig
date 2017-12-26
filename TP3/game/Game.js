@@ -1,6 +1,19 @@
+/**
+ * Maximum number of pieces that there can possibly exist for each side.
+ */
 const NUMBER_PIECES = 40;
+/**
+ * Number of workers present in the game.
+ */
 const NUMBER_WORKERS = 2;
+/**
+ * Board Size. Number of cells of a board.
+ */
 const BOARD_SIZE = 9;
+/**
+ * Constant used for worker picking ID
+ */
+const WORKER_PICK_ID = 1000;
 
 /**
  * A class representing a game instance
@@ -68,7 +81,10 @@ class Game {
             this.scene.graph.displayPiece(this.blackPieces[bPiece]);
         
         //There are always exactly two workers
+        this.scene.registerForPick( WORKER_PICK_ID, this.workers[0]);
         this.scene.graph.displayPiece(this.workers[0]);
+
+        this.scene.registerForPick( WORKER_PICK_ID + 1, this.workers[1]);
         this.scene.graph.displayPiece(this.workers[1]);
 
         this.scene.setNoDisplayShader();
