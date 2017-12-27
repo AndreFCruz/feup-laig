@@ -82,9 +82,18 @@ MyInterface.prototype.processKeyDown = function(event) {
     }
 
     switch (event.key) {
+        case 'a':
+        case 'A':
+            // flip camera left
+            break;
+        case 'd':
+        case 'D':
+            // flip camera right
+            break;
         case 's':
         case 'S':
             this.scene.game.beginHvsH();
+            break;
         default:
             console.log("Key not bound: " + event.key);
     }
