@@ -164,7 +164,7 @@ parse_input(moveWorker(Board, Row, Col, NewRow, NewCol), NewBoard):-
 % Setting piece in the board
 parse_input(setPiece(Side, Board, Row, Col), Result):-
 	isPiecePlayPossible(Board), !,
-	pieceInput(Side, Side, Row, Col, NewBoard), !,
+	setPiece(Side, Row, Col, Board, NewBoard), !,
 	decideResult(Side, NewBoard, Result), !.
 % If piece play is not possible, player loses
 parse_input(setPiece(Side, _Board, _Row, _Col), Result):-

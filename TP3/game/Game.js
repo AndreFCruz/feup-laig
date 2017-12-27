@@ -352,43 +352,48 @@ class Game {
      * @return {null}
      */
     beginHvsH() {
-        getPrologRequest('init');
-        this.player1 = this.playerType.HUMAN;
-        this.player2 = this.playerType.HUMAN;
-        this.currentPlayer = this.player1;
-        this.currentState = this.state.HUMAN_VS_HUMAN;
+        this.beginGame(this.playerType.HUMAN, this.playerType.HUMAN, this.state.HUMAN_VS_HUMAN);
         //TODO call this on GUI, acordding to selected type
         //calling it in interface
-
-        // on handling state Human vs Human: set currentPlayer and change to state for setting workers (?)
     }
 
     /**
      * Initialize a game of Human vs AI
      * 
-     * @param {number} AItype - The type of AI for player 2
+     * @param {number} aiType - The type of AI for player 2
      * @return {null}
      */
-    beginHvsAI(AItype) {
-        getPrologRequest('init');
-        this.player1 = this.playerType.HUMAN;
-        this.player2 = AItype;
-        this.currentState = this.state.HUMAN_VS_AI;
+    beginHvsAI(aiType) {
+        this.beginGame(this.playerType.HUMAN, aiType, this.state.HUMAN_VS_AI);
         //TODO call this on GUI, acordding to selected type
     }
 
     /**
      * Initialize a game of AI vs AI
      * 
-     * @param {number} AItype1 - The type of AI for player 1
-     * @param {number} AItype2 - The type of AI for player 2
+     * @param {number} aiType1 - The type of AI for player 1
+     * @param {number} aiType2 - The type of AI for player 2
      * @return {null}
      */
-    beginHvsAI(AItype1, AItype2) {
-        this.player1 = AItype1;
-        this.player2 = AItype2;
-        this.currentState = this.state.AI_VS_AI;
+    beginHvsAI(aiType1, aiType2) {
+        this.beginGame(aiType1, aiType2, this.state.AI_VS_AI);
         //TODO call this on GUI, acordding to selected type
+    }
+
+    /**
+     * Initialize a generic game
+     * 
+     * @param {number} playerType1 - The type of Player for player 1
+     * @param {number} playerType2 - The type of Player for player 2
+     * @param {Number} nextState - The next State for the game beginning
+     * @return {null}
+     */
+    beginGame(playerType1, playerType2, nextState) {
+        getPrologRequest('init');
+        this.player1 = playerType1;
+        this.player2 = playerType2;
+        this.currentPlayer = this.player1;
+        this.currentState = nextState;
     }
 
     /**
