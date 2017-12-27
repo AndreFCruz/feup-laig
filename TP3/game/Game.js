@@ -58,6 +58,8 @@ class Game {
 
         // CurrentBoard representation of the game board (object)
         this.board = null;
+
+        this.alert = new Alert(this);
     }
 
     /**
@@ -283,7 +285,7 @@ class Game {
         }
 
         if (this.areWorkersSet()) {
-            this.currentPlayer = this.chooseFirstPlayer();
+            this.currentPlayer = this.alert.chooseFirstPlayer();
             this.currentState = this.state.WAIT_WORKER_H_VS_H;
         }
     }
@@ -300,7 +302,7 @@ class Game {
                             this.getPlayerSide() + ',' + this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
             this.switchPlayer();
-            this.currentPlayer = this.chooseFirstPlayer();
+            this.currentPlayer = this.alert.chooseFirstPlayer();
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
             this.pickedCell = null;
         }
@@ -397,38 +399,6 @@ class Game {
         this.player2 = playerType2;
         this.currentPlayer = this.player1;
         this.currentState = nextState;
-    }
-
-    /**
-     * Show a sweet alert to choose the player initiating
-     * 
-     * @return {Number} - The starting player
-     */
-    chooseFirstPlayer() {
-        swal({
-            title: 'Who starts playing?',
-            type: 'question',
-            showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonColor: '#248f24',
-            confirmButtonText: 'Player 1',
-            cancelButtonColor: '#248f24',
-            cancelButtonText: 'Player 2',
-        }).then((result) => {
-            if (result.value || result.dismiss === 'overlay') {
-                this.currentPlayer = this.player1;
-                swal(
-                    'Player 1 starts playing', '',
-                    'success'
-                )
-            } else if (result.dismiss === 'cancel') {
-                this.currentPlayer = this.player2;
-                swal(
-                    'Player 2 starts playing', '',
-                    'success'
-                )
-            }
-        })
     }
 
     /**
