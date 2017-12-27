@@ -1877,7 +1877,7 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	currentMaterial.apply();
 
 	//Activating shader if selected node
-	let selected = (node.nodeID == this.scene.Selectables);
+	let selected = (node.nodeID == this.scene.selectedNode);
 	if (selected)
 		this.scene.setSecondaryShader();
 

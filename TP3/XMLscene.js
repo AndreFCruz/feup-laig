@@ -14,7 +14,7 @@ function XMLscene(interface) {
 
     //For dropdown in interface
     //Starting by selecting nothing
-    this.Selectables = " ";
+    this.selectedNode = null;
 
     //For Color Controller
     this.selectedColor = "#ff6322";
@@ -117,9 +117,6 @@ XMLscene.prototype.onGraphLoaded = function()
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
-
-    //Adds Selectables dropdown
-    this.interface.addSelecDropDown(this.graph.selectables);
 
     //Adds Color Controller
     this.interface.addColorController();

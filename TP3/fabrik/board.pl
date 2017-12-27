@@ -6,13 +6,13 @@
 createBoard(Board, N) :-
         createBoard(Board, N , 0).
 
-createBoard(_, N, N).
+createBoard([], N, N).
 createBoard([FirstRow | OtherRows], N, Lines) :-
         Lines1 is (Lines + 1),
         createBoardLine(FirstRow, N),
         createBoard(OtherRows, N, Lines1).
-        
-createBoardLine(_, 0).
+
+createBoardLine([], 0).
 createBoardLine([FirstEle | OtherEle], N) :-
         FirstEle = none,
         N1 is (N - 1),
@@ -80,7 +80,7 @@ lineOfSight(Board, Row, Col, RowChange, ColChange, Positions) :-
         append([[NewRow, NewCol]], OtherPositions, Positions).
 lineOfSight(_Board, _Row, _Col, _RowChange, _ColChange, []) :- !.
 
-                                                                   
+
 % Set piece on board
 % Sets the piece of the given type on the given position, on the given Board
 setPiece(Piece, Row, Col, Board, NewBoard) :-
@@ -95,7 +95,7 @@ setPiece(Piece, Row, Col, Board, NewBoard) :-
 findBothWorkers(Board, Row1, Col1, Row2, Col2) :-
         findWorker(Board, Row1, Col1),
         findWorker(Board, Row2, Col2),
-        \+ (Row1 = Row2, Col1 = Col2), !. % Cut prevents backtracking over Row/Col permutations 
+        \+ (Row1 = Row2, Col1 = Col2), !. % Cut prevents backtracking over Row/Col permutations
 
 % Finds a worker's position
 findWorker(Board, OutputRow, OutputCol) :-

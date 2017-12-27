@@ -49,19 +49,6 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 }
 
 /**
- * Adds a dropdown containing the IDs of all the selected nodes
- * 
- * @return {null}
- */
-MyInterface.prototype.addSelecDropDown = function(selectables) {
-
-    //Adding option to select nothing
-    selectables.splice(0, 0, " ");
-
-    this.gui.add(this.scene, 'Selectables', selectables);
-}
-
-/**
  * Adds a color controller for the current selected node
  * 
  * @return {null}

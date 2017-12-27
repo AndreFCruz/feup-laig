@@ -30,6 +30,9 @@ var boardChanged = false;
  */
 function getPrologRequest(requestString)
 {
+    console.log("GET prolog request: ");
+    console.log(requestString);    
+
     var request = new XMLHttpRequest();
     request.open('GET', 'http://localhost:' + COMMMUNICATION_PORT + '/' + requestString, true);
 
@@ -53,7 +56,6 @@ function getPrologRequest(requestString)
  * @param {String} answer - Prolog answer to the made request
  */
 function handleServerAnswer(answer) {
-
     //If v from victory is found
     if (answer.charAt(0) == 'v') {
         //Do something when victory of someone
@@ -91,11 +93,11 @@ function parseBoardToPlog(board) {
 /**
  * Parses a string containing a Prolog list of lists to a board
  * 
- * @param {String} lists - The Prolog list of lists
+ * @param {String} str - The Prolog list of lists, as a string
  * @return {object} - The board matrix
  */
-function parseBoardFromPlog(lists) {
-    let rows = lists.match(GET_LISTS_REGEX);
+function parseBoardFromPlog(str) {
+    let rows = str.match(GET_LISTS_REGEX);
     let board = {};
 
     for (let i = 0; i < rows.length; ++i) {
