@@ -1,118 +1,125 @@
 /**
- * Maximum number of pieces that there can possibly exist for each side.
- */
-const NUMBER_PIECES = 40;
-/**
- * Number of workers present in the game.
- */
-const NUMBER_WORKERS = 2;
-/**
- * Board Size. Number of cells of a board.
- */
-const BOARD_SIZE = 9;
-/**
  * Constant used for worker picking ID
  */
 const WORKER_PICK_ID = 1000;
 
 /**
- * A class representing a game instance
+ * The class responsible for handling the game.
+ * Saves information such as the current game state, the type of players, etc
  */
 class Game {
     
     /**
-     * Constructor for the black piece class
+     * Constructor for the Game class
      * 
-     * @param {Object} scene - The lighting
+     * @param {Object} scene - The lighting scene were elements will be displayed
      * @constructor
      */
     constructor(scene) {
-        this.scene = scene;
-        this.gameLogic = new GameLogic();
 
-        this.setUpGame();
+        this.gameElements = new GameElements(scene);
+
+        this.state = {
+            NO_GAME_RUNNING : 1,
+            HUMAN_VS_HUMAN : 2,
+            HUMAN_VS_AI : 3,
+            AI_VS_AI : 4,
+            WAIT_WORKER_H_VS_H : 5,
+            WAIT_PIECE_H_VS_H : 6,
+            WAIT_WORKER_H_VS_AI : 7,
+            WAIT_PIECE_H_VS_AI : 8,
+            AI_PLAY_H_VS_AI : 9
+        };
+        this.currentState = this.state.NO_GAME_RUNNING;
+
+        this.playerType = {
+            HUMAN : 1,
+            RANDOM_AI : 2,
+            SMART_AI : 3
+        };
+        this.player1 = null;
+        this.player2 = null;
+        //Either player1 or player2
+        this.currentPlayer = null;
+
+        //Indicating wich cell or worker was picked
+        this.pickedWorker = null;
+        this.pickedCell = null;
+
+        this.board = null;
+
     }
 
     /**
-     * Creates all the elements - pieces and board cells - needed for the game.
+     * Set the type of player playing the game
      * 
+     * @param {Integer} player1 - Type of player for the player1
+     * @param {Integer} player2 - Type of player for the player2
      * @return {null}
      */
-    setUpGame() {
-        
-        //For different Pieces
-        this.whitePieces = {};
-        this.blackPieces = {};
-        for (let i = 0; i < NUMBER_PIECES; ++i) {
-            this.whitePieces[i] = new WhitePiece([10, 0, 0]);
-            this.blackPieces[i] = new BlackPiece([0, 0, 10]);
-        }
-
-        // TODO CHANGE ALL THIS HARDCODED POSITIONS
-        //There are always exactly two workers
-        this.workers = {};
-        this.workers[0] = new Worker([5, 0, 5]);
-        this.workers[1] = new Worker([7, 0, 7]);
-
-        //For the Board Cells
-        this.boardCells = {};
-        for (let i = 0; i < BOARD_SIZE; ++i) {
-            this.boardCells[i] = {};
-            
-            for (let j = 0; j < BOARD_SIZE; ++j) {
-
-                //Because of how rectangles are initially displayed
-                let maxRow = BOARD_SIZE - 1;
-                this.boardCells[i][j] = new BoardCell(this.scene, [maxRow - i, j]);
-            }
-        }
+    setPlayers(player1, player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     /**
-     * Displays the game pieces
-     * 
-     * @return {null}
-     */
-    displayGame() {
-        for (let wPiece in this.whitePieces)
-            this.scene.graph.displayPiece(this.whitePieces[wPiece]);
-
-        for (let bPiece in this.blackPieces)
-            this.scene.graph.displayPiece(this.blackPieces[bPiece]);
-        
-        //There are always exactly two workers
-        this.scene.registerForPick( WORKER_PICK_ID, this.workers[0]);
-        this.scene.graph.displayPiece(this.workers[0]);
-
-        this.scene.registerForPick( WORKER_PICK_ID + 1, this.workers[1]);
-        this.scene.graph.displayPiece(this.workers[1]);
-
-        this.scene.setNoDisplayShader();
-
-        for (let row in this.boardCells) {
-            for (let col in this.boardCells[row]) {
-                let cell = this.boardCells[row][col];
-
-                //The pick id is a number where id / 10 = row and id % 10 = col
-                this.scene.registerForPick((parseInt(row) + 1) * 10 + (parseInt(col) + 1), cell);
-
-                this.boardCells[row][col].display();
-            }
-        }
-
-        //For now do CONNECTION TESTS go here
-
-        this.scene.setDefaultShader();
-    }
-
-    /**
-     * Update the game elements
+     * Update the game logic
      * 
      * @param {Number} currTime - current time, in miliseconds.
      * @return {null}
      */
     update(currTime) {
-        this.gameLogic.update();
+
+        if (boardChanged) {
+            this.board = pLogBoard;
+            boardChanged = false;
+        
+            switch (this.currentState) {
+                case this.state.NO_GAME_RUNNING:
+                    /* Starting a game leads to either:
+                        - HUMAN_VS_HUMAN;
+                        - HUMAN_VS_AI;
+                        - AI_VS_AI; */
+                    break;
+                case this.state.HUMAN_VS_HUMAN:
+                    /* Get the 2 workers starting position, till then, stay in this mode.
+                    After, go to WAIT_WORKER_H_VS_H */
+                    break;
+                case this.state.HUMAN_VS_AI:
+                    /* Get the User worker input, then wait for AI move worker.
+                    After, go to WAIT_WORKER_AI_VS_AI */
+                    break;
+                case this.state.AI_VS_AI:
+                    /* When one of the AI's loses, go to NO_GAME_RUNNING */
+                    if (this.currentPlayer == 'black')
+                        getPrologRequest('aiPlay(' + this.player1 + ',black,' + parseToPlog(this.board) + ')');
+                    else if (this.currentPlayer == 'white')
+                        getPrologRequest('aiPlay(' + this.player2 + ',white,' + parseToPlog(this.board) + ')');
+                    break;
+                case this.state.WAIT_WORKER_H_VS_H:
+                    /* If user wants to move worker, get input and go to WAIT_PIECE_H_VS_H
+                    If user does not want to move worker, automatically go to WAIT_PIECE_H_VS_H
+                    If someone lost, go to NO_GAME_RUNNING */
+                    break;
+                case this.state.WAIT_PIECE_H_VS_H:
+                    /* Set user piece then go WAIT_WORKER_H_VS_H */
+                    break;
+                case this.state.WAIT_WORKER_H_VS_AI:
+                    /* If user wants to move worker, get input and go to WAIT_PIECE_H_VS_AI
+                    If user does not want to move worker, automatically go to WAIT_PIECE_H_VS_AI
+                    If someone lost, go to NO_GAME_RUNNING */
+                    break;
+                case this.state.WAIT_PIECE_H_VS_AI:
+                    /* Set user piece then go to HUMAN_FINISHED_MOVE */
+                    break;
+                case this.state.AI_PLAY_H_VS_AI:
+                    /* After getting AI board, go to WAIT_WORKER_H_VS_AI
+                    If AI won, go to NO_GAME_RUNNING */
+                    break;
+                default:
+                    console.warn("Unknown Game state detected...");
+            }
+        }
     }
 
     /**
@@ -128,6 +135,15 @@ class Game {
         } else {
             //The case it is a cell
         }
+    }
+
+    /**
+     * Displays the game elements
+     * 
+     * @return {null}
+     */
+    displayGame() {
+        this.gameElements.displayGame();
     }
 
 }
