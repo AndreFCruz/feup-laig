@@ -2,10 +2,12 @@
  * Maximum number of pieces that there can possibly exist for each side.
  */
 const NUMBER_PIECES = 40;
+
 /**
  * Number of workers present in the game.
  */
 const NUMBER_WORKERS = 2;
+
 /**
  * Board Size. Number of cells of a board.
  */

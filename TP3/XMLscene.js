@@ -155,8 +155,8 @@ XMLscene.prototype.display = function() {
         // Draw axis
         this.axis.display();
 
-        var i = 0;
-        for (var key in this.lightValues) {
+        let i = 0;
+        for (let key in this.lightValues) {
             if (this.lightValues.hasOwnProperty(key)) {
                 if (this.lightValues[key]) {
                     this.lights[i].setVisible(true);
@@ -174,7 +174,7 @@ XMLscene.prototype.display = function() {
         // Displays the scene.
         this.graph.displayScene();
 
-        //Displays the game elements
+        // Displays the game elements
         this.game.displayGame();
     }
     else
@@ -182,7 +182,6 @@ XMLscene.prototype.display = function() {
         // Draw axis
         this.axis.display();
     }
-    
 
     this.popMatrix();
 

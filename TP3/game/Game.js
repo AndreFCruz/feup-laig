@@ -58,7 +58,6 @@ class Game {
 
         // CurrentBoard representation of the game board (object)
         this.board = null;
-
     }
 
     /**
@@ -124,7 +123,7 @@ class Game {
         // TODO - ver se o inicio das animações é feito aqui, ou na receção de respostas
 
         if (boardChanged) {
-            this.board = pLogBoard;
+            this.board = prologBoard;
             boardChanged = false;
         
             // States dependent on board changes
@@ -219,7 +218,7 @@ class Game {
             this.currentState = this.state.AI_VS_AI_LOOP;
         } else {
             getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
-                            parseToPlog(this.board) + ',' + getPlayerSide() + ')');
+                parseBoardToPlog(this.board) + ',' + getPlayerSide() + ')');
             switchPlayer();
         }
     }
@@ -233,7 +232,7 @@ class Game {
      */
     aiPlay(nextState) {
         getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
-                        getPlayerSide() + parseToPlog(this.board) + ')');
+                        getPlayerSide() + parseBoardToPlog(this.board) + ')');
         switchPlayer();
         this.currentState = nextState;
     }
@@ -249,7 +248,7 @@ class Game {
             this.currentState = this.state.WAIT_WORKER_H_VS_AI;
         } else {
             getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
-                            parseToPlog(this.board) + ',' + getPlayerSide() + ')');
+                parseBoardToPlog(this.board) + ',' + getPlayerSide() + ')');
             switchPlayer();
         }
     }
@@ -262,7 +261,7 @@ class Game {
      */
     setWorkersHvsH() {
         if (this.pickedCell) {
-            getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
+            getPrologRequest('setHumanWorker(' + parseBoardToPlog(this.board) + ',' + 
                             getPlayerSide() + this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
             switchPlayer();
@@ -281,7 +280,7 @@ class Game {
      */
     setWorkerHvsAI() {
         if (this.pickedCell) {
-            getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
+            getPrologRequest('setHumanWorker(' + parseBoardToPlog(this.board) + ',' + 
                             getPlayerSide() + this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
             switchPlayer();
@@ -302,7 +301,7 @@ class Game {
     waitWorkerH(putPieceState, nextState) {
         if (this.pickedWorker) {
             if (this.pickedCell) {
-                getPrologRequest('moveWorker(' + parseToPlog(this.board) + ',' +
+                getPrologRequest('moveWorker(' + parseBoardToPlog(this.board) + ',' +
                                 this.pickedWorker.getRow() + ',' +
                                 this.pickedWorker.getCol() + ',' +
                                 this.pickedCell. getRow() + ',' + 
@@ -324,7 +323,7 @@ class Game {
     waitPieceH(nextState) {
         if (this.pickedCell) {
             getPrologRequest('setPiece(' + getPlayerSide() + ',' +
-                            parseToPlog(this.board) + ',' +
+                            parseBoardToPlog(this.board) + ',' +
                             this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
             switchPlayer();

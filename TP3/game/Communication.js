@@ -13,9 +13,9 @@ const GET_ELEMENTS_REGEX = /[a-z]+(?=,)|(?<=,).+/g;
 /**
  * Variable containing the PLOG answers to the requests
  */
-var pLogBoard = null;
+var prologBoard = null;
 /**
- * Variable indicating whether the variable pLogBoard truly changed
+ * Variable indicating whether the variable prologBoard truly changed
  */
 var boardChanged = false;
 
@@ -56,7 +56,7 @@ function handleServerAnswer(answer) {
     if (answer.charAt(0) == 'v') {
         //Do something when victory of someone
     } else {
-        pLogBoard = parseFromPlog(answer);
+        prologBoard = parseBoardFromPlog(answer);
         boardChanged = true;
     }
 }
@@ -67,7 +67,7 @@ function handleServerAnswer(answer) {
  * @param {Object} board - The board to be parsed into the prolog list of lists
  * @return {String} - Prolog list of lists
  */
-function parseToPlog(board) {
+function parseBoardToPlog(board) {
     let listLists = "[";
 
     for (let row in board) {
@@ -91,7 +91,7 @@ function parseToPlog(board) {
  * @param {String} lists - The Prologo list of lists
  * @return {object} - The board matrix
  */
-function parseFromPlog(lists) {
+function parseBoardFromPlog(lists) {
     let rows = lists.match(GET_LISTS_REGEX);
     let board = {};
 

@@ -41,11 +41,11 @@ main=function()
     // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
     var filename=getUrlVars()['file'] || "board.xml";
     
-    //XML's containing the boards
+    // XML's containing the boards
     /*let boardFiles = [
         "board.xml"
     ]
-    //XML's containing the outside scenes
+    // XML's containing the outside scenes
     let sceneFiles = [
         "scene.xml"
     ]*/
