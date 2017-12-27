@@ -104,7 +104,7 @@ class GameElements {
             for (let col in this.boardCells[row]) {
                 let cell = this.boardCells[row][col];
 
-                //The pick id is a number where id / 10 = row and id % 10 = col
+                //The pick id 1st digit is the row and the 2nd digit the column
                 this.scene.registerForPick((parseInt(row) + 1) * 10 + (parseInt(col) + 1), cell);
 
                 this.boardCells[row][col].display();

@@ -3,11 +3,11 @@
  */
 const WORKER_PICK_ID = 1000;
 /**
- * Constant for knowing the player1 PRolog correspondent Side
+ * Constant for knowing the player1 Prolog correspondent Side
  */
 const PLAYER1_SIDE = 'black';
 /**
- * Constant for knowing the player2 PRolog correspondent Side
+ * Constant for knowing the player2 Prolog correspondent Side
  */
 const PLAYER2_SIDE = 'white';
 
@@ -163,12 +163,16 @@ class Game {
                 break;
 
             case this.state.HUMAN_VS_HUMAN:
-                /* Get the 2 workers starting position, till then, stay in this mode.
-                After, go to WAIT_WORKER_H_VS_H */
                 if (this.pickedCell) {
                     getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
-                                    getPlayerSide() + this.pickedCell.getRow() + ')');
+                                    getPlayerSide() + this.pickedCell.getRow() + ',' +
+                                    this.pickedCell.getCol() + ')');
+                    this.pickedCell = null;
                 }
+                    // TODO - meter aqui a inicializar a animação? Ou só quando receber resposta?
+                if (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
+                    this.gameElements.isOnBoard(this.gameElements.workers[1]))
+                    this.currentState = this.state.WAIT_PIECE_H_VS_H;
                 break;
 
             case this.state.HUMAN_VS_AI:
@@ -186,6 +190,14 @@ class Game {
                 break;
 
             case this.state.WAIT_PIECE_H_VS_H:
+                if (this.pickedWorker) {
+                    if (this.pickedCell) {
+                        getPrologRequest('moveWorker(' + parseToPlog(this.board) + ',' +
+                                        this.pickedWorker + ')');
+                    }
+                } else if (this.pickedCell) {
+
+                }
                 /* Set user piece then go WAIT_WORKER_H_VS_H */
                 break;
 
@@ -218,7 +230,7 @@ class Game {
         if (pickedId >= WORKER_PICK_ID)
             this.pickedWorker = this.gameElements.workers[pickedId - WORKER_PICK_ID];
         else {
-            // In cells, the 1st digit is the row, and the 2nd the column
+            // In cells, the 1st digit is the row and the 2nd digit the column
             // - 1 because picking rows start at 1 and indexes at 0
             let row = Math.floor(pickedId / 10) - 1;
             let col = (pickedId % 10) - 1;

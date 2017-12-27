@@ -1837,7 +1837,7 @@ MySceneGraph.prototype.displayPiece = function(piece) {
 	let pieceNode = (this.pieces[piece.getType()]);
 
 	this.scene.pushMatrix();
-		this.scene.multMatrix(piece.getPosition());
+		this.scene.multMatrix(piece.getPositionMatrix());
 		this.processNode(pieceNode, null);
 	this.scene.popMatrix();
 }
