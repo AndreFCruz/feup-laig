@@ -265,11 +265,17 @@ class Game {
 
             // TODO remove this from here, for testing only now
             if (this.gameElements.isOnBoard(this.gameElements.workers[0])) {
-                this.gameElements.workers[1].position[0] = this.pickedCell.getCol();
-                this.gameElements.workers[1].position[2] = this.pickedCell.getRow();
+                let test0 = this.gameElements.workers[1];
+                test0.position[0] = this.pickedCell.getCol();
+                test0.position[2] = this.pickedCell.getRow();
+                mat4.identity(test0.positionMatrix);
+                mat4.translate(test0.positionMatrix, test0.positionMatrix, test0.position);
             } else {
-                this.gameElements.workers[0].position[0] = this.pickedCell.getCol();
-                this.gameElements.workers[0].position[2] = this.pickedCell.getRow();
+                let test1 = this.gameElements.workers[0];
+                test1.position[0] = this.pickedCell.getCol();
+                test1.position[2] = this.pickedCell.getRow();
+                mat4.identity(test1.positionMatrix);
+                mat4.translate(test1.positionMatrix, test1.positionMatrix, test1.position);
             }
 
             this.switchPlayer();
@@ -318,7 +324,7 @@ class Game {
                 this.pickedWorker = null;
                 this.pickedCell = null;
             }
-        } else waitPieceH(nextState);
+        } else this.waitPieceH(nextState);
     }
 
     /**

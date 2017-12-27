@@ -5,7 +5,7 @@ const COMMMUNICATION_PORT = 8081;
 /**
  * ReGex used for parsing a prolg list of lists (string) into several objects with those being rows.
  */
-const GET_LISTS_REGEX = /((?<=\[\[).+?(?=\|))|((?<=],\[).+?(?=\|))/g;
+const GET_LISTS_REGEX = /((?<=\[\[).+?(?=\|))|((?<=],\[).+?(?=\|))|((?<=],\[).+?(?=]))|((?<=\[[\[]).+?(?=]))/g;
 /**
  * ReGex used for parsing the row (string) into several objects with those being the elements.
  */
