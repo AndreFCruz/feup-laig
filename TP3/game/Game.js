@@ -359,7 +359,7 @@ class Game {
     }
 
     /**
-     * Initialize a game of ai vs AI
+     * Initialize a game of AI vs AI
      * 
      * @param {number} AItype1 - The type of AI for player 1
      * @param {number} AItype2 - The type of AI for player 2
