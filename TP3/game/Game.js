@@ -43,13 +43,13 @@ class Game {
         this.currentState = this.state.NO_GAME_RUNNING;
 
         this.playerType = {
-            HUMAN : 'human',
-            RANDOM_AI : 'random',
-            SMART_AI : 'smart'
+            HUMAN: 'human',
+            AI: 'ai'
         };
         this.player1 = null;
         this.player2 = null;
-        //Either player1 or player2
+
+        // Either 1 (for player1) or 2 (for player2)
         this.currentPlayer = null;
 
         //Indicating wich cell or worker was picked
@@ -78,10 +78,8 @@ class Game {
      * @return {null}
      */
     switchPlayer() { // TODO check for player1 == player2
-        if (this.currentPlayer == this.player1)
-            this.currentPlayer = this.player2;
-        else if (this.currentPlayer == this.player2)
-            this.currentPlayer = this.player1;
+        if (this.currentPlayer)
+            this.currentPlayer = (this.currentPlayer % 2) + 1;
         else
             console.error('No current player is set, can not switch between players');
     }
@@ -92,9 +90,9 @@ class Game {
      * @return {String} - correspondent Prolog Side
      */
     getPlayerSide() { // TODO check for player1 == player2
-        if (this.currentPlayer == this.player1)
+        if (this.currentPlayer == 1)
             return PLAYER1_SIDE;
-        else if (this.currentPlayer == this.player2)
+        else if (this.currentPlayer == 2)
             return PLAYER2_SIDE;
         else
             console.error('No current player is set, can not get player Prolog side');
@@ -212,10 +210,10 @@ class Game {
     setAIvsAIworkers() {
         if (this.areWorkersSet()) {
             // In AI vs AI white always starts
-            this.currentPlayer = this.player2;
+            this.currentPlayer = 2;
             this.currentState = this.state.AI_VS_AI_LOOP;
-        } else {
-            getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
+        } else {// TODO check request
+            getPrologRequest('setAIWorker(' + this.getPlayerSide() + ',' +
                 parseBoardToPlog(this.board) + ',' + this.getPlayerSide() + ')');
             this.switchPlayer();
         }
@@ -283,7 +281,7 @@ class Game {
         }
 
         if (this.areWorkersSet()) {
-            this.currentPlayer = this.chooseFirstPlayer();
+            this.chooseFirstPlayer();
             this.currentState = this.state.WAIT_WORKER_H_VS_H;
         }
     }
@@ -395,7 +393,7 @@ class Game {
         getPrologRequest('init');
         this.player1 = playerType1;
         this.player2 = playerType2;
-        this.currentPlayer = this.player1;
+        this.currentPlayer = 1;
         this.currentState = nextState;
     }
 
@@ -416,13 +414,13 @@ class Game {
             cancelButtonText: 'Player 2',
         }).then((result) => {
             if (result.value || result.dismiss === 'overlay') {
-                this.currentPlayer = this.player1;
+                this.currentPlayer = 1;
                 swal(
                     'Player 1 starts playing', '',
                     'success'
                 )
             } else if (result.dismiss === 'cancel') {
-                this.currentPlayer = this.player2;
+                this.currentPlayer = 2;
                 swal(
                     'Player 2 starts playing', '',
                     'success'
