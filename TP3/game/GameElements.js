@@ -43,11 +43,11 @@ class GameElements {
             this.blackPieces[i] = new BlackPiece([0, 0, 10]);
         }
 
-        // TODO CHANGE ALL THIS HARDCODED POSITIONS
+        // TODO CHANGE ALL THIS HARDCODED POSITIONS -> All to start inside the bag
         //There are always exactly two workers
         this.workers = {};
-        this.workers[0] = new Worker([5, 0, 5]);
-        this.workers[1] = new Worker([7, 0, 7]);
+        this.workers[0] = new Worker([-1, 0, -1]);
+        this.workers[1] = new Worker([-1, 0, -1]);
 
         //For the Board Cells
         this.boardCells = {};
@@ -61,6 +61,22 @@ class GameElements {
                 this.boardCells[i][j] = new BoardCell(this.scene, [maxRow - i, j]);
             }
         }
+    }
+
+    /**
+     * Checks whether a piece is inside the board limits, therefore, on the board
+     * 
+     * @param {Object} - The piece to be checked
+     * @return {Boolean} - True if piece is on the board, false otherwise
+     */
+    isOnBoard(piece) {
+        let piecePos = piece.getPosition();
+
+        if (piecePos[0] < 0 || piecePos[1] < 0 ||
+            piecePos[0] > BOARD_SIZE || piecePos[1] > BOARD_SIZE) 
+            return false;
+        else
+            return true;
     }
 
     /**
