@@ -3,13 +3,15 @@
  */
 const COMMMUNICATION_PORT = 8081;
 /**
- * ReGex used for parsing a prolg list of lists (string) into several objects with those being rows.
+ * ReGex used for parsing a prolg list of lists (string) into several objects of rows.
+ * https://regex101.com/r/Z35NUT/9
  */
-const GET_LISTS_REGEX = /((?<=\[\[).+?(?=\|))|((?<=],\[).+?(?=\|))|((?<=],\[).+?(?=]))|((?<=\[[\[]).+?(?=]))/g;
+const GET_LISTS_REGEX = /\[((?:\w*,?)*)(?:\|_\d+)?\]/g;
 /**
- * ReGex used for parsing the row (string) into several objects with those being the elements.
+ * ReGex used for parsing the row (string) into several objects of unit elements.
+ * https://regex101.com/r/Z35NUT/12
  */
-const GET_ELEMENTS_REGEX = /[a-z]+(?=,)|(?<=,).+/g;
+const GET_ELEMENTS_REGEX = /\w+/g;
 /**
  * Variable containing the PLOG answers to the requests
  */
@@ -89,7 +91,7 @@ function parseBoardToPlog(board) {
 /**
  * Parses a string containing a Prolog list of lists to a board
  * 
- * @param {String} lists - The Prologo list of lists
+ * @param {String} lists - The Prolog list of lists
  * @return {object} - The board matrix
  */
 function parseBoardFromPlog(lists) {
