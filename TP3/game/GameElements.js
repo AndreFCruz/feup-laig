@@ -56,9 +56,9 @@ class GameElements {
             
             for (let j = 0; j < BOARD_SIZE; ++j) {
 
-                //Because of how rectangles are initially displayed
-                let maxRow = BOARD_SIZE - 1;
-                this.boardCells[i][j] = new BoardCell(this.scene, [maxRow - i, j]);
+                // Because of how rectangles are initially displayed and 
+                // Because index starts at 0 and picking rows at 1
+                this.boardCells[i][j] = new BoardCell(this.scene, [BOARD_SIZE - 1 - i, j]);
             }
         }
     }
@@ -110,8 +110,6 @@ class GameElements {
                 this.boardCells[row][col].display();
             }
         }
-
-        //For now do CONNECTION TESTS go here
 
         this.scene.setDefaultShader();
     }

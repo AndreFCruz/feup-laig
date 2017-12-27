@@ -2,6 +2,14 @@
  * Constant used for worker picking ID
  */
 const WORKER_PICK_ID = 1000;
+/**
+ * Constant for knowing the player1 PRolog correspondent Side
+ */
+const PLAYER1_SIDE = 'black';
+/**
+ * Constant for knowing the player2 PRolog correspondent Side
+ */
+const PLAYER2_SIDE = 'white';
 
 /**
  * The class responsible for handling the game.
@@ -75,7 +83,23 @@ class Game {
         if (this.currentPlayer == this.player2)
             this.currentPlayer = this.player1;
         else
-            console.warn('No current player is set, can not switch between players');
+            console.error('No current player is set, can not switch between players');
+    }
+
+    /**
+     * Get correspondent Prolog Side to the current player
+     * 
+     * @return {String} - correspondent Prolog Side
+     */
+    getPlayerSide() {
+        if (this.currentPlayer == this.player1)
+            return PLAYER1_SIDE;
+        else
+        if (this.currentPlayer == this.player2)
+            return PLAYER2_SIDE;
+        else
+            console.error('No current player is set, can not get player Prolog side');
+        return null;
     }
 
     /**
@@ -105,22 +129,25 @@ class Game {
                 case this.state.HUMAN_VS_HUMAN:
                 case this.state.HUMAN_VS_AI:
                     break;
+
                 case this.state.AI_VS_AI:
                     /* When one of the AI's loses, go to NO_GAME_RUNNING */
-                    if (this.currentPlayer == 'black')
-                        getPrologRequest('aiPlay(' + this.player1 + ',black,' + parseToPlog(this.board) + ')');
-                    else if (this.currentPlayer == 'white')
-                        getPrologRequest('aiPlay(' + this.player2 + ',white,' + parseToPlog(this.board) + ')');
+                    getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
+                                    getPlayerSide() + parseToPlog(this.board) + ')');
+                    switchPlayer();
                     break;
+
                 case this.state.WAIT_WORKER_H_VS_H:
                 case this.state.WAIT_PIECE_H_VS_H:
                 case this.state.WAIT_WORKER_H_VS_AI:
                 case this.state.WAIT_PIECE_H_VS_AI:
                     break;
+
                 case this.state.AI_PLAY_H_VS_AI:
                     /* After getting AI board, go to WAIT_WORKER_H_VS_AI
                     If AI won, go to NO_GAME_RUNNING */
                     break;
+
                 default:
                     console.warn("Unknown Game state detected...");
             }
@@ -134,34 +161,47 @@ class Game {
                     - HUMAN_VS_AI;
                     - AI_VS_AI; */
                 break;
+
             case this.state.HUMAN_VS_HUMAN:
                 /* Get the 2 workers starting position, till then, stay in this mode.
                 After, go to WAIT_WORKER_H_VS_H */
+                if (this.pickedCell) {
+                    getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
+                                    getPlayerSide() + this.pickedCell.getRow() + ')');
+                }
                 break;
+
             case this.state.HUMAN_VS_AI:
                 /* Get the User worker input, then wait for AI move worker.
                 After, go to WAIT_WORKER_AI_VS_AI */
                 break;
+
             case this.state.AI_VS_AI:
                 break;
+
             case this.state.WAIT_WORKER_H_VS_H:
                 /* If user wants to move worker, get input and go to WAIT_PIECE_H_VS_H
                 If user does not want to move worker, automatically go to WAIT_PIECE_H_VS_H
                 If someone lost, go to NO_GAME_RUNNING */
                 break;
+
             case this.state.WAIT_PIECE_H_VS_H:
                 /* Set user piece then go WAIT_WORKER_H_VS_H */
                 break;
+
             case this.state.WAIT_WORKER_H_VS_AI:
                 /* If user wants to move worker, get input and go to WAIT_PIECE_H_VS_AI
                 If user does not want to move worker, automatically go to WAIT_PIECE_H_VS_AI
                 If someone lost, go to NO_GAME_RUNNING */
                 break;
+
             case this.state.WAIT_PIECE_H_VS_AI:
                 /* Set user piece then go to HUMAN_FINISHED_MOVE */
                 break;
+
             case this.state.AI_PLAY_H_VS_AI:
                 break;
+
             default:
                 console.warn("Unknown Game state detected...");
         }
@@ -174,10 +214,15 @@ class Game {
      * @return {null}
      */
     handlePick(pickedId) {
-        if (pickedId > WORKER_PICK_ID) {
-            //The case it is a worker
-        } else {
-            //The case it is a cell
+
+        if (pickedId >= WORKER_PICK_ID)
+            this.pickedWorker = this.gameElements.workers[pickedId - WORKER_PICK_ID];
+        else {
+            // In cells, the 1st digit is the row, and the 2nd the column
+            // - 1 because picking rows start at 1 and indexes at 0
+            let row = Math.floor(pickedId / 10) - 1;
+            let col = (pickedId % 10) - 1;
+            this.pickedCell = this.gameElements.boardCells[row][col];
         }
     }
 
