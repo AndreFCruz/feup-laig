@@ -230,7 +230,7 @@ class Game {
      */
     aiPlay(nextState) {
         getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
-                        this.getPlayerSide() + parseBoardToPlog(this.board) + ')');
+                        this.getPlayerSide() + ',' + parseBoardToPlog(this.board) + ')');
         this.switchPlayer();
         this.currentState = nextState;
     }
@@ -260,8 +260,18 @@ class Game {
     setWorkersHvsH() {
         if (this.pickedCell) {
             getPrologRequest('setHumanWorker(' + parseBoardToPlog(this.board) + ',' + 
-                            this.getPlayerSide() + this.pickedCell.getRow() + ',' +
+                            this.pickedCell.getRow() + ',' + 
                             this.pickedCell.getCol() + ')');
+
+            // TODO remove this from here, for testing only now
+            if (this.gameElements.isOnBoard(this.gameElements.workers[0])) {
+                this.gameElements.workers[1].position[0] = this.pickedCell.getCol();
+                this.gameElements.workers[1].position[2] = this.pickedCell.getRow();
+            } else {
+                this.gameElements.workers[0].position[0] = this.pickedCell.getCol();
+                this.gameElements.workers[0].position[2] = this.pickedCell.getRow();
+            }
+
             this.switchPlayer();
             this.pickedCell = null;
         }
@@ -279,7 +289,7 @@ class Game {
     setWorkerHvsAI() {
         if (this.pickedCell) {
             getPrologRequest('setHumanWorker(' + parseBoardToPlog(this.board) + ',' + 
-                            this.getPlayerSide() + this.pickedCell.getRow() + ',' +
+                            this.getPlayerSide() + ',' + this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
             this.switchPlayer();
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
@@ -336,8 +346,10 @@ class Game {
      * @return {null}
      */
     beginHvsH() {
+        getPrologRequest('init');
         this.player1 = this.playerType.HUMAN;
         this.player2 = this.playerType.HUMAN;
+        this.currentPlayer = this.player1;
         this.currentState = this.state.HUMAN_VS_HUMAN;
         //TODO call this on GUI, acordding to selected type
         //calling it in interface
@@ -352,6 +364,7 @@ class Game {
      * @return {null}
      */
     beginHvsAI(AItype) {
+        getPrologRequest('init');
         this.player1 = this.playerType.HUMAN;
         this.player2 = AItype;
         this.currentState = this.state.HUMAN_VS_AI;

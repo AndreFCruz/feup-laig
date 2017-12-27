@@ -81,7 +81,8 @@ function parseBoardToPlog(board) {
         listLists = listLists.concat(list.slice(0, list.length - 1), "],");
     }
 
-    listLists = listLists.concat(listLists.slice(0, listLists.length - 1), "]");
+    let tempList = listLists.slice(0, listLists.length - 1);
+    listLists = tempList.concat("]");
     return listLists;
 }
 

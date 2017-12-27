@@ -138,8 +138,9 @@ parse_input(init, Board):-
 	createBoard(Board, N), !.
 
 % For setting first workers
-parse_input(setHumanWorker(Board, Side, Row, Col), NewBoard):-
-	setPiece(worker, Side, Row, Col, Board, NewBoard), !.
+parse_input(setHumanWorker(Board, Row, Col), NewBoard):-
+	write('I got here'),
+	setPiece(worker, Row, Col, Board, NewBoard), !.
 
 parse_input(setAIWorker(AI, Board, Side), NewBoard):-
 	translateAI(AI, AIfunction),
