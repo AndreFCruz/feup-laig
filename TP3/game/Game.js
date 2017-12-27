@@ -43,9 +43,9 @@ class Game {
         this.currentState = this.state.NO_GAME_RUNNING;
 
         this.playerType = {
-            HUMAN : 1,
-            RANDOM_AI : 2,
-            SMART_AI : 3
+            HUMAN : 'human',
+            RANDOM_AI : 'random',
+            SMART_AI : 'smart'
         };
         this.player1 = null;
         this.player2 = null;
@@ -197,6 +197,7 @@ class Game {
 
     /**
      * Checks if both workers are set on board
+     * State Machine associated function.
      * 
      * @return {Bool} - True if workers are set, false otherwise
      */
@@ -207,6 +208,7 @@ class Game {
 
     /**
      * Sets both workers on the board, in AI vs AI mode
+     * State Machine associated function.
      * 
      * @return {null}
      */
@@ -224,6 +226,7 @@ class Game {
 
     /**
      * Executes an AI play and after switches current state to the given state
+     * State Machine associated function.
      * 
      * @param {Number} nextState - Following state in state machine, after executing AI play
      * @return {null}
@@ -237,6 +240,7 @@ class Game {
 
     /**
      * Set the AI worker in Human vs AI mode
+     * State Machine associated function.
      * 
      * @return {null}
      */
@@ -252,6 +256,7 @@ class Game {
 
     /**
      * Setting both workers on board, through picking, in Human vs Human mode
+     * State Machine associated function.
      * 
      * @return {null}
      */
@@ -270,6 +275,9 @@ class Game {
 
     /**
      * Setting the first worker on the board, in Human vs AI mode
+     * State Machine associated function.
+     * 
+     * @return {null}
      */
     setWorkerHvsAI() {
         if (this.pickedCell) {
@@ -285,6 +293,7 @@ class Game {
     /**
      * Moving the Human chosen Worker on the board, or, 
      * the Human chosen piece on the board (using @see waitPieceH(nextState))
+     * State Machine associated function.
      * 
      * @param {Number} putPieceState - Following state in state machine, after moving the worker
      * @param {Number} nextState - Following state in state machine, after setting the piece
@@ -307,6 +316,7 @@ class Game {
 
     /**
      * Setting the Human chosen piece on the board
+     * State Machine associated function.
      * 
      * @param {Number} nextState - Following state in state machine, after setting the piece
      * @return {null}
@@ -321,6 +331,45 @@ class Game {
             this.currentState = nextState;
             this.pickedCell = null;
         }
+    }
+
+    /**
+     * Initialize a game of Human vs Human
+     * 
+     * @return {null}
+     */
+    beginHvsH() {
+        this.player1 = this.playerType.HUMAN;
+        this.player2 = this.playerType.HUMAN;
+        this.currentState = this.state.HUMAN_VS_HUMAN;
+        //TODO call this on GUI, acordding to selected type
+    }
+
+    /**
+     * Initialize a game of Human vs AI
+     * 
+     * @param {number} AItype - The type of AI for player 2
+     * @return {null}
+     */
+    beginHvsAI(AItype) {
+        this.player1 = this.playerType.HUMAN;
+        this.player2 = AItype;
+        this.currentState = this.state.HUMAN_VS_AI;
+        //TODO call this on GUI, acordding to selected type
+    }
+
+    /**
+     * Initialize a game of ai vs AI
+     * 
+     * @param {number} AItype1 - The type of AI for player 1
+     * @param {number} AItype2 - The type of AI for player 2
+     * @return {null}
+     */
+    beginHvsAI(AItype1, AItype2) {
+        this.player1 = AItype1;
+        this.player2 = AItype2;
+        this.currentState = this.state.AI_VS_AI;
+        //TODO call this on GUI, acordding to selected type
     }
 
     /**
