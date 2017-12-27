@@ -30,13 +30,13 @@ class Alert {
             cancelButtonText: 'Player 2',
         }).then((result) => {
             if (result.value || result.dismiss === 'overlay') {
-                this.game.currentPlayer = this.game.player1;
+                this.game.currentPlayer = 1;
                 swal(
                     'Player 1 starts playing', '',
                     'success'
                 )
             } else if (result.dismiss === 'cancel') {
-                this.game.currentPlayer = this.game.player2;
+                this.game.currentPlayer = 2;
                 swal(
                     'Player 2 starts playing', '',
                     'success'

@@ -43,13 +43,13 @@ class Game {
         this.currentState = this.state.NO_GAME_RUNNING;
 
         this.playerType = {
-            HUMAN : 'human',
-            RANDOM_AI : 'random',
-            SMART_AI : 'smart'
+            HUMAN: 'human',
+            AI: 'ai'
         };
         this.player1 = null;
         this.player2 = null;
-        //Either player1 or player2
+
+        // Either 1 (for player1) or 2 (for player2)
         this.currentPlayer = null;
 
         //Indicating wich cell or worker was picked
@@ -80,10 +80,8 @@ class Game {
      * @return {null}
      */
     switchPlayer() { // TODO check for player1 == player2
-        if (this.currentPlayer == this.player1)
-            this.currentPlayer = this.player2;
-        else if (this.currentPlayer == this.player2)
-            this.currentPlayer = this.player1;
+        if (this.currentPlayer)
+            this.currentPlayer = (this.currentPlayer % 2) + 1;
         else
             console.error('No current player is set, can not switch between players');
     }
@@ -94,9 +92,9 @@ class Game {
      * @return {String} - correspondent Prolog Side
      */
     getPlayerSide() { // TODO check for player1 == player2
-        if (this.currentPlayer == this.player1)
+        if (this.currentPlayer == 1)
             return PLAYER1_SIDE;
-        else if (this.currentPlayer == this.player2)
+        else if (this.currentPlayer == 2)
             return PLAYER2_SIDE;
         else
             console.error('No current player is set, can not get player Prolog side');
@@ -214,10 +212,10 @@ class Game {
     setAIvsAIworkers() {
         if (this.areWorkersSet()) {
             // In AI vs AI white always starts
-            this.currentPlayer = this.player2;
+            this.currentPlayer = 2;
             this.currentState = this.state.AI_VS_AI_LOOP;
-        } else {
-            getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
+        } else {// TODO check request
+            getPrologRequest('setAIWorker(' + this.getPlayerSide() + ',' +
                 parseBoardToPlog(this.board) + ',' + this.getPlayerSide() + ')');
             this.switchPlayer();
         }
@@ -285,7 +283,7 @@ class Game {
         }
 
         if (this.areWorkersSet()) {
-            this.currentPlayer = this.alert.chooseFirstPlayer();
+            this.alert.chooseFirstPlayer();
             this.currentState = this.state.WAIT_WORKER_H_VS_H;
         }
     }
@@ -302,7 +300,7 @@ class Game {
                             this.getPlayerSide() + ',' + this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
             this.switchPlayer();
-            this.currentPlayer = this.alert.chooseFirstPlayer();
+            this.alert.chooseFirstPlayer();
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
             this.pickedCell = null;
         }
@@ -397,11 +395,46 @@ class Game {
         getPrologRequest('init');
         this.player1 = playerType1;
         this.player2 = playerType2;
-        this.currentPlayer = this.player1;
+        this.currentPlayer = 1;
         this.currentState = nextState;
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Show a sweet alert to choose the player initiating
+     * 
+     * @return {Number} - The starting player
+     */
+    chooseFirstPlayer() {
+        swal({
+            title: 'Who starts playing?',
+            type: 'question',
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonColor: '#248f24',
+            confirmButtonText: 'Player 1',
+            cancelButtonColor: '#248f24',
+            cancelButtonText: 'Player 2',
+        }).then((result) => {
+            if (result.value || result.dismiss === 'overlay') {
+                this.currentPlayer = 1;
+                swal(
+                    'Player 1 starts playing', '',
+                    'success'
+                )
+            } else if (result.dismiss === 'cancel') {
+                this.currentPlayer = 2;
+                swal(
+                    'Player 2 starts playing', '',
+                    'success'
+                )
+            }
+        })
+    }
+
+    /**
+>>>>>>> 34b0ed18b20ab546063be349299d86299b17f804
      * Handle the picked game elements
      * 
      * @param {Number} - The ID of the picked element
