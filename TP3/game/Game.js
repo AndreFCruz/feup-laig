@@ -129,50 +129,28 @@ class Game {
         
             // States dependent on board changes
             switch (this.currentState) {
+                
+                case this.state.AI_VS_AI:
+                    setAIvsAIworkers();
+                    return;
+                case this.state.AI_VS_AI_LOOP:
+                    aiPlay(AI_VS_AI_LOOP);
+                    return;
+                case this.state.HUMAN_VS_AI_SET_AI_WORKER:
+                    setAIworkerHvsAI();
+                    return;
+                case this.state.AI_PLAY_H_VS_AI:
+                    aiPlay(this.state.WAIT_WORKER_H_VS_AI);
+                    return;
+
                 case this.state.NO_GAME_RUNNING:
                 case this.state.HUMAN_VS_HUMAN:
                 case this.state.HUMAN_VS_AI:
-                    break;
-                
-                case this.state.AI_VS_AI:
-                    if (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
-                        this.gameElements.isOnBoard(this.gameElements.workers[1])) {
-                            this.currentPlayer = this.player2;
-                            this.currentState = this.state.AI_VS_AI_LOOP;
-                    } else {
-                        getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
-                                        parseToPlog(this.board) + ',' + getPlayerSide() + ')');
-                        switchPlayer();
-                    }
-                    break;
-
-                case this.state.AI_VS_AI_LOOP:
-                    getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
-                                    getPlayerSide() + parseToPlog(this.board) + ')');
-                    switchPlayer();
-                    break;
-
-                case this.state.HUMAN_VS_AI_SET_AI_WORKER:
-                    if (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
-                        this.gameElements.isOnBoard(this.gameElements.workers[1])) {
-                            this.currentState = this.state.WAIT_WORKER_H_VS_AI;
-                    } else {
-                        getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
-                                        parseToPlog(this.board) + ',' + getPlayerSide() + ')');
-                    }
-                    break;
-
                 case this.state.WAIT_WORKER_H_VS_H:
                 case this.state.WAIT_PIECE_H_VS_H:
                 case this.state.WAIT_WORKER_H_VS_AI:
                 case this.state.WAIT_PIECE_H_VS_AI:
-                    break;
-
-                case this.state.AI_PLAY_H_VS_AI:
-                    getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
-                                    getPlayerSide() + parseToPlog(this.board) + ')');
-                    switchPlayer();
-                    this.currentState = this.state.WAIT_WORKER_H_VS_AI;
+                    // Board independent States
                     break;
 
                 default:
@@ -182,113 +160,166 @@ class Game {
 
         // States independent to board changes
         switch (this.currentState) {
+
             case this.state.NO_GAME_RUNNING:
+                //Do nothing
                 break;
-
             case this.state.HUMAN_VS_HUMAN:
-                if (this.pickedCell) {
-                    getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
-                                    getPlayerSide() + this.pickedCell.getRow() + ',' +
-                                    this.pickedCell.getCol() + ')');
-                    this.pickedCell = null;
-                }
-
-                if (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
-                    this.gameElements.isOnBoard(this.gameElements.workers[1]))
-                    this.currentState = this.state.WAIT_WORKER_H_VS_H;
+                setWorkersHvsH();
                 break;
-
             case this.state.HUMAN_VS_AI:
-                if (this.pickedCell) {
-                    getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
-                                    getPlayerSide() + this.pickedCell.getRow() + ',' +
-                                    this.pickedCell.getCol() + ')');
-                    switchPlayer();
-                    this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
-                    this.pickedCell = null;
-                }
+                setWorkerHvsAI();
+                break;
+            case this.state.WAIT_WORKER_H_VS_H:
+                waitWorkerH(this.state.WAIT_PIECE_H_VS_H, this.state.WAIT_WORKER_H_VS_H);
+                break;
+            case this.state.WAIT_PIECE_H_VS_H:
+                waitPieceH(this.state.WAIT_WORKER_H_VS_H);
+                break;
+            case this.state.WAIT_WORKER_H_VS_AI:
+                waitWorkerH(this.state.WAIT_PIECE_H_VS_AI, this.state.AI_PLAY_H_VS_AI);
+                break;
+            case this.state.WAIT_PIECE_H_VS_AI:
+                waitPieceH(this.state.AI_PLAY_H_VS_AI);
                 break;
             
             case this.state.AI_VS_AI:
             case this.state.AI_VS_AI_LOOP:
             case this.state.HUMAN_VS_AI_SET_AI_WORKER:
-                break;
-
-            case this.state.WAIT_WORKER_H_VS_H:
-                if (this.pickedWorker) {
-                    if (this.pickedCell) {
-                        getPrologRequest('moveWorker(' + parseToPlog(this.board) + ',' +
-                                        this.pickedWorker.getRow() + ',' +
-                                        this.pickedWorker.getCol() + ',' +
-                                        this.pickedCell. getRow() + ',' + 
-                                        this.pickedCell.getCol() + ')');
-                        this.currentState = this.state.WAIT_PIECE_H_VS_H;
-                        this.pickedWorker = null;
-                        this.pickedCell = null;
-                    }
-                } else if (this.pickedCell) {
-                    getPrologRequest('setPiece(' + getPlayerSide() + ',' +
-                                    parseToPlog(this.board) + ',' +
-                                    this.pickedCell.getRow() + ',' +
-                                    this.pickedCell.getCol() + ')');
-                    switchPlayer();
-                    this.currentState = this.state.WAIT_WORKER_H_VS_H;
-                    this.pickedCell = null;
-                }
-                break;
-
-            case this.state.WAIT_PIECE_H_VS_H:
-                if (this.pickedCell) {
-                    getPrologRequest('setPiece(' + getPlayerSide() + ',' +
-                                    parseToPlog(this.board) + ',' +
-                                    this.pickedCell.getRow() + ',' +
-                                    this.pickedCell.getCol() + ')');
-                    switchPlayer();
-                    this.currentState = this.state.WAIT_WORKER_H_VS_H;
-                    this.pickedCell = null;
-                }
-                break;
-
-            case this.state.WAIT_WORKER_H_VS_AI:
-                if (this.pickedWorker) {
-                    if (this.pickedCell) {
-                        getPrologRequest('moveWorker(' + parseToPlog(this.board) + ',' +
-                                        this.pickedWorker.getRow() + ',' +
-                                        this.pickedWorker.getCol() + ',' +
-                                        this.pickedCell. getRow() + ',' + 
-                                        this.pickedCell.getCol() + ')');
-                        this.currentState = this.state.WAIT_PIECE_H_VS_AI;
-                        this.pickedWorker = null;
-                        this.pickedCell = null;
-                    }
-                } else if (this.pickedCell) {
-                    getPrologRequest('setPiece(' + getPlayerSide() + ',' +
-                                    parseToPlog(this.board) + ',' +
-                                    this.pickedCell.getRow() + ',' +
-                                    this.pickedCell.getCol() + ')');
-                    switchPlayer();
-                    this.currentState = this.state.AI_PLAY_H_VS_AI;
-                    this.pickedCell = null;
-                }
-                break;
-
-            case this.state.WAIT_PIECE_H_VS_AI:
-                if (this.pickedCell) {
-                    getPrologRequest('setPiece(' + getPlayerSide() + ',' +
-                                    parseToPlog(this.board) + ',' +
-                                    this.pickedCell.getRow() + ',' +
-                                    this.pickedCell.getCol() + ')');
-                    switchPlayer();
-                    this.currentState = this.state.AI_PLAY_H_VS_AI;
-                    this.pickedCell = null;
-                }
-                break;
-
             case this.state.AI_PLAY_H_VS_AI:
+                // Board dependent states
                 break;
 
             default:
                 console.warn("Unknown Game state detected...");
+        }
+    }
+
+    /**
+     * Checks if both workers are set on board
+     * 
+     * @return {Bool} - True if workers are set, false otherwise
+     */
+    areWorkersSet() {
+        return (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
+                this.gameElements.isOnBoard(this.gameElements.workers[1]));
+    }
+
+    /**
+     * Sets both workers on the board, in AI vs AI mode
+     * 
+     * @return {null}
+     */
+    setAIvsAIworkers() {
+        if (areWorkersSet()) {
+            // In AI vs AI white always starts
+            this.currentPlayer = this.player2;
+            this.currentState = this.state.AI_VS_AI_LOOP;
+        } else {
+            getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
+                            parseToPlog(this.board) + ',' + getPlayerSide() + ')');
+            switchPlayer();
+        }
+    }
+
+    /**
+     * Executes an AI play and after switches current state to the given state
+     * 
+     * @param {Number} nextState - Following state in state machine, after executing AI play
+     * @return {null}
+     */
+    aiPlay(nextState) {
+        getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
+                        getPlayerSide() + parseToPlog(this.board) + ')');
+        switchPlayer();
+        this.currentState = nextState;
+    }
+
+    /**
+     * Set the AI worker in Human vs AI mode
+     * 
+     * @return {null}
+     */
+    setAIworkerHvsAI() {
+        if (areWorkersSet()) {
+            this.currentState = this.state.WAIT_WORKER_H_VS_AI;
+        } else {
+            getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
+                            parseToPlog(this.board) + ',' + getPlayerSide() + ')');
+            switchPlayer();
+        }
+    }
+
+    /**
+     * Setting both workers on board, through picking, in Human vs Human mode
+     * 
+     * @return {null}
+     */
+    setWorkersHvsH() {
+        if (this.pickedCell) {
+            getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
+                            getPlayerSide() + this.pickedCell.getRow() + ',' +
+                            this.pickedCell.getCol() + ')');
+            switchPlayer();
+            this.pickedCell = null;
+        }
+
+        if (areWorkersSet())
+            this.currentState = this.state.WAIT_WORKER_H_VS_H;
+    }
+
+    /**
+     * Setting the first worker on the board, in Human vs AI mode
+     */
+    setWorkerHvsAI() {
+        if (this.pickedCell) {
+            getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
+                            getPlayerSide() + this.pickedCell.getRow() + ',' +
+                            this.pickedCell.getCol() + ')');
+            switchPlayer();
+            this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
+            this.pickedCell = null;
+        }
+    }
+
+    /**
+     * Moving the Human chosen Worker on the board, or, 
+     * the Human chosen piece on the board (using @see waitPieceH(nextState))
+     * 
+     * @param {Number} putPieceState - Following state in state machine, after moving the worker
+     * @param {Number} nextState - Following state in state machine, after setting the piece
+     * @return {null}
+     */
+    waitWorkerH(putPieceState, nextState) {
+        if (this.pickedWorker) {
+            if (this.pickedCell) {
+                getPrologRequest('moveWorker(' + parseToPlog(this.board) + ',' +
+                                this.pickedWorker.getRow() + ',' +
+                                this.pickedWorker.getCol() + ',' +
+                                this.pickedCell. getRow() + ',' + 
+                                this.pickedCell.getCol() + ')');
+                this.currentState = putPieceState;
+                this.pickedWorker = null;
+                this.pickedCell = null;
+            }
+        } else waitPieceH(nextState);
+    }
+
+    /**
+     * Setting the Human chosen piece on the board
+     * 
+     * @param {Number} nextState - Following state in state machine, after setting the piece
+     * @return {null}
+     */
+    waitPieceH(nextState) {
+        if (this.pickedCell) {
+            getPrologRequest('setPiece(' + getPlayerSide() + ',' +
+                            parseToPlog(this.board) + ',' +
+                            this.pickedCell.getRow() + ',' +
+                            this.pickedCell.getCol() + ')');
+            switchPlayer();
+            this.currentState = nextState;
+            this.pickedCell = null;
         }
     }
 
