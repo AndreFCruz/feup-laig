@@ -32,11 +32,13 @@ class Game {
             HUMAN_VS_HUMAN : 2,
             HUMAN_VS_AI : 3,
             AI_VS_AI : 4,
-            WAIT_WORKER_H_VS_H : 5,
-            WAIT_PIECE_H_VS_H : 6,
-            WAIT_WORKER_H_VS_AI : 7,
-            WAIT_PIECE_H_VS_AI : 8,
-            AI_PLAY_H_VS_AI : 9
+            AI_VS_AI_LOOP: 5,
+            HUMAN_VS_AI_SET_AI_WORKER: 6,
+            WAIT_WORKER_H_VS_H : 7,
+            WAIT_PIECE_H_VS_H : 8,
+            WAIT_WORKER_H_VS_AI : 9,
+            WAIT_PIECE_H_VS_AI : 10,
+            AI_PLAY_H_VS_AI : 11
         };
         this.currentState = this.state.NO_GAME_RUNNING;
 
@@ -119,6 +121,8 @@ class Game {
      */
     update(currTime) {
 
+        // TODO - ver se o inicio das animações é feito aqui, ou na receção de respostas
+
         if (boardChanged) {
             this.board = pLogBoard;
             boardChanged = false;
@@ -129,12 +133,33 @@ class Game {
                 case this.state.HUMAN_VS_HUMAN:
                 case this.state.HUMAN_VS_AI:
                     break;
-
+                
                 case this.state.AI_VS_AI:
-                    /* When one of the AI's loses, go to NO_GAME_RUNNING */
+                    if (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
+                        this.gameElements.isOnBoard(this.gameElements.workers[1])) {
+                            this.currentPlayer = this.player2;
+                            this.currentState = this.state.AI_VS_AI_LOOP;
+                    } else {
+                        getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
+                                        parseToPlog(this.board) + ',' + getPlayerSide() + ')');
+                        switchPlayer();
+                    }
+                    break;
+
+                case this.state.AI_VS_AI_LOOP:
                     getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
                                     getPlayerSide() + parseToPlog(this.board) + ')');
                     switchPlayer();
+                    break;
+
+                case this.state.HUMAN_VS_AI_SET_AI_WORKER:
+                    if (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
+                        this.gameElements.isOnBoard(this.gameElements.workers[1])) {
+                            this.currentState = this.state.WAIT_WORKER_H_VS_AI;
+                    } else {
+                        getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
+                                        parseToPlog(this.board) + ',' + getPlayerSide() + ')');
+                    }
                     break;
 
                 case this.state.WAIT_WORKER_H_VS_H:
@@ -144,8 +169,10 @@ class Game {
                     break;
 
                 case this.state.AI_PLAY_H_VS_AI:
-                    /* After getting AI board, go to WAIT_WORKER_H_VS_AI
-                    If AI won, go to NO_GAME_RUNNING */
+                    getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
+                                    getPlayerSide() + parseToPlog(this.board) + ')');
+                    switchPlayer();
+                    this.currentState = this.state.WAIT_WORKER_H_VS_AI;
                     break;
 
                 default:
@@ -156,10 +183,6 @@ class Game {
         // States independent to board changes
         switch (this.currentState) {
             case this.state.NO_GAME_RUNNING:
-                /* Starting a game leads to either:
-                    - HUMAN_VS_HUMAN;
-                    - HUMAN_VS_AI;
-                    - AI_VS_AI; */
                 break;
 
             case this.state.HUMAN_VS_HUMAN:
@@ -169,46 +192,96 @@ class Game {
                                     this.pickedCell.getCol() + ')');
                     this.pickedCell = null;
                 }
-                    // TODO - meter aqui a inicializar a animação? Ou só quando receber resposta?
+
                 if (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
                     this.gameElements.isOnBoard(this.gameElements.workers[1]))
-                    this.currentState = this.state.WAIT_PIECE_H_VS_H;
+                    this.currentState = this.state.WAIT_WORKER_H_VS_H;
                 break;
 
             case this.state.HUMAN_VS_AI:
-                /* Get the User worker input, then wait for AI move worker.
-                After, go to WAIT_WORKER_AI_VS_AI */
+                if (this.pickedCell) {
+                    getPrologRequest('setHumanWorker(' + parseToPlog(this.board) + ',' + 
+                                    getPlayerSide() + this.pickedCell.getRow() + ',' +
+                                    this.pickedCell.getCol() + ')');
+                    switchPlayer();
+                    this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
+                    this.pickedCell = null;
+                }
                 break;
-
+            
             case this.state.AI_VS_AI:
+            case this.state.AI_VS_AI_LOOP:
+            case this.state.HUMAN_VS_AI_SET_AI_WORKER:
                 break;
 
             case this.state.WAIT_WORKER_H_VS_H:
-                /* If user wants to move worker, get input and go to WAIT_PIECE_H_VS_H
-                If user does not want to move worker, automatically go to WAIT_PIECE_H_VS_H
-                If someone lost, go to NO_GAME_RUNNING */
-                break;
-
-            case this.state.WAIT_PIECE_H_VS_H:
                 if (this.pickedWorker) {
                     if (this.pickedCell) {
                         getPrologRequest('moveWorker(' + parseToPlog(this.board) + ',' +
-                                        this.pickedWorker + ')');
+                                        this.pickedWorker.getRow() + ',' +
+                                        this.pickedWorker.getCol() + ',' +
+                                        this.pickedCell. getRow() + ',' + 
+                                        this.pickedCell.getCol() + ')');
+                        this.currentState = this.state.WAIT_PIECE_H_VS_H;
+                        this.pickedWorker = null;
+                        this.pickedCell = null;
                     }
                 } else if (this.pickedCell) {
-
+                    getPrologRequest('setPiece(' + getPlayerSide() + ',' +
+                                    parseToPlog(this.board) + ',' +
+                                    this.pickedCell.getRow() + ',' +
+                                    this.pickedCell.getCol() + ')');
+                    switchPlayer();
+                    this.currentState = this.state.WAIT_WORKER_H_VS_H;
+                    this.pickedCell = null;
                 }
-                /* Set user piece then go WAIT_WORKER_H_VS_H */
+                break;
+
+            case this.state.WAIT_PIECE_H_VS_H:
+                if (this.pickedCell) {
+                    getPrologRequest('setPiece(' + getPlayerSide() + ',' +
+                                    parseToPlog(this.board) + ',' +
+                                    this.pickedCell.getRow() + ',' +
+                                    this.pickedCell.getCol() + ')');
+                    switchPlayer();
+                    this.currentState = this.state.WAIT_WORKER_H_VS_H;
+                    this.pickedCell = null;
+                }
                 break;
 
             case this.state.WAIT_WORKER_H_VS_AI:
-                /* If user wants to move worker, get input and go to WAIT_PIECE_H_VS_AI
-                If user does not want to move worker, automatically go to WAIT_PIECE_H_VS_AI
-                If someone lost, go to NO_GAME_RUNNING */
+                if (this.pickedWorker) {
+                    if (this.pickedCell) {
+                        getPrologRequest('moveWorker(' + parseToPlog(this.board) + ',' +
+                                        this.pickedWorker.getRow() + ',' +
+                                        this.pickedWorker.getCol() + ',' +
+                                        this.pickedCell. getRow() + ',' + 
+                                        this.pickedCell.getCol() + ')');
+                        this.currentState = this.state.WAIT_PIECE_H_VS_AI;
+                        this.pickedWorker = null;
+                        this.pickedCell = null;
+                    }
+                } else if (this.pickedCell) {
+                    getPrologRequest('setPiece(' + getPlayerSide() + ',' +
+                                    parseToPlog(this.board) + ',' +
+                                    this.pickedCell.getRow() + ',' +
+                                    this.pickedCell.getCol() + ')');
+                    switchPlayer();
+                    this.currentState = this.state.AI_PLAY_H_VS_AI;
+                    this.pickedCell = null;
+                }
                 break;
 
             case this.state.WAIT_PIECE_H_VS_AI:
-                /* Set user piece then go to HUMAN_FINISHED_MOVE */
+                if (this.pickedCell) {
+                    getPrologRequest('setPiece(' + getPlayerSide() + ',' +
+                                    parseToPlog(this.board) + ',' +
+                                    this.pickedCell.getRow() + ',' +
+                                    this.pickedCell.getCol() + ')');
+                    switchPlayer();
+                    this.currentState = this.state.AI_PLAY_H_VS_AI;
+                    this.pickedCell = null;
+                }
                 break;
 
             case this.state.AI_PLAY_H_VS_AI:
