@@ -77,7 +77,7 @@ class Game {
      * 
      * @return {null}
      */
-    switchPlayer() {
+    switchPlayer() { // TODO check for player1 == player2
         if (this.currentPlayer == this.player1)
             this.currentPlayer = this.player2;
         else if (this.currentPlayer == this.player2)
@@ -91,7 +91,7 @@ class Game {
      * 
      * @return {String} - correspondent Prolog Side
      */
-    getPlayerSide() {
+    getPlayerSide() { // TODO check for player1 == player2
         if (this.currentPlayer == this.player1)
             return PLAYER1_SIDE;
         else if (this.currentPlayer == this.player2)
