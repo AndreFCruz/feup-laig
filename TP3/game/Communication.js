@@ -36,11 +36,16 @@ function getPrologRequest(requestString)
     var request = new XMLHttpRequest();
     request.open('GET', 'http://localhost:' + COMMMUNICATION_PORT + '/' + requestString, true);
 
-    request.onload = function(data) {
-        let serverAnswer = data.target.response;
-        console.log("Request successful. Reply: " + serverAnswer);
-        
-        handleServerAnswer(serverAnswer);
+    request.onload = function() {
+        let serverAnswer = this.response;
+        console.log("Request loaded. Reply: " + serverAnswer);
+
+        if (this.status != 200) {
+            console.error("Server denied request.");
+            // TODO visual cue for error in action
+        } else {
+            handleServerAnswer(serverAnswer);
+        }
     };
     request.onerror = function() {
         console.log("Error waiting for response");
