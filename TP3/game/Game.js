@@ -80,8 +80,7 @@ class Game {
     switchPlayer() {
         if (this.currentPlayer == this.player1)
             this.currentPlayer = this.player2;
-        else
-        if (this.currentPlayer == this.player2)
+        else if (this.currentPlayer == this.player2)
             this.currentPlayer = this.player1;
         else
             console.error('No current player is set, can not switch between players');
@@ -95,8 +94,7 @@ class Game {
     getPlayerSide() {
         if (this.currentPlayer == this.player1)
             return PLAYER1_SIDE;
-        else
-        if (this.currentPlayer == this.player2)
+        else if (this.currentPlayer == this.player2)
             return PLAYER2_SIDE;
         else
             console.error('No current player is set, can not get player Prolog side');
@@ -342,6 +340,9 @@ class Game {
         this.player2 = this.playerType.HUMAN;
         this.currentState = this.state.HUMAN_VS_HUMAN;
         //TODO call this on GUI, acordding to selected type
+        //calling it in interface
+
+        // on handling state Human vs Human: set currentPlayer and change to state for setting workers (?)
     }
 
     /**
