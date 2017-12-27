@@ -72,3 +72,20 @@ MyInterface.prototype.addColorController = function() {
     });
 }
 
+MyInterface.prototype.processKeyDown = function(event) {
+    console.log("Key Down");
+    console.log(event);
+
+    if (! this.scene) {
+        console.error("Interface's scene is not set.");
+        return;
+    }
+
+    switch (event.key) {
+        case 's':
+        case 'S':
+            this.scene.game.beginHvsH();
+        default:
+            console.log("Key not bound: " + event.key);
+    }
+}

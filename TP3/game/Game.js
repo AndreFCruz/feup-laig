@@ -33,7 +33,7 @@ class Game {
             HUMAN_VS_AI : 3,
             AI_VS_AI : 4,
             AI_VS_AI_LOOP: 5,
-            HUMAN_VS_AI_SET_AI_WORKER: 6,
+            HUMAN_VS_AI_SET_AI_WORKER : 6,
             WAIT_WORKER_H_VS_H : 7,
             WAIT_PIECE_H_VS_H : 8,
             WAIT_WORKER_H_VS_AI : 9,
@@ -130,16 +130,16 @@ class Game {
             switch (this.currentState) {
                 
                 case this.state.AI_VS_AI:
-                    setAIvsAIworkers();
+                    this.setAIvsAIworkers();
                     return;
                 case this.state.AI_VS_AI_LOOP:
-                    aiPlay(AI_VS_AI_LOOP);
+                    this.aiPlay(AI_VS_AI_LOOP);
                     return;
                 case this.state.HUMAN_VS_AI_SET_AI_WORKER:
-                    setAIworkerHvsAI();
+                    this.setAIworkerHvsAI();
                     return;
                 case this.state.AI_PLAY_H_VS_AI:
-                    aiPlay(this.state.WAIT_WORKER_H_VS_AI);
+                    this.aiPlay(this.state.WAIT_WORKER_H_VS_AI);
                     return;
 
                 case this.state.NO_GAME_RUNNING:
@@ -164,22 +164,22 @@ class Game {
                 //Do nothing
                 break;
             case this.state.HUMAN_VS_HUMAN:
-                setWorkersHvsH();
+                this.setWorkersHvsH();
                 break;
             case this.state.HUMAN_VS_AI:
-                setWorkerHvsAI();
+                this.setWorkerHvsAI();
                 break;
             case this.state.WAIT_WORKER_H_VS_H:
-                waitWorkerH(this.state.WAIT_PIECE_H_VS_H, this.state.WAIT_WORKER_H_VS_H);
+                this.waitWorkerH(this.state.WAIT_PIECE_H_VS_H, this.state.WAIT_WORKER_H_VS_H);
                 break;
             case this.state.WAIT_PIECE_H_VS_H:
-                waitPieceH(this.state.WAIT_WORKER_H_VS_H);
+                this.waitPieceH(this.state.WAIT_WORKER_H_VS_H);
                 break;
             case this.state.WAIT_WORKER_H_VS_AI:
-                waitWorkerH(this.state.WAIT_PIECE_H_VS_AI, this.state.AI_PLAY_H_VS_AI);
+                this.waitWorkerH(this.state.WAIT_PIECE_H_VS_AI, this.state.AI_PLAY_H_VS_AI);
                 break;
             case this.state.WAIT_PIECE_H_VS_AI:
-                waitPieceH(this.state.AI_PLAY_H_VS_AI);
+                this.waitPieceH(this.state.AI_PLAY_H_VS_AI);
                 break;
             
             case this.state.AI_VS_AI:
@@ -212,14 +212,14 @@ class Game {
      * @return {null}
      */
     setAIvsAIworkers() {
-        if (areWorkersSet()) {
+        if (this.areWorkersSet()) {
             // In AI vs AI white always starts
             this.currentPlayer = this.player2;
             this.currentState = this.state.AI_VS_AI_LOOP;
         } else {
             getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
-                parseBoardToPlog(this.board) + ',' + getPlayerSide() + ')');
-            switchPlayer();
+                parseBoardToPlog(this.board) + ',' + this.getPlayerSide() + ')');
+            this.switchPlayer();
         }
     }
 
@@ -232,8 +232,8 @@ class Game {
      */
     aiPlay(nextState) {
         getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
-                        getPlayerSide() + parseBoardToPlog(this.board) + ')');
-        switchPlayer();
+                        this.getPlayerSide() + parseBoardToPlog(this.board) + ')');
+        this.switchPlayer();
         this.currentState = nextState;
     }
 
@@ -244,12 +244,12 @@ class Game {
      * @return {null}
      */
     setAIworkerHvsAI() {
-        if (areWorkersSet()) {
+        if (this.areWorkersSet()) {
             this.currentState = this.state.WAIT_WORKER_H_VS_AI;
         } else {
             getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
-                parseBoardToPlog(this.board) + ',' + getPlayerSide() + ')');
-            switchPlayer();
+                parseBoardToPlog(this.board) + ',' + this.getPlayerSide() + ')');
+            this.switchPlayer();
         }
     }
 
@@ -262,13 +262,13 @@ class Game {
     setWorkersHvsH() {
         if (this.pickedCell) {
             getPrologRequest('setHumanWorker(' + parseBoardToPlog(this.board) + ',' + 
-                            getPlayerSide() + this.pickedCell.getRow() + ',' +
+                            this.getPlayerSide() + this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
-            switchPlayer();
+            this.switchPlayer();
             this.pickedCell = null;
         }
 
-        if (areWorkersSet())
+        if (this.areWorkersSet())
             this.currentState = this.state.WAIT_WORKER_H_VS_H;
     }
 
@@ -281,9 +281,9 @@ class Game {
     setWorkerHvsAI() {
         if (this.pickedCell) {
             getPrologRequest('setHumanWorker(' + parseBoardToPlog(this.board) + ',' + 
-                            getPlayerSide() + this.pickedCell.getRow() + ',' +
+                            this.getPlayerSide() + this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
-            switchPlayer();
+            this.switchPlayer();
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
             this.pickedCell = null;
         }
@@ -322,11 +322,11 @@ class Game {
      */
     waitPieceH(nextState) {
         if (this.pickedCell) {
-            getPrologRequest('setPiece(' + getPlayerSide() + ',' +
+            getPrologRequest('setPiece(' + this.getPlayerSide() + ',' +
                             parseBoardToPlog(this.board) + ',' +
                             this.pickedCell.getRow() + ',' +
                             this.pickedCell.getCol() + ')');
-            switchPlayer();
+            this.switchPlayer();
             this.currentState = nextState;
             this.pickedCell = null;
         }

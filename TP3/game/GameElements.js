@@ -36,7 +36,7 @@ class GameElements {
      * @return {null}
      */
     setUpGame() {
-        
+
         //For different Pieces
         this.whitePieces = {};
         this.blackPieces = {};
@@ -106,7 +106,7 @@ class GameElements {
             for (let col in this.boardCells[row]) {
                 let cell = this.boardCells[row][col];
 
-                //The pick id 1st digit is the row and the 2nd digit the column
+                // pickId's 1st digit is the row and the 2nd digit the column
                 this.scene.registerForPick((parseInt(row) + 1) * 10 + (parseInt(col) + 1), cell);
 
                 this.boardCells[row][col].display();

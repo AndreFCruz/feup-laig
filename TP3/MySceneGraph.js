@@ -1838,7 +1838,7 @@ MySceneGraph.prototype.displayPiece = function(piece) {
 
 	this.scene.pushMatrix();
 		this.scene.multMatrix(piece.getPositionMatrix());
-		this.processNode(pieceNode, null);
+		this.processNode(pieceNode, this.materials[this.defaultMaterialID]);
 	this.scene.popMatrix();
 }
 
