@@ -45,4 +45,14 @@ class Alert {
         })
     }
 
+    /**
+     * Show sweetalert to show who won the game
+     * 
+     * @param {String} winnerSide - the winner side, either 'black' or 'white'
+     * @return {null}
+     */
+    showWinner(winnerSide) {
+        // TODO
+    }
+
 }
