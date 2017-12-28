@@ -54,11 +54,20 @@ class Alert {
     /**
      * Show a sweetalert to show who won the game
      * 
-     * @param {String} winnerSide - the winner side, either 'black' or 'white'
+     * @param {String} str - string in format 'victory Side', sent from PLOG
      * @return {null}
      */
-    showWinner(winnerSide) {
-        // TODO
+    showWinner(str) {
+        let msg = str.split(" ");
+        if (msg[0] == 'victory') {
+            swal( 
+                'Player ' + (msg[1] == PLAYER1_SIDE? 1 : 2) + ' wins!',
+                'Congratulations!',
+                'success'
+            )
+            // TODO possibly increment the game counter here
+        } else
+            console.error("Received unexpected message from PROLOG");
     }
 
     /**
@@ -77,6 +86,19 @@ class Alert {
             'And the game begins...',
             playerText1 + '  vs  ' + playerText2,
             'success'
+        )
+    }
+
+    /**
+     * Show a sweetalert to inform the user that a game is already running, and can't start other
+     * 
+     * @return {null}
+     */
+    gameRunning() {
+        swal (
+            'Sorry',
+            'There is a game in progress...',
+            'error'
         )
     }
 

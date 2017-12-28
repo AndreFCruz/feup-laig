@@ -19,15 +19,18 @@ class Communication {
     /**
      * Constructor for Communication class.
      * 
+     * @param {Object} game - The game that uses the communication to Prolog 
      * @constructor
      */
-    constructor() {
+    constructor(game) {
         
         // Variable containing the PLOG answers to the requests
         this.prologBoard = null;
         
         // Variable indicating whether the variable prologBoard truly changed
         this.boardChanged = false;
+
+        this.game = game;
     }
 
     /**
@@ -75,14 +78,9 @@ class Communication {
      */
     handleServerAnswer(answer) {
         //If v from victory is found
-        if (answer.charAt(0) == 'v') { //TODO - remove this from here and handle victory to counter
-            let msg = answer.split(" ");
-            if (msg[0] == 'victory') {
-                swal( 'Player ' + (msg[1] == 'black'? 1 : 2) + ' wins!',
-                'Congratulations!',
-                'success')
-            }
-        } else {
+        if (answer.charAt(0) == 'v')
+            this.game.resetGame(answer);
+        else {
             this.prologBoard = this.parseBoardFromPlog(answer);
             this.boardChanged = true;
         }

@@ -59,7 +59,7 @@ class Game {
         this.pickedCell = null;
 
         // For making requests to Prolog
-        this.communication = new Communication();
+        this.communication = new Communication(this);
 
         // CurrentBoard representation of the game board (object)
         this.board = null;
@@ -447,12 +447,27 @@ class Game {
      * @return {null}
      */
     beginGame(playerType1, playerType2, nextState) {
-        this.communication.getPrologRequest('init');
-        this.player1 = playerType1;
-        this.player2 = playerType2;
-        this.currentPlayer = 1;
-        this.currentState = nextState;
-        this.alert.showGameStart(playerType1, playerType2);
+        if (this.currentState == this.state.NO_GAME_RUNNING) {
+            this.communication.getPrologRequest('init');
+            this.player1 = playerType1;
+            this.player2 = playerType2;
+            this.currentPlayer = 1;
+            this.currentState = nextState;
+            this.alert.showGameStart(playerType1, playerType2);
+        } else
+            this.alert.gameRunning();
+    }
+
+    /**
+     * Reset the current game. It means there was a winner!
+     * 
+     * @param {String} str - message sent from Prolog indicating the winner
+     * @return {null}
+     */
+    resetGame(str) {
+        this.currentState = this.state.NO_GAME_RUNNING;
+        this.board = null;
+        this.alert.showWinner(str);
     }
 
     /**
