@@ -108,7 +108,10 @@ class GameElements {
 
     fetchWorker(pos = null) {
         for (let i = 0; i < this.workers.length; i++) {
-            if (this.workers[i].boardPos == pos)
+            let workerPos = this.workers[i].boardPos;
+            if (pos == null && workerPos == null)
+                return this.workers[i];
+            else if (pos && workerPos[0] == pos[0] && workerPos[1] == pos[1])
                 return this.workers[i];
         }
 
