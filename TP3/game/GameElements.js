@@ -36,6 +36,8 @@ class GameElements {
      * @return {null}
      */
     setUpGame() {
+        this.whiteInPlay = [];
+        this.blackInPlay = [];
 
         // Initialize Object Pools
         this.whitePool = new ObjectPool(() => new WhitePiece([0, 0, 0]), NUMBER_PIECES);
@@ -44,10 +46,9 @@ class GameElements {
             this.whitePool.elements[i].position = [-2 + i * .5, 0, -1.2 - (i % 2 ? 0 : 0.7)];
             this.blackPool.elements[i].position = [-2 + i * .5, 0, 9.2 + (i % 2 ? 0 : 0.7)];
         }
-        // TODO have a pieces factory, visually represented by a bag or smthng
 
         // There are always exactly two workers
-        this.workers = {};
+        this.workers = [];
         this.workers[0] = new Worker([-1, 0, 1]);
         this.workers[1] = new Worker([-1, 0, 0]);
 
@@ -89,6 +90,29 @@ class GameElements {
         let blackPieces = this.blackPool.elements;
         for (let i = 0; i < blackPieces.length; ++i)
             blackPieces[i].update(currTime);
+    }
+
+    fetchBlackPiece() {
+        let piece = this.blackPool.acquire();
+        this.blackInPlay.push(piece);
+
+        return piece;
+    }
+
+    fetchWhitePiece() {
+        let piece = this.whitePool.acquire();
+        this.whiteInPlay.push(piece);
+
+        return piece;
+    }
+
+    fetchWorker(pos = null) {
+        for (let i = 0; i < this.workers.length; i++) {
+            if (this.workers[i].boardPos == pos)
+                return this.workers[i];
+        }
+
+        return null;
     }
 
     /**

@@ -34,7 +34,7 @@ class Piece {
     set boardPos(cell) {
         if (! cell) return;
         this._boardPos = cell;
-        this.position = [cell[0], 0, cell[1]];
+        this.position = [cell[1], 0, cell[0]];
     }
 
     get position() {

@@ -119,11 +119,9 @@ class Communication {
      */
     parseBoardFromPlog(str) {
         let rows = str.match(GET_LISTS_REGEX);
-        let board = {};
+        let board = [];
 
         for (let i = 0; i < rows.length; ++i) {
-
-            board[i] = {};
             board[i] = rows[i].match(GET_ELEMENTS_REGEX);
         }
 

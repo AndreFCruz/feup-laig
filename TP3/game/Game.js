@@ -63,6 +63,14 @@ class Game {
 
         // CurrentBoard representation of the game board (object)
         this.board = null;
+        this.previousBoard = null;
+
+        this.moveType = {
+            SET_WORKER: 'set worker',
+            MOVE_WORKER: 'move worker',
+            SET_BLACK: 'set black',
+            SET_WHITE: 'set white'
+        };
 
         //For displaying sweet alerts for in game messages
         this.alert = new Alert(this);
@@ -128,9 +136,11 @@ class Game {
     areWorkersSet() {
         let workersNumber = 0;
 
-        for (let row in this.board)
-            for (let col in this.board[row])
-                (this.board[row][col] == 'worker'? workersNumber++ : workersNumber);
+        for (let row in this.board) {
+            for (let col in this.board[row]) {
+                if (this.board[row][col] == 'worker') workersNumber++;
+            }
+        }
 
         return (workersNumber == NUMBER_WORKERS);
     }
@@ -154,8 +164,11 @@ class Game {
         this.gameElements.update(currTime);
 
         if (this.communication.boardChanged) {
+            this.previousBoard = this.board;
             this.board = this.communication.prologBoard;
             this.communication.boardChanged = false;
+
+            this.handleMove();
         
             // States dependent on board changes
             switch (this.currentState) {
@@ -467,6 +480,7 @@ class Game {
     resetGame(str) {
         this.currentState = this.state.NO_GAME_RUNNING;
         this.board = null;
+        this.previousBoard = null;
         this.alert.showWinner(str);
     }
 
@@ -487,6 +501,68 @@ class Game {
             let col = (pickedId % 10) - 1;
             this.pickedCell = this.gameElements.boardCells[row][col];
         }
+    }
+
+    handleMove() {
+        if (! (this.previousBoard && this.board) ) return;
+
+        let move = this.boardDifference(this.previousBoard, this.board);
+        let piece = null;
+
+        switch (move.type) {
+            case this.moveType.SET_WORKER:
+                piece = this.gameElements.fetchWorker();
+                break;
+            case this.moveType.MOVE_WORKER:
+                piece = this.gameElements.fetchWorker(move.previousCell);
+                break;
+            case this.moveType.SET_BLACK:
+                piece = this.gameElements.fetchBlackPiece();
+                break;
+            case this.moveType.SET_WHITE:
+                piece = this.gameElements.fetchWhitePiece();
+                break;
+            default:
+                console.error("Unhandled state in handleMove. Check!");
+                return;
+        }
+
+        piece.boardPos = move.currentCell;
+    }
+
+    boardDifference(previousBoard, currentBoard) {
+        let move = {type: null, previousCell: null, currentCell: null};
+
+        for (let row = 0; row < previousBoard.length; row++) {
+            for (let col = 0; col < previousBoard[row].length; col++) {
+                let previousEl = previousBoard[row][col];
+                let currentEl = currentBoard[row][col];
+                
+                if (previousEl == currentEl)
+                    continue;
+        
+                if (previousEl == 'worker' && currentEl == 'none') {
+                    move.type = this.moveType.MOVE_WORKER;
+                    move.previousCell = [row, col];
+                } else if (previousEl == 'none' && currentEl == 'worker') {
+                    move.type = this.moveType.MOVE_WORKER;
+                    move.currentCell = [row, col];
+                } else if (previousEl == 'none' && currentEl == 'black') {
+                    move.type = this.moveType.SET_BLACK;
+                    move.currentCell = [row, col];
+                } else if (previousEl == 'none' && currentEl == 'white') {
+                    move.type = this.moveType.SET_WHITE;
+                    move.currentCell = [row, col];
+                } else {
+                    console.error("Unhandled situation in boardDifference. Check!");
+                }
+            }
+        }
+
+        if (move.previousCell == null && move.type == this.moveType.MOVE_WORKER)
+            move.type = this.moveType.SET_WORKER;
+
+        return move;
     }
 
 }
