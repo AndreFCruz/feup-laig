@@ -132,11 +132,15 @@ XMLscene.prototype.initCameras = function() {
 }
 
 XMLscene.prototype.updateCamera = function(currTime) {
+    let previousPos = this.cameraPos;
+
     let deltaTime = currTime - this.previousTick;
     this.updateCameraPos(deltaTime);
     this.calculateCameraPos();
 
-    this.camera.setPosition(this.cameraPos);
+    if (vec3.dist(previousPos, this.cameraPos) > 0.001) {
+        this.camera.setPosition(this.cameraPos);
+    }
 }
 
 XMLscene.prototype.updateCameraPos = function(deltaTime) {
@@ -170,6 +174,8 @@ XMLscene.prototype.resetCamera = function() {
     this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,this.cameraSettings.target);
     this.cameraSettings.targetAngle = CAMERA_START_ANGLE;
     this.cameraSettings.targetRadius = 15 * Math.SQRT2;
+
+    this.interface.setActiveCamera(this.camera);
 }
 
 XMLscene.prototype.zoomIn = function() {
