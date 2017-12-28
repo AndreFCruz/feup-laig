@@ -57,9 +57,13 @@ class Game {
         this.pickedWorker = null;
         this.pickedCell = null;
 
+        // For making requests to Prolog
+        this.communication = new Communication();
+
         // CurrentBoard representation of the game board (object)
         this.board = null;
 
+        //For displaying sweet alerts for in game messages
         this.alert = new Alert(this);
     }
 
@@ -121,9 +125,9 @@ class Game {
 
         // TODO - ver se o inicio das animações é feito aqui, ou na receção de respostas
 
-        if (boardChanged) {
-            this.board = prologBoard;
-            boardChanged = false;
+        if (this.communication.boardChanged) {
+            this.board = this.communication.prologBoard;
+            this.communication.boardChanged = false;
         
             // States dependent on board changes
             switch (this.currentState) {
@@ -216,8 +220,12 @@ class Game {
             this.currentPlayer = 2;
             this.currentState = this.state.AI_VS_AI_LOOP;
         } else {// TODO check request
-            getPrologRequest('setAIWorker(' + this.getPlayerSide() + ',' +
-                parseBoardToPlog(this.board) + ',' + this.getPlayerSide() + ')');
+            this.communication.getPrologRequest(
+                'setAIWorker(' + 
+                this.getPlayerSide() + ',' +
+                this.communication.parseBoardToPlog(this.board) + ',' + 
+                this.getPlayerSide() + ')'
+            );
             this.switchPlayer();
         }
     }
@@ -230,8 +238,12 @@ class Game {
      * @return {null}
      */
     aiPlay(nextState) {
-        getPrologRequest('aiPlay(' + this.currentPlayer + ',' + 
-                        this.getPlayerSide() + ',' + parseBoardToPlog(this.board) + ')');
+        this.communication.getPrologRequest(
+            'aiPlay(' + 
+            this.currentPlayer + ',' + 
+            this.getPlayerSide() + ',' + 
+            this.communication.parseBoardToPlog(this.board) + ')'
+        );
         this.switchPlayer();
         this.currentState = nextState;
     }
@@ -246,8 +258,12 @@ class Game {
         if (this.areWorkersSet()) {
             this.currentState = this.state.WAIT_WORKER_H_VS_AI;
         } else {
-            getPrologRequest('setAIWorker(' + this.currentPlayer + ',' +
-                parseBoardToPlog(this.board) + ',' + this.getPlayerSide() + ')');
+            this.communication.getPrologRequest(
+                'setAIWorker(' + 
+                this.currentPlayer + ',' +
+                this.communication.parseBoardToPlog(this.board) + ',' + 
+                this.getPlayerSide() + ')'
+            );
             this.switchPlayer();
         }
     }
@@ -260,9 +276,12 @@ class Game {
      */
     setWorkersHvsH() {
         if (this.pickedCell) {
-            getPrologRequest('setHumanWorker(' + parseBoardToPlog(this.board) + ',' + 
-                            this.pickedCell.getRow() + ',' + 
-                            this.pickedCell.getCol() + ')');
+            this.communication.getPrologRequest(
+                'setHumanWorker(' + 
+                this.communication.parseBoardToPlog(this.board) + ',' + 
+                this.pickedCell.getRow() + ',' + 
+                this.pickedCell.getCol() + ')'
+            );
 
             // TODO remove this from here, for testing only now
             if (this.gameElements.isOnBoard(this.gameElements.workers[0])) {
@@ -297,9 +316,12 @@ class Game {
      */
     setWorkerHvsAI() {
         if (this.pickedCell) {
-            getPrologRequest('setHumanWorker(' + parseBoardToPlog(this.board) + ',' + 
-                            this.getPlayerSide() + ',' + this.pickedCell.getRow() + ',' +
-                            this.pickedCell.getCol() + ')');
+            this.communication.getPrologRequest(
+                'setHumanWorker(' + 
+                this.communication.parseBoardToPlog(this.board) + ',' + 
+                this.getPlayerSide() + ',' + this.pickedCell.getRow() + ',' +
+                this.pickedCell.getCol() + ')'
+            );
             this.switchPlayer();
             this.alert.chooseFirstPlayer();
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
@@ -319,11 +341,14 @@ class Game {
     waitWorkerH(putPieceState, nextState) {
         if (this.pickedWorker) {
             if (this.pickedCell) {
-                getPrologRequest('moveWorker(' + parseBoardToPlog(this.board) + ',' +
-                                this.pickedWorker.getRow() + ',' +
-                                this.pickedWorker.getCol() + ',' +
-                                this.pickedCell. getRow() + ',' + 
-                                this.pickedCell.getCol() + ')');
+                this.communication.getPrologRequest(
+                    'moveWorker(' + 
+                    this.communication.parseBoardToPlog(this.board) + ',' +
+                    this.pickedWorker.getRow() + ',' +
+                    this.pickedWorker.getCol() + ',' +
+                    this.pickedCell. getRow() + ',' + 
+                    this.pickedCell.getCol() + ')'
+                );
                 this.currentState = putPieceState;
                 this.pickedWorker = null;
                 this.pickedCell = null;
@@ -340,10 +365,12 @@ class Game {
      */
     waitPieceH(nextState) {
         if (this.pickedCell) {
-            getPrologRequest('setPiece(' + this.getPlayerSide() + ',' +
-                            parseBoardToPlog(this.board) + ',' +
-                            this.pickedCell.getRow() + ',' +
-                            this.pickedCell.getCol() + ')');
+            this.communication.getPrologRequest(
+                'setPiece(' + this.getPlayerSide() + ',' +
+                this.communication.parseBoardToPlog(this.board) + ',' +
+                this.pickedCell.getRow() + ',' +
+                this.pickedCell.getCol() + ')'
+            );
             this.switchPlayer();
             this.currentState = nextState;
             this.pickedCell = null;
@@ -393,7 +420,7 @@ class Game {
      * @return {null}
      */
     beginGame(playerType1, playerType2, nextState) {
-        getPrologRequest('init');
+        this.communication.getPrologRequest('init');
         this.player1 = playerType1;
         this.player2 = playerType2;
         this.currentPlayer = 1;
