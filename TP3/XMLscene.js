@@ -166,6 +166,8 @@ XMLscene.prototype.calculateCameraPos = function() {
 
 XMLscene.prototype.resetCamera = function() {
     this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,this.cameraSettings.target);
+    this.cameraSettings.targetAngle = Math.PI / 4;
+    this.cameraSettings.targetRadius = 15 * Math.SQRT2;
 }
 
 XMLscene.prototype.zoomIn = function() {

@@ -95,18 +95,20 @@ MyInterface.prototype.processKeyDown = function(event) {
             this.scene.zoomIn();
             break;
         case 's':
-        case 'S':
+        case 'S': // zoom out
             this.scene.zoomOut();
             break;
         case 'a':
-        case 'A':
-            // flip camera left
+        case 'A': // flip camera left
             this.scene.rotateCameraLeft();
             break;
         case 'd':
-        case 'D':
-            // flip camera right
+        case 'D': // flip camera right
             this.scene.rotateCameraRight();            
+            break;
+        case 'x':
+        case 'X': // reset camera
+            this.scene.resetCamera();            
             break;
         default:
             console.log("Key not bound: " + event.key);
