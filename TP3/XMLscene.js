@@ -38,6 +38,8 @@ function XMLscene(interface) {
     this.smartVSsmart = function() {
         this.game.beginAIvsAI(this.game.playerType.SMART_AI, this.game.playerType.SMART_AI);
     };
+
+    this.previousTick = 0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -113,7 +115,36 @@ XMLscene.prototype.initLights = function() {
  * Initializes the scene cameras.
  */
 XMLscene.prototype.initCameras = function() {
-    this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+    this.cameraSettings = {
+        angle : Math.PI / 4,
+        radius : 15 * Math.SQRT2,
+        height : 15
+    };
+    this.calculateCameraPos();
+
+    this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,vec3.fromValues(0, 0, 0)); // TODO set center of board
+}
+
+XMLscene.prototype.updateCamera = function(currTime) {
+    let deltaTime = currTime - this.previousTick;
+    this.updateCameraPos(deltaTime);
+    this.calculateCameraPos();
+
+    this.camera.setPosition(this.cameraPos);
+}
+
+XMLscene.prototype.updateCameraPos = function(deltaTime) {
+    this.cameraSettings.angle += Math.PI / 10 * deltaTime / 1000; // TODO change, for testing purposes only
+}
+
+XMLscene.prototype.calculateCameraPos = function() {
+    let angle = this.cameraSettings.angle;
+
+    this.cameraPos = vec3.fromValues(
+        this.cameraSettings.radius * Math.cos(angle),
+        this.cameraSettings.height,
+        this.cameraSettings.radius * Math.sin(angle)
+    );
 }
 
 /* Handler called when the graph is finally loaded. 
@@ -216,6 +247,10 @@ XMLscene.prototype.update = function(currTime) {
     this.graph.updateScene(currTime);
     this.updateShader(currTime);
     this.game.update(currTime);
+
+    this.updateCamera(currTime);
+
+    this.previousTick = currTime;
 }
 
 /**
