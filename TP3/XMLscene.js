@@ -14,17 +14,17 @@ function XMLscene(interface) {
 
     this.lightValues = {};
 
-    //For dropdown in interface
-    //Starting by selecting nothing
+    // For dropdown in interface
+    // Starting by selecting nothing
     this.selectedNode = null;
 
-    //For Color Controller
+    // For Color Controller
     this.selectedColor = "#ff6322";
 
-    //For selecting scene elements
+    // For selecting scene elements
     this.setPickEnabled(true);
 
-    //Different Game Modes for the interface
+    // Different Game Modes for the interface
     this.hVSh = function() { this.game.beginHvsH(); };
     this.hVSrandom = function() { this.game.beginHvsAI(this.game.playerType.RANDOM_AI); };
     this.hVSsmart = function() { this.game.beginHvsAI(this.game.playerType.SMART_AI); };

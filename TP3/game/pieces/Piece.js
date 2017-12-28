@@ -14,14 +14,27 @@ class Piece {
     constructor(pos, type) {
         this.type = type;
 
-        // Saves the fixed positions
+        // World position
         this.position = pos ? pos : [0, 0, 0];
 
-        this.animation = null;
+        // Board position
+        this.boardPos = null;
 
         // Animation progress
         this.elapsedTime = null;
         this.initialTime = null;
+
+        this.animation = null;        
+    }
+
+    get boardPos() {
+        return this._boardPos;
+    }
+
+    set boardPos(cell) {
+        if (! cell) return;
+        this._boardPos = cell;
+        this.position = [cell[0], 0, cell[1]];
     }
 
     get position() {
