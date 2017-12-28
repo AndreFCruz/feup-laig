@@ -128,7 +128,13 @@ class GameElements {
         let blackPieces = this.blackPool.elements;            
         for (let bPiece in blackPieces)
             this.scene.graph.displayPiece(blackPieces[bPiece]);
+
+        for (let wPiece in this.whiteInPlay)
+            this.scene.graph.displayPiece(this.whiteInPlay[wPiece]);        
         
+        for (let bPiece in this.blackInPlay)
+            this.scene.graph.displayPiece(this.blackInPlay[bPiece]);
+
         //There are always exactly two workers
         this.scene.registerForPick( WORKER_PICK_ID, this.workers[0]);
         this.scene.graph.displayPiece(this.workers[0]);
