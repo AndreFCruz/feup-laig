@@ -21,6 +21,23 @@ function XMLscene(interface) {
 
     //For selecting scene elements
     this.setPickEnabled(true);
+
+    //Different Game Modes for the interface
+    this.hVSh = function() { this.game.beginHvsH(); };
+    this.hVSrandom = function() { this.game.beginHvsAI(this.game.playerType.RANDOM_AI); };
+    this.hVSsmart = function() { this.game.beginHvsAI(this.game.playerType.SMART_AI); };
+    this.randomVSrandom = function() {
+        this.game.beginAIvsAI(this.game.playerType.RANDOM_AI, this.game.playerType.RANDOM_AI);
+    };
+    this.randomVSsmart = function() {
+        this.game.beginAIvsAI(this.game.playerType.RANDOM_AI, this.game.playerType.SMART_AI);
+    };
+    this.smartVSrandom = function() {
+        this.game.beginAIvsAI(this.game.playerType.SMART_AI, this.game.playerType.RANDOM_AI);
+    };
+    this.smartVSsmart = function() {
+        this.game.beginAIvsAI(this.game.playerType.SMART_AI, this.game.playerType.SMART_AI);
+    };
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -120,6 +137,9 @@ XMLscene.prototype.onGraphLoaded = function()
 
     //Adds Color Controller
     this.interface.addColorController();
+
+    //Add Game Modes to interface
+    this.interface.addInitGameGroup();
 }
 
 /**

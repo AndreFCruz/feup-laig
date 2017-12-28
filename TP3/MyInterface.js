@@ -20,7 +20,7 @@ MyInterface.prototype.init = function(application) {
     CGFinterface.prototype.init.call(this, application);
 
     // init GUI. For more information on the methods, check:
-    //  http://workshop.chromeexperiments.com/examples/gui
+    // http://workshop.chromeexperiments.com/examples/gui
     
     this.gui = new dat.GUI();
 
@@ -59,6 +59,27 @@ MyInterface.prototype.addColorController = function() {
     });
 }
 
+MyInterface.prototype.addInitGameGroup = function() {
+    
+    let gameModes = this.gui.addFolder("Game Modes");
+    gameModes.open();
+
+    // Human vs Human Mode
+    gameModes.add(this.scene, 'hVSh').name('Multiplayer');
+
+    // Human vs AI Mode
+    let humanVSai = gameModes.addFolder("Singleplayer");
+    humanVSai.add(this.scene, 'hVSrandom').name("Dummy AI");
+    humanVSai.add(this.scene, 'hVSsmart').name("Smart AI");
+
+    // AI vs AI Mode
+    let aiVSai = gameModes.addFolder("AI X AI");
+    aiVSai.add(this.scene, 'randomVSrandom').name("Dummy X Dummy");
+    aiVSai.add(this.scene, 'randomVSsmart').name("Dummy X Smart");
+    aiVSai.add(this.scene, 'smartVSrandom').name("Smart X Dummy");
+    aiVSai.add(this.scene, 'smartVSsmart').name("Smart X Smart");
+}
+
 MyInterface.prototype.processKeyDown = function(event) {
     console.log("Key Down");
     console.log(event);
@@ -76,10 +97,6 @@ MyInterface.prototype.processKeyDown = function(event) {
         case 'd':
         case 'D':
             // flip camera right
-            break;
-        case 's':
-        case 'S':
-            this.scene.game.beginHvsH();
             break;
         default:
             console.log("Key not bound: " + event.key);

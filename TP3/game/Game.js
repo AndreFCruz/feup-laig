@@ -107,6 +107,18 @@ class Game {
     }
 
     /**
+     * Get current Player Type
+     * 
+     * @return {String} - The player Type (@see this.playerType)
+     */
+    getCurrentPlayerType() {
+        if (this.currentPlayer == 1)
+            return this.player1;
+        else
+            return this.player2;
+    }
+
+    /**
      * Displays the game elements
      * 
      * @return {null}
@@ -135,7 +147,7 @@ class Game {
                     this.setAIvsAIworkers();
                     return;
                 case this.state.AI_VS_AI_LOOP:
-                    this.aiPlay(AI_VS_AI_LOOP);
+                    this.aiPlay(this.state.AI_VS_AI_LOOP);
                     return;
                 case this.state.HUMAN_VS_AI_SET_AI_WORKER:
                     this.setAIworkerHvsAI();
@@ -214,18 +226,33 @@ class Game {
      * @return {null}
      */
     setAIvsAIworkers() {
+        this.communication.getPrologRequest(
+            'setAIWorker(' + 
+            this.getCurrentPlayerType() + ',' +
+            this.communication.parseBoardToPlog(this.board) + ',' + 
+            this.getPlayerSide() + ')'
+        );
+        this.switchPlayer();
+
+        // TODO remove this from here, for testing only now
+        if (this.gameElements.isOnBoard(this.gameElements.workers[0])) {
+            let test0 = this.gameElements.workers[1];
+            test0.position[0] = 3;
+            test0.position[2] = 3;
+            mat4.identity(test0.positionMatrix);
+            mat4.translate(test0.positionMatrix, test0.positionMatrix, test0.position);
+        } else {
+            let test1 = this.gameElements.workers[0];
+            test1.position[0] = 1;
+            test1.position[2] = 1;
+            mat4.identity(test1.positionMatrix);
+            mat4.translate(test1.positionMatrix, test1.positionMatrix, test1.position);
+        }
+
         if (this.areWorkersSet()) {
             // In AI vs AI white always starts
             this.currentPlayer = 2;
             this.currentState = this.state.AI_VS_AI_LOOP;
-        } else {// TODO check request
-            this.communication.getPrologRequest(
-                'setAIWorker(' + 
-                this.getPlayerSide() + ',' +
-                this.communication.parseBoardToPlog(this.board) + ',' + 
-                this.getPlayerSide() + ')'
-            );
-            this.switchPlayer();
         }
     }
 
@@ -239,7 +266,7 @@ class Game {
     aiPlay(nextState) {
         this.communication.getPrologRequest(
             'aiPlay(' + 
-            this.currentPlayer + ',' + 
+            this.getCurrentPlayerType() + ',' + 
             this.getPlayerSide() + ',' + 
             this.communication.parseBoardToPlog(this.board) + ')'
         );
@@ -259,7 +286,7 @@ class Game {
         } else {
             this.communication.getPrologRequest(
                 'setAIWorker(' + 
-                this.currentPlayer + ',' +
+                this.getCurrentPlayerType() + ',' +
                 this.communication.parseBoardToPlog(this.board) + ',' + 
                 this.getPlayerSide() + ')'
             );
@@ -383,8 +410,6 @@ class Game {
      */
     beginHvsH() {
         this.beginGame(this.playerType.HUMAN, this.playerType.HUMAN, this.state.HUMAN_VS_HUMAN);
-        //TODO call this on GUI, acordding to selected type
-        //calling it in interface
     }
 
     /**
@@ -395,7 +420,6 @@ class Game {
      */
     beginHvsAI(aiType) {
         this.beginGame(this.playerType.HUMAN, aiType, this.state.HUMAN_VS_AI);
-        //TODO call this on GUI, acordding to selected type
     }
 
     /**
@@ -405,9 +429,8 @@ class Game {
      * @param {number} aiType2 - The type of AI for player 2
      * @return {null}
      */
-    beginHvsAI(aiType1, aiType2) {
+    beginAIvsAI(aiType1, aiType2) {
         this.beginGame(aiType1, aiType2, this.state.AI_VS_AI);
-        //TODO call this on GUI, acordding to selected type
     }
 
     /**

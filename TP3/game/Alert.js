@@ -46,7 +46,7 @@ class Alert {
     }
 
     /**
-     * Show sweetalert to show who won the game
+     * Show a sweetalert to show who won the game
      * 
      * @param {String} winnerSide - the winner side, either 'black' or 'white'
      * @return {null}
