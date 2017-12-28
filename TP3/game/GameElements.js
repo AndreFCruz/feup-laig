@@ -41,7 +41,7 @@ class GameElements {
         this.whitePieces = {};
         this.blackPieces = {};
         for (let i = 0; i < NUMBER_PIECES; ++i) {
-            this.whitePieces[i] = new WhitePiece([10, 0, 0]);
+            this.whitePieces[i] = new WhitePiece([10, 0, 0]); // TODO do not create 40 pieces, create pieces while they are necessary pls
             this.blackPieces[i] = new BlackPiece([0, 0, 10]);
         }
 
@@ -79,6 +79,14 @@ class GameElements {
             return false;
         else
             return true;
+    }
+
+    update(currTime) {
+        for (let i = 0; i < this.whitePieces.length; ++i)
+            this.whitePieces[i].update(currTime);
+
+        for (let i = 0; i < this.blackPieces.length; ++i)
+            this.blackPieces[i].update(currTime);
     }
 
     /**

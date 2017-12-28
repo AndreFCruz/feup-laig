@@ -118,8 +118,7 @@ class Game {
      * @return {null}
      */
     update(currTime) {
-
-        // TODO - ver se o inicio das animações é feito aqui, ou na receção de respostas
+        this.gameElements.update(currTime);
 
         if (boardChanged) {
             this.board = prologBoard;

@@ -55,7 +55,7 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
  */
 MyGraphNode.prototype.update = function(elapsedTime) {
     if (this.initialTime == null)
-            this.initialTime = elapsedTime;
+        this.initialTime = elapsedTime;
     this.elapsedTime = elapsedTime;
     
     if (this.animation != null)
