@@ -117,12 +117,15 @@ XMLscene.prototype.initLights = function() {
 XMLscene.prototype.initCameras = function() {
     this.cameraSettings = {
         angle : Math.PI / 4,
+        targetAngle : Math.PI / 4,
         radius : 15 * Math.SQRT2,
-        height : 15
+        height : 15,
+        target: vec3.fromValues(4.5, 0, 4.5),
+        vel: 5 // in radians per second
     };
-    this.calculateCameraPos();
 
-    this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,vec3.fromValues(0, 0, 0)); // TODO set center of board
+    this.calculateCameraPos();
+    this.resetCamera();
 }
 
 XMLscene.prototype.updateCamera = function(currTime) {
@@ -134,17 +137,38 @@ XMLscene.prototype.updateCamera = function(currTime) {
 }
 
 XMLscene.prototype.updateCameraPos = function(deltaTime) {
-    this.cameraSettings.angle += Math.PI / 10 * deltaTime / 1000; // TODO change, for testing purposes only
+    let currentAngle = this.cameraSettings.angle;
+    let targetAngle = this.cameraSettings.targetAngle;
+
+    this.cameraSettings.angle =
+        currentAngle + (targetAngle - currentAngle) *
+        this.cameraSettings.vel * deltaTime / 1000;
 }
 
 XMLscene.prototype.calculateCameraPos = function() {
     let angle = this.cameraSettings.angle;
+    let target = this.cameraSettings.target;
 
     this.cameraPos = vec3.fromValues(
         this.cameraSettings.radius * Math.cos(angle),
         this.cameraSettings.height,
         this.cameraSettings.radius * Math.sin(angle)
     );
+    vec3.add(this.cameraPos, this.cameraPos, target);
+}
+
+XMLscene.prototype.resetCamera = function() {
+    this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,this.cameraSettings.target);
+}
+
+XMLscene.prototype.rotateCameraLeft = function() {
+    let targetAngle = this.cameraSettings.targetAngle;
+    this.cameraSettings.targetAngle += Math.PI / 2;
+}
+
+XMLscene.prototype.rotateCameraRight = function() {
+    let targetAngle = this.cameraSettings.targetAngle;
+    this.cameraSettings.targetAngle -= Math.PI / 2;
 }
 
 /* Handler called when the graph is finally loaded. 

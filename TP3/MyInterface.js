@@ -93,10 +93,12 @@ MyInterface.prototype.processKeyDown = function(event) {
         case 'a':
         case 'A':
             // flip camera left
+            this.scene.rotateCameraLeft();
             break;
         case 'd':
         case 'D':
             // flip camera right
+            this.scene.rotateCameraRight();            
             break;
         default:
             console.log("Key not bound: " + event.key);
