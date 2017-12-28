@@ -15,19 +15,24 @@ class Piece {
         this.type = type;
 
         // Saves the fixed positions
-        this.position = pos;
+        this.position = pos ? pos : [0, 0, 0];
 
-        // Useful for intermedeary animation positions
-        this.positionMatrix = mat4.create();
-        // mat4.fromTranslation(this.positionMatrix, pos);
-        mat4.identity(this.positionMatrix);
-        mat4.translate(this.positionMatrix, this.positionMatrix, pos);
-        
         this.animation = null;
 
         // Animation progress
         this.elapsedTime = null;
         this.initialTime = null;
+    }
+
+    get position() {
+        return this._position;
+    }
+
+    set position(pos) {
+        this._position = pos;
+
+        this.positionMatrix = mat4.create();
+        mat4.translate(this.positionMatrix, this.positionMatrix, pos);
     }
 
     /**

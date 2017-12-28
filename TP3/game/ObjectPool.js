@@ -3,7 +3,7 @@ class ObjectPool {
         this._elements = new Array(numElements);
 
         for (let i = 0; i < numElements; ++i) {
-            this._elements.push( constructorFunction() );
+            this._elements[i] = constructorFunction();
         }
     }
 

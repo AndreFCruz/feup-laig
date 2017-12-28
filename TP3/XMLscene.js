@@ -122,7 +122,7 @@ XMLscene.prototype.initCameras = function() {
         targetAngle : CAMERA_START_ANGLE,
         radius : 15 * Math.SQRT2,
         targetRadius: 15 * Math.SQRT2,
-        height : 15,
+        height : 20,
         target: vec3.fromValues(4, 0, 4),
         vel: 5 // in radians per second
     };

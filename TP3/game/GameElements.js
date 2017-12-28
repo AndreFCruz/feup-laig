@@ -37,23 +37,21 @@ class GameElements {
      */
     setUpGame() {
 
-        //For different Pieces
-        this.whitePieces = {};
-        this.blackPieces = {};
+        // Initialize Object Pools
+        this.whitePool = new ObjectPool(() => new WhitePiece([0, 0, 0]), NUMBER_PIECES);
+        this.blackPool = new ObjectPool(() => new BlackPiece([0, 0, 0]), NUMBER_PIECES);
         for (let i = 0; i < NUMBER_PIECES; ++i) {
-            this.whitePieces[i] = new WhitePiece([-2 + i * .5, 0, -1.7 + (i % 2 ? 0 : 0.7)]);
-            this.blackPieces[i] = new BlackPiece([-2 + i * .5, 0, 9.3 + (i % 2 ? 0 : 0.7)]);
+            this.whitePool.elements[i].position = [-2 + i * .5, 0, -1.7 + (i % 2 ? 0 : 0.7)];
+            this.blackPool.elements[i].position = [-2 + i * .5, 0, 9.3 + (i % 2 ? 0 : 0.7)];
         }
-        // TODO do not create 40 pieces, create pieces while they are necessary pls
-        // OR have a pieces factory, visually represented by a bag or smthng
+        // TODO have a pieces factory, visually represented by a bag or smthng
 
-        // TODO CHANGE ALL THIS HARDCODED POSITIONS -> All to start inside the bag
-        //There are always exactly two workers
+        // There are always exactly two workers
         this.workers = {};
         this.workers[0] = new Worker([-1, 0, 1]);
         this.workers[1] = new Worker([-1, 0, 0]);
 
-        //For the Board Cells
+        // For the Board Cells
         this.boardCells = {};
         for (let i = 0; i < BOARD_SIZE; ++i) {
             this.boardCells[i] = {};
@@ -84,11 +82,13 @@ class GameElements {
     }
 
     update(currTime) {
-        for (let i = 0; i < this.whitePieces.length; ++i)
-            this.whitePieces[i].update(currTime);
+        let whitePieces = this.whitePool.elements;
+        for (let i = 0; i < whitePieces.length; ++i)
+            whitePieces[i].update(currTime);
 
-        for (let i = 0; i < this.blackPieces.length; ++i)
-            this.blackPieces[i].update(currTime);
+        let blackPieces = this.blackPool.elements;
+        for (let i = 0; i < blackPieces.length; ++i)
+            blackPieces[i].update(currTime);
     }
 
     /**
@@ -97,11 +97,13 @@ class GameElements {
      * @return {null}
      */
     displayGame() {
-        for (let wPiece in this.whitePieces)
-            this.scene.graph.displayPiece(this.whitePieces[wPiece]);
+        let whitePieces = this.whitePool.elements;        
+        for (let wPiece in whitePieces)
+            this.scene.graph.displayPiece(whitePieces[wPiece]);
 
-        for (let bPiece in this.blackPieces)
-            this.scene.graph.displayPiece(this.blackPieces[bPiece]);
+        let blackPieces = this.blackPool.elements;            
+        for (let bPiece in blackPieces)
+            this.scene.graph.displayPiece(blackPieces[bPiece]);
         
         //There are always exactly two workers
         this.scene.registerForPick( WORKER_PICK_ID, this.workers[0]);

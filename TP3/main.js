@@ -22,7 +22,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
              'game/pieces/Piece.js', 'game/pieces/Worker.js', 'game/pieces/WhitePiece.js',
              'game/pieces/BlackPiece.js', 'game/BoardCell.js', 'game/Game.js',
              'game/Communication.js', "game/GameElements.js", 'SweetAlert2.js',
-             'game/Alert.js',
+             'game/Alert.js', 'game/ObjectPool.js',
 
 main=function()
 {
