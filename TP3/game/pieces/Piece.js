@@ -20,7 +20,13 @@ class Piece {
         // Useful for intermedeary animation positions
         this.positionMatrix = mat4.create();
         mat4.identity(this.positionMatrix);
-		mat4.translate(this.positionMatrix, this.positionMatrix, pos);
+        mat4.translate(this.positionMatrix, this.positionMatrix, pos);
+        
+        this.animation = null;
+
+        // Animation progress
+        this.elapsedTime = null;
+        this.initialTime = null;
     }
 
     /**
@@ -29,7 +35,12 @@ class Piece {
      * @return {mat4} - Piece current position respective matrix
      */
     getPositionMatrix() {
-        return this.positionMatrix;
+        this.result = mat4.create();
+        mat4.identity(this.result);
+        if (this.animation) {
+            mat4.multiply(this.result, this.positionMatrix, this.animation.matrix);
+        } // TODO change order of operands in multiply ?
+        return this.result;
     }
 
     /**
@@ -59,4 +70,13 @@ class Piece {
         return null;
     }
 
+    update(elapsedTime) {
+        if (this.initialTime == null)
+            this.initialTime = elapsedTime;
+        this.elapsedTime = elapsedTime;
+        
+        if (this.animation != null)
+            this.animation.update(this.elapsedTime - this.initialTime);
+    }
+    
 }
