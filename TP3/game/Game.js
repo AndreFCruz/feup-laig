@@ -38,7 +38,8 @@ class Game {
             WAIT_PIECE_H_VS_H : 8,
             WAIT_WORKER_H_VS_AI : 9,
             WAIT_PIECE_H_VS_AI : 10,
-            AI_PLAY_H_VS_AI : 11
+            AI_PLAY_H_VS_AI : 11,
+            WAIT_SWAL_INPUT : 12
         };
         this.currentState = this.state.NO_GAME_RUNNING;
 
@@ -84,7 +85,7 @@ class Game {
      * 
      * @return {null}
      */
-    switchPlayer() { // TODO check for player1 == player2
+    switchPlayer() {
         if (this.currentPlayer)
             this.currentPlayer = (this.currentPlayer % 2) + 1;
         else
@@ -96,7 +97,7 @@ class Game {
      * 
      * @return {String} - correspondent Prolog Side
      */
-    getPlayerSide() { // TODO check for player1 == player2
+    getPlayerSide() {
         if (this.currentPlayer == 1)
             return PLAYER1_SIDE;
         else if (this.currentPlayer == 2)
@@ -116,6 +117,22 @@ class Game {
             return this.player1;
         else
             return this.player2;
+    }
+
+    /**
+     * Checks if both workers are set on board
+     * State Machine associated function.
+     * 
+     * @return {Bool} - True if workers are set, false otherwise
+     */
+    areWorkersSet() {
+        let workersNumber = 0;
+
+        for (let row in this.board)
+            for (let col in this.board[row])
+                (this.board[row][col] == 'worker'? workersNumber++ : workersNumber);
+
+        return (workersNumber == NUMBER_WORKERS);
     }
 
     /**
@@ -163,6 +180,7 @@ class Game {
                 case this.state.WAIT_PIECE_H_VS_H:
                 case this.state.WAIT_WORKER_H_VS_AI:
                 case this.state.WAIT_PIECE_H_VS_AI:
+                case this.state.WAIT_SWAL_INPUT:
                     // Board independent States
                     break;
 
@@ -195,6 +213,8 @@ class Game {
             case this.state.WAIT_PIECE_H_VS_AI:
                 this.waitPieceH(this.state.AI_PLAY_H_VS_AI);
                 break;
+            case this.state.WAIT_SWAL_INPUT:
+                break;
             
             case this.state.AI_VS_AI:
             case this.state.AI_VS_AI_LOOP:
@@ -209,14 +229,24 @@ class Game {
     }
 
     /**
-     * Checks if both workers are set on board
-     * State Machine associated function.
+     * Sets the current state to the given state
      * 
-     * @return {Bool} - True if workers are set, false otherwise
+     * @param {Number} newState - The new current state
+     * @return {null}
      */
-    areWorkersSet() {
-        return (this.gameElements.isOnBoard(this.gameElements.workers[0]) && 
-                this.gameElements.isOnBoard(this.gameElements.workers[1]));
+    setCurrentState(newState) {
+        this.currentState = newState;
+    }
+
+    /**
+     * For forcin changes on board dependent states
+     * Important for transition between states, for example when choosing starting players
+     * and the starting player is an AI
+     * 
+     * @return {null}
+     */
+    forceStates() {
+        this.communication.boardChanged = true;
     }
 
     /**
@@ -226,33 +256,20 @@ class Game {
      * @return {null}
      */
     setAIvsAIworkers() {
-        this.communication.getPrologRequest(
-            'setAIWorker(' + 
-            this.getCurrentPlayerType() + ',' +
-            this.communication.parseBoardToPlog(this.board) + ',' + 
-            this.getPlayerSide() + ')'
-        );
-        this.switchPlayer();
-
-        // TODO remove this from here, for testing only now
-        if (this.gameElements.isOnBoard(this.gameElements.workers[0])) {
-            let test0 = this.gameElements.workers[1];
-            test0.position[0] = 3;
-            test0.position[2] = 3;
-            mat4.identity(test0.positionMatrix);
-            mat4.translate(test0.positionMatrix, test0.positionMatrix, test0.position);
-        } else {
-            let test1 = this.gameElements.workers[0];
-            test1.position[0] = 1;
-            test1.position[2] = 1;
-            mat4.identity(test1.positionMatrix);
-            mat4.translate(test1.positionMatrix, test1.positionMatrix, test1.position);
-        }
-
         if (this.areWorkersSet()) {
             // In AI vs AI white always starts
             this.currentPlayer = 2;
             this.currentState = this.state.AI_VS_AI_LOOP;
+            this.forceStates();
+
+        } else {
+            this.communication.getPrologRequest(
+                'setAIWorker(' + 
+                this.getCurrentPlayerType() + ',' +
+                this.communication.parseBoardToPlog(this.board) + ',' + 
+                this.getPlayerSide() + ')'
+            );
+            this.switchPlayer();
         }
     }
 
@@ -281,8 +298,11 @@ class Game {
      * @return {null}
      */
     setAIworkerHvsAI() {
+
         if (this.areWorkersSet()) {
-            this.currentState = this.state.WAIT_WORKER_H_VS_AI;
+            this.alert.chooseFirstPlayer(this.state.WAIT_WORKER_H_VS_AI,
+                                         this.state.AI_PLAY_H_VS_AI);
+            this.currentState = this.state.WAIT_SWAL_INPUT;
         } else {
             this.communication.getPrologRequest(
                 'setAIWorker(' + 
@@ -309,28 +329,14 @@ class Game {
                 this.pickedCell.getCol() + ')'
             );
 
-            // TODO remove this from here, for testing only now
-            if (this.gameElements.isOnBoard(this.gameElements.workers[0])) {
-                let test0 = this.gameElements.workers[1];
-                test0.position[0] = this.pickedCell.getCol();
-                test0.position[2] = this.pickedCell.getRow();
-                mat4.identity(test0.positionMatrix);
-                mat4.translate(test0.positionMatrix, test0.positionMatrix, test0.position);
-            } else {
-                let test1 = this.gameElements.workers[0];
-                test1.position[0] = this.pickedCell.getCol();
-                test1.position[2] = this.pickedCell.getRow();
-                mat4.identity(test1.positionMatrix);
-                mat4.translate(test1.positionMatrix, test1.positionMatrix, test1.position);
-            }
-
             this.switchPlayer();
             this.pickedCell = null;
         }
 
         if (this.areWorkersSet()) {
-            this.alert.chooseFirstPlayer();
-            this.currentState = this.state.WAIT_WORKER_H_VS_H;
+            this.alert.chooseFirstPlayer(this.state.WAIT_WORKER_H_VS_H,
+                                         this.state.WAIT_WORKER_H_VS_H);
+            this.currentState = this.state.WAIT_SWAL_INPUT;
         }
     }
 
@@ -345,11 +351,10 @@ class Game {
             this.communication.getPrologRequest(
                 'setHumanWorker(' + 
                 this.communication.parseBoardToPlog(this.board) + ',' + 
-                this.getPlayerSide() + ',' + this.pickedCell.getRow() + ',' +
+                this.pickedCell.getRow() + ',' +
                 this.pickedCell.getCol() + ')'
             );
             this.switchPlayer();
-            this.alert.chooseFirstPlayer();
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
             this.pickedCell = null;
         }
@@ -447,6 +452,7 @@ class Game {
         this.player2 = playerType2;
         this.currentPlayer = 1;
         this.currentState = nextState;
+        this.alert.showGameStart(playerType1, playerType2);
     }
 
     /**
