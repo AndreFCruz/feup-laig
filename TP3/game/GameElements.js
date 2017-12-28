@@ -41,7 +41,7 @@ class GameElements {
         this.whitePool = new ObjectPool(() => new WhitePiece([0, 0, 0]), NUMBER_PIECES);
         this.blackPool = new ObjectPool(() => new BlackPiece([0, 0, 0]), NUMBER_PIECES);
         for (let i = 0; i < NUMBER_PIECES; ++i) {
-            this.whitePool.elements[i].position = [-2 + i * .5, 0, -1.7 + (i % 2 ? 0 : 0.7)];
+            this.whitePool.elements[i].position = [-2 + i * .5, 0, -1 - (i % 2 ? 0 : 0.7)];
             this.blackPool.elements[i].position = [-2 + i * .5, 0, 9.3 + (i % 2 ? 0 : 0.7)];
         }
         // TODO have a pieces factory, visually represented by a bag or smthng
