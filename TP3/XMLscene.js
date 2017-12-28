@@ -119,6 +119,7 @@ XMLscene.prototype.initCameras = function() {
         angle : Math.PI / 4,
         targetAngle : Math.PI / 4,
         radius : 15 * Math.SQRT2,
+        targetRadius: 15 * Math.SQRT2,
         height : 15,
         target: vec3.fromValues(4.5, 0, 4.5),
         vel: 5 // in radians per second
@@ -140,8 +141,14 @@ XMLscene.prototype.updateCameraPos = function(deltaTime) {
     let currentAngle = this.cameraSettings.angle;
     let targetAngle = this.cameraSettings.targetAngle;
 
-    this.cameraSettings.angle =
-        currentAngle + (targetAngle - currentAngle) *
+    this.cameraSettings.angle +=
+        (targetAngle - currentAngle) *
+        this.cameraSettings.vel * deltaTime / 1000;
+
+    let currentRadius = this.cameraSettings.radius;
+    let targetRadius = this.cameraSettings.targetRadius;
+    this.cameraSettings.radius +=
+        (targetRadius - currentRadius) *
         this.cameraSettings.vel * deltaTime / 1000;
 }
 
@@ -161,13 +168,19 @@ XMLscene.prototype.resetCamera = function() {
     this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,this.cameraSettings.target);
 }
 
+XMLscene.prototype.zoomIn = function() {
+    this.cameraSettings.targetRadius -= 2;
+}
+
+XMLscene.prototype.zoomOut = function() {
+    this.cameraSettings.targetRadius += 2;
+}
+
 XMLscene.prototype.rotateCameraLeft = function() {
-    let targetAngle = this.cameraSettings.targetAngle;
     this.cameraSettings.targetAngle += Math.PI / 2;
 }
 
 XMLscene.prototype.rotateCameraRight = function() {
-    let targetAngle = this.cameraSettings.targetAngle;
     this.cameraSettings.targetAngle -= Math.PI / 2;
 }
 

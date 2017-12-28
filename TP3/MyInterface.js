@@ -90,6 +90,14 @@ MyInterface.prototype.processKeyDown = function(event) {
     }
 
     switch (event.key) {
+        case 'w':
+        case 'W':
+            this.scene.zoomIn();
+            break;
+        case 's':
+        case 'S':
+            this.scene.zoomOut();
+            break;
         case 'a':
         case 'A':
             // flip camera left
