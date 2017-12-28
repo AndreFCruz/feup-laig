@@ -63,8 +63,13 @@ function getPrologRequest(requestString)
  */
 function handleServerAnswer(answer) {
     //If v from victory is found
-    if (answer.charAt(0) == 'v') {
-        //Do something when victory of someone
+    if (answer.charAt(0) == 'v') { //TODO - remove this from here and handle victory to counter
+        let msg = answer.split(" ");
+        if (msg[0] == 'victory') {
+            swal(  'Player ' + (msg[1] = 'black'? 1 : 2) + ' wins!',
+            'Congratulations!',
+            'success')
+        }
     } else {
         prologBoard = parseBoardFromPlog(answer);
         boardChanged = true;

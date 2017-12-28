@@ -32,7 +32,7 @@ class Game {
             HUMAN_VS_HUMAN : 2,
             HUMAN_VS_AI : 3,
             AI_VS_AI : 4,
-            AI_VS_AI_LOOP: 5,
+            AI_VS_AI_LOOP : 5,
             HUMAN_VS_AI_SET_AI_WORKER : 6,
             WAIT_WORKER_H_VS_H : 7,
             WAIT_PIECE_H_VS_H : 8,
@@ -43,9 +43,15 @@ class Game {
         this.currentState = this.state.NO_GAME_RUNNING;
 
         this.playerType = {
+<<<<<<< HEAD
             HUMAN: 'HUMAN',
             GREEDY_AI: 'GREEDY_AI',
             SMART_AI: 'SMART_AI'
+=======
+            HUMAN: 'human',
+            RANDOM_AI: 'random',
+            SMART_AI: 'smart'
+>>>>>>> fbd4f88a8ebdace057244d1d8d47dd8c631ccaa4
         };
         this.player1 = null;
         this.player2 = null;
@@ -401,41 +407,6 @@ class Game {
     }
 
     /**
-<<<<<<< HEAD
-=======
-     * Show a sweet alert to choose the player initiating
-     * 
-     * @return {Number} - The starting player
-     */
-    chooseFirstPlayer() {
-        swal({
-            title: 'Who starts playing?',
-            type: 'question',
-            showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonColor: '#248f24',
-            confirmButtonText: 'Player 1',
-            cancelButtonColor: '#248f24',
-            cancelButtonText: 'Player 2',
-        }).then((result) => {
-            if (result.value || result.dismiss === 'overlay') {
-                this.currentPlayer = 1;
-                swal(
-                    'Player 1 starts playing', '',
-                    'success'
-                )
-            } else if (result.dismiss === 'cancel') {
-                this.currentPlayer = 2;
-                swal(
-                    'Player 2 starts playing', '',
-                    'success'
-                )
-            }
-        })
-    }
-
-    /**
->>>>>>> 34b0ed18b20ab546063be349299d86299b17f804
      * Handle the picked game elements
      * 
      * @param {Number} - The ID of the picked element
