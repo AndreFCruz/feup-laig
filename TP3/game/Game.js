@@ -43,15 +43,9 @@ class Game {
         this.currentState = this.state.NO_GAME_RUNNING;
 
         this.playerType = {
-<<<<<<< HEAD
-            HUMAN: 'HUMAN',
-            GREEDY_AI: 'GREEDY_AI',
-            SMART_AI: 'SMART_AI'
-=======
             HUMAN: 'human',
             RANDOM_AI: 'random',
             SMART_AI: 'smart'
->>>>>>> fbd4f88a8ebdace057244d1d8d47dd8c631ccaa4
         };
         this.player1 = null;
         this.player2 = null;
