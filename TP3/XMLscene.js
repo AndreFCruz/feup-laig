@@ -172,10 +172,12 @@ XMLscene.prototype.resetCamera = function() {
 
 XMLscene.prototype.zoomIn = function() {
     this.cameraSettings.targetRadius -= 2;
+    // this.cameraSettings.height -= 1;
 }
 
 XMLscene.prototype.zoomOut = function() {
     this.cameraSettings.targetRadius += 2;
+    // this.cameraSettings.height += 1;    
 }
 
 XMLscene.prototype.rotateCameraLeft = function() {

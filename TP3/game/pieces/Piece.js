@@ -19,6 +19,7 @@ class Piece {
 
         // Useful for intermedeary animation positions
         this.positionMatrix = mat4.create();
+        // mat4.fromTranslation(this.positionMatrix, pos);
         mat4.identity(this.positionMatrix);
         mat4.translate(this.positionMatrix, this.positionMatrix, pos);
         
@@ -35,8 +36,7 @@ class Piece {
      * @return {mat4} - Piece current position respective matrix
      */
     getPositionMatrix() {
-        this.result = mat4.create();
-        mat4.identity(this.result);
+        this.result = mat4.clone(this.positionMatrix);
         if (this.animation) {
             mat4.multiply(this.result, this.positionMatrix, this.animation.matrix);
         } // TODO change order of operands in multiply ?

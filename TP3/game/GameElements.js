@@ -1,7 +1,7 @@
 /**
  * Maximum number of pieces that there can possibly exist for each side.
  */
-const NUMBER_PIECES = 40;
+const NUMBER_PIECES = 25;
 
 /**
  * Number of workers present in the game.
@@ -41,15 +41,17 @@ class GameElements {
         this.whitePieces = {};
         this.blackPieces = {};
         for (let i = 0; i < NUMBER_PIECES; ++i) {
-            this.whitePieces[i] = new WhitePiece([10, 0, 0]); // TODO do not create 40 pieces, create pieces while they are necessary pls
-            this.blackPieces[i] = new BlackPiece([0, 0, 10]);
+            this.whitePieces[i] = new WhitePiece([-2 + i * .5, 0, -1.7 + (i % 2 ? 0 : 0.7)]);
+            this.blackPieces[i] = new BlackPiece([-2 + i * .5, 0, 9.3 + (i % 2 ? 0 : 0.7)]);
         }
+        // TODO do not create 40 pieces, create pieces while they are necessary pls
+        // OR have a pieces factory, visually represented by a bag or smthng
 
         // TODO CHANGE ALL THIS HARDCODED POSITIONS -> All to start inside the bag
         //There are always exactly two workers
         this.workers = {};
-        this.workers[0] = new Worker([-1, 0, -1]);
-        this.workers[1] = new Worker([-1, 0, -1]);
+        this.workers[0] = new Worker([-1, 0, 1]);
+        this.workers[1] = new Worker([-1, 0, 0]);
 
         //For the Board Cells
         this.boardCells = {};
