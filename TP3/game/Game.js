@@ -376,6 +376,7 @@ class Game {
             );
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
             this.pickedCell = null;
+            this.pickedWorker = null;
         }
     }
 
@@ -473,7 +474,7 @@ class Game {
             this.currentPlayer = 1;
             this.currentState = nextState;
             this.pickedWorker = null;
-            this.pcikedCell = null;
+            this.pickedCell = null;
             this.alert.showGameStart(playerType1, playerType2);
             this.scoreboard.gameBegan();
         } else
