@@ -164,7 +164,7 @@ class Game {
      */
     update(currTime) {
         this.gameElements.update(currTime);
-        //this.scoreboard.update(currTime);
+        this.scoreboard.update(currTime);
 
         if (this.communication.boardChanged) {
             this.previousBoard = this.board;

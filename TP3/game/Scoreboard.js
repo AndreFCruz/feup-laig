@@ -16,7 +16,7 @@ class ScoreBoard {
         this.player2Points = 0;
 
         this.turnTime = 0;
-        this.currentTurnTime = 0;
+        this.currentTurnTime = 600;
 
         this.lastUpdateTime = 0;
         // Updates each the timer second
@@ -32,11 +32,20 @@ class ScoreBoard {
      * @return {null}
      */
     initGraphics() {
+        
         //Graphic Elements
-        this.minDigit       = new MyRectangle(this.scene, [0, 1, 1, 0]);
-        this.divider        = new MyRectangle(this.scene, [1, 1, 2, 0]);
-        this.tenSecDigit    = new MyRectangle(this.scene, [2, 1, 3, 0]);
-        this.unitSecDigit   = new MyRectangle(this.scene, [3, 1, 4, 0]);
+        this.minDigit = new MyRectangle(this.scene, [-2, 2, -1, 0]);
+        this.minDigit.setTexAmplification(1,2);
+
+        this.divider = new MyRectangle(this.scene, [-1, 2, 0, 0]);
+        this.divider.setTexAmplification(1,2);
+
+        this.tenSecDigit = new MyRectangle(this.scene, [0, 2, 1, 0]);
+        this.tenSecDigit.setTexAmplification(1,2);
+
+        this.unitSecDigit = new MyRectangle(this.scene, [1, 2, 2, 0]);
+        this.unitSecDigit.setTexAmplification(1,2);
+
 
         // Needed textures - digits and digits divider
         this.digitTextures = [];
@@ -65,17 +74,23 @@ class ScoreBoard {
      * @return {null}
      */
     display() {
+
         this.scene.pushMatrix();
+            this.scene.translate( -3, 0, BOARD_SIZE / 2);
             this.displayScoreboard();
         this.scene.popMatrix();
 
-        /*this.scene.pushMatrix();
-            this.rotate(180 * DEGREE_TO_RAD, 0, 1, 0);
+        this.scene.pushMatrix();
+            this.scene.translate( BOARD_SIZE + 3, 0, BOARD_SIZE / 2);
+            this.scene.rotate(180 * DEGREE_TO_RAD, 0, 1, 0);
             this.displayScoreboard();
-        this.scene.popMatrix();*/
+        this.scene.popMatrix();
     }
 
     displayScoreboard() {
+        this.scene.scale(1, 0.6, 0.6);
+        this.scene.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
+
         this.digitTextures[this.currentUnitSec].apply();
         this.unitSecDigit.display();
 
@@ -100,12 +115,30 @@ class ScoreBoard {
         //if (this.currentTurnTime == null)
 
         if (currTime - this.lastUpdateTime >= this.updateTimeTimer) {
-            this.currentTurnTime++;
+            this.lastUpdateTime = currTime;
+            this.decrementCountDown();
         }
 
-        if (this.currentTurnTime > this.turnTime) {
+        if (!this.currentTurnTime) {
             //Trocar de jogador no game
         }
+    }
+
+    /**
+     * Decrement the current time of the countdown
+     * 
+     * @return {null}
+     */
+    decrementCountDown() {
+        if (this.currentTurnTime == 0)
+            return;
+
+        let minutes = Math.floor(--this.currentTurnTime / 60);
+        let seconds = this.currentTurnTime % 60;
+
+        this.currentMin = minutes;
+        this.currentTenSec = Math.floor(seconds / 10);
+        this.currentUnitSec = seconds % 10;
     }
 
     /**
