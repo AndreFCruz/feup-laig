@@ -122,18 +122,26 @@ class ScoreBoard {
         this.playerScore2.display();
     }
 
+    /**
+     * Update the scoreboard, with the current time, in mili seconds
+     * 
+     * @param {Number} currTime - time elapsed, in mili seconds
+     * @return {null}
+     */
     update(currTime) {
 
         if (this.gameRunning) {
-            if (this.turnStartTime == null) this.turnStartTime = currTime;
+            if (this.turnTime) {
+                if (this.turnStartTime == null) this.turnStartTime = currTime;
 
-            let previousTurnTime = this.currentTurnTime;
-            this.currentTurnTime = Math.round((this.turnStartTime + this.turnTime * 1000 - currTime) / 1000);
+                let previousTurnTime = this.currentTurnTime;
+                this.currentTurnTime = Math.round((this.turnStartTime + this.turnTime * 1000 - currTime) / 1000);
 
-            if (this.currentTurnTime == 0) {
-                this.timeOutFunction();
-            } else if (this.currentTurnTime != previousTurnTime) {
-                this.updateTimerDigits(this.currentTurnTime);
+                if (this.currentTurnTime == 0) {
+                    this.timeOutFunction();
+                } else if (this.currentTurnTime != previousTurnTime) {
+                    this.updateTimerDigits(this.currentTurnTime);
+                }
             }
         } else
             this.updateTimerDigits(this.turnTime);
@@ -142,7 +150,7 @@ class ScoreBoard {
     /**
      * Updates the timer digits with the given time
      * 
-     * @param {Numer} time
+     * @param {Numer} time - Time of timer, in mili seconds
      * @return {null}
      */
     updateTimerDigits(time) {
@@ -160,7 +168,6 @@ class ScoreBoard {
     gameBegan() {
         this.gameRunning = true;
         this.turnStartTime = null;
-        this.turnTime = 30;
     }
 
     /**
@@ -180,7 +187,7 @@ class ScoreBoard {
     incTimer1min() {
         this.turnTime += 60;
 
-        //Too loop around
+        // To loop around
         if (this.turnTime >= 600)
             this.turnTime -= 600;
 
