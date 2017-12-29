@@ -552,7 +552,7 @@ class Game {
                 this.switchPlayer();
                 break;
             default:
-                console.error("Unhandled state in handleMove. Check!");
+                console.error("Unhandled state in handleMove. Was: " + move.type);
                 return;
         }
 

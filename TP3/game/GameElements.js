@@ -36,8 +36,7 @@ class GameElements {
      * @return {null}
      */
     setUpGame() {
-        this.whiteInPlay = [];
-        this.blackInPlay = [];
+        this.piecesInPlay = [];
 
         // Initialize Object Pools
         this.whitePool = new ObjectPool(() => new WhitePiece([0, 0, 0]), NUMBER_PIECES);
@@ -90,18 +89,24 @@ class GameElements {
         let blackPieces = this.blackPool.elements;
         for (let i = 0; i < blackPieces.length; ++i)
             blackPieces[i].update(currTime);
+
+        for (let i = 0; i < this.piecesInPlay.length; ++i)
+            this.piecesInPlay[i].update(currTime);
+
+        for (let i = 0; i < this.workers.length; ++i)
+            this.workers[i].update(currTime);
     }
 
     fetchBlackPiece() {
         let piece = this.blackPool.acquire();
-        this.blackInPlay.push(piece);
+        this.piecesInPlay.push(piece);
 
         return piece;
     }
 
     fetchWhitePiece() {
         let piece = this.whitePool.acquire();
-        this.whiteInPlay.push(piece);
+        this.piecesInPlay.push(piece);
 
         return piece;
     }
@@ -124,19 +129,16 @@ class GameElements {
      * @return {null}
      */
     displayGame() {
-        let whitePieces = this.whitePool.elements;        
+        let whitePieces = this.whitePool.elements;
         for (let wPiece in whitePieces)
             this.scene.graph.displayPiece(whitePieces[wPiece]);
 
-        let blackPieces = this.blackPool.elements;            
+        let blackPieces = this.blackPool.elements;
         for (let bPiece in blackPieces)
             this.scene.graph.displayPiece(blackPieces[bPiece]);
 
-        for (let wPiece in this.whiteInPlay)
-            this.scene.graph.displayPiece(this.whiteInPlay[wPiece]);        
-        
-        for (let bPiece in this.blackInPlay)
-            this.scene.graph.displayPiece(this.blackInPlay[bPiece]);
+        for (let piece in this.piecesInPlay)
+            this.scene.graph.displayPiece(this.piecesInPlay[piece]);
 
         //There are always exactly two workers
         this.scene.registerForPick( WORKER_PICK_ID, this.workers[0]);

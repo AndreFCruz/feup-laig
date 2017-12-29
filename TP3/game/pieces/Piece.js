@@ -24,7 +24,7 @@ class Piece {
         this.elapsedTime = null;
         this.initialTime = null;
 
-        this.animation = null;        
+        this.animation = null;
     }
 
     get boardPos() {
@@ -33,8 +33,11 @@ class Piece {
 
     set boardPos(cell) {
         if (! cell) return;
+        let previousPos = this.position;
+
         this._boardPos = cell;
-        this.position = [cell[1], 0, cell[0]];
+
+        this.animation = new ArchAnimation(previousPos[0], previousPos[2], cell[1], cell[0]);
     }
 
     get position() {
@@ -93,8 +96,15 @@ class Piece {
             this.initialTime = elapsedTime;
         this.elapsedTime = elapsedTime;
         
-        if (this.animation != null)
-            this.animation.update(this.elapsedTime - this.initialTime);
+        if (this.animation == null) {
+            return;
+        } else if (this.animation.finished) {
+            this.position = [this.boardPos[1], 0, this.boardPos[0]];
+            this.animation = null;
+            return;
+        }
+        
+        this.animation.update(this.elapsedTime - this.initialTime);
     }
     
 }
