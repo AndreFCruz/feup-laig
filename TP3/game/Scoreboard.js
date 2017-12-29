@@ -149,7 +149,7 @@ class ScoreBoard {
         let minutes = Math.floor(time / 60);
         let seconds = time % 60;
 
-        this.currentMin = minutes;
+        this.currentMin = Math.abs(minutes); // on rare ocasions this abs is needed
         this.currentTenSec = Math.abs(Math.floor(seconds / 10));
         this.currentUnitSec = Math.abs(seconds % 10);
     }

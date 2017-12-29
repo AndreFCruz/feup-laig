@@ -37,7 +37,8 @@ class Piece {
 
         this._boardPos = cell;
 
-        this.animation = new ArchAnimation(previousPos[0], previousPos[2], cell[1], cell[0]);
+        this.animation = new ArchAnimation(previousPos[0], previousPos[2], cell[1], cell[0],
+            this.type != 'worker');
     }
 
     get position() {

@@ -4,7 +4,7 @@
  */
 class ArchAnimation extends Animation {
 
-    constructor (xi, zi, xf, zf) {
+    constructor (xi, zi, xf, zf, flip = false) {
         super();
         this.xi = xi;
         this.zi = zi;
@@ -25,6 +25,7 @@ class ArchAnimation extends Animation {
         this.previousTick = null;
 
         this.finished = false;
+        this.flip = flip;
     }
 
     update (currTime) {
@@ -41,7 +42,7 @@ class ArchAnimation extends Animation {
 
         this.dx = (this.xf - this.xi) * deltaTime / this.time;
         this.dz = (this.zf - this.zi) * deltaTime / this.time;
-        var angle = this.angle * deltaTime / this.time;
+        let angle = this.angle * deltaTime / this.time;
 
         this.currX += this.dx;
         this.currZ += this.dz;
@@ -55,11 +56,13 @@ class ArchAnimation extends Animation {
 
     updateMatrix() {
         mat4.identity(this.matrix);
-        mat4.translate(this.matrix, this.matrix, [this.currX, this.currY, this.currZ]);
-
-        // console.log("** TICK **");
-        // console.log("dx: " + this.dx + ". dz: " + this.dz);
-        // console.log("currX: " + this.currX + ". currZ: " + this.currZ + ". currY: " + this.currY);        
-        // console.log("elapsedAngle: " + this.elapsedAngle + "acumulatedDistance: " + this.acumulatedDistance);
+        
+        if (this.flip) {
+            mat4.translate(this.matrix, this.matrix, [this.currX + 0.5, this.currY, this.currZ + 0.5]);
+            mat4.rotate(this.matrix, this.matrix, this.elapsedAngle * 10, [1, 0, 0]);
+            mat4.translate(this.matrix, this.matrix, [-0.5, -0.075, -0.5]);
+        } else {
+            mat4.translate(this.matrix, this.matrix, [this.currX, this.currY, this.currZ]);
+        }
     }
 }
