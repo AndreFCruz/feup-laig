@@ -1,5 +1,3 @@
-
-
 /**
  * A class representing the Scoreboard
  */
@@ -22,10 +20,6 @@ class ScoreBoard {
         this.turnTime = 0;
         this.currentTurnTime = 0;
         this.gameRunning = false;
-
-        this.lastUpdateTime = 0;
-        // Updates the timer each second
-        this.updateTimeTimer = 1000;
 
         // Initialize the fixed graphic elements of the scoreboard
         this.initGraphics();
@@ -118,7 +112,7 @@ class ScoreBoard {
         this.divider.display();
 
         this.scene.registerForPick( TIMER_PICK_ID + 1, this.minDigit);
-        this.digitTextures[this.currentMin].apply();
+        this.digitTextures[this.currentMin % 10].apply();
         this.minDigit.display();
 
         this.digitTextures[this.wonGames1].apply();
@@ -128,22 +122,18 @@ class ScoreBoard {
         this.playerScore2.display();
     }
 
-    /**
-     * Get the Cell's row in the board, for using in PLOG
-     * 
-     * @param {Number} currTime - time elapsed, in mili seconds
-     * @return {null}
-     */
     update(currTime) {
 
         if (this.gameRunning) {
-            if (currTime - this.lastUpdateTime >= this.updateTimeTimer) {
-                if (this.currentTurnTime) {
-                    this.lastUpdateTime = currTime;
-                    this.updateTimerDigits(--this.currentTurnTime);
-                } else {
-                    this.timeOutFunction();
-                }
+            if (this.turnStartTime == null) this.turnStartTime = currTime;
+
+            let previousTurnTime = this.currentTurnTime;
+            this.currentTurnTime = Math.round((this.turnStartTime + this.turnTime * 1000 - currTime) / 1000);
+
+            if (this.currentTurnTime == 0) {
+                this.timeOutFunction();
+            } else if (this.currentTurnTime != previousTurnTime) {
+                this.updateTimerDigits(this.currentTurnTime);
             }
         } else
             this.updateTimerDigits(this.turnTime);
@@ -169,7 +159,8 @@ class ScoreBoard {
      */
     gameBegan() {
         this.gameRunning = true;
-        this.currentTurnTime = this.turnTime;
+        this.turnStartTime = null;
+        this.turnTime = 30;
     }
 
     /**
@@ -178,7 +169,7 @@ class ScoreBoard {
      * @return {Number} - The Cell's column
      */
     startNewTurn() {
-        this.currentTurnTime = this.turnTime;
+        this.turnStartTime = null;
     }
 
     /**
