@@ -472,6 +472,8 @@ class Game {
             this.player2 = playerType2;
             this.currentPlayer = 1;
             this.currentState = nextState;
+            this.pickedWorker = null;
+            this.pcikedCell = null;
             this.alert.showGameStart(playerType1, playerType2);
             this.scoreboard.gameBegan();
         } else
