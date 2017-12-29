@@ -30,7 +30,7 @@ class Game {
     constructor(scene) {
 
         this.gameElements = new GameElements(scene);
-        this.scoreboard = new ScoreBoard(scene);
+        this.scoreboard = new ScoreBoard(scene, this.resetTimeOutGame);
 
         this.state = {
             NO_GAME_RUNNING : 1,
@@ -492,7 +492,16 @@ class Game {
         this.board = null;
         this.previousBoard = null;
         this.alert.showWinner(str);
-        this.scoreboard.gameRunning = false;
+    }
+
+    /**
+     * A player lost because of a time out on the scoreboard! 
+     * 
+     * @return {null}
+     */
+    resetTimeOutGame() {
+        let winner = 'victory ' + (this.currentPlayer == 1? PLAYER1_SIDE : PLAYER2_SIDE);
+        this.scene.game.resetGame(winner);
     }
 
     /**

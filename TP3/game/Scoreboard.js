@@ -9,10 +9,12 @@ class ScoreBoard {
      * Constructor for the scoreboard class
      * 
      * @param {Object} scene - The lighting scene where the scoreboard will be
+     * @param {String} timeOutFunction - Function to be called when a timeout happens
      * @constructor
      */
-    constructor(scene) {
+    constructor(scene, timeOutFunction) {
         this.scene = scene;
+        this.timeOutFunction = timeOutFunction;
 
         this.wonGames1 = 0;
         this.wonGames2 = 0;
@@ -140,7 +142,7 @@ class ScoreBoard {
                     this.lastUpdateTime = currTime;
                     this.updateTimerDigits(--this.currentTurnTime);
                 } else {
-                    //Trocar de jogador no game
+                    this.timeOutFunction();
                 }
             }
         } else
@@ -202,6 +204,21 @@ class ScoreBoard {
         this.turnTime += 10;
     }
 
+    /**
+     * Inform the scoreboard that the given player won the game
+     * 
+     * @param {Number} player - The player that won the game
+     * @return {null}
+     */
+    playerWin(player) {
+        this.gameRunning = false;
+
+        if (player == 1)
+            this.wonGames1++;
+        else
+            this.wonGames2++;
+    }
+    
     /**
      * Handle the picked timer digit
      * 

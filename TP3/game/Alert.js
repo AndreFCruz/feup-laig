@@ -60,12 +60,13 @@ class Alert {
     showWinner(str) {
         let msg = str.split(" ");
         if (msg[0] == 'victory') {
+            let winner = (msg[1] == PLAYER1_SIDE? 1 : 2);
             swal( 
-                'Player ' + (msg[1] == PLAYER1_SIDE? 1 : 2) + ' wins!',
+                'Player ' + winner + ' wins!',
                 'Congratulations!',
                 'success'
             )
-            // TODO possibly increment the game counter here
+            this.game.scoreboard.playerWin(winner);
         } else
             console.error("Received unexpected message from PROLOG");
     }
