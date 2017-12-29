@@ -355,8 +355,7 @@ class Game {
             this.alert.chooseFirstPlayer(this.state.WAIT_WORKER_H_VS_H,
                                          this.state.WAIT_WORKER_H_VS_H);
             this.currentState = this.state.WAIT_SWAL_INPUT;
-            this.pickedCell = null;
-            this.pickedWorker = null;
+            this.resetGameFlags();
         }
     }
 
@@ -375,7 +374,7 @@ class Game {
                 this.pickedCell.getCol() + ')'
             );
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
-            this.pickedCell = null;
+            this.resetGameFlags();
         }
     }
 
@@ -400,8 +399,7 @@ class Game {
                     this.pickedCell.getCol() + ')'
                 );
                 this.currentState = putPieceState;
-                this.pickedWorker = null;
-                this.pickedCell = null;
+                this.resetGameFlags();
             }
         } else this.waitPieceH(nextState);
     }
@@ -422,8 +420,7 @@ class Game {
                 this.pickedCell.getCol() + ')'
             );
             this.currentState = nextState;
-            this.pickedWorker = null;
-            this.pickedCell = null;
+            this.resetGameFlags();
         }
     }
 
@@ -472,6 +469,7 @@ class Game {
             this.player2 = playerType2;
             this.currentPlayer = 1;
             this.currentState = nextState;
+            this.resetGameFlags();
             this.alert.showGameStart(playerType1, playerType2);
             this.scoreboard.gameBegan();
         } else
@@ -490,6 +488,16 @@ class Game {
         this.previousBoard = null;
         this.alert.showWinner(str);
         this.gameElements.resetGame();
+    }
+
+    /**
+     * Reset the game flags that indicate if a worker or cell was picked
+     * 
+     * @return {null}
+     */
+    resetGameFlags() {
+        this.pickedWorker = null;
+        this.pickedCell = null;
     }
 
     /**
