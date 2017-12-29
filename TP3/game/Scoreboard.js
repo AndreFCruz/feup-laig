@@ -9,17 +9,18 @@ class ScoreBoard {
      * @param {Object} scene - The lighting scene where the scoreboard will be
      * @constructor
      */
-    constructor(scene) {
+    constructor(scene, alert) {
         this.scene = scene;
+        this.alert = alert;
 
-        this.player1Points = 0;
-        this.player2Points = 0;
+        this.wonGames1 = 0;
+        this.wonGames2 = 0;
 
         this.turnTime = 0;
-        this.currentTurnTime = 600;
+        this.currentTurnTime = 0;
 
         this.lastUpdateTime = 0;
-        // Updates each the timer second
+        // Updates the timer each second
         this.updateTimeTimer = 1000;
 
         // Initialize the fixed graphic elements of the scoreboard
@@ -45,6 +46,12 @@ class ScoreBoard {
 
         this.unitSecDigit = new MyRectangle(this.scene, [1, 2, 2, 0]);
         this.unitSecDigit.setTexAmplification(1,2);
+
+        this.playerScore1 = new MyRectangle(this.scene, [-5, 3, -3, -1]);
+        this.playerScore1.setTexAmplification(2,4);
+
+        this.playerScore2 = new MyRectangle(this.scene, [ 3, 3,  5, -1]);
+        this.playerScore2.setTexAmplification(2,4);
 
 
         // Needed textures - digits and digits divider
@@ -102,6 +109,12 @@ class ScoreBoard {
 
         this.digitTextures[this.currentMin].apply();
         this.minDigit.display();
+
+        this.digitTextures[this.wonGames1].apply();
+        this.playerScore1.display();
+
+        this.digitTextures[this.wonGames2].apply();
+        this.playerScore2.display();
     }
 
     /**
