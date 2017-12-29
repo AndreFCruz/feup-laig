@@ -359,6 +359,8 @@ class Game {
             this.alert.chooseFirstPlayer(this.state.WAIT_WORKER_H_VS_H,
                                          this.state.WAIT_WORKER_H_VS_H);
             this.currentState = this.state.WAIT_SWAL_INPUT;
+            this.pickedCell = null;
+            this.pickedWorker = null;
         }
     }
 
@@ -426,6 +428,7 @@ class Game {
             );
             // this.switchPlayer();
             this.currentState = nextState;
+            this.pickedWorker = null;
             this.pickedCell = null;
         }
     }
