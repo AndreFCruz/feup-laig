@@ -291,7 +291,7 @@ class Game {
                 this.communication.parseBoardToPlog(this.board) + ',' + 
                 this.getPlayerSide() + ')'
             );
-            this.switchPlayer();
+            // this.switchPlayer();
         }
     }
 
@@ -309,7 +309,7 @@ class Game {
             this.getPlayerSide() + ',' + 
             this.communication.parseBoardToPlog(this.board) + ')'
         );
-        this.switchPlayer();
+        // this.switchPlayer();
         this.currentState = nextState;
     }
 
@@ -332,7 +332,7 @@ class Game {
                 this.communication.parseBoardToPlog(this.board) + ',' + 
                 this.getPlayerSide() + ')'
             );
-            this.switchPlayer();
+            // this.switchPlayer();
         }
     }
 
@@ -351,7 +351,7 @@ class Game {
                 this.pickedCell.getCol() + ')'
             );
 
-            this.switchPlayer();
+            // this.switchPlayer();
             this.pickedCell = null;
         }
 
@@ -376,7 +376,7 @@ class Game {
                 this.pickedCell.getRow() + ',' +
                 this.pickedCell.getCol() + ')'
             );
-            this.switchPlayer();
+            // this.switchPlayer();
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
             this.pickedCell = null;
         }
@@ -424,7 +424,7 @@ class Game {
                 this.pickedCell.getRow() + ',' +
                 this.pickedCell.getCol() + ')'
             );
-            this.switchPlayer();
+            // this.switchPlayer();
             this.currentState = nextState;
             this.pickedCell = null;
         }
@@ -538,15 +538,18 @@ class Game {
         switch (move.type) {
             case this.moveType.SET_WORKER:
                 piece = this.gameElements.fetchWorker();
+                this.switchPlayer();
                 break;
             case this.moveType.MOVE_WORKER:
                 piece = this.gameElements.fetchWorker(move.previousCell);
                 break;
             case this.moveType.SET_BLACK:
                 piece = this.gameElements.fetchBlackPiece();
+                this.switchPlayer();
                 break;
             case this.moveType.SET_WHITE:
                 piece = this.gameElements.fetchWhitePiece();
+                this.switchPlayer();
                 break;
             default:
                 console.error("Unhandled state in handleMove. Check!");

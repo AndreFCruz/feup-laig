@@ -151,7 +151,7 @@ class ScoreBoard {
 
         this.currentMin = minutes;
         this.currentTenSec = Math.floor(seconds / 10);
-        this.currentUnitSec = seconds % 10;
+        this.currentUnitSec = Math.abs(seconds % 10);
     }
 
     /**

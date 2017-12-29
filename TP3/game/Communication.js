@@ -57,7 +57,6 @@ class Communication {
 
             if (this.status != 200) {
                 console.error("Server denied request.");
-                // TODO visual cue for error in action
                 swal('Invalid Move', 'Please select a cell in the intersection of the lines of sight of the two workers', 'error');
             } else {
                 communication.handleServerAnswer(serverAnswer);
