@@ -17,7 +17,7 @@ class ArchAnimation extends Animation {
 
         this.distance = Math.sqrt(Math.pow(this.xf - this.xi, 2) + Math.pow(this.zf - this.zi, 2));
         this.acumulatedDistance = 0;
-        this.time = this.distance * 200;
+        this.time = 500 + this.distance * 50;
 
         this.angle = Math.PI;
         this.elapsedAngle = 0;
@@ -59,7 +59,7 @@ class ArchAnimation extends Animation {
         
         if (this.flip) {
             mat4.translate(this.matrix, this.matrix, [this.currX + 0.5, this.currY, this.currZ + 0.5]);
-            mat4.rotate(this.matrix, this.matrix, this.elapsedAngle * 10, [1, 0, 0]);
+            mat4.rotate(this.matrix, this.matrix, this.elapsedAngle * 8, [1, 0, 0]);
             mat4.translate(this.matrix, this.matrix, [-0.5, -0.075, -0.5]);
         } else {
             mat4.translate(this.matrix, this.matrix, [this.currX, this.currY, this.currZ]);
