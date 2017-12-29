@@ -291,7 +291,6 @@ class Game {
                 this.communication.parseBoardToPlog(this.board) + ',' + 
                 this.getPlayerSide() + ')'
             );
-            // this.switchPlayer();
         }
     }
 
@@ -309,7 +308,6 @@ class Game {
             this.getPlayerSide() + ',' + 
             this.communication.parseBoardToPlog(this.board) + ')'
         );
-        // this.switchPlayer();
         this.currentState = nextState;
     }
 
@@ -332,7 +330,6 @@ class Game {
                 this.communication.parseBoardToPlog(this.board) + ',' + 
                 this.getPlayerSide() + ')'
             );
-            // this.switchPlayer();
         }
     }
 
@@ -351,7 +348,6 @@ class Game {
                 this.pickedCell.getCol() + ')'
             );
 
-            // this.switchPlayer();
             this.pickedCell = null;
         }
 
@@ -378,7 +374,6 @@ class Game {
                 this.pickedCell.getRow() + ',' +
                 this.pickedCell.getCol() + ')'
             );
-            // this.switchPlayer();
             this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
             this.pickedCell = null;
         }
@@ -426,7 +421,6 @@ class Game {
                 this.pickedCell.getRow() + ',' +
                 this.pickedCell.getCol() + ')'
             );
-            // this.switchPlayer();
             this.currentState = nextState;
             this.pickedWorker = null;
             this.pickedCell = null;
@@ -535,7 +529,17 @@ class Game {
     handleMove() {
         if (! (this.previousBoard && this.board) ) return;
 
-        let move = this.boardDifference(this.previousBoard, this.board);
+        let moves = this.boardDifference(this.previousBoard, this.board);
+
+        if (moves.workerMove.type != null) {
+            this.processSingleMove(moves.workerMove);
+        }
+        if (moves.pieceMove.type != null) {
+            this.processSingleMove(moves.pieceMove);
+        }
+    }
+
+    processSingleMove(move) {
         let piece = null;
 
         switch (move.type) {
@@ -555,7 +559,7 @@ class Game {
                 this.switchPlayer();
                 break;
             default:
-                console.error("Unhandled state in handleMove. Was: " + move.type);
+                console.warn("Unhandled state in handleMove. Was: " + move.type);
                 return;
         }
 
@@ -563,7 +567,12 @@ class Game {
     }
 
     boardDifference(previousBoard, currentBoard) {
-        let move = {type: null, previousCell: null, currentCell: null};
+        let Move = function() {
+            this.type = null;
+            this.previousCell = null;
+            this.currentCell = null;
+        };
+        let moves = {workerMove: new Move(), pieceMove: new Move()};
 
         for (let row = 0; row < previousBoard.length; row++) {
             for (let col = 0; col < previousBoard[row].length; col++) {
@@ -574,27 +583,27 @@ class Game {
                     continue;
         
                 if (previousEl == 'worker' && currentEl == 'none') {
-                    move.type = this.moveType.MOVE_WORKER;
-                    move.previousCell = [row, col];
+                    moves.workerMove.type = this.moveType.MOVE_WORKER;
+                    moves.workerMove.previousCell = [row, col];
                 } else if (previousEl == 'none' && currentEl == 'worker') {
-                    move.type = this.moveType.MOVE_WORKER;
-                    move.currentCell = [row, col];
+                    moves.workerMove.type = this.moveType.MOVE_WORKER;
+                    moves.workerMove.currentCell = [row, col];
                 } else if (previousEl == 'none' && currentEl == 'black') {
-                    move.type = this.moveType.SET_BLACK;
-                    move.currentCell = [row, col];
+                    moves.pieceMove.type = this.moveType.SET_BLACK;
+                    moves.pieceMove.currentCell = [row, col];
                 } else if (previousEl == 'none' && currentEl == 'white') {
-                    move.type = this.moveType.SET_WHITE;
-                    move.currentCell = [row, col];
+                    moves.pieceMove.type = this.moveType.SET_WHITE;
+                    moves.pieceMove.currentCell = [row, col];
                 } else {
                     console.error("Unhandled situation in boardDifference. Check!");
                 }
             }
         }
 
-        if (move.previousCell == null && move.type == this.moveType.MOVE_WORKER)
-            move.type = this.moveType.SET_WORKER;
+        if (moves.workerMove.previousCell == null && moves.workerMove.type != null)
+            moves.workerMove.type = this.moveType.SET_WORKER;
 
-        return move;
+        return moves;
     }
 
 }
