@@ -103,6 +103,8 @@ class Game {
             this.currentPlayer = (this.currentPlayer % 2) + 1;
         else
             console.error('No current player is set, can not switch between players');
+
+        this.scoreboard.startNewTurn();
     }
 
     /**
@@ -474,6 +476,7 @@ class Game {
             this.currentPlayer = 1;
             this.currentState = nextState;
             this.alert.showGameStart(playerType1, playerType2);
+            this.scoreboard.gameBegan();
         } else
             this.alert.gameRunning();
     }
@@ -489,6 +492,7 @@ class Game {
         this.board = null;
         this.previousBoard = null;
         this.alert.showWinner(str);
+        this.scoreboard.gameRunning = false;
     }
 
     /**

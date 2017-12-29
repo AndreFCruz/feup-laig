@@ -96,6 +96,11 @@ class ScoreBoard {
         this.scene.popMatrix();
     }
 
+    /**
+     * Display the scoreboard elements in the screen: player won games and timer countdown
+     * 
+     * @return {null}
+     */
     displayScoreboard() {
         this.scene.scale(1, 0.6, 0.6);
         this.scene.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
@@ -130,32 +135,16 @@ class ScoreBoard {
     update(currTime) {
 
         if (this.gameRunning) {
-            if ((currTime - this.lastUpdateTime >= this.updateTimeTimer) && this.currentTurnTime)
-                updateTimerDigits(-this.currentTurnTime);
-
+            if (currTime - this.lastUpdateTime >= this.updateTimeTimer) {
+                if (this.currentTurnTime) {
+                    this.lastUpdateTime = currTime;
+                    this.updateTimerDigits(--this.currentTurnTime);
+                } else {
+                    //Trocar de jogador no game
+                }
+            }
         } else
             this.updateTimerDigits(this.turnTime);
-
-        if (!this.currentTurnTime) {
-            //Trocar de jogador no game
-        }
-    }
-
-    /**
-     * Decrement the current time of the countdown
-     * 
-     * @return {null}
-     */
-    decrementCountDown() {
-        if (this.currentTurnTime == 0)
-            return;
-
-        let minutes = Math.floor(--this.currentTurnTime / 60);
-        let seconds = this.currentTurnTime % 60;
-
-        this.currentMin = minutes;
-        this.currentTenSec = Math.floor(seconds / 10);
-        this.currentUnitSec = seconds % 10;
     }
 
     /**
@@ -171,6 +160,14 @@ class ScoreBoard {
         this.currentMin = minutes;
         this.currentTenSec = Math.floor(seconds / 10);
         this.currentUnitSec = seconds % 10;
+    }
+
+    /**
+     * Indicate the Scoreboard that a new game began
+     */
+    gameBegan() {
+        this.gameRunning = true;
+        this.currentTurnTime = this.turnTime;
     }
 
     /**
@@ -202,7 +199,6 @@ class ScoreBoard {
      * @return {null}
      */
     incTimer10sec() {
-        //Too loop around
         this.turnTime += 10;
     }
 
