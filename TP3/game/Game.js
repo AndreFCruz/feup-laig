@@ -26,6 +26,7 @@ class Game {
     constructor(scene) {
 
         this.gameElements = new GameElements(scene);
+        this.scoreboard = new ScoreBoard(scene);
 
         this.state = {
             NO_GAME_RUNNING : 1,
@@ -152,6 +153,7 @@ class Game {
      */
     displayGame() {
         this.gameElements.displayGame();
+        this.scoreboard.display();
     }
 
     /**
@@ -162,6 +164,7 @@ class Game {
      */
     update(currTime) {
         this.gameElements.update(currTime);
+        //this.scoreboard.update(currTime);
 
         if (this.communication.boardChanged) {
             this.previousBoard = this.board;
