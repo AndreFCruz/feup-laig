@@ -160,6 +160,8 @@ class GameElements {
             }
         }
 
+        this.scene.clearPickRegistration();
+
         this.scene.setDefaultShader();
     }
 

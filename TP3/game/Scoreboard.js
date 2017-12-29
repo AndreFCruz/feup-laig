@@ -69,8 +69,6 @@ class ScoreBoard {
         this.currentUnitSec = 0;
         this.currentTenSec = 0;
         this.currentMin = 0;
-
-        //TODO: Missing game results
     }
 
     /**
@@ -107,6 +105,7 @@ class ScoreBoard {
         this.scene.registerForPick( TIMER_PICK_ID, this.tenSecDigit);
         this.digitTextures[this.currentTenSec].apply();
         this.tenSecDigit.display();
+        this.scene.clearPickRegistration();
 
         this.dividerTex.apply();
         this.divider.display();
@@ -114,6 +113,7 @@ class ScoreBoard {
         this.scene.registerForPick( TIMER_PICK_ID + 1, this.minDigit);
         this.digitTextures[this.currentMin % 10].apply();
         this.minDigit.display();
+        this.scene.clearPickRegistration();
 
         this.digitTextures[this.wonGames1].apply();
         this.playerScore1.display();
