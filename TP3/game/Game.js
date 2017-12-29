@@ -1,7 +1,11 @@
 /**
  * Constant used for worker picking ID
  */
-const WORKER_PICK_ID = 1000;
+const WORKER_PICK_ID = 200;
+/**
+ * Constant used for timer picking ID
+ */
+const TIMER_PICK_ID = 100;
 /**
  * Constant for knowing the player1 Prolog correspondent Side
  */
@@ -497,6 +501,12 @@ class Game {
 
         if (pickedId >= WORKER_PICK_ID)
             this.pickedWorker = this.gameElements.workers[pickedId - WORKER_PICK_ID];
+
+        else if (pickedId >= TIMER_PICK_ID)
+            (this.currentState != this.state.NO_GAME_RUNNING?
+                this.alert.gameRunning() :
+                this.scoreboard.handlePick(pickedId));
+
         else {
             // In cells, the 1st digit is the row and the 2nd digit the column
             // - 1 because picking rows start at 1 and indexes at 0

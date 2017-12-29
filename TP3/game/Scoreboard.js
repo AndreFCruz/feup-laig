@@ -1,3 +1,5 @@
+
+
 /**
  * A class representing the Scoreboard
  */
@@ -9,15 +11,15 @@ class ScoreBoard {
      * @param {Object} scene - The lighting scene where the scoreboard will be
      * @constructor
      */
-    constructor(scene, alert) {
+    constructor(scene) {
         this.scene = scene;
-        this.alert = alert;
 
         this.wonGames1 = 0;
         this.wonGames2 = 0;
 
         this.turnTime = 0;
         this.currentTurnTime = 0;
+        this.gameRunning = false;
 
         this.lastUpdateTime = 0;
         // Updates the timer each second
@@ -101,12 +103,14 @@ class ScoreBoard {
         this.digitTextures[this.currentUnitSec].apply();
         this.unitSecDigit.display();
 
+        this.scene.registerForPick( TIMER_PICK_ID, this.tenSecDigit);
         this.digitTextures[this.currentTenSec].apply();
         this.tenSecDigit.display();
 
         this.dividerTex.apply();
         this.divider.display();
 
+        this.scene.registerForPick( TIMER_PICK_ID + 1, this.minDigit);
         this.digitTextures[this.currentMin].apply();
         this.minDigit.display();
 
@@ -125,12 +129,12 @@ class ScoreBoard {
      */
     update(currTime) {
 
-        //if (this.currentTurnTime == null)
+        if (this.gameRunning) {
+            if ((currTime - this.lastUpdateTime >= this.updateTimeTimer) && this.currentTurnTime)
+                updateTimerDigits(-this.currentTurnTime);
 
-        if (currTime - this.lastUpdateTime >= this.updateTimeTimer) {
-            this.lastUpdateTime = currTime;
-            this.decrementCountDown();
-        }
+        } else
+            this.updateTimerDigits(this.turnTime);
 
         if (!this.currentTurnTime) {
             //Trocar de jogador no game
@@ -155,6 +159,21 @@ class ScoreBoard {
     }
 
     /**
+     * Updates the timer digits with the given time
+     * 
+     * @param {Numer} time
+     * @return {null}
+     */
+    updateTimerDigits(time) {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+
+        this.currentMin = minutes;
+        this.currentTenSec = Math.floor(seconds / 10);
+        this.currentUnitSec = seconds % 10;
+    }
+
+    /**
      * Start a new countdown in the timer for a new turn
      * 
      * @return {Number} - The Cell's column
@@ -170,6 +189,11 @@ class ScoreBoard {
      */
     incTimer1min() {
         this.turnTime += 60;
+
+        //Too loop around
+        if (this.turnTime >= 600)
+            this.turnTime -= 600;
+
     }
 
     /**
@@ -178,7 +202,21 @@ class ScoreBoard {
      * @return {null}
      */
     incTimer10sec() {
+        //Too loop around
         this.turnTime += 10;
+    }
+
+    /**
+     * Handle the picked timer digit
+     * 
+     * @param {Number} - The ID of the picked element
+     * @return {null}
+     */
+    handlePick(pickedId) {
+        if (pickedId == TIMER_PICK_ID)
+            this.incTimer10sec();
+        else
+            this.incTimer1min();
     }
 
 }
