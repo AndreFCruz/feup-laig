@@ -489,6 +489,7 @@ class Game {
         this.board = null;
         this.previousBoard = null;
         this.alert.showWinner(str);
+        this.gameElements.resetGame();
     }
 
     /**
@@ -582,16 +583,18 @@ class Game {
                 if (previousEl == currentEl)
                     continue;
         
-                if (previousEl == 'worker' && currentEl == 'none') {
+                if (previousEl == 'worker') {
                     moves.workerMove.type = this.moveType.MOVE_WORKER;
                     moves.workerMove.previousCell = [row, col];
-                } else if (previousEl == 'none' && currentEl == 'worker') {
+                }
+                
+                if (currentEl == 'worker') {
                     moves.workerMove.type = this.moveType.MOVE_WORKER;
                     moves.workerMove.currentCell = [row, col];
-                } else if (previousEl == 'none' && currentEl == 'black') {
+                } else if (currentEl == 'black') {
                     moves.pieceMove.type = this.moveType.SET_BLACK;
                     moves.pieceMove.currentCell = [row, col];
-                } else if (previousEl == 'none' && currentEl == 'white') {
+                } else if (currentEl == 'white') {
                     moves.pieceMove.type = this.moveType.SET_WHITE;
                     moves.pieceMove.currentCell = [row, col];
                 } else {

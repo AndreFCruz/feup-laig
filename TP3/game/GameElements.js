@@ -123,6 +123,30 @@ class GameElements {
         return null;
     }
 
+    resetGame() {
+        // Release all pieces from play into the pools
+        for (let i = 0; i < this.piecesInPlay.length; ++i) {
+            let piece = this.piecesInPlay[i];
+            if (piece.type == 'black piece')
+                this.blackPool.release(piece);
+            else if (piece.type == 'white piece')
+                this.whitePool.release(piece);
+        }
+        this.piecesInPlay = [];
+
+        // Move them to the borders
+        for (let i = 0; i < NUMBER_PIECES; ++i) {
+            this.whitePool.elements[i].moveTo(-2 + i * .5, -1.2 - (i % 2 ? 0 : 0.7));
+            this.blackPool.elements[i].moveTo(-2 + i * .5, 9.2 + (i % 2 ? 0 : 0.7));
+        }
+
+        // Reset workers and move them to the borders
+        for (let i = 0; i < this.workers.length; ++i) {
+            this.workers[i].boardPos = null;
+            this.workers[i].moveTo(-1, i);
+        }
+    }
+
     /**
      * Displays the game associated elements, such as: board cells and pieces
      * 

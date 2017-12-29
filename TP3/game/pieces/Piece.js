@@ -32,13 +32,10 @@ class Piece {
     }
 
     set boardPos(cell) {
-        if (! cell) return;
-        let previousPos = this.position;
-
         this._boardPos = cell;
+        if (! cell) return;
 
-        this.animation = new ArchAnimation(previousPos[0], previousPos[2], cell[1], cell[0],
-            this.type != 'worker');
+        this.moveTo(cell[1], cell[0]);
     }
 
     get position() {
@@ -50,6 +47,14 @@ class Piece {
 
         this.positionMatrix = mat4.create();
         mat4.translate(this.positionMatrix, this.positionMatrix, pos);
+    }
+
+    moveTo(targetX, targetZ) {
+        let previousPos = this.position;
+        this.animation = new ArchAnimation(
+            previousPos[0], previousPos[2], targetX, targetZ,
+            this.type != 'worker'
+        );
     }
 
     /**
@@ -100,7 +105,7 @@ class Piece {
         if (this.animation == null) {
             return;
         } else if (this.animation.finished) {
-            this.position = [this.boardPos[1], 0, this.boardPos[0]];
+            this.position = [this.animation.xf, 0, this.animation.zf];
             this.animation = null;
             return;
         }
