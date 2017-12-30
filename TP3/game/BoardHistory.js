@@ -6,7 +6,8 @@ class BoardHistory {
             SET_BLACK: 'set black',
             SET_WHITE: 'set white',
             UNDO_WHITE: 'undo white',
-            UNDO_BLACK: 'undo black'
+            UNDO_BLACK: 'undo black',
+            UNDO_WORKER: 'undo worker'
         };
 
         this.reset();
@@ -52,6 +53,11 @@ class BoardHistory {
 
     undoLastMove() {
         let move = this.getLastMoveReversed();
+        if ( (this.boards.length > 2 && move.workerMove.type == this.moveType.UNDO_WORKER) ||
+             (move.pieceMove.type == null && move.workerMove.type == null) ) {
+            return null;
+        }
+
         this.boards.pop();
 
         return move;
@@ -97,14 +103,17 @@ class BoardHistory {
                     moves.pieceMove.type = this.moveType.UNDO_BLACK;
                     moves.pieceMove.currentCell = null;
                     moves.pieceMove.previousCell = [row, col];      
-                } else {
-                    console.error("Unhandled situation in boardDifference. Check!");
+                } else if (! (previousEl == 'worker' && currentEl == 'none') ) {
+                    console.error("Unhandled situation in boardDifference. " + previousEl + " -> " + currentEl);
                 }
             }
         }
 
-        if (moves.workerMove.previousCell == null && moves.workerMove.type != null)
+        if (moves.workerMove.previousCell == null && moves.workerMove.type != null) {
             moves.workerMove.type = this.moveType.SET_WORKER;
+        } else if (moves.workerMove.currentCell == null && moves.workerMove.type != null) {
+            moves.workerMove.type = this.moveType.UNDO_WORKER;
+        }   
 
         return moves;
     }

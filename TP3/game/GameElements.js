@@ -63,10 +63,6 @@ class GameElements {
                 this.boardCells[i][j] = new BoardCell(this.scene, [BOARD_SIZE - 1 - i, j]);
             }
         }
-
-        // Number of pieces released from play (due to undos)
-        this.numBlackReleased = 0;
-        this.numWhiteReleased = 0;
     }
 
     /**
@@ -104,7 +100,6 @@ class GameElements {
     fetchBlackPiece() {
         let piece = this.blackPool.acquire();
         this.piecesInPlay.push(piece);
-        this.numBlackReleased--;
 
         return piece;
     }
@@ -112,7 +107,6 @@ class GameElements {
     fetchWhitePiece() {
         let piece = this.whitePool.acquire();
         this.piecesInPlay.push(piece);
-        this.numWhiteReleased--;
 
         return piece;
     }
@@ -130,25 +124,37 @@ class GameElements {
         return piece;
     }
 
-    releasePiece(piece) {
-        if (! piece) return;
+    releasePiece(pos) {
+        let piece = this.fetchPieceInPlay(pos);
+        if (! (piece && pos) ) return;
 
         let index = this.piecesInPlay.indexOf(piece);
         this.piecesInPlay.splice(index, 1);
 
         // position on the side of the board
-        let i = NUMBER_PIECES - 1;
         if (piece.type[0] == 'b') { // black piece
             this.blackPool.release(piece);
-            i -= ++this.numBlackReleased;
+            let i = this.blackPool.elements.length - 1;
             piece.moveTo(-2 + i * .5, 9.2 + (i % 2 ? 0 : 0.7));
         } else if (piece.type[0] == 'w') { // white piece
             this.whitePool.release(piece);
-            i -= ++this.numWhiteReleased;
+            let i = this.whitePool.elements.length - 1;            
             piece.moveTo(-2 + i * .5, -1.2 - (i % 2 ? 0 : 0.7));
         }
 
         piece.boardPos = null;
+    }
+
+    releaseWorker(pos) {
+        let worker = this.fetchWorker(pos);
+        if (! (worker && pos) ) return;
+
+        let index = this.workers.indexOf(worker);
+        worker.boardPos = null;
+        
+        // Is other worker in play ?
+        let otherWorkerInPlay = (this.workers[(index + 1) % 2].boardPos != null);
+        worker.moveTo(-1, otherWorkerInPlay ? 0 : 1);
     }
 
     fetchWorker(pos = null) {
@@ -186,10 +192,6 @@ class GameElements {
             this.workers[i].boardPos = null;
             this.workers[i].moveTo(-1, i);
         }
-
-        // Reset release/undo count
-        this.numBlackReleased = 0;
-        this.numWhiteReleased = 0;
     }
 
     /**
