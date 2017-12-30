@@ -93,6 +93,7 @@ class Game {
      * @return {null}
      */
     switchPlayer() {
+        this.movedWorkerThisTurn = false;
         if (this.currentPlayer)
             this.currentPlayer = (this.currentPlayer % 2) + 1;
         else
@@ -382,8 +383,9 @@ class Game {
      * @return {null}
      */
     waitWorkerH(putPieceState, nextState) {
-        if (this.pickedWorker) {
+        if (this.pickedWorker && !this.movedWorkerThisTurn) {
             if (this.pickedCell) {
+                this.movedWorkerThisTurn = true;
                 this.communication.getPrologRequest(
                     'moveWorker(' + 
                     this.communication.parseBoardToPlog(this.board) + ',' +
