@@ -68,14 +68,7 @@ class Game {
 
         // CurrentBoard representation of the game board (object)
         this.board = null;
-        this.previousBoard = null;
-
-        this.moveType = {
-            SET_WORKER: 'set worker',
-            MOVE_WORKER: 'move worker',
-            SET_BLACK: 'set black',
-            SET_WHITE: 'set white'
-        };
+        this.boardHistory = new BoardHistory();
 
         //For displaying sweet alerts for in game messages
         this.alert = new Alert(this);
@@ -173,9 +166,9 @@ class Game {
         this.scoreboard.update(currTime);
 
         if (this.communication.boardChanged) {
-            this.previousBoard = this.board;
             this.board = this.communication.prologBoard;
             this.communication.boardChanged = false;
+            this.boardHistory.insertBoard(this.board);
 
             this.handleMove();
         
@@ -485,7 +478,7 @@ class Game {
     resetGame(str) {
         this.currentState = this.state.NO_GAME_RUNNING;
         this.board = null;
-        this.previousBoard = null;
+        this.boardHistory.reset();
         this.alert.showWinner(str);
         this.gameElements.resetGame();
     }
@@ -506,7 +499,7 @@ class Game {
      * @return {null}
      */
     resetTimeOutGame() {
-        let winner = 'victory ' + (this.currentPlayer == 1? PLAYER1_SIDE : PLAYER2_SIDE);
+        let winner = 'victory ' + (this.currentPlayer == 1 ? PLAYER1_SIDE : PLAYER2_SIDE);
         this.scene.game.resetGame(winner);
     }
 
@@ -535,10 +528,14 @@ class Game {
         }
     }
 
+    /**
+     * Handle the latest move.
+     * Fetches the move from this.boardHistory and reflects it visually.
+     * @return {null}
+     */
     handleMove() {
-        if (! (this.previousBoard && this.board) ) return;
-
-        let moves = this.boardDifference(this.previousBoard, this.board);
+        let moves = this.boardHistory.getLastMove();
+        if (moves == null) return;
 
         if (moves.workerMove.type != null) {
             this.processSingleMove(moves.workerMove);
@@ -548,22 +545,27 @@ class Game {
         }
     }
 
+    /**
+     * Processes a single move visually.
+     * @param {Move} move a Move object, defined and instantiated in BoardHistory
+     */
     processSingleMove(move) {
         let piece = null;
+        let moveType = this.boardHistory.moveType;
 
         switch (move.type) {
-            case this.moveType.SET_WORKER:
+            case moveType.SET_WORKER:
                 piece = this.gameElements.fetchWorker();
                 this.switchPlayer();
                 break;
-            case this.moveType.MOVE_WORKER:
+            case moveType.MOVE_WORKER:
                 piece = this.gameElements.fetchWorker(move.previousCell);
                 break;
-            case this.moveType.SET_BLACK:
+            case moveType.SET_BLACK:
                 piece = this.gameElements.fetchBlackPiece();
                 this.switchPlayer();
                 break;
-            case this.moveType.SET_WHITE:
+            case moveType.SET_WHITE:
                 piece = this.gameElements.fetchWhitePiece();
                 this.switchPlayer();
                 break;
@@ -573,48 +575,6 @@ class Game {
         }
 
         piece.boardPos = move.currentCell;
-    }
-
-    boardDifference(previousBoard, currentBoard) {
-        let Move = function() {
-            this.type = null;
-            this.previousCell = null;
-            this.currentCell = null;
-        };
-        let moves = {workerMove: new Move(), pieceMove: new Move()};
-
-        for (let row = 0; row < previousBoard.length; row++) {
-            for (let col = 0; col < previousBoard[row].length; col++) {
-                let previousEl = previousBoard[row][col];
-                let currentEl = currentBoard[row][col];
-                
-                if (previousEl == currentEl)
-                    continue;
-        
-                if (previousEl == 'worker') {
-                    moves.workerMove.type = this.moveType.MOVE_WORKER;
-                    moves.workerMove.previousCell = [row, col];
-                }
-                
-                if (currentEl == 'worker') {
-                    moves.workerMove.type = this.moveType.MOVE_WORKER;
-                    moves.workerMove.currentCell = [row, col];
-                } else if (currentEl == 'black') {
-                    moves.pieceMove.type = this.moveType.SET_BLACK;
-                    moves.pieceMove.currentCell = [row, col];
-                } else if (currentEl == 'white') {
-                    moves.pieceMove.type = this.moveType.SET_WHITE;
-                    moves.pieceMove.currentCell = [row, col];
-                } else {
-                    console.error("Unhandled situation in boardDifference. Check!");
-                }
-            }
-        }
-
-        if (moves.workerMove.previousCell == null && moves.workerMove.type != null)
-            moves.workerMove.type = this.moveType.SET_WORKER;
-
-        return moves;
     }
 
 }

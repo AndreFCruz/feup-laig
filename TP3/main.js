@@ -23,7 +23,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
              'game/pieces/BlackPiece.js', 'game/BoardCell.js', 'game/Game.js',
              'game/Communication.js', "game/GameElements.js", 'SweetAlert2.js',
              'game/Alert.js', 'game/ObjectPool.js', 'game/Scoreboard.js',
-             'animations/ArchAnimation.js',
+             'animations/ArchAnimation.js', 'game/BoardHistory.js',
 main=function()
 {
     // Standard application, scene and interface setup
