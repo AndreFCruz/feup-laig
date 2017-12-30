@@ -384,18 +384,23 @@ class Game {
      */
     waitWorkerH(putPieceState, nextState) {
         if (this.pickedWorker && !this.movedWorkerThisTurn) {
+            let workerRow = this.pickedWorker.getRow();
+            let workerCol = this.pickedWorker.getCol();
+
             if (this.pickedCell) {
                 this.movedWorkerThisTurn = true;
                 this.communication.getPrologRequest(
                     'moveWorker(' + 
                     this.communication.parseBoardToPlog(this.board) + ',' +
-                    this.pickedWorker.getRow() + ',' +
-                    this.pickedWorker.getCol() + ',' +
+                    workerRow + ',' +
+                    workerCol+ ',' +
                     this.pickedCell. getRow() + ',' + 
                     this.pickedCell.getCol() + ')'
                 );
                 this.currentState = putPieceState;
                 this.resetGameFlags();
+            } else {
+                this.gameElements.selectWorker(workerRow, workerCol);
             }
         } else this.waitPieceH(nextState);
     }
@@ -493,6 +498,7 @@ class Game {
     resetGameFlags() {
         this.pickedWorker = null;
         this.pickedCell = null;
+        this.gameElements.resetSelectedWorkers();
     }
 
     /**

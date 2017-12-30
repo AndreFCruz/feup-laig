@@ -169,6 +169,16 @@ class GameElements {
         return null;
     }
 
+    selectWorker(row, col) {
+        let worker = this.fetchWorker([row, col]);
+        worker.selected = true;
+    }
+
+    resetSelectedWorkers() {
+        this.workers[0].selected = false;
+        this.workers[1].selected = false;        
+    }
+
     reset() {
         // Release all pieces from play into the pools
         for (let i = 0; i < this.piecesInPlay.length; ++i) {

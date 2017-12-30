@@ -23,8 +23,9 @@ class Piece {
         // Animation progress
         this.elapsedTime = null;
         this.initialTime = null;
-
         this.animation = null;
+        
+        this.selected = false;
     }
 
     get boardPos() {

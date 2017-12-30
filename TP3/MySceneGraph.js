@@ -1846,7 +1846,11 @@ MySceneGraph.prototype.displayPiece = function(piece) {
 
 	this.scene.pushMatrix();
 		this.scene.multMatrix(piece.getPositionMatrix());
+		if (piece.selected)
+			this.scene.setSecondaryShader();
 		this.processNode(pieceNode, this.materials[this.defaultMaterialID]);
+		if (piece.selected)
+			this.scene.setDefaultShader();
 	this.scene.popMatrix();
 }
 
@@ -1884,7 +1888,7 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 	currentMaterial.setTexture(currentTexture == null ? null : currentTexture[0]);
 	currentMaterial.apply();
 
-	//Activating shader if selected node
+	// Activating shader if selected node
 	let selected = (node.nodeID == this.scene.selectedNode);
 	if (selected)
 		this.scene.setSecondaryShader();
@@ -1906,7 +1910,7 @@ MySceneGraph.prototype.processNode = function(node, material, texture = null) {
 		this.scene.popMatrix();
 	}
 
-	//Deactivating Shader after processing all childNodes
+	// Deactivating Shader after processing all childNodes
 	if (selected)
 		this.scene.setDefaultShader();
 }
