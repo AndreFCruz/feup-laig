@@ -88,6 +88,7 @@ MyInterface.prototype.addOptionsGroup = function() {
 
     optionsFolder.add(this.scene, 'undoLastMove').name('Undo Last Move');
     optionsFolder.add(this.scene, 'resetGame').name('Reset Game');
+    optionsFolder.add(this.scene, 'playGameFilm').name('Play Game Film');
 
     optionsFolder.addColor(this.scene, 'selectedColor').onChange(function(v) {
         this.object.updateShaderColor(v);

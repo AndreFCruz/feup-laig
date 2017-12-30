@@ -51,6 +51,15 @@ class BoardHistory {
         );       
     }
 
+    getMoveByIndex(index) {
+        if (index == null || index >= this.boards.length - 1)
+            return null;
+        
+        let board1 = this.boards[index];
+        let board2 = this.boards[index + 1];
+        return this.boardDifference(board1, board2);
+    }
+
     undoLastMove() {
         let move = this.getLastMoveReversed();
         if ( (this.boards.length > 2 && move.workerMove.type == this.moveType.UNDO_WORKER) ||

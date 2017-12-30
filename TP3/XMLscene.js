@@ -53,6 +53,9 @@ function XMLscene(interface) {
     this.resetGame = function() {
         this.game.resetGame("No winners. Game was reset.");
     }
+    this.playGameFilm = function() {
+        this.game.playGameFilm();
+    }
 
     this.previousTick = 0;
 }

@@ -44,7 +44,8 @@ class Game {
             WAIT_WORKER_H_VS_AI : 9,
             WAIT_PIECE_H_VS_AI : 10,
             AI_PLAY_H_VS_AI : 11,
-            WAIT_SWAL_INPUT : 12
+            WAIT_SWAL_INPUT : 12,
+            GAME_FILM : 13
         };
         this.currentState = this.state.NO_GAME_RUNNING;
 
@@ -165,7 +166,7 @@ class Game {
         this.gameElements.update(currTime);
         this.scoreboard.update(currTime);
 
-        if (this.communication.boardChanged) {
+        if (this.communication.boardChanged && this.currentState != this.state.GAME_FILM) {
             this.board = this.communication.prologBoard;
             this.communication.boardChanged = false;
             this.boardHistory.insertBoard(this.board);
@@ -526,6 +527,34 @@ class Game {
             let col = (pickedId % 10) - 1;
             this.pickedCell = this.gameElements.boardCells[row][col];
         }
+    }
+
+    /**
+     * Iterates through all the moves played in this game.
+     */
+    playGameFilm() {
+        let previousState = this.currentState;
+        this.currentState = this.state.GAME_FILM;
+        this.gameElements.resetGame();
+
+        let filmIteration = function(game) {
+            let move = game.boardHistory.getMoveByIndex(this.index);
+            if (move == null) {
+                clearInterval(intervalId);
+                game.board = game.boardHistory.getCurrentBoard();
+                game.currentState = previousState;
+                return;
+            }
+            game.board = game.boardHistory[this.index + 1];
+            game.handleMove(move);
+            this.index++;
+        };
+        filmIteration.index = 0;
+
+        let intervalId = setInterval(
+            filmIteration.bind(filmIteration, this),
+            1200
+        );
     }
 
     /**
