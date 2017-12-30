@@ -78,10 +78,11 @@ class Alert {
                         cancelButtonText: 'Reset Game',
                     }).then((result) => {
                         if (result.value) {
-                            // Meter Game Movie here
+                            this.game.playGameFilm(this.showWinner.bind(this, str));
                         } else if(result.dismiss === 'overlay' ||
                                   result.dismiss === 'cancel') {
-                            // Reset Game here
+                            this.game.boardHistory.reset();
+                            this.game.gameElements.reset();
                         }
                     });
                 }

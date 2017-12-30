@@ -479,9 +479,8 @@ class Game {
     resetGame(str) {
         this.currentState = this.state.NO_GAME_RUNNING;
         this.board = null;
-        this.boardHistory.reset();
         this.alert.showWinner(str);
-        this.gameElements.resetGame();
+        // alert's showWinner will reset the board and game state after swal alert response
     }
 
     /**
@@ -532,10 +531,10 @@ class Game {
     /**
      * Iterates through all the moves played in this game.
      */
-    playGameFilm() {
+    playGameFilm(callbackFunction = null) {
         let previousState = this.currentState;
         this.currentState = this.state.GAME_FILM;
-        this.gameElements.resetGame();
+        this.gameElements.reset();
 
         let filmIteration = function(game) {
             let move = game.boardHistory.getMoveByIndex(this.index);
@@ -543,6 +542,7 @@ class Game {
                 clearInterval(intervalId);
                 game.board = game.boardHistory.getCurrentBoard();
                 game.currentState = previousState;
+                callbackFunction();
                 return;
             }
             game.board = game.boardHistory[this.index + 1];
@@ -553,7 +553,7 @@ class Game {
 
         let intervalId = setInterval(
             filmIteration.bind(filmIteration, this),
-            1200
+            1000
         );
     }
 

@@ -169,7 +169,7 @@ class GameElements {
         return null;
     }
 
-    resetGame() {
+    reset() {
         // Release all pieces from play into the pools
         for (let i = 0; i < this.piecesInPlay.length; ++i) {
             let piece = this.piecesInPlay[i];
