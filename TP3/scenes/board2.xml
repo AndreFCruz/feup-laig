@@ -21,7 +21,7 @@
 
 <!-- Lights -->
 <LIGHTS>	
-	<LIGHT id="light0">
+	<LIGHT id="liaedaed">
         <enable value ="1" />
         <position  x="0" y="10" z="0" w="1" />       	   
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />        	 
@@ -29,7 +29,7 @@
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
     </LIGHT>
 
-    <LIGHT id="light3">                                   
+    <LIGHT id="aedaed">                                   
         <enable value ="1" />                   	       
         <position x="30" y="10" z="20" w="1" />       			
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	

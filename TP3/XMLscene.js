@@ -92,7 +92,7 @@ XMLscene.prototype.init = function(application) {
 XMLscene.prototype.initLights = function() {
     var i = 0;
     // Lights index.
-    
+
     // Reads the lights from the scene graph.
     for (var key in this.currentGraph.lights) {
         if (i >= 8)
@@ -117,7 +117,11 @@ XMLscene.prototype.initLights = function() {
             i++;
         }
     }
-    
+
+    // Disabling unused lights
+    for (i; i < 8; ++i) {
+        this.lights[i].disable();
+    }
 }
 
 /**
@@ -257,7 +261,8 @@ XMLscene.prototype.onGraphChange = function(sceneName) {
     this.gl.clearColor(this.currentGraph.background[0], this.currentGraph.background[1], this.currentGraph.background[2], this.currentGraph.background[3]);
     
     this.initLights();
-
+    
+    this.lightValues = {};
     this.interface.updateLightsGroup(this.currentGraph.lights);
 }
 

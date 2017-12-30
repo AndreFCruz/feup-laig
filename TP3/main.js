@@ -41,8 +41,8 @@ main=function()
     // XML's containing the different scenes
     // assumes files in subfolder "scenes", check MySceneGraph constructor
     var differentScenes = [
-        "board2.xml",
-        "board.xml"
+        "board.xml",
+        "board2.xml"
     ];
 
     // create and load all the graphs, and associate them to the scene. 

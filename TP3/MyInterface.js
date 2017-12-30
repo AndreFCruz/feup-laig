@@ -62,12 +62,15 @@ MyInterface.prototype.updateLightsGroup = function(lights) {
     for (let i = 0; i < this.lights.length; ++i)
         this.lightsGroup.remove(this.lights[i]);
 
+    // Clearing lights array
+    this.lights = [];
+
     // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
     // e.g. this.option1=true; this.option2=false;
     for (var key in lights) {
         if (lights.hasOwnProperty(key)) {
             this.scene.lightValues[key] = lights[key][0];
-            this.lights(
+            this.lights.push(
                 this.lightsGroup.add(this.scene.lightValues, key)
             );
         }
