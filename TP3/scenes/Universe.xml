@@ -106,6 +106,11 @@
         <amplif_factor s="2" t="1" />
     </TEXTURE>
 
+	<TEXTURE id="grey stripes">
+        <file path="images/greyStripes.jpg" />
+        <amplif_factor s="2" t="1" />
+    </TEXTURE>
+
 </TEXTURES>
 
 
@@ -121,11 +126,11 @@
     </MATERIAL>
 
     <!-- A black material -->
-    <MATERIAL id="black">         
+    <MATERIAL id="grey">         
         <shininess value="1" />
-        <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.1" g="0.1" b="0.6" a="1" />
-        <ambient r="0.1" g="0.1" b="0.6" a="1" />
+        <specular r="0.5" g="0.5" b="0.5" a="1" />
+        <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+        <ambient r="0.3" g="0.3" b="0.3" a="1" />
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
@@ -141,6 +146,11 @@
 </MATERIALS>
 
 <ANIMATIONS>
+
+	<!-- Animation for making the universe spin -->
+	<ANIMATION id="universe spin" speed="0.002" type="circular"
+		centerx="0" centery="0" centerz="0"
+		radius="0.1" startang="0" rotang="7200000"/>
 
 </ANIMATIONS>
 
@@ -166,7 +176,8 @@
 			<NODEREF id="black piece" />
 			<NODEREF id="worker" />
 			<NODEREF id="board base" />
-			<NODEREF id="cosmos" />.3
+			<NODEREF id="cosmos" />
+			<NODEREF id="scoreboards" />
 		</DESCENDANTS>
 
 	</NODE>
@@ -205,6 +216,10 @@
 		<TRANSLATION x="9" y="0" z="0" />
 		<ROTATION axis="z" angle="20" />
 		<SCALE sx="50" sy="50" sz="50" />
+
+		<ANIMATIONREFS>
+			<ANIMATIONREF id="universe spin" />
+		</ANIMATIONREFS>
 
 		<DESCENDANTS>
 			<NODEREF id="skybox" />
@@ -334,6 +349,41 @@
 		</DESCENDANTS>
 	</NODE>
 
+	<!-- Scoreboards -->
+	<NODE id="scoreboards">
+		<MATERIAL id="grey" />
+		<TEXTURE id="grey stripes" />
+
+		<DESCENDANTS>
+			<NODEREF id="scoreboard1" />
+			<NODEREF id="scoreboard" />
+		</DESCENDANTS>
+	</NODE>
+
+	<!-- Opposite Scoreboard -->
+	<NODE id="scoreboard1">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="15.51" y="0" z="0" /> 
+
+		<DESCENDANTS>
+			<NODEREF id="scoreboard" />
+		</DESCENDANTS>
+	</NODE>
+
+	<!-- Generic Scoreboard -->
+	<NODE id="scoreboard">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="-3.251" y="0.5" z="4.5" />
+		<SCALE sx="0.5" sy="3" sz="7" />
+
+		<DESCENDANTS>
+			<NODEREF id="cube" />
+		</DESCENDANTS>
+	</NODE>
 
 	<!-- Skybox -->
 	<NODE id="skybox">
