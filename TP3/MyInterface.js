@@ -59,6 +59,11 @@ MyInterface.prototype.addColorController = function() {
     });
 }
 
+/**
+ * Adds a group controller to the select wich type of game to begin
+ * 
+ * @return {null}
+ */
 MyInterface.prototype.addInitGameGroup = function() {
     
     let gameModes = this.gui.addFolder("Game Modes");
@@ -78,6 +83,23 @@ MyInterface.prototype.addInitGameGroup = function() {
     aiVSai.add(this.scene, 'randomVSsmart').name("Dummy X Smart");
     aiVSai.add(this.scene, 'smartVSrandom').name("Smart X Dummy");
     aiVSai.add(this.scene, 'smartVSsmart').name("Smart X Smart");
+}
+
+/**
+ * Adds a group where the player can choose wich Scene Graph to display
+ * 
+ * @return {null}
+ */
+MyInterface.prototype.addDifferentXML = function(sceneGraphs) {
+
+    let sceneArray = [];
+    for (let sceneGraph in sceneGraphs) {
+
+    }
+
+    this.gui.add(this.scene, 'Scene', sceneGraphs).onChange(function(scene) {
+        this.scene.changeGeometry(scene);
+    });
 }
 
 MyInterface.prototype.processKeyDown = function(event) {

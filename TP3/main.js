@@ -42,26 +42,18 @@ main=function()
     // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
     var filename=getUrlVars()['file'] || "board.xml";
     
-    // XML's containing the boards
-    /*let boardFiles = [
+    // XML's containing the different scenes
+    let differentScenes = [
+        "board2.xml",
         "board.xml"
-    ]
-    // XML's containing the outside scenes
-    let sceneFiles = [
-        "scene.xml"
-    ]*/
+    ];
 
-    // create and load graph, and associate it to scene. 
+    // create and load all the graphs, and associate them to the scene. 
     // Check console for loading errors
-    var myGraph = new MySceneGraph(filename, myScene);
-    /*let boardGraphs;
-    let sceneGraphs;
+    let sceneGraphs = [];
 
-    for (let i = 0; i < boardFiles; ++i)
-        boardGraphs.push(new MySceneGraph(boardFiles[i], myScene));
-    
-    for (let i = 0; i < boardFiles; ++i)
-        sceneGraphs.push(new MySceneGraph(sceneFiles[i], myScene));*/
+    for (let i = 0; i < differentScenes.length; ++i)
+        sceneGraphs.push(new MySceneGraph(differentScenes[i], myScene));
     
     // start
     app.run();

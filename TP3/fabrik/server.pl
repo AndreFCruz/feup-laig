@@ -125,7 +125,7 @@ gameWon(white, 'victory white') :- !.
 gameLost(black, 'victory white') :- !.
 gameLost(white, 'victory black') :- !.
 
-%%%%%%%%%%%%%%% Requested Predicates %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% Request Predicates %%%%%%%%%%%%%%%%%%%%%
 
 % For game beggining
 parse_input(init, Board):-
@@ -135,7 +135,6 @@ parse_input(init, Board):-
 
 % For setting first workers
 parse_input(setHumanWorker(Board, Row, Col), NewBoard):-
-	write('I got here'),
 	setPiece(worker, Row, Col, Board, NewBoard), !.
 
 parse_input(setAIWorker(AI, Board, Side), NewBoard):-

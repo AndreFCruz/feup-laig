@@ -45,7 +45,7 @@ class Communication {
         console.log("GET prolog request: ");
         console.log(requestString);
 
-        //Since this will become XMLHttpRequest(), need to save the communicatopn to call functions
+        //Since this will become XMLHttpRequest(), need to save the communication to call functions
         let communication = this;
 
         var request = new XMLHttpRequest();

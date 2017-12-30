@@ -155,21 +155,21 @@ class GameElements {
     displayGame() {
         let whitePieces = this.whitePool.elements;
         for (let wPiece in whitePieces)
-            this.scene.graph.displayPiece(whitePieces[wPiece]);
+            this.scene.currentGraph.displayPiece(whitePieces[wPiece]);
 
         let blackPieces = this.blackPool.elements;
         for (let bPiece in blackPieces)
-            this.scene.graph.displayPiece(blackPieces[bPiece]);
+            this.scene.currentGraph.displayPiece(blackPieces[bPiece]);
 
         for (let piece in this.piecesInPlay)
-            this.scene.graph.displayPiece(this.piecesInPlay[piece]);
+            this.scene.currentGraph.displayPiece(this.piecesInPlay[piece]);
 
         //There are always exactly two workers
         this.scene.registerForPick( WORKER_PICK_ID, this.workers[0]);
-        this.scene.graph.displayPiece(this.workers[0]);
+        this.scene.currentGraph.displayPiece(this.workers[0]);
 
         this.scene.registerForPick( WORKER_PICK_ID + 1, this.workers[1]);
-        this.scene.graph.displayPiece(this.workers[1]);
+        this.scene.currentGraph.displayPiece(this.workers[1]);
 
         this.scene.setNoDisplayShader();
 

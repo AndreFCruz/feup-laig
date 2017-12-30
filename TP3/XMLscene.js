@@ -14,6 +14,10 @@ function XMLscene(interface) {
 
     this.lightValues = {};
 
+    // For allowing different SceneGraphs
+    this.graphs = [];
+    this.currentGraph = null;
+
     // For dropdown in interface
     // Starting by selecting nothing
     this.selectedNode = null;
@@ -87,12 +91,12 @@ XMLscene.prototype.initLights = function() {
     // Lights index.
     
     // Reads the lights from the scene graph.
-    for (var key in this.graph.lights) {
+    for (var key in this.currentGraph.lights) {
         if (i >= 8)
             break;              // Only eight lights allowed by WebGL.
 
-        if (this.graph.lights.hasOwnProperty(key)) {
-            var light = this.graph.lights[key];
+        if (this.currentGraph.lights.hasOwnProperty(key)) {
+            var light = this.currentGraph.lights[key];
             
             this.lights[i].setPosition(light[1][0], light[1][1], light[1][2], light[1][3]);
             this.lights[i].setAmbient(light[2][0], light[2][1], light[2][2], light[2][3]);
@@ -199,21 +203,25 @@ XMLscene.prototype.rotateCameraRight = function() {
 /* Handler called when the graph is finally loaded. 
  * As loading is asynchronous, this may be called already after the application has started the run loop
  */
-XMLscene.prototype.onGraphLoaded = function() 
+XMLscene.prototype.onGraphLoaded = function(graph) 
 {
-    this.camera.near = this.graph.near;
-    this.camera.far = this.graph.far;
-    this.axis = new CGFaxis(this,this.graph.referenceLength);
+    // Display the first loaded graph
+    if (this.currentGraph != graph)
+        return;
+
+    this.camera.near = this.currentGraph.near;
+    this.camera.far = this.currentGraph.far;
+    this.axis = new CGFaxis(this,this.currentGraph.referenceLength);
     
-    this.setGlobalAmbientLight(this.graph.ambientIllumination[0], this.graph.ambientIllumination[1], 
-    this.graph.ambientIllumination[2], this.graph.ambientIllumination[3]);
+    this.setGlobalAmbientLight(this.currentGraph.ambientIllumination[0], this.currentGraph.ambientIllumination[1], 
+    this.currentGraph.ambientIllumination[2], this.currentGraph.ambientIllumination[3]);
     
-    this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
+    this.gl.clearColor(this.currentGraph.background[0], this.currentGraph.background[1], this.currentGraph.background[2], this.currentGraph.background[3]);
     
     this.initLights();
 
     // Adds lights group.
-    this.interface.addLightsGroup(this.graph.lights);
+    this.interface.addLightsGroup(this.currentGraph.lights);
 
     //Adds Color Controller
     this.interface.addColorController();
@@ -245,10 +253,10 @@ XMLscene.prototype.display = function() {
 
     this.pushMatrix();
     
-    if (this.graph.loadedOk) 
+    if (this.currentGraph.loadedOk) 
     {        
         // Applies initial transformations.
-        this.multMatrix(this.graph.initialTransforms);
+        this.multMatrix(this.currentGraph.initialTransforms);
 
         // Draw axis
         this.axis.display();
@@ -270,7 +278,7 @@ XMLscene.prototype.display = function() {
         }
 
         // Displays the scene.
-        this.graph.displayScene();
+        this.currentGraph.displayScene();
 
         // Displays the game elements
         this.game.displayGame();
@@ -293,7 +301,7 @@ XMLscene.prototype.display = function() {
  * @return {null}
  */
 XMLscene.prototype.update = function(currTime) {
-    this.graph.updateScene(currTime);
+    this.currentGraph.updateScene(currTime);
     this.updateShader(currTime);
     this.game.update(currTime);
 
