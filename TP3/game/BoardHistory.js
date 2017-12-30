@@ -4,7 +4,9 @@ class BoardHistory {
             SET_WORKER: 'set worker',
             MOVE_WORKER: 'move worker',
             SET_BLACK: 'set black',
-            SET_WHITE: 'set white'
+            SET_WHITE: 'set white',
+            UNDO_WHITE: 'undo white',
+            UNDO_BLACK: 'undo black'
         };
 
         this.reset();
@@ -87,6 +89,14 @@ class BoardHistory {
                 } else if (currentEl == 'white') {
                     moves.pieceMove.type = this.moveType.SET_WHITE;
                     moves.pieceMove.currentCell = [row, col];
+                } else if (previousEl == 'white' && currentEl == 'none') {
+                    moves.pieceMove.type = this.moveType.UNDO_WHITE;
+                    moves.pieceMove.currentCell = null;
+                    moves.pieceMove.previousCell = [row, col];
+                } else if (previousEl == 'black' && currentEl == 'none') {
+                    moves.pieceMove.type = this.moveType.UNDO_BLACK;
+                    moves.pieceMove.currentCell = null;
+                    moves.pieceMove.previousCell = [row, col];      
                 } else {
                     console.error("Unhandled situation in boardDifference. Check!");
                 }

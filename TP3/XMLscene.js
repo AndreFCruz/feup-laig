@@ -31,7 +31,7 @@ function XMLscene(interface) {
     // For selecting the displaying scene
     this.selectedSceneGraph = null;
 
-    // Different Game Modes for the interface
+    // Interface's Button Handlers
     this.hVSh = function() { this.game.beginHvsH(); };
     this.hVSrandom = function() { this.game.beginHvsAI(this.game.playerType.RANDOM_AI); };
     this.hVSsmart = function() { this.game.beginHvsAI(this.game.playerType.SMART_AI); };
@@ -47,6 +47,12 @@ function XMLscene(interface) {
     this.smartVSsmart = function() {
         this.game.beginAIvsAI(this.game.playerType.SMART_AI, this.game.playerType.SMART_AI);
     };
+    this.undoLastMove = function() {
+        this.game.undoLastMove();
+    }
+    this.resetGame = function() {
+        this.game.resetGame("No winners. Game was reset.");
+    }
 
     this.previousTick = 0;
 }
@@ -227,16 +233,16 @@ XMLscene.prototype.onGraphLoaded = function(graph)
     
     this.initLights();
 
-    //Add Scene changing to interface
+    // Add scene drop-down menu to interface
     this.interface.addMultipleScenes(this.graphs);
 
-    //Add Game Modes to interface
+    // Add game modes to interface
     this.interface.addInitGameGroup();
 
-    //Adds Color Controller
-    this.interface.addColorController();
+    // Add options group to interface
+    this.interface.addOptionsGroup();
 
-    // Adds lights group.
+    // Add lights group
     this.interface.addLightsGroup(this.currentGraph.lights);   
 }
 

@@ -529,19 +529,30 @@ class Game {
     }
 
     /**
+     * Undos the latest move.
+     */
+    undoLastMove() {
+        this.board = this.boardHistory.getPreviousBoard();
+        let reversedMove = this.boardHistory.undoLastMove();
+        this.handleMove(reversedMove);
+    }
+
+    /**
      * Handle the latest move.
      * Fetches the move from this.boardHistory and reflects it visually.
      * @return {null}
      */
-    handleMove() {
-        let moves = this.boardHistory.getLastMove();
-        if (moves == null) return;
-
-        if (moves.workerMove.type != null) {
-            this.processSingleMove(moves.workerMove);
+    handleMove(move = null) {
+        if (move == null) {
+            move = this.boardHistory.getLastMove();
         }
-        if (moves.pieceMove.type != null) {
-            this.processSingleMove(moves.pieceMove);
+        if (move == null) return;
+
+        if (move.workerMove.type != null) {
+            this.processSingleMove(move.workerMove);
+        }
+        if (move.pieceMove.type != null) {
+            this.processSingleMove(move.pieceMove);
         }
     }
 
@@ -569,6 +580,12 @@ class Game {
                 piece = this.gameElements.fetchWhitePiece();
                 this.switchPlayer();
                 break;
+            case moveType.UNDO_WHITE:
+            case moveType.UNDO_BLACK:
+                piece = this.gameElements.fetchPieceInPlay(move.previousCell);
+                this.gameElements.releasePiece(piece);
+                this.switchPlayer();
+                return;
             default:
                 console.warn("Unhandled state in handleMove. Was: " + move.type);
                 return;

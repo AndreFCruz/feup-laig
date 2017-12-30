@@ -60,15 +60,20 @@ class Alert {
     showWinner(str) {
         let msg = str.split(" ");
         if (msg[0] == 'victory') {
-            let winner = (msg[1] == PLAYER1_SIDE? 1 : 2);
+            let winner = (msg[1] == PLAYER1_SIDE ? 1 : 2);
             swal( 
                 'Player ' + winner + ' wins!',
                 'Congratulations!',
                 'success'
-            )
+            );
             this.game.scoreboard.playerWin(winner);
-        } else
-            console.error("Received unexpected message from PROLOG");
+        } else {
+            swal( 
+                'TIE',
+                str,
+                'info'
+            );
+        }
     }
 
     /**

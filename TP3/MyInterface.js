@@ -82,8 +82,14 @@ MyInterface.prototype.updateLightsGroup = function(lights) {
  * 
  * @return {null}
  */
-MyInterface.prototype.addColorController = function() {
-    this.gui.addColor(this.scene, 'selectedColor').onChange(function(v) {
+MyInterface.prototype.addOptionsGroup = function() {
+    let optionsFolder = this.gui.addFolder('Options');
+    optionsFolder.open();
+
+    optionsFolder.add(this.scene, 'undoLastMove').name('Undo Last Move');
+    optionsFolder.add(this.scene, 'resetGame').name('Reset Game');
+
+    optionsFolder.addColor(this.scene, 'selectedColor').onChange(function(v) {
         this.object.updateShaderColor(v);
     });
 }

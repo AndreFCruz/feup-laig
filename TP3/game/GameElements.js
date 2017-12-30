@@ -63,6 +63,10 @@ class GameElements {
                 this.boardCells[i][j] = new BoardCell(this.scene, [BOARD_SIZE - 1 - i, j]);
             }
         }
+
+        // Number of pieces released from play (due to undos)
+        this.numBlackReleased = 0;
+        this.numWhiteReleased = 0;
     }
 
     /**
@@ -100,6 +104,7 @@ class GameElements {
     fetchBlackPiece() {
         let piece = this.blackPool.acquire();
         this.piecesInPlay.push(piece);
+        this.numBlackReleased--;
 
         return piece;
     }
@@ -107,8 +112,43 @@ class GameElements {
     fetchWhitePiece() {
         let piece = this.whitePool.acquire();
         this.piecesInPlay.push(piece);
+        this.numWhiteReleased--;
 
         return piece;
+    }
+
+    fetchPieceInPlay(pos) {
+        let piece = null;
+        for (let i = 0; i < this.piecesInPlay.length; i++) {
+            let piecePos = this.piecesInPlay[i].boardPos;
+            if (pos && piecePos[0] == pos[0] && piecePos[1] == pos[1]) {
+                piece = this.piecesInPlay[i];
+                break;
+            }
+        }
+
+        return piece;
+    }
+
+    releasePiece(piece) {
+        if (! piece) return;
+
+        let index = this.piecesInPlay.indexOf(piece);
+        this.piecesInPlay.splice(index, 1);
+
+        // position on the side of the board
+        let i = NUMBER_PIECES - 1;
+        if (piece.type[0] == 'b') { // black piece
+            this.blackPool.release(piece);
+            i -= ++this.numBlackReleased;
+            piece.moveTo(-2 + i * .5, 9.2 + (i % 2 ? 0 : 0.7));
+        } else if (piece.type[0] == 'w') { // white piece
+            this.whitePool.release(piece);
+            i -= ++this.numWhiteReleased;
+            piece.moveTo(-2 + i * .5, -1.2 - (i % 2 ? 0 : 0.7));
+        }
+
+        piece.boardPos = null;
     }
 
     fetchWorker(pos = null) {
@@ -131,6 +171,7 @@ class GameElements {
                 this.blackPool.release(piece);
             else if (piece.type == 'white piece')
                 this.whitePool.release(piece);
+            piece.boardPos = null;
         }
         this.piecesInPlay = [];
 
@@ -145,6 +186,10 @@ class GameElements {
             this.workers[i].boardPos = null;
             this.workers[i].moveTo(-1, i);
         }
+
+        // Reset release/undo count
+        this.numBlackReleased = 0;
+        this.numWhiteReleased = 0;
     }
 
     /**
