@@ -58,6 +58,30 @@ class Alert {
      * @return {null}
      */
     showWinner(str) {
+        let endGameCallbackFunction = function (winner, result) {
+            if (result.value || result.dismiss === 'overlay') {
+                swal({
+                    title: 'What to do now?',
+                    type: 'question',
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonColor: '#248f24',
+                    confirmButtonText: 'Watch Game Movie',
+                    cancelButtonColor: '#BC1510',
+                    cancelButtonText: 'Reset Game',
+                }).then((result) => {
+                    if (result.value) {
+                        this.game.playGameFilm(this.showWinner.bind(this, str));
+                    } else if(result.dismiss === 'overlay' ||
+                              result.dismiss === 'cancel') {
+                        this.game.boardHistory.reset();
+                        this.game.gameElements.reset();
+                        this.game.scoreboard.playerWin(winner);
+                    }
+                });
+            }
+        };
+
         let msg = str.split(" ");
         if (msg[0] == 'victory') {
             let winner = (msg[1] == PLAYER1_SIDE ? 1 : 2);
@@ -65,35 +89,13 @@ class Alert {
                 'Player ' + winner + ' wins!',
                 'Congratulations!',
                 'success'
-            ).then((result) => {
-                if (result.value || result.dismiss === 'overlay') {
-                    swal({
-                        title: 'What to do now?',
-                        type: 'question',
-                        showCancelButton: true,
-                        focusConfirm: false,
-                        confirmButtonColor: '#248f24',
-                        confirmButtonText: 'Watch Game Movie',
-                        cancelButtonColor: '#BC1510',
-                        cancelButtonText: 'Reset Game',
-                    }).then((result) => {
-                        if (result.value) {
-                            this.game.playGameFilm(this.showWinner.bind(this, str));
-                        } else if(result.dismiss === 'overlay' ||
-                                  result.dismiss === 'cancel') {
-                            this.game.boardHistory.reset();
-                            this.game.gameElements.reset();
-                            this.game.scoreboard.playerWin(winner);
-                        }
-                    });
-                }
-            });
+            ).then(endGameCallbackFunction.bind(this, winner));
         } else {
             swal( 
                 'TIE',
                 str,
                 'info'
-            );
+            ).then(endGameCallbackFunction.bind(this, null));
         }
     }
 

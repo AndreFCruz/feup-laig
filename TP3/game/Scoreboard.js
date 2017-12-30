@@ -210,6 +210,7 @@ class ScoreBoard {
      */
     playerWin(player) {
         this.gameRunning = false;
+        if (! player) return; // TIE
 
         if (player == 1)
             this.wonGames1++;
