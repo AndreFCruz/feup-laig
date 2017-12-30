@@ -83,11 +83,11 @@ class Alert {
                                   result.dismiss === 'cancel') {
                             this.game.boardHistory.reset();
                             this.game.gameElements.reset();
+                            this.game.scoreboard.playerWin(winner);
                         }
                     });
                 }
             });
-            this.game.scoreboard.playerWin(winner);
         } else {
             swal( 
                 'TIE',
