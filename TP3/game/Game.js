@@ -542,7 +542,7 @@ class Game {
                 clearInterval(intervalId);
                 game.board = game.boardHistory.getCurrentBoard();
                 game.currentState = previousState;
-                callbackFunction();
+                if (callbackFunction) callbackFunction();
                 return;
             }
             game.board = game.boardHistory[this.index + 1];
