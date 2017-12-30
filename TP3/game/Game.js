@@ -532,8 +532,10 @@ class Game {
      * Undos the latest move.
      */
     undoLastMove() {
-        this.board = this.boardHistory.getPreviousBoard();
         let reversedMove = this.boardHistory.undoLastMove();
+        if (! reversedMove) return;
+
+        this.board = this.boardHistory.getCurrentBoard();
         this.handleMove(reversedMove);
     }
 
@@ -582,8 +584,11 @@ class Game {
                 break;
             case moveType.UNDO_WHITE:
             case moveType.UNDO_BLACK:
-                piece = this.gameElements.fetchPieceInPlay(move.previousCell);
-                this.gameElements.releasePiece(piece);
+                this.gameElements.releasePiece(move.previousCell);
+                this.switchPlayer();
+                return;
+            case moveType.UNDO_WORKER:
+                piece = this.gameElements.releaseWorker(move.previousCell);
                 this.switchPlayer();
                 return;
             default:
