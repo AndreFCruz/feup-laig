@@ -37,18 +37,18 @@ class Alert {
                 swal(
                     'Player 1 starts playing', '',
                     'success'
-                )
+                );
             } else if (result.dismiss === 'cancel') {
                 this.game.currentPlayer = 2;
                 this.game.setCurrentState(playerState2);
                 swal(
                     'Player 2 starts playing', '',
                     'success'
-                )
+                );
             }
             // For forcing board dependent States
             this.game.forceStates();
-        })
+        });
     }
 
     /**
@@ -65,7 +65,27 @@ class Alert {
                 'Player ' + winner + ' wins!',
                 'Congratulations!',
                 'success'
-            );
+            ).then((result) => {
+                if (result.value || result.dismiss === 'overlay') {
+                    swal({
+                        title: 'WWhat to do now?',
+                        type: 'question',
+                        showCancelButton: true,
+                        focusConfirm: false,
+                        confirmButtonColor: '#248f24',
+                        confirmButtonText: 'Watch Game Movie',
+                        cancelButtonColor: '#BC1510',
+                        cancelButtonText: 'Reset Game',
+                    }).then((result) => {
+                        if (result.value) {
+                            // Meter Game Movie here
+                        } else if(result.dismiss === 'overlay' ||
+                                  result.dismiss === 'cancel') {
+                            // Reset Game here
+                        }
+                    });
+                }
+            });
             this.game.scoreboard.playerWin(winner);
         } else {
             swal( 
