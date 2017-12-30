@@ -143,8 +143,14 @@ class ScoreBoard {
                     this.updateTimerDigits(this.currentTurnTime);
                 }
             }
-        } else
-            this.updateTimerDigits(this.turnTime);
+        } else {
+            this.updateTimerDigits(this.turnTime);            
+        }
+        
+        if (this.currentTurnTime <= 0) {
+            this.gameRunning = false;
+            this.turnStartTime = null;
+        }
     }
 
     /**
@@ -210,6 +216,7 @@ class ScoreBoard {
      */
     playerWin(player) {
         this.gameRunning = false;
+        this.turnStartTime = null;
         if (! player) return; // TIE
 
         if (player == 1)
