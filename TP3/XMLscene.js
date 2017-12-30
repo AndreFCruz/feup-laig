@@ -15,7 +15,7 @@ function XMLscene(interface) {
     this.lightValues = {};
 
     // For allowing different SceneGraphs
-    this.graphs = [];
+    this.graphs = {};
     this.currentGraph = null;
 
     // For dropdown in interface
@@ -27,6 +27,9 @@ function XMLscene(interface) {
 
     // For selecting scene elements
     this.setPickEnabled(true);
+
+    // For selecting the displaying scene
+    this.selectedSceneGraph = null;
 
     // Different Game Modes for the interface
     this.hVSh = function() { this.game.beginHvsH(); };
@@ -220,14 +223,42 @@ XMLscene.prototype.onGraphLoaded = function(graph)
     
     this.initLights();
 
-    // Adds lights group.
-    this.interface.addLightsGroup(this.currentGraph.lights);
+    //Add Scene changing to interface
+    this.interface.addMultipleScenes(this.graphs);
+
+    //Add Game Modes to interface
+    this.interface.addInitGameGroup();
 
     //Adds Color Controller
     this.interface.addColorController();
 
-    //Add Game Modes to interface
-    this.interface.addInitGameGroup();
+    // Adds lights group.
+    this.interface.addLightsGroup(this.currentGraph.lights);   
+}
+
+/**
+ * Whenever the User changes the scene being displayed, this function is called
+ * Sets the sceneGraph dependent XMLScene characteristics to the new values associated to the new graph
+ * 
+ * @param {Object} sceneName - The new XML graph begin displayed
+ * @return {null}
+ */
+XMLscene.prototype.onGraphChange = function(sceneName) {
+
+    this.currentGraph = this.graphs[sceneName];
+
+    this.camera.near = this.currentGraph.near;
+    this.camera.far = this.currentGraph.far;
+    this.axis = new CGFaxis(this,this.currentGraph.referenceLength);
+    
+    this.setGlobalAmbientLight(this.currentGraph.ambientIllumination[0], this.currentGraph.ambientIllumination[1], 
+    this.currentGraph.ambientIllumination[2], this.currentGraph.ambientIllumination[3]);
+    
+    this.gl.clearColor(this.currentGraph.background[0], this.currentGraph.background[1], this.currentGraph.background[2], this.currentGraph.background[3]);
+    
+    this.initLights();
+
+    this.interface.updateLightsGroup(this.currentGraph.lights);
 }
 
 /**

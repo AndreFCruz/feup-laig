@@ -37,20 +37,17 @@ main=function()
     app.setInterface(myInterface);
 
     myInterface.setActiveCamera(myScene.camera);
-
-    // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-    // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
-    var filename=getUrlVars()['file'] || "board.xml";
     
     // XML's containing the different scenes
-    let differentScenes = [
+    // assumes files in subfolder "scenes", check MySceneGraph constructor
+    var differentScenes = [
         "board2.xml",
         "board.xml"
     ];
 
     // create and load all the graphs, and associate them to the scene. 
     // Check console for loading errors
-    let sceneGraphs = [];
+    var sceneGraphs = [];
 
     for (let i = 0; i < differentScenes.length; ++i)
         sceneGraphs.push(new MySceneGraph(differentScenes[i], myScene));

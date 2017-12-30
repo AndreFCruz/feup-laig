@@ -34,16 +34,42 @@ MyInterface.prototype.init = function(application) {
  */
 MyInterface.prototype.addLightsGroup = function(lights) {
 
-    var group = this.gui.addFolder("Lights");
-    group.open();
+    // Save the lightsGroup and respective lights so that it can be updated
+    this.lightsGroup = this.gui.addFolder("Lights");
+    this.lightsGroup.open();
+    this.lights = [];
 
     // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
     // e.g. this.option1=true; this.option2=false;
-
     for (var key in lights) {
         if (lights.hasOwnProperty(key)) {
             this.scene.lightValues[key] = lights[key][0];
-            group.add(this.scene.lightValues, key);
+            this.lights.push(
+                this.lightsGroup.add(this.scene.lightValues, key)
+            );
+        }
+    }
+}
+
+/**
+ * Updates the lights folder with the lights given
+ * 
+ * @param {Object} lights - The new lights to be used in the scene
+ * @return {null}
+ */
+MyInterface.prototype.updateLightsGroup = function(lights) {
+    
+    for (let i = 0; i < this.lights.length; ++i)
+        this.lightsGroup.remove(this.lights[i]);
+
+    // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
+    // e.g. this.option1=true; this.option2=false;
+    for (var key in lights) {
+        if (lights.hasOwnProperty(key)) {
+            this.scene.lightValues[key] = lights[key][0];
+            this.lights(
+                this.lightsGroup.add(this.scene.lightValues, key)
+            );
         }
     }
 }
@@ -90,16 +116,15 @@ MyInterface.prototype.addInitGameGroup = function() {
  * 
  * @return {null}
  */
-MyInterface.prototype.addDifferentXML = function(sceneGraphs) {
+MyInterface.prototype.addMultipleScenes = function(sceneGraphs) {
 
-    let sceneArray = [];
-    for (let sceneGraph in sceneGraphs) {
+    let sceneNames = [];
+    for (let names in sceneGraphs)
+        sceneNames.push(names);
 
-    }
-
-    this.gui.add(this.scene, 'Scene', sceneGraphs).onChange(function(scene) {
-        this.scene.changeGeometry(scene);
-    });
+    this.gui.add(this.scene, 'selectedSceneGraph', sceneNames).onChange(function(sceneName) {
+        this.object.onGraphChange(sceneName);
+    }).name("Scene");
 }
 
 MyInterface.prototype.processKeyDown = function(event) {

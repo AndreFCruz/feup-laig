@@ -23,12 +23,17 @@ const BLACK_PIECE_NODE = "black piece";
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
 
+	// For distinguishing different graphs
+	this.filename = filename.split('.')[0];
+
 	// Establish bidirectional references between scene and graph.
 	this.scene = scene;
-	scene.graphs.push(this);
-	// Temporary graph to allow update methods
-	if (! scene.currentGraph)
+	scene.graphs[this.filename] = this;
+	// First graph will be the one displayed
+	if (! scene.currentGraph) {
+		scene.selectedSceneGraph = this.filename;
 		scene.currentGraph = this;
+	}
 
 	this.nodes = {};
 	this.animations = {};
