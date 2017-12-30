@@ -68,7 +68,7 @@ class Alert {
             ).then((result) => {
                 if (result.value || result.dismiss === 'overlay') {
                     swal({
-                        title: 'WWhat to do now?',
+                        title: 'What to do now?',
                         type: 'question',
                         showCancelButton: true,
                         focusConfirm: false,

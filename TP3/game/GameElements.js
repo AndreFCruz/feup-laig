@@ -48,8 +48,8 @@ class GameElements {
 
         // There are always exactly two workers
         this.workers = [];
-        this.workers[0] = new Worker([-1, 0, 1]);
-        this.workers[1] = new Worker([-1, 0, 0]);
+        this.workers[0] = new Worker([-1, 0, 0]);
+        this.workers[1] = new Worker([-1, 0, 1]);
 
         // For the Board Cells
         this.boardCells = {};
@@ -154,7 +154,7 @@ class GameElements {
         
         // Is other worker in play ?
         let otherWorkerInPlay = (this.workers[(index + 1) % 2].boardPos != null);
-        worker.moveTo(-1, otherWorkerInPlay ? 0 : 1);
+        worker.moveTo(-1, otherWorkerInPlay ? 1 : 0);
     }
 
     fetchWorker(pos = null) {
