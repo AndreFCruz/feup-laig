@@ -141,7 +141,6 @@ parse_input(setAIWorker(AI, Board, Side), NewBoard):-
 	translateAI(AI, AIfunction),
 	setFirstWorker(AIfunction, Side, Board, NewBoard), !.
 
-% TODO Não esquecer do escolher o side que começa no js
 
 %%%%%%%%%% By calling the following predicates, simulate the game loop
 

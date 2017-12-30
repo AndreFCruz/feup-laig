@@ -48,6 +48,7 @@ class Game {
             GAME_FILM : 13
         };
         this.currentState = this.state.NO_GAME_RUNNING;
+        this.previousState = null;
 
         this.playerType = {
             HUMAN: 'human',
@@ -252,6 +253,7 @@ class Game {
      * @return {null}
      */
     setCurrentState(newState) {
+        this.previousState = this.currentState;
         this.currentState = newState;
     }
 
@@ -276,9 +278,8 @@ class Game {
         if (this.areWorkersSet()) {
             // In AI vs AI white always starts
             this.currentPlayer = 2;
-            this.currentState = this.state.AI_VS_AI_LOOP;
+            this.setCurrentState(this.state.AI_VS_AI_LOOP);
             this.forceStates();
-
         } else {
             this.communication.getPrologRequest(
                 'setAIWorker(' + 
@@ -303,7 +304,7 @@ class Game {
             this.getPlayerSide() + ',' + 
             this.communication.parseBoardToPlog(this.board) + ')'
         );
-        this.currentState = nextState;
+        this.setCurrentState(nextState);
     }
 
     /**
@@ -317,7 +318,7 @@ class Game {
         if (this.areWorkersSet()) {
             this.alert.chooseFirstPlayer(this.state.WAIT_WORKER_H_VS_AI,
                                          this.state.AI_PLAY_H_VS_AI);
-            this.currentState = this.state.WAIT_SWAL_INPUT;
+            this.setCurrentState(this.state.WAIT_SWAL_INPUT);
         } else {
             this.communication.getPrologRequest(
                 'setAIWorker(' + 
@@ -349,7 +350,7 @@ class Game {
         if (this.areWorkersSet()) {
             this.alert.chooseFirstPlayer(this.state.WAIT_WORKER_H_VS_H,
                                          this.state.WAIT_WORKER_H_VS_H);
-            this.currentState = this.state.WAIT_SWAL_INPUT;
+            this.setCurrentState(this.state.WAIT_SWAL_INPUT);
             this.resetGameFlags();
         }
     }
@@ -368,7 +369,7 @@ class Game {
                 this.pickedCell.getRow() + ',' +
                 this.pickedCell.getCol() + ')'
             );
-            this.currentState = this.state.HUMAN_VS_AI_SET_AI_WORKER;
+            this.setCurrentState(this.state.HUMAN_VS_AI_SET_AI_WORKER);
             this.resetGameFlags();
         }
     }
@@ -397,7 +398,7 @@ class Game {
                     this.pickedCell. getRow() + ',' + 
                     this.pickedCell.getCol() + ')'
                 );
-                this.currentState = putPieceState;
+                this.setCurrentState(putPieceState);                
                 this.resetGameFlags();
             } else {
                 this.gameElements.selectWorker(workerRow, workerCol);
@@ -420,7 +421,7 @@ class Game {
                 this.pickedCell.getRow() + ',' +
                 this.pickedCell.getCol() + ')'
             );
-            this.currentState = nextState;
+            this.setCurrentState(nextState);
             this.resetGameFlags();
         }
     }
@@ -469,7 +470,7 @@ class Game {
             this.player1 = playerType1;
             this.player2 = playerType2;
             this.currentPlayer = 1;
-            this.currentState = nextState;
+            this.setCurrentState(nextState);
             this.resetGameFlags();
             this.alert.showGameStart(playerType1, playerType2);
             this.scoreboard.gameBegan();
@@ -484,7 +485,7 @@ class Game {
      * @return {null}
      */
     resetGame(str) {
-        this.currentState = this.state.NO_GAME_RUNNING;
+        this.setCurrentState(this.state.NO_GAME_RUNNING);
         this.board = null;
         this.alert.showWinner(str);
         // alert's showWinner will reset the board and game state after swal alert response
@@ -574,6 +575,7 @@ class Game {
 
         this.board = this.boardHistory.getCurrentBoard();
         this.handleMove(reversedMove);
+        this.setCurrentState(this.previousState);
     }
 
     /**
