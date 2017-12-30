@@ -1,0 +1,543 @@
+<SCENE>
+
+<!-- Initial values -->
+<INITIALS>
+    <frustum near="0.1" far="500"/>                 
+    <translation x="-1" y="1" z="0" />               
+    <rotation axis="x" angle="0" />                
+    <rotation axis="y" angle="0" />                
+    <rotation axis="z" angle="0" />                
+    <scale sx="1" sy="1" sz="1" />         
+    <reference length="5" />                        
+</INITIALS>
+
+
+<!-- Illumination and clear colour -->
+<ILLUMINATION>
+    <ambient r="0.5" g="0.5" b="0.5" a="1" />
+    <background r="0" g="0" b="0" a="1" />
+</ILLUMINATION>
+
+
+<!-- Lights -->
+<LIGHTS>	
+	<LIGHT id="star1">
+        <enable value ="1" />
+        <position  x="10" y="3" z="4.5" w="1" />
+        <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
+        <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+	<LIGHT id="star2">
+        <enable value ="1" />
+        <position  x="4.5" y="3" z="4.5" w="1" />
+        <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
+        <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+	<LIGHT id="star3">
+        <enable value ="1" />
+        <position  x="-1" y="3" z="4.5" w="1" />
+        <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
+        <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+</LIGHTS>
+
+<!-- Textures -->
+<TEXTURES>
+
+     <!-- Tree leaves -->
+    <TEXTURE id="board">
+        <file path="images/board-matrix.jpg" />
+        <amplif_factor s="9" t="9" />
+    </TEXTURE>
+
+	<TEXTURE id="wood">
+		<file path="images/wood.jpg" />
+		<amplif_factor s="1" t="1" />
+	</TEXTURE>
+
+	<!-- Skybox textures -->
+	<TEXTURE id="skybox top">
+        <file path="images/skybox1.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+	<TEXTURE id="skybox front">
+        <file path="images/skybox4.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+	<TEXTURE id="skybox left">
+        <file path="images/skybox5.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+	<TEXTURE id="skybox back">
+        <file path="images/skybox2.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+	<TEXTURE id="skybox right">
+        <file path="images/skybox3.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+	<TEXTURE id="skybox under">
+        <file path="images/skybox6.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+	<TEXTURE id="mars">
+        <file path="images/mars.png" />
+        <amplif_factor s="2" t="1" />
+    </TEXTURE>
+    
+	<TEXTURE id="earth">
+        <file path="images/earth.png" />
+        <amplif_factor s="2" t="1" />
+    </TEXTURE>
+
+	<TEXTURE id="usa">
+        <file path="images/usa.jpg" />
+        <amplif_factor s="2" t="1" />
+    </TEXTURE>
+
+</TEXTURES>
+
+
+<MATERIALS>
+
+    <!-- A default material -->
+    <MATERIAL id="defaultMaterial">                                  
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.4" g="0.4" b="0.4" a="1" />
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <!-- A black material -->
+    <MATERIAL id="black">         
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.1" g="0.1" b="0.6" a="1" />
+        <ambient r="0.1" g="0.1" b="0.6" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <!-- A red material -->
+    <MATERIAL id="red">         
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.1" g="0.5" b="0.1" a="1" />
+        <ambient r="0.1" g="0.5" b="0.1" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+</MATERIALS>
+
+<ANIMATIONS>
+
+</ANIMATIONS>
+
+<!-- The leaves -->
+<LEAVES>
+<!-- THIS SECTION IS USELESS -->
+</LEAVES>
+
+
+<!-- The nodes -->
+<NODES>
+
+	<ROOT id="root" />
+
+	<NODE id="root">
+	
+		<MATERIAL id="defaultMaterial" />
+		<TEXTURE id="null" />
+
+		<DESCENDANTS>
+			<NODEREF id="board" />
+			<NODEREF id="white piece" />
+			<NODEREF id="black piece" />
+			<NODEREF id="worker" />
+			<NODEREF id="board base" />
+			<NODEREF id="cosmos" />.3
+		</DESCENDANTS>
+
+	</NODE>
+
+	<NODE id="board">
+		<MATERIAL id="defaultMaterial" />
+		<TEXTURE id="board" />
+
+		<TRANSLATION x="0" y="0" z="9" />
+		<ROTATION axis="x" angle="-90" />
+
+		<DESCENDANTS>
+			<LEAF type="rectangle" args="0 9 9 0" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<NODE id="board base">
+		<MATERIAL id="null" />
+		<TEXTURE id="wood" />
+
+		<TRANSLATION x="4.5" y="-0.01" z="4.5" />
+		<SCALE sx="13" sy="1" sz="13" />
+		<TRANSLATION x="0" y="-0.5" z="0" />
+
+		<DESCENDANTS>
+			<NODEREF id="cube" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<NODE id="cosmos">
+		<MATERIAL id="null" />
+		<TEXTURE id="wood" />
+
+		<TRANSLATION x="9" y="0" z="0" />
+		<ROTATION axis="z" angle="20" />
+		<SCALE sx="50" sy="50" sz="50" />
+
+		<DESCENDANTS>
+			<NODEREF id="skybox" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<NODE id="white piece">
+		<MATERIAL id="defaultMaterial" />
+		<TEXTURE id="mars" />
+
+		<DESCENDANTS>
+			<NODEREF id="piece"/>
+		</DESCENDANTS>
+
+	</NODE>
+
+	<NODE id="black piece">
+		<MATERIAL id="defaultMaterial" />
+		<TEXTURE id="earth" />
+
+		<DESCENDANTS>
+			<NODEREF id="piece"/>
+		</DESCENDANTS>
+
+	</NODE>
+
+	<NODE id="piece">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0.5" y="0.15" z="0.5" />
+		<ROTATION axis="x" angle="90" /> 
+		<SCALE sx="0.4" sy="0.4" sz="0.4" />
+
+		<DESCENDANTS>
+			<LEAF type="sphere" args="1 20 20" />
+		</DESCENDANTS>
+
+	</NODE>
+	
+	<NODE id="worker">
+		<MATERIAL id="null" />
+		<TEXTURE id="wood" />
+
+		<TRANSLATION x="0.3" y="0" z="0.3" />
+
+		<DESCENDANTS>
+			<NODEREF id="space flag" />
+			<NODEREF id="flag stick" />
+		</DESCENDANTS>
+	</NODE>
+
+	<NODE id="space flag">
+		<MATERIAL id="null" />
+		<TEXTURE id="usa" />
+
+		<TRANSLATION x="0" y="1.4" z="0" />
+		<ROTATION axis="y" angle="-45" />
+		<ROTATION axis="x" angle="180" />
+
+		<DESCENDANTS>
+			<LEAF type="patch" args="20 20" >
+					<CPLINE>
+							<CPOINT xx="0" yy="0" zz="0" ww="1" />
+							<CPOINT xx="0" yy="0.2" zz="0" ww="1" />
+							<CPOINT xx="0" yy="0.4" zz="0" ww="1" />
+							<CPOINT xx="0" yy="0.6" zz="0" ww="1" />
+					</CPLINE>
+					<CPLINE>
+							<CPOINT xx="0.3" yy="0" zz="0.3" ww="1" />
+							<CPOINT xx="0.3" yy="0.2" zz="0.3" ww="1" />
+							<CPOINT xx="0.3" yy="0.4" zz="0.3" ww="1" />
+							<CPOINT xx="0.3" yy="0.6" zz="0.3" ww="1" />
+					</CPLINE>
+					<CPLINE>
+							<CPOINT xx="0.6" yy="0" zz="0" ww="1" />
+							<CPOINT xx="0.6" yy="0.2" zz="0" ww="1" />
+							<CPOINT xx="0.6" yy="0.4" zz="0" ww="1" />
+							<CPOINT xx="0.6" yy="0.6" zz="0" ww="1" />
+					</CPLINE>
+					<CPLINE>
+							<CPOINT xx="0.9" yy="0" zz="0.2" ww="1" />
+							<CPOINT xx="0.9" yy="0.2" zz="0.1" ww="1" />
+							<CPOINT xx="0.9" yy="0.4" zz="0.2" ww="1" />
+							<CPOINT xx="0.9" yy="0.6" zz="0.3" ww="1" />
+					</CPLINE>
+			</LEAF>
+
+			<LEAF type="patch" args="20 20" >
+					<CPLINE>
+							<CPOINT xx="0.9" yy="0" zz="0" ww="1" />
+							<CPOINT xx="0.9" yy="0.2" zz="0.1" ww="1" />
+							<CPOINT xx="0.9" yy="0.4" zz="0.2" ww="1" />
+							<CPOINT xx="0.9" yy="0.6" zz="0.3" ww="1" />
+					</CPLINE>
+					<CPLINE>
+							<CPOINT xx="0.6" yy="0" zz="0.3" ww="1" />
+							<CPOINT xx="0.6" yy="0.2" zz="0.3" ww="1" />
+							<CPOINT xx="0.6" yy="0.4" zz="0.3" ww="1" />
+							<CPOINT xx="0.6" yy="0.6" zz="0.3" ww="1" />
+					</CPLINE>
+					<CPLINE>
+							<CPOINT xx="0.3" yy="0" zz="0" ww="1" />
+							<CPOINT xx="0.3" yy="0.2" zz="0" ww="1" />
+							<CPOINT xx="0.3" yy="0.4" zz="0" ww="1" />
+							<CPOINT xx="0.3" yy="0.6" zz="0" ww="1" />
+					</CPLINE>
+					<CPLINE>
+							<CPOINT xx="0" yy="0" zz="0" ww="1" />
+							<CPOINT xx="0" yy="0.2" zz="0" ww="1" />
+							<CPOINT xx="0" yy="0.4" zz="0" ww="1" />
+							<CPOINT xx="0" yy="0.6" zz="0" ww="1" />
+					</CPLINE>
+			</LEAF>
+		</DESCENDANTS>
+	</NODE>
+
+	<NODE id="flag stick">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<ROTATION axis="x" angle="-90" /> 
+
+		<DESCENDANTS>
+			<LEAF type="cylinder" args="1.5 0.08 0.08 20 20 1 1" />
+		</DESCENDANTS>
+	</NODE>
+
+
+	<!-- Skybox -->
+	<NODE id="skybox">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+	
+		<DESCENDANTS>
+			<NODEREF id="skybox top" />
+			<NODEREF id="skybox front" />
+			<NODEREF id="skybox left" />
+			<NODEREF id="skybox right" />
+			<NODEREF id="skybox back" />
+			<NODEREF id="skybox under" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Skybox's top -->
+	<NODE id="skybox top">
+		<MATERIAL id="null" />
+		<TEXTURE id="skybox top" />
+
+		<TRANSLATION x="0" y="0.5" z="0" />
+		<ROTATION axis="y" angle="90" />
+		<ROTATION axis="x" angle="90" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Skybox's front -->
+	<NODE id="skybox front">
+		<MATERIAL id="null" />
+		<TEXTURE id="skybox front" />
+
+		<TRANSLATION x="0" y="0" z="-0.5" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Skybox's left -->
+	<NODE id="skybox left">
+		<MATERIAL id="null" />
+		<TEXTURE id="skybox left" />
+
+		<TRANSLATION x="0.5" y="0" z="0" />
+		<ROTATION axis="y" angle="-90" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Skybox's right -->
+	<NODE id="skybox right">
+		<MATERIAL id="null" />
+		<TEXTURE id="skybox right" />
+
+		<TRANSLATION x="-0.5" y="0" z="0" />
+		<ROTATION axis="y" angle="90" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Skybox's back -->
+	<NODE id="skybox back">
+		<MATERIAL id="null" />
+		<TEXTURE id="skybox back" />
+
+		<TRANSLATION x="0" y="0" z="0.5" />
+		<ROTATION axis="z" angle="180" />
+		<ROTATION axis="x" angle="180" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Slybox's under -->
+	<NODE id="skybox under">
+		<MATERIAL id="null" />
+		<TEXTURE id="skybox under" />
+
+		<TRANSLATION x="0" y="-0.5" z="0" />
+		<ROTATION axis="y" angle="90" />
+		<ROTATION axis="x" angle="-90" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Unit Cube -->
+	<NODE id="cube">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+	
+		<DESCENDANTS>
+			<NODEREF id="cube top" />
+			<NODEREF id="cube front" />
+			<NODEREF id="cube left" />
+			<NODEREF id="cube right" />
+			<NODEREF id="cube back" />
+			<NODEREF id="cube under" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Cube's top -->
+	<NODE id="cube top">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0.5" z="0" />
+		<ROTATION axis="x" angle="-90" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Cube's front -->
+	<NODE id="cube front">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="0.5" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Cube's left -->
+	<NODE id="cube left">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="-0.5" y="0" z="0" />
+		<ROTATION axis="y" angle="-90" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Cube's right -->
+	<NODE id="cube right">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0.5" y="0" z="0" />
+		<ROTATION axis="y" angle="90" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Cube's back -->
+	<NODE id="cube back">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="-0.5" />
+		<ROTATION axis="x" angle="180" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+	<!-- Cube's under -->
+	<NODE id="cube under">
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-0.5" z="0" />
+		<ROTATION axis="x" angle="90" />
+	
+		<DESCENDANTS>
+		<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+		</DESCENDANTS>
+	
+	</NODE>
+
+</NODES>
+
+</NODES>
+
+</SCENE>

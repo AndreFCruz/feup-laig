@@ -266,6 +266,7 @@ XMLscene.prototype.onGraphChange = function(sceneName) {
     
     this.gl.clearColor(this.currentGraph.background[0], this.currentGraph.background[1], this.currentGraph.background[2], this.currentGraph.background[3]);
     
+    //Ned to reload fo Graph again, because of lights limit = 8
     this.initLights();
     
     this.lightValues = {};
