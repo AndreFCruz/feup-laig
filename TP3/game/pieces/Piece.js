@@ -11,7 +11,7 @@ class Piece {
      * @param {String} type - The piece type
      * @constructor
      */
-    constructor(pos, type) {
+    constructor(pos, type, flipAnimation = false) {
         this.type = type;
 
         // World position
@@ -24,6 +24,7 @@ class Piece {
         this.elapsedTime = null;
         this.initialTime = null;
         this.animation = null;
+        this.flipAnimation = flipAnimation;
         
         this.selected = false;
     }
@@ -83,7 +84,7 @@ class Piece {
         let previousPos = this.position;
         this.animation = new ArchAnimation(
             previousPos[0], previousPos[2], targetX, targetZ,
-            this.type != 'worker'
+            this.flipAnimation
         );
     }
 
@@ -98,15 +99,6 @@ class Piece {
             mat4.multiply(this.result, this.positionMatrix, this.animation.matrix);
         }
         return this.result;
-    }
-
-    /**
-     * Getter for the piece position
-     * 
-     * @return {Array} - Piece position
-     */
-    getPosition() {
-        return this.position;
     }
 
     /**
