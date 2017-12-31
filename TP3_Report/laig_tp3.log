@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.22)  31 DEC 2017 22:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.22)  31 DEC 2017 22:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -582,86 +582,19 @@ File: images/fabrik_full_board.png Graphic file (type png)
 Package pdftex.def Info: images/fabrik_full_board.png used on input line 142.
 (pdftex.def)             Requested size: 85.36295pt x 85.36295pt.
  [5 <./images/fabrik_full_board.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 158--159
-
- []
-
-<images/self_empty_board.png, id=35, 499.8675pt x 529.22719pt>
-File: images/self_empty_board.png Graphic file (type png)
-
-<use images/self_empty_board.png>
-Package pdftex.def Info: images/self_empty_board.png used on input line 183.
-(pdftex.def)             Requested size: 159.3382pt x 168.69397pt.
-File: images/fabrik_empty_board.png Graphic file (type png)
- <use images/fabrik_empty_board.png>
-Package pdftex.def Info: images/fabrik_empty_board.png used on input line 190.
-(pdftex.def)             Requested size: 159.3382pt x 159.36118pt.
- [6 <./images/self_empty_board.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 198--199
-
- []
-
-<images/self_semi_board.png, id=41, 488.57532pt x 528.47438pt>
-File: images/self_semi_board.png Graphic file (type png)
-
-<use images/self_semi_board.png>
-Package pdftex.def Info: images/self_semi_board.png used on input line 218.
-(pdftex.def)             Requested size: 170.71317pt x 170.7119pt.
- [7
-
- <./images/self_semi_board.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 225--226
-
- []
-
-<images/self_full_board.png, id=47, 494.59781pt x 533.74406pt>
-File: images/self_full_board.png Graphic file (type png)
-
-<use images/self_full_board.png>
-Package pdftex.def Info: images/self_full_board.png used on input line 247.
-(pdftex.def)             Requested size: 159.3382pt x 171.94992pt.
-File: images/fabrik_full_board.png Graphic file (type png)
- <use images/fabrik_full_board.png>
-Package pdftex.def Info: images/fabrik_full_board.png used on input line 254.
-(pdftex.def)             Requested size: 159.3382pt x 159.36118pt.
- [8
-
- <./images/self_full_board.png>] [9
-
-] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
-
- []
-
-File: images/self_semi_board.png Graphic file (type png)
-<use images/self_semi_board.png>
-Package pdftex.def Info: images/self_semi_board.png used on input line 374.
-(pdftex.def)             Requested size: 113.80878pt x 113.80524pt.
- [11] [12]
-Overfull \hbox (6.05711pt too wide) in paragraph at lines 390--391
-\OT1/cmr/m/n/10 usando o pre-di-cado \OT1/cmr/bx/n/10 set-Pi-ece(+Piece, +Row, 
-+Col, +Bo-ard, -NewBoard)\OT1/cmr/m/n/10 .
- []
-
-[13] [14]
-Overfull \hbox (33.13805pt too wide) in paragraph at lines 439--440
-\OT1/cmr/bx/n/10 +Bo-ard)\OT1/cmr/m/n/10 , que, fa-zendo uso dos pre-di-ca-dos 
-\OT1/cmr/bx/n/10 checkHo-ri-zon-talWin(+PieceSide,
- []
-
-[15] [16] (./laig_tp3.aux)
+(./laig_tp3.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4307 strings out of 493014
- 57608 string characters out of 6133351
- 175000 words of memory out of 5000000
- 7779 multiletter control sequences out of 15000+600000
- 10199 words of font info for 36 fonts, out of 8000000 for 9000
+ 3908 strings out of 493014
+ 53890 string characters out of 6133351
+ 138000 words of memory out of 5000000
+ 7385 multiletter control sequences out of 15000+600000
+ 9733 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,8n,43p,908b,1676s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,7n,43p,445b,272s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
@@ -669,12 +602,11 @@ Here is how much of TeX's memory you used:
 /usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
 sr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
-/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/
-local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on laig_tp3.pdf (16 pages, 348305 bytes).
+/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on laig_tp3.pdf (5 pages, 277280 bytes).
 PDF statistics:
- 107 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+ 61 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
