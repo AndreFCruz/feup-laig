@@ -11,6 +11,7 @@ class ObjectPool {
      */
     constructor(constructorFunction, numElements) {
         this._elements = new Array(numElements);
+        this.constructorFunction = constructorFunction;
 
         for (let i = 0; i < numElements; ++i) {
             this._elements[i] = constructorFunction();
@@ -32,6 +33,8 @@ class ObjectPool {
      * @return {Object}
      */
     acquire() {
+        if (this._elements.length == 0)
+            this._elements.push(constructorFunction());
         return this._elements.pop();
     }
 
