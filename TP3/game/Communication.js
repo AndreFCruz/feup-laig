@@ -58,6 +58,9 @@ class Communication {
             if (this.status != 200) {
                 console.error("Server denied request.");
                 swal('Invalid Move', 'Please select a cell in the intersection of the lines of sight of the two workers', 'error');
+                
+                // To avoid game to change game state
+                communication.game.setToPreviousState();
             } else {
                 communication.handleServerAnswer(serverAnswer);
             }
