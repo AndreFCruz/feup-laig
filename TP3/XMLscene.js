@@ -144,7 +144,7 @@ XMLscene.prototype.initCameras = function() {
         radius : CAMERA_START_RADIUS + 1,
         targetRadius: CAMERA_START_RADIUS,
         height : 20,
-        target: vec3.fromValues(4, 0, 4),
+        target: vec3.fromValues(4, 0, 4.5),
         vel: 5 // in radians per second
     };
     /** radius != targetRadius initially for start animation **/

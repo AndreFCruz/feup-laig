@@ -478,8 +478,7 @@ class Game {
     beginGame(playerType1, playerType2, nextState) {
         if (this.currentState == this.state.NO_GAME_RUNNING) {
             this.communication.getPrologRequest('init');
-            this.player1 = playerType1;
-            this.player2 = playerType2;
+            this.setPlayers(playerType1, playerType2);
             this.currentPlayer = 1;
             this.setCurrentState(nextState);
             this.resetGameFlags();
@@ -598,7 +597,17 @@ class Game {
 
         this.board = this.boardHistory.getCurrentBoard();
         this.handleMove(reversedMove);
-        this.setCurrentState(this.previousState);
+
+        this.currentState = this.previousState;
+        // If undid AI moves, request new aiPlay
+        switch (this.previousState) {
+            case this.state.AI_PLAY_H_VS_AI:
+                this.aiPlay(this.state.WAIT_WORKER_H_VS_AI);
+                break;
+            case this.state.AI_VS_AI_LOOP:
+                this.aiPlay(this.state.AI_VS_AI_LOOP);
+                break;            
+        }
     }
 
     /**
