@@ -290,8 +290,8 @@ XMLscene.prototype.onGraphLoaded = function(graph)
     this.interface.addMultipleScenes(this.graphs);
     this.interface.addInitGameGroup();
     this.interface.addOptionsGroup();
-    this.interface.addLightsGroup(this.currentGraph.lights);
     this.interface.addCameraGroup();
+    this.interface.addLightsGroup(this.currentGraph.lights);
 }
 
 /**
