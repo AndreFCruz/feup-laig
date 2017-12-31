@@ -35,8 +35,8 @@ class PlayerToken extends Piece {
     flipSides() {
         this.currentSide = (this.currentSide + 1) % 2;
         this.moveTo(
-            this.currentSide ? this.BOARD_SIZE + 1 : -1,
-            this.currentSide ? 1 : this.BOARD_SIZE - 1
+            -1.5,
+            this.currentSide ? 0.5 : this.BOARD_SIZE - 0.5
         );
     }
 
