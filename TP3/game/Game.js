@@ -211,7 +211,8 @@ class Game {
         switch (this.currentState) {
 
             case this.state.NO_GAME_RUNNING:
-                //Do nothing
+                this.board= null;
+                this.boardChanged = false;
                 break;
             case this.state.HUMAN_VS_HUMAN:
                 this.setWorkersHvsH();
@@ -486,8 +487,16 @@ class Game {
      */
     resetGame(str) {
         this.setCurrentState(this.state.NO_GAME_RUNNING);
-        this.board = null;
-        this.alert.showWinner(str);
+
+        //Parsing the end game message
+        let msg = str.split(" ");
+        if (msg[0] == 'victory') {
+            let results = msg[1].split("-");
+            this.communication.prologBoard = this.communication.parseBoardFromPlog(results[1]);
+            this.communication.boardChanged = true;
+            this.alert.showWinner(results[0] == PLAYER1_SIDE? 1 : 2);
+        } else 
+            this.alert.showWinner(str);
         // alert's showWinner will reset the board and game state after swal alert response
     }
 

@@ -113,17 +113,17 @@ translateAI(smart, getGreedyPlay).
 % When the Player wins
 decideResult(Side, Board, Result):-
 	gameIsWon(Side, Board),
-	gameWon(Side, Result), !.
+	gameWon(Side, Board, Result), !.
 %When the Board is full, other player can not play, so player wins
 decideResult(_Side, Board, Board):-
 	boardIsNotFull(Board), !.
-decideResult(Side, _Board, Result):-
-	gameWon(Side, Result), !.
+decideResult(Side, Board, Result):-
+	gameWon(Side, Board, Result), !.
 
-gameWon(black, 'victory black') :- !.
-gameWon(white, 'victory white') :- !.
-gameLost(black, 'victory white') :- !.
-gameLost(white, 'victory black') :- !.
+gameWon(black, Board, 'victory black'-Board) :- !.
+gameWon(white, Board, 'victory white'-Board) :- !.
+gameLost(black, Board, 'victory white'-Board) :- !.
+gameLost(white, Board, 'victory black'-Board) :- !.
 
 %%%%%%%%%%%%%%% Request Predicates %%%%%%%%%%%%%%%%%%%%%
 
@@ -150,7 +150,7 @@ parse_input(aiPlay(AI, Side, Board), Result):-
 	decideResult(Side, NewBoard, Result), !.
 % If piece play is not possible, player loses
 parse_input(aiPlay(_AI, Side, _Board), Result):-
-	gameLost(Side, Result), !.
+	gameLost(Side, Board, Result), !.
 
 parse_input(moveWorker(Board, Row, Col, NewRow, NewCol), NewBoard):-
 	moveWorker(Board, Row, Col, NewRow, NewCol, NewBoard), !.
@@ -161,8 +161,8 @@ parse_input(setPiece(Side, Board, Row, Col), Result):-
 	setPiece(Side, Row, Col, Board, NewBoard), !,
 	decideResult(Side, NewBoard, Result), !.
 % If piece play is not possible, player loses
-parse_input(setPiece(Side, _Board, _Row, _Col), Result):-
-	gameLost(Side, Result), !.
+parse_input(setPiece(Side, Board, _Row, _Col), Result):-
+	gameLost(Side, Board, Result), !.
 
 %%%%%%%%%%%%%%% Server Tests %%%%%%%%%%%%%%%%%%%%%
 

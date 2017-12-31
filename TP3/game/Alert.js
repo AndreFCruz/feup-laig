@@ -54,7 +54,7 @@ class Alert {
     /**
      * Show a sweetalert to show who won the game
      * 
-     * @param {String} str - string in format 'victory Side', sent from PLOG
+     * @param {String} str - string containig a message, possibly the game winner
      * @return {null}
      */
     showWinner(str) {
@@ -77,19 +77,19 @@ class Alert {
                         this.game.boardHistory.reset();
                         this.game.gameElements.reset();
                         this.game.scoreboard.playerWin(winner);
+                        this.game.board = null;
                     }
                 });
             }
         };
-
-        let msg = str.split(" ");
-        if (msg[0] == 'victory') {
-            let winner = (msg[1] == PLAYER1_SIDE ? 1 : 2);
+        
+        //Possible acceptable winners
+        if (str == 1 || str == 2) {
             swal( 
-                'Player ' + winner + ' wins!',
+                'Player ' + str + ' wins!',
                 'Congratulations!',
                 'success'
-            ).then(endGameCallbackFunction.bind(this, winner));
+            ).then(endGameCallbackFunction.bind(this, str));
         } else {
             swal( 
                 'TIE',
