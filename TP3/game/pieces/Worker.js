@@ -1,5 +1,6 @@
 /**
  * A class representing a generic worker piece.
+ * @augments Piece
  */
 class Worker extends Piece {
     
