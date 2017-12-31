@@ -75,19 +75,25 @@ Edgar Carneiro - 201503748 \\
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introdução}
+\section{Instruções de Uso}
 
-Este trabalho foi desenvolvido no âmbito da unidade curricular de Programação em Lógica, integrada no 3º ano do Mestrado Integrado em Engenharia Informática e Computação, tendo como objetivo aprofundar os conhecimentos adquiridos nas aulas teóricas e práticas desta unidade curricular, bem como a abordagem de problemas mais práticos com recurso à linguagem \textit{PROLOG}. Deste modo, propusemo-nos a implementar e modelar do jogo de tabuleiro \textit{Fabrik}, sendo possível os modos de jogo \textit{jogador vs jogador}, \textit{jogador vs computador} e \textit{computador vs computador} (com dois níveis de dificuldade).
+Para correr o cliente (interface gráfica) basta correr o script ‘start\_client.sh’:
+\begin{itemize}
+\item \verb|sh start_client.sh|
+\end{itemize}
 
-A escolha deste jogo, que foi selecionado dentro de um leque de opções disponibilizadas pelos docentes, prendeu-se no conjunto de conceitos intuitivos que incorpora (\textit{e.g.} linhas de visão das peças), permitindo uma rápida aprendizagem das regras, assim como um desafio na implementação de restrições de jogadas e avaliação do tabuleiro. Esta aparente simplicidade é no entanto contrabalançada com o facto de cada jogada ter dois passos: a colocação do \textit{worker}, e a colocação de uma peça \textit{black}/\textit{white} (estando este segundo passo fortemente constrangido pelo primeiro).
+No caso de não ser possível correr shell scripts terá de correr o comando ‘python -m http.server 8080’ manualmente.
+\\
+\\
+Para correr o servidor de prolog terá de correr o script ‘start\_server.sh’:
+\begin{itemize}
+\item \verb|sh start_server.sh|
+\end{itemize}
 
-Este relatório está dividido em várias secções, sendo a presente a primeira:
-\begin{enumerate}
-\item Na segunda secção deste relatório, é feita uma pequena introdução à história do jogo \textit{Fabrik}, aos componentes físicos necessários para jogar, e às regras oficiais do jogo;
-\item Na secção seguinte, são apresentados vários detalhes da nossa implementação, desde a representação visual do tabuleiro ao algoritmo de cálculo da melhor jogada possível dado um determinado estado de jogo;
-\item Na quarta secção, é descrita a interface com o utilizador, que consiste nos menus e input esperado em cada um destes;
-\item Na última secção, são tecidas conclusões acerca do desenvolvimento deste trabalho e do seu enquadramento curricular.
-\end{enumerate}
+No caso de não ser possível correr shell scripts terá de abrir o Sicstus, consultar o ficheiro de Prolog server.pl - consult(‘server.pl’). - e de seguida correr o predicado server.
+
+Após ter iniciado o servidor http e o servidor de prolog, basta navegar até à página ‘localhost:8080/client’ para correr o jogo.
+
 
 \newpage
 
@@ -443,77 +449,5 @@ Para este projeto desenvolvemos dois bots:  um \textbf {Random bot}, que realiza
 \end{itemize}
 
 \newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Interface com o Utilizador}
-
-A interface do utilizador foi feita de forma a ser resiliente a \textit{Input} e a permitir que o jogo nunca acaba abruptamente. É visualmente agradável e simples, melhor a experiência de jogo para o utilizador. As funções usadas na interface encontram-se maioritariamente definidas nos ficheiros \textbf{input.pl}, \textbf{display.pl} e \textbf{menus.pl}.
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[height=7cm,width=7cm]{images/fabrik_start.png}
-\caption{Menu Prinicipal}
-\label{Figura 1}
-\end{center}
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[height=7cm,width=7cm]{images/fabrik_menu.png}
-\caption{Menu de Jogo}
-\label{Figura 1}
-\end{center}
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[height=7cm,width=7cm]{images/fabrik_rules.png}
-\caption{Regras}
-\label{Figura 1}
-\end{center}
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[height=7cm,width=7cm]{images/fabrik_choose_worker.png}
-\caption{Colocação de um Trabalhador}
-\label{Figura 1}
-\end{center}
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[height=7cm,width=7cm]{images/fabrik_change_worker_pos.png}
-\caption{Movimentação de um trabalhador}
-\label{Figura 1}
-\end{center}
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[height=7cm,width=7cm]{images/fabrik_set_piece.png}
-\caption{Colocação de um Peça}
-\label{Figura 1}
-\end{center}
-\end{figure}
-
-\clearpage
-\newpage
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusões}
-O presente trabalho exigiu um grande empenho por parte de ambos os elementos do grupo, tendo, no entanto, sido uma experiência recompensadora.
-
-Consideramos que o nosso conhecimento de programação em lógica foi amplamente aumentado, tendo sido alcançado tudo o que nos propusemos a fazer no tempo requerido, e muitas vezes ultrapassado por termos encontrado soluções mais interessantes.
-
-As maiores dificuldades encontradas no decorrer do desenvolvimento foram relacionadas com a verificação das jogadas válidas (pois o jogo impõe múltiplas restrições a esta ação), assim como na elaboração da função que avalia as jogadas possíveis. No entanto, todos os problemas foram eventualmente ultrapassados, e estamos contentes com as soluções encontradas.
-
-Achamos importante indicar que próximo do fim do desenvolvimento tentamos aplicar o algoritmo \textit{Minimax} para a tomada de decisão sobre a melhor jogada a escolher, no entanto tornou-se eventualmente claro que, devido às custosas verificações de validade de jogadas e de fim de jogo, esta alteração implicaria um grande tempo de espera para cada jogada do computador, tendo no fim sido escolhido um algoritmo ganancioso para a referida tomada de decisão.
-
-Referir também que em alguns casos decidimos beneficiar legibilidade em detrimento de performance, privilegiando predicados curtos e com uso de funções \textit{standard}, mantendo a elegância de código permitida em linguagens de alto nível como o \textit{PROLOG}.
-
-Em suma, apesar de \textit{PROLOG} se pautar por um paradigma diferente do que estamos habituados, rápidamente nos habituamos e aprendemos a apreciar as facilidades e dificuldades que este apresenta, tendo culminado num trabalho no qual nos orgulhamos.
-
 
 \end{document}
