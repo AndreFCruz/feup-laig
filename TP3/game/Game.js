@@ -258,6 +258,16 @@ class Game {
     }
 
     /**
+     * Sets the current state to the previous state, to avoid progress on state machine
+     * Useful for invalid input from User
+     * 
+     * @return {null}
+     */
+    setToPreviousState() {
+        this.currentState = this.previousState;
+    }
+
+    /**
      * For forcin changes on board dependent states
      * Important for transition between states, for example when choosing starting players
      * and the starting player is an AI
