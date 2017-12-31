@@ -116,7 +116,8 @@ void main() {
     float normalChange = timeFactor * 0.05;
     
     // Transformed Vertex position
-    vec4 vertex = uMVMatrix * vec4(aVertexPosition+aVertexNormal*normalChange, 1.0);
+    //vec4 vertex = uMVMatrix * vec4(aVertexPosition+aVertexNormal*normalChange, 1.0);
+    vec4 vertex = uMVMatrix * vec4(aVertexPosition, 1.0);
     vertex.y += timeFactor * 0.4;
 
     // Transformed normal position
