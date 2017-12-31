@@ -53,6 +53,7 @@ class Alert {
 
     /**
      * Show a sweetalert to show who won the game
+     * Waits on input for decision making on game
      * 
      * @param {String} str - string containig a message, possibly the game winner
      * @return {null}

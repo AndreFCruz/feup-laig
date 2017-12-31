@@ -491,13 +491,13 @@ class Game {
         //Parsing the end game message
         let msg = str.split(" ");
         if (msg[0] == 'victory') {
+
             let results = msg[1].split("-");
-            this.communication.prologBoard = this.communication.parseBoardFromPlog(results[1]);
-            this.communication.boardChanged = true;
+            this.communication.forceStates(results[1]);
             this.alert.showWinner(results[0] == PLAYER1_SIDE? 1 : 2);
+
         } else 
             this.alert.showWinner(str);
-        // alert's showWinner will reset the board and game state after swal alert response
     }
 
     /**
