@@ -78,7 +78,8 @@ MyInterface.prototype.updateLightsGroup = function(lights) {
 }
 
 /**
- * Adds a color controller for the current selected node
+ * Adds a color controller for the current selected node,
+ * a play game film button and an undo button.
  * 
  * @return {null}
  */
@@ -93,6 +94,22 @@ MyInterface.prototype.addOptionsGroup = function() {
     optionsFolder.addColor(this.scene, 'selectedColor').onChange(function(v) {
         this.object.updateShaderColor(v);
     });
+}
+
+/**
+ * Adds buttons for the camera controlls
+ * 
+ * @return {null}
+ */
+MyInterface.prototype.addCameraGroup = function() {
+    let cameraFolder = this.gui.addFolder('Camera');
+    cameraFolder.open();
+
+    cameraFolder.add(this.scene, 'rotateCameraLeft').name('Turn Left');
+    cameraFolder.add(this.scene, 'rotateCameraRight').name('Turn Right');
+    cameraFolder.add(this.scene, 'zoomIn').name('Zoom In');
+    cameraFolder.add(this.scene, 'zoomOut').name('Zoom Out');    
+    cameraFolder.add(this.scene, 'resetCamera').name('Reset Camera');
 }
 
 /**

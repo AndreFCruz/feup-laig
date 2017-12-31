@@ -237,17 +237,12 @@ XMLscene.prototype.onGraphLoaded = function(graph)
     
     this.initLights();
 
-    // Add scene drop-down menu to interface
+    // Add interface folders/groups
     this.interface.addMultipleScenes(this.graphs);
-
-    // Add game modes to interface
     this.interface.addInitGameGroup();
-
-    // Add options group to interface
     this.interface.addOptionsGroup();
-
-    // Add lights group
-    this.interface.addLightsGroup(this.currentGraph.lights);   
+    this.interface.addLightsGroup(this.currentGraph.lights);
+    this.interface.addCameraGroup();
 }
 
 /**
