@@ -36,13 +36,13 @@ main=function()
     app.setScene(myScene);
     app.setInterface(myInterface);
 
-    myInterface.setActiveCamera(myScene.camera);
+    //myInterface.setActiveCamera(myScene.camera);
     
     // XML's containing the different scenes
     // assumes files in subfolder "scenes", check MySceneGraph constructor
     var differentScenes = [
-        "Universe.xml",
-        "board.xml"
+        "Classic.xml",
+        "Universe.xml"
     ];
 
     // create and load all the graphs, and associate them to the scene. 
