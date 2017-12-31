@@ -29,10 +29,21 @@ class Piece {
         this.selected = false;
     }
 
+    /**
+     * Get the piece board position
+     * 
+     * @return {Array} - Position [row, col]
+     */
     get boardPos() {
         return this._boardPos;
     }
 
+    /**
+     * Set the board current Position
+     * 
+     * @param {Array} cell - Board new position
+     * @return {null}
+     */
     set boardPos(cell) {
         this._boardPos = cell;
         if (! cell) return;
@@ -40,10 +51,21 @@ class Piece {
         this.moveTo(cell[1], cell[0]);
     }
 
+    /**
+     * Get this piece world posiion
+     * 
+     * @return {mat4}
+     */
     get position() {
         return this._position;
     }
 
+    /**
+     * Set the piece world position
+     * 
+     * @param {Array} pos - Piece new world position in format [x, y, z]
+     * @return {null}
+     */
     set position(pos) {
         this._position = pos;
 
@@ -51,6 +73,13 @@ class Piece {
         mat4.translate(this.positionMatrix, this.positionMatrix, pos);
     }
 
+    /**
+     * Move the piece to the given board position, through an animation @see @class ArchAnimation
+     * 
+     * @param {Number} targetX - New row position
+     * @param {Number} targetZ - New col position
+     * @return {null}
+     */
     moveTo(targetX, targetZ) {
         let previousPos = this.position;
         this.animation = new ArchAnimation(
@@ -68,7 +97,7 @@ class Piece {
         this.result = mat4.clone(this.positionMatrix);
         if (this.animation) {
             mat4.multiply(this.result, this.positionMatrix, this.animation.matrix);
-        } // TODO change order of operands in multiply ?
+        }
         return this.result;
     }
 
@@ -81,6 +110,12 @@ class Piece {
         return this.type;
     }
 
+    /**
+     * Update the current Piece, useful for animations
+     * 
+     * @param {Number} elapsedTime - Time elapsed, in mili seconds
+     * @return {null} 
+     */
     update(elapsedTime) {
         if (this.initialTime == null)
             this.initialTime = elapsedTime;

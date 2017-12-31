@@ -1,5 +1,6 @@
 /**
  * A class representing a generic black piece.
+ * @augments Piece
  */
 class BlackPiece extends Piece {
     

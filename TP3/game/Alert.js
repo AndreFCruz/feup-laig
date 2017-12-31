@@ -6,7 +6,7 @@ class Alert {
     /**
      * Constructor for the alerts class
      *
-     * @param {Object} game - The alerts the game are going to be used in
+     * @param {Object} game - The game the alerts are going to be used in
      * @constructor
      */
     constructor(game) {
@@ -52,8 +52,8 @@ class Alert {
     }
 
     /**
-     * Show a sweetalert to show who won the game
-     * Waits on input for decision making on game
+     * Show a sweetalert to show who won the game, or if it was tied
+     * Waits on input for decision making on game, such as watching the game movie or reseting the game
      * 
      * @param {String} str - string containig a message, possibly the game winner
      * @return {null}
@@ -120,13 +120,13 @@ class Alert {
     }
 
     /**
-     * Show a sweetalert to inform the user that a game is already running, and can't start other
+     * Show a sweetalert to inform the user that a game is already running, and can't start another
      * 
      * @return {null}
      */
     gameRunning() {
         swal (
-            'Sorry',
+            'FABRIK apologizes',
             'There is a game in progress...',
             'error'
         )

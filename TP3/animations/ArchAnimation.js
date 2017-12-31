@@ -4,6 +4,17 @@
  */
 class ArchAnimation extends Animation {
 
+    /**
+     * ArchAnimation class constructor
+     * Useful for moving pieces using an animation from one place to another.
+     * 
+     * @param {Number} xi - Animation Initial X position
+     * @param {Number} zi - Animation Final Z position
+     * @param {Number} xf - Animation Final X positon
+     * @param {Number} zf - Animation Final Z positon
+     * @param {Number} flip - Flag indicating if the flag should flip iin animation
+     * @constructor
+     */
     constructor (xi, zi, xf, zf, flip = false) {
         super();
         this.xi = xi;
@@ -28,6 +39,13 @@ class ArchAnimation extends Animation {
         this.flip = flip;
     }
 
+    /**
+     * Updates the animation
+     * Makes use of @see updateMatrix()
+     * 
+     * @param {Number} currTime - Current application time, in mili seconds
+     * @return {null}
+     */
     update (currTime) {
         if (this.acumulatedDistance >= this.distance) {
             this.finished = true;
@@ -54,6 +72,11 @@ class ArchAnimation extends Animation {
         this.updateMatrix();
     }
 
+    /**
+     * Update the animation matrix
+     * 
+     * @return {null}
+     */
     updateMatrix() {
         mat4.identity(this.matrix);
         
