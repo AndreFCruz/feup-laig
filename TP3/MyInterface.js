@@ -154,6 +154,12 @@ MyInterface.prototype.addMultipleScenes = function(sceneGraphs) {
     }).name("Scene");
 }
 
+/**
+ * Key event handler for processing key events.
+ * 
+ * @param {event} event
+ * @return {null}
+ */
 MyInterface.prototype.processKeyDown = function(event) {
     console.log("Key Down");
     console.log(event);

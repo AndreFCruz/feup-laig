@@ -571,6 +571,9 @@ class Game {
 
     /**
      * Iterates through all the moves played in this game.
+     * 
+     * @param {String} callbackFunction - Function to be called on film ending
+     * @return {null}
      */
     playGameFilm(callbackFunction = null) {
         let previousState = this.currentState;
@@ -600,6 +603,8 @@ class Game {
 
     /**
      * Undos the latest move.
+     * 
+     * @return {null}
      */
     undoLastMove() {
         let reversedMove = this.boardHistory.undoLastMove();
@@ -625,6 +630,7 @@ class Game {
     /**
      * Handle the latest move.
      * Fetches the move from this.boardHistory and reflects it visually.
+     * 
      * @return {null}
      */
     handleMove(move = null) {
@@ -643,7 +649,9 @@ class Game {
 
     /**
      * Processes a single move visually.
+     * 
      * @param {Move} move a Move object, defined and instantiated in BoardHistory
+     * @return {null}
      */
     processSingleMove(move) {
         let piece = null;

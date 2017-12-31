@@ -1,6 +1,12 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
+/**
+ * Camera constant starting angle
+ */
 const CAMERA_START_ANGLE = 0;
+/**
+ * Camera constant starting radius
+ */
 const CAMERA_START_RADIUS = 20 * Math.SQRT2;
 
 /**
@@ -153,6 +159,12 @@ XMLscene.prototype.initCameras = function() {
     this.resetCamera();
 }
 
+/**
+ * Update the camera. Useful for switching between pre defined views functionality
+ * 
+ * @param {Number} currTime - Curent application time, in mili seconds
+ * @return {null}
+ */
 XMLscene.prototype.updateCamera = function(currTime) {
     let previousPos = this.cameraPos;
 
@@ -165,6 +177,12 @@ XMLscene.prototype.updateCamera = function(currTime) {
     }
 }
 
+/**
+ * Update the camera position, usefol for camera animations, for switching between default views
+ * 
+ * @param {Number} deltaTime - Time elapsed since last update, in mili seconds
+ * @return {null}
+ */
 XMLscene.prototype.updateCameraPos = function(deltaTime) {
     let currentAngle = this.cameraSettings.angle;
     let targetAngle = this.cameraSettings.targetAngle;
@@ -180,6 +198,11 @@ XMLscene.prototype.updateCameraPos = function(deltaTime) {
         this.cameraSettings.vel * deltaTime / 1000;
 }
 
+/**
+ * Computes the camera current position
+ * 
+ * @return {vec3} - Camera new position
+ */
 XMLscene.prototype.calculateCameraPos = function() {
     let angle = this.cameraSettings.angle;
     let target = this.cameraSettings.target;
@@ -192,6 +215,11 @@ XMLscene.prototype.calculateCameraPos = function() {
     vec3.add(this.cameraPos, this.cameraPos, target);
 }
 
+/**
+ * Resets the camera to its inital position
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.resetCamera = function() {
     this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,this.cameraSettings.target);
     this.cameraSettings.targetAngle = CAMERA_START_ANGLE;
@@ -200,20 +228,40 @@ XMLscene.prototype.resetCamera = function() {
     //this.interface.setActiveCamera(this.camera);
 }
 
+/**
+ * Zoom the camera in
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.zoomIn = function() {
     this.cameraSettings.targetRadius -= 2;
     // this.cameraSettings.height -= 1;
 }
 
+/**
+ * Zoom the camera out
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.zoomOut = function() {
     this.cameraSettings.targetRadius += 2;
     // this.cameraSettings.height += 1;    
 }
 
+/**
+ * Rotate the camera to the left
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.rotateCameraLeft = function() {
     this.cameraSettings.targetAngle += Math.PI / 2;
 }
 
+/**
+ * Rotate the camera to the right
+ * 
+ * @return {null}
+ */
 XMLscene.prototype.rotateCameraRight = function() {
     this.cameraSettings.targetAngle -= Math.PI / 2;
 }

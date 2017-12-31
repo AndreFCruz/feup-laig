@@ -1209,6 +1209,12 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
 }
 
+/**
+ * Constructs animation with a given animation node
+ * 
+ * @param {Object} animNode 
+ * @return {Object} - the created animation
+ */
 MySceneGraph.prototype.constructAnimation = function(animNode) {
 
 	let type = this.reader.getItem(animNode, 'type', ['linear', 'circular', 'bezier', 'combo'], true);
@@ -1249,6 +1255,12 @@ MySceneGraph.prototype.constructAnimation = function(animNode) {
 
 }
 
+/**
+ * Constructs a combo animation with the given animation node
+ * 
+ * @param {Object} animNode - The animation node
+ * @return {Object} - The created combo animation
+ */
 MySceneGraph.prototype.constructComboAnimation = function(animNode) {
 
 	let childAnimations = [];
@@ -1276,6 +1288,13 @@ MySceneGraph.prototype.constructComboAnimation = function(animNode) {
 	return new ComboAnimation(childAnimations);
 }
 
+/**
+ * Constructs a circular animation with the given animation node and its speed
+ * 
+ * @param {Object} animNode - The animation node
+ * @param {Number} speed - The speed for the animation
+ * @return {Object} - The created circular animation
+ */
 MySceneGraph.prototype.constructCircularAnimation = function(animNode, speed) {
 	let centerx = this.reader.getFloat(animNode, 'centerx', true);
 	if (centerx == null ) {
@@ -1339,6 +1358,12 @@ MySceneGraph.prototype.constructCircularAnimation = function(animNode, speed) {
 	return new CircularAnimation(speed, centerPoint, radius, startang, rotang);
 }
 
+/**
+ * Get the control points out of a XML node
+ * 
+ * @param {Object} node
+ * @return {Array} - control points fetched
+ */
 MySceneGraph.prototype.fetchControlPoints = function(node) {
 
 	let controlPoints = [];
@@ -1377,6 +1402,13 @@ MySceneGraph.prototype.fetchControlPoints = function(node) {
 	return controlPoints;
 }
 
+/**
+ * Constructs a linar animation with the given animation node and its speed
+ * 
+ * @param {Object} animNode - The animation node
+ * @param {Number} speed - The speed for the animation
+ * @return {Object} - The created linear animation
+ */
 MySceneGraph.prototype.constructLinearAnimation = function(animNode, speed) {
 
 	let controlPoints = this.fetchControlPoints(animNode);
@@ -1388,6 +1420,13 @@ MySceneGraph.prototype.constructLinearAnimation = function(animNode, speed) {
 	return new LinearAnimation(speed, controlPoints);
 }
 
+/**
+ * Constructs a bezier animation with the given animation node and its speed
+ * 
+ * @param {Object} animNode - The animation node
+ * @param {Number} speed - The speed for the animation
+ * @return {Object} - The created bezier animation
+ */
 MySceneGraph.prototype.constructBezierAnimation = function(animNode, speed) {
 
 	let controlPoints = this.fetchControlPoints(animNode);
@@ -1667,7 +1706,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 }
 
 /**
- * Creates a Primitve from the XmlElement Object
+ * Creates a Primitive from the XmlElement Object
  *
  * @param {XmlElement} xmlelem - the xml element corresponding to the leaf
  * @return {CGFObject} - The created primitive
