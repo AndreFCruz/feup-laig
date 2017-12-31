@@ -117,6 +117,7 @@ class BoardHistory {
      */
     undoLastMove() {
         let move = this.getLastMoveReversed();
+        if (! move) return null;
         if ( (this.boards.length > 2 && move.workerMove.type == this.moveType.UNDO_WORKER) ||
              (move.pieceMove.type == null && move.workerMove.type == null) ) {
             return null;
