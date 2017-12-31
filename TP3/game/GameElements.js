@@ -63,6 +63,9 @@ class GameElements {
                 this.boardCells[i][j] = new BoardCell(this.scene, [BOARD_SIZE - 1 - i, j]);
             }
         }
+
+        // Player Turn Token
+        this.token = new PlayerToken(this.scene);
     }
 
     /**
@@ -72,7 +75,7 @@ class GameElements {
      * @return {Boolean} - True if piece is on the board, false otherwise
      */
     isOnBoard(piece) {
-        let piecePos = piece.getPosition();
+        let piecePos = piece.position;
 
         if (piecePos[0] < 0 || piecePos[1] < 0 ||
             piecePos[0] > BOARD_SIZE || piecePos[1] > BOARD_SIZE) 
@@ -95,6 +98,8 @@ class GameElements {
 
         for (let i = 0; i < this.workers.length; ++i)
             this.workers[i].update(currTime);
+
+        this.token.update(currTime);
     }
 
     fetchBlackPiece() {
@@ -202,6 +207,9 @@ class GameElements {
             this.workers[i].boardPos = null;
             this.workers[i].moveTo(-1, i);
         }
+
+        // Reset Player Token
+        this.token.reset();
     }
 
     /**
@@ -227,6 +235,9 @@ class GameElements {
 
         this.scene.registerForPick( WORKER_PICK_ID + 1, this.workers[1]);
         this.scene.currentGraph.displayPiece(this.workers[1]);
+
+        // Display player token
+        this.token.display();
 
         this.scene.setNoDisplayShader();
 

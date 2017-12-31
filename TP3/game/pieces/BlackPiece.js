@@ -10,7 +10,7 @@ class BlackPiece extends Piece {
      * @constructor
      */
     constructor(pos) {
-        super(pos, "black piece");
+        super(pos, "black piece", true);
     }
 
 }

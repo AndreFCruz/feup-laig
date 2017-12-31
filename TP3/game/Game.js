@@ -101,6 +101,7 @@ class Game {
             console.error('No current player is set, can not switch between players');
 
         this.scoreboard.startNewTurn();
+        this.gameElements.token.flipSides();
     }
 
     /**

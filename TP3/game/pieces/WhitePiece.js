@@ -10,7 +10,7 @@ class WhitePiece extends Piece {
      * @constructor
      */
     constructor(pos) {
-        super(pos, "white piece");
+        super(pos, "white piece", true);
     }
 
 }
