@@ -13,7 +13,10 @@ const GET_LISTS_REGEX = /\[((?:\w*,?)*)\]/g;
  */
 const GET_ELEMENTS_REGEX = /\w+/g;
 
-
+/**
+ * Class responsible for communicating with Prolog.
+ * Makes requests and interperts replys from Prolog
+ */
 class Communication {
 
     /**
@@ -74,7 +77,7 @@ class Communication {
     }
 
     /**
-     * Handle the Prolog andswer to the last made request
+     * Handle the Prolog answer to the last made request
      * 
      * @param {String} answer - Prolog answer to the made request
      */
@@ -92,7 +95,7 @@ class Communication {
      * Parses a Board matrix into a string containg a Prolog List of lists.
      * 
      * @param {Object} board - The board to be parsed into the prolog list of lists
-     * @return {String} - Prolog list of lists
+     * @return {String} - Prolog list of lists, representing the given board
      */
     parseBoardToPlog(board) {
         let listLists = "[";
@@ -115,6 +118,7 @@ class Communication {
 
     /**
      * Parses a string containing a Prolog list of lists to a board
+     * Uses ReGex, see ReGex constants
      * 
      * @param {String} str - The Prolog list of lists, as a string
      * @return {object} - The board matrix

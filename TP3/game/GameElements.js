@@ -14,7 +14,7 @@ const NUMBER_WORKERS = 2;
 const BOARD_SIZE = 9
 
 /**
- * A class representing a game instance
+ * A class representing all the game elements of a board (board cells and pieces)
  */
 class GameElements {
     
@@ -81,6 +81,11 @@ class GameElements {
             return true;
     }
 
+    /**
+     * Updates all the game elements, useful for animations
+     * 
+     * @param {Number} currTime - Current application time, in mili seconds
+     */
     update(currTime) {
         let whitePieces = this.whitePool.elements;
         for (let i = 0; i < whitePieces.length; ++i)
@@ -97,6 +102,11 @@ class GameElements {
             this.workers[i].update(currTime);
     }
 
+    /**
+     * Fetches a black piece from the side of the board (from an object pool)
+     * 
+     * @return {Object} - The piece returned ( @see Piece )
+     */
     fetchBlackPiece() {
         let piece = this.blackPool.acquire();
         this.piecesInPlay.push(piece);
@@ -104,6 +114,11 @@ class GameElements {
         return piece;
     }
 
+    /**
+     * Fetches a white piece from the side of the board (from an object pool)
+     * 
+     * @return {Object} - The piece returned ( @see Piece )
+     */
     fetchWhitePiece() {
         let piece = this.whitePool.acquire();
         this.piecesInPlay.push(piece);
@@ -111,6 +126,12 @@ class GameElements {
         return piece;
     }
 
+    /**
+     * Fetches the piece in the given board position
+     * 
+     * @param {Array} pos - The position on the board
+     * @return {Object} - the piece on the position ( @see Piece ) 
+     */
     fetchPieceInPlay(pos) {
         let piece = null;
         for (let i = 0; i < this.piecesInPlay.length; i++) {
@@ -124,6 +145,12 @@ class GameElements {
         return piece;
     }
 
+    /**
+     * Makes the piece in the given board position return to the board sides ( return to its object pool )
+     * 
+     * @param {Array} pos - The position on the board
+     * @return {null}
+     */
     releasePiece(pos) {
         let piece = this.fetchPieceInPlay(pos);
         if (! (piece && pos) ) return;
@@ -145,6 +172,12 @@ class GameElements {
         piece.boardPos = null;
     }
 
+    /**
+     * Makes the Worker on the given board position return to its side inital position
+     * 
+     * @param {Array} pos - The position on the board
+     * @return {null} 
+     */
     releaseWorker(pos) {
         let worker = this.fetchWorker(pos);
         if (! (worker && pos) ) return;
@@ -157,6 +190,13 @@ class GameElements {
         worker.moveTo(-1, otherWorkerInPlay ? 1 : 0);
     }
 
+    /**
+     * Fetches the worker in the given board position, if one is given, or
+     * fetches the first worker outside of the board, if none is given.
+     * 
+     * @param {Array} pos - The position on the board. This parameter is optional 
+     * @return {null}
+     */
     fetchWorker(pos = null) {
         for (let i = 0; i < this.workers.length; i++) {
             let workerPos = this.workers[i].boardPos;
@@ -169,16 +209,34 @@ class GameElements {
         return null;
     }
 
+    /**
+     * Selects the worker in the given position [row, col] of the board
+     * 
+     * @param {Number} row - The worker's row
+     * @param {Number} col - The worker's col
+     * @return {null}
+     */
     selectWorker(row, col) {
         let worker = this.fetchWorker([row, col]);
         worker.selected = true;
     }
 
+    /**
+     * Deselects both workers. Useful for beggining new turns
+     * 
+     * @return {null}
+     */
     resetSelectedWorkers() {
         this.workers[0].selected = false;
         this.workers[1].selected = false;        
     }
 
+    /**
+     * Release all the pieces (white, black and workers) from the board to their object pools or inital positions.
+     * Useful for reseting the game
+     * 
+     * @return {null}
+     */
     reset() {
         // Release all pieces from play into the pools
         for (let i = 0; i < this.piecesInPlay.length; ++i) {

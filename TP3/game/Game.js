@@ -23,6 +23,7 @@ class Game {
     
     /**
      * Constructor for the Game class
+     * Iniates all the game elements, such as State machine states and others
      * 
      * @param {Object} scene - The lighting scene were elements will be displayed
      * @constructor
@@ -32,6 +33,9 @@ class Game {
         this.gameElements = new GameElements(scene);
         this.scoreboard = new ScoreBoard(scene, this.resetTimeOutGame);
 
+        /**
+         * States of the state machine responsible for handling the game logic
+         */
         this.state = {
             NO_GAME_RUNNING : 1,
             HUMAN_VS_HUMAN : 2,
@@ -50,6 +54,9 @@ class Game {
         this.currentState = this.state.NO_GAME_RUNNING;
         this.previousState = null;
 
+        /**
+         * Type of possible players for the game
+         */
         this.playerType = {
             HUMAN: 'human',
             RANDOM_AI: 'random',
@@ -89,7 +96,7 @@ class Game {
     }
 
     /**
-     * Switch between the players
+     * Switch between the current players
      * 
      * @return {null}
      */
@@ -105,6 +112,8 @@ class Game {
 
     /**
      * Get correspondent Prolog Side to the current player
+     * 1 - black
+     * 2 - white
      * 
      * @return {String} - correspondent Prolog Side
      */
@@ -119,7 +128,7 @@ class Game {
     }
 
     /**
-     * Get current Player Type
+     * Get player type of the current player
      * 
      * @return {String} - The player Type (@see this.playerType)
      */
@@ -150,6 +159,8 @@ class Game {
 
     /**
      * Displays the game elements
+     * @see GameElements.displayGame and
+     * @see Scoreboard.display
      * 
      * @return {null}
      */

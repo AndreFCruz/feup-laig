@@ -169,7 +169,9 @@ class ScoreBoard {
     }
 
     /**
-     * Indicate the Scoreboard that a new game began
+     * Indicate the Scoreboard that a new game began, useful for timer related functionalities
+     * 
+     * @return {null}
      */
     gameBegan() {
         this.gameRunning = true;
@@ -187,6 +189,7 @@ class ScoreBoard {
 
     /**
      * Increase the current turn Time by 1 minute
+     * Triggered by picking
      * 
      * @return {null}
      */
@@ -201,6 +204,7 @@ class ScoreBoard {
 
     /**
      * Increase the current turn Time by 10 seconds
+     * Triggered by picking
      * 
      * @return {null}
      */
@@ -209,7 +213,7 @@ class ScoreBoard {
     }
 
     /**
-     * Inform the scoreboard that the given player won the game
+     * Inform the scoreboard that the given player won the game, or that it was a tie
      * 
      * @param {Number} player - The player that won the game
      * @return {null}
@@ -226,7 +230,7 @@ class ScoreBoard {
     }
     
     /**
-     * Handle the picked timer digit
+     * Handle the picked timer digit (either minutes or tens of seconds)
      * 
      * @param {Number} - The ID of the picked element
      * @return {null}
