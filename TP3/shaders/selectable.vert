@@ -113,11 +113,12 @@ vec4 lighting(vec4 vertex, vec3 E, vec3 N) {
 
 void main() {
     // size change
-    float normalChange = timeFactor * 0.1;
+    float normalChange = timeFactor * 0.05;
     
     // Transformed Vertex position
     vec4 vertex = uMVMatrix * vec4(aVertexPosition+aVertexNormal*normalChange, 1.0);
-    
+    vertex.y += timeFactor * 0.4;
+
     // Transformed normal position
     vec3 N = normalize(vec3(uNMatrix * vec4(aVertexNormal, 1.0)));
     

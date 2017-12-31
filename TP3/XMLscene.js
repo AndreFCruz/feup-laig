@@ -146,6 +146,7 @@ XMLscene.prototype.initCameras = function() {
         target: vec3.fromValues(4, 0, 4),
         vel: 5 // in radians per second
     };
+    /** radius != targetRadius initially for start animation **/
 
     this.calculateCameraPos();
     this.resetCamera();
@@ -390,9 +391,9 @@ XMLscene.prototype.setNoDisplayShader = function() {
  * @return {null}
  */
 XMLscene.prototype.updateShader = function(currTime) {
-    let t = (Math.sin(currTime / 1000) + 1) / 2;
+    let t = (Math.sin(currTime / 500) + 1) / 2;
 
-    this.secondaryShader.setUniformsValues({timeFactor: t});    
+    this.secondaryShader.setUniformsValues({timeFactor: t});
 }
 
 /**

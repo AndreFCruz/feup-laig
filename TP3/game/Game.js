@@ -583,6 +583,8 @@ class Game {
     undoLastMove() {
         let reversedMove = this.boardHistory.undoLastMove();
         if (! reversedMove) return;
+        if (reversedMove.workerMove.type == this.boardHistory.moveType.MOVE_WORKER)
+            this.movedWorkerThisTurn = false;
 
         this.board = this.boardHistory.getCurrentBoard();
         this.handleMove(reversedMove);
