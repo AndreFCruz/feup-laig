@@ -114,7 +114,6 @@ O jogo - \textit{Fabrik} - foi recentemente desenvolvido por Dieter Stein, em ag
 \begin{center}
 \includegraphics[height=3cm,width=3cm]{images/fabrik_empty_board.png}
 \caption{Tabuleiro vazio de 11 x 11 espaços}
-\label{Figura 1}
 \end{center}
 \end{figure}
 
@@ -129,7 +128,6 @@ O jogo procede por turnos, sendo que em cada turno um jogador pode, se assim opt
 \begin{center}
 \includegraphics[height=3cm,width=3cm]{images/fabrik_intersection.png}
 \caption{Pontos de interseção entre os dois trabalhadores}
-\label{Figura 2}
 \end{center}
 \end{figure}
 
@@ -141,7 +139,6 @@ Ganha o jogo o jogador que consiga criar uma linha de pelo menos 5 pedras da sua
 \begin{center}
 \includegraphics[height=3cm,width=3cm]{images/fabrik_full_board.png}
 \caption{Final de uma partida de Fabrik, com vitórias das pretas}
-\label{Figura 3}
 \end{center}
 \end{figure}
 
@@ -150,7 +147,20 @@ Ganha o jogo o jogador que consiga criar uma linha de pelo menos 5 pedras da sua
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textit{Instruções de Uso}}
 
-Como podemos ver pela figura 4, foram implementadas todas as funcionalidades requeridas no enunciado do trabalho. É possível fazer a mudança entre as diferentes cenas carregadas através de diferentes XML’s, sendo para tal apenas necessário mudar qual a cena a ser displayed usando a dropdown box presente no início da interface.
+Como podemos ver pela figura 4 (disponível na última página), foram implementadas todas as funcionalidades requeridas no enunciado do trabalho. É possível fazer a mudança entre as diferentes cenas carregadas através de diferentes XML’s, sendo para tal apenas necessário mudar qual a cena a ser displayed usando a dropdown box presente no início da interface.
+
+Foram implementados também três diferentes modos de jogo: humano contra humano, humano contra computador e computador contra computador. Foram também implementadas duas dificuldades para os jogos de computador: dificuldade Dummy, caracterizada por jogadas aleatórias por parte do computador, e dificuldade Smart em que o computador, usando um algoritmo ganancioso por nós concebido, avalia todos os tabuleiros possíveis e escolhe o por ele considerado melhor.  Assim, é possível, no modo Singleplayer jogar contra um computador Smart ou Dummy. No modo computador contra computador, é possível escolher um jogo de entre as 4 combinações possíveis: Smart x Smart, Smart x Dummy, Dummy x Smart e Dummy x Dummy.
+
+Em relação ao grupo ‘Opções’ da interface, este permite ao utilizador interagir com o jogo, permitindo-lhe realizar as seguintes funcionalidades: anular a última jogada feita, sendo que se depois voltar a carregar anula a jogada anterior a essa e assim consequentemente; ver o filme de jogo, que repete em modo animação todas as jogada realizadas desde o início do jogo, sendo que esta funcionalidade pode ser ativada a qualquer momento; terminar com o jogo, terminando assim o jogo empatado, e, finalmente, escolher qual a cor do shader aplicado aos trabalhadores quando estes são clicados. Qualquer uma destas funcionalidades pode ser aplicada em qualquer modo, continuando o programa a fluir naturalmente.
+
+Em relação ao grupo ‘Câmara’ da interface, este permite ao utilizador variar o seu ponto de vista. É permitido fazer zoom in  ou zoom out da cena e é permitido, rodar a câmara entre 4 posições definidas. Fazer zoom out permite também ao utilizador ter uma melhor perceção da cena que o rodeia. De destacar que a transição entre posições é sempre feita com recurso a animações visualmente agradáveis e naturais.
+
+Por fim, o grupo das ‘luzes’ permite ao utilizador activar quais as luzes que quer que estejam ativas. Naturalmente, que este grupo conforma a cena a ser displayed no momento.
+
+Em relação, à cena, para movimentação de peças, no início do jogo, na fase de escolha da posição inicial dos trabalhadores, apenas é necessário carregar nas célula destino. Passa a fase inicial, para movimentação de um trabalhador, carrega-se neste e de seguida numa célula do tabuleiro livre. Para a posição de peças, não estando um trabalhador selecionado, carregando numa célula válida, uma peça mover-se-à, segunda uma animação, para essa posição. Naturalmente, foram implementados para lidar com seleção de peças inválidas.
+Adicionalmente, existe uma peça animada que se mexe no tabuleiro, por uma das bordas, que tem como fim indicar de quem é o turno de jogo: se do lado das pretas, é das pretas, se do lado das brancas, é das brancas.
+
+Por fim, para controlo do tempo de jogo, é utilizado um placar, que indica qual a pontuação de cada jogador e qual o tempo restante em cada turno. Se o temporizador começar a 0:00, não existe tempo limite para cada jogo. Para alterar esse valor, o utilizador deve clicar ou no número das dezenas dos segundos ou no número dos minutos, incrementando assim o relógio em 10s ou 1min, respetivamente. Caso um jogador não faça a sua jogada a tempo, perde. Os restantes números do placar, de cada lado do temporizador, indicando a pontuação de cada um dos jogadores.
 
 \begin{figure}[p]
 \begin{center}
@@ -159,12 +169,12 @@ Como podemos ver pela figura 4, foram implementadas todas as funcionalidades req
 \end{center}
 \end{figure}
 
-Foram implementados também três diferentes modos de jogo: humano contra humano, humano contra computador e computador contra computador. Foram também implementadas duas dificuldades para os jogos de computador: dificuldade Dummy, caracterizada por jogadas aleatórias por parte do computador, e dificuldade Smart em que o computador, usando um algoritmo ganancioso por nós concebido, avalia todos os tabuleiros possíveis e escolhe o por ele considerado melhor.  Assim, é possível, no modo Singleplayer jogar contra um computador Smart ou Dummy. No modo computador contra computador, é possível escolher um jogo de entre as 4 combinações possíveis: Smart x Smart, Smart x Dummy, Dummy x Smart e Dummy x Dummy.
-
-Em relação ao grupo ‘Opções’ da interface, este permite ao utilizador interagir com o jogo, permitindo-lhe realizar as seguintes funcionalidades: anular a última jogada feita, sendo que se depois voltar a carregar anula a jogada anterior a essa e assim consequentemente; ver o filme de jogo, que repete em modo animação todas as jogada realizadas desde o início do jogo, sendo que esta funcionalidade pode ser ativada a qualquer momento; terminar com o jogo, terminando assim o jogo empatado, e, finalmente, escolher qual a cor do shader aplicado aos trabalhadores quando estes são clicados. Qualquer uma destas funcionalidades pode ser aplicada em qualquer modo, continuando o programa a fluir naturalmente.
-
-Em relação ao grupo ‘Câmara’ da interface, este permite ao utilizador variar o seu ponto de vista. É permitido fazer zoom in  ou zoom out da cena e é permitido, rodar a câmara entre 4 posições definidas. Fazer zoom out permite também ao utilizador ter uma melhor perceção da cena que o rodeia. De destacar que a transição entre posições é sempre feita com recurso a animações visualmente agradáveis e naturais.
-
+\begin{figure}[p]
+\begin{center}
+\includegraphics[scale=0.4]{images/screenshot.png}
+\caption{Visualização geral do jogo.}
+\end{center}
+\end{figure}
 
 \newpage
 
