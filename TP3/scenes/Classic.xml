@@ -14,40 +14,40 @@
 
 <!-- Illumination and clear colour -->
 <ILLUMINATION>
-    <ambient r="0.4" g="0.4" b="0.4" a="1" />       
+    <ambient r="0.2" g="0.2" b="0.2" a="1" />       
     <background r="0" g="0" b="0" a="1" />          
 </ILLUMINATION>
 
 
 <!-- Lights -->
 <LIGHTS>	
-	<LIGHT id="light0">
+	<LIGHT id="lamp1">
         <enable value ="1" />
-        <position  x="0" y="10" z="0" w="1" />       	   
+        <position  x="-12" y="3.5" z="-10" w="0" />       	   
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />        	 
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
     </LIGHT>
 	
-	<LIGHT id="light1">                                    
+	<LIGHT id="lamp2">                                    
         <enable value ="1" />                   	      
-        <position x="30" y="10" z="0" w="1" />       	   
+        <position x="-12" y="3.5" z="18" w="0" />       	   
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />       
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
     </LIGHT>
 	
-	<LIGHT id="light2">                                   
+	<LIGHT id="lamp3">                                   
         <enable value ="1" />                   	       
-        <position x="0" y="10" z="20" w="1" />       		   
+        <position x="20" y="3.5" z="-10" w="0" />       		   
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />      
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
     </LIGHT>
 
-    <LIGHT id="light3">                                   
+    <LIGHT id="lamp4">                                   
         <enable value ="1" />                   	       
-        <position x="30" y="10" z="20" w="1" />       			
+        <position x="20" y="3.5" z="18" w="0" />       			
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
         <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />       
         <specular r="0.6" g="0.6" b="0.6" a="1.0" />      
@@ -66,11 +66,6 @@
 
 	<TEXTURE id="wood">
 		<file path="images/wood.jpg" />
-		<amplif_factor s="1" t="1" />
-	</TEXTURE>
-
-	<TEXTURE id="brown-wood">
-		<file path="images/brown-wood.jpg" />
 		<amplif_factor s="1" t="1" />
 	</TEXTURE>
 
@@ -98,6 +93,11 @@
 		<file path="images/floor.jpg" />
 		<amplif_factor s="0.2" t="0.2" />
 	</TEXTURE>
+
+	<TEXTURE id="lamp cover">
+		<file path="images/lamp-cover.jpg" />
+		<amplif_factor s="1" t="1" />
+	</TEXTURE>
     
 </TEXTURES>
 
@@ -122,8 +122,17 @@
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
+	<!-- A light yellow material -->
+    <MATERIAL id="light yellow">
+        <shininess value="1" />
+        <specular r="1" g="0.9" b="0.2" a="1" />
+        <diffuse r="0.1" g="0.1" b="0.1" a="1" />
+        <ambient r="1" g="0.9" b="0.2" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
 	<!-- A brown material -->
-    <MATERIAL id="brown">         
+    <MATERIAL id="brown">
         <shininess value="1" />
         <specular r="0.0" g="0.0" b="0.0" a="1" />
         <diffuse r="0.2" g="0.16" b="0.11" a="1" />
@@ -210,12 +219,14 @@
 			<NODEREF id="table" />
 			<NODEREF id="chairs" />
 			<NODEREF id="room" />
+			<NODEREF id="lamps" />
+			<NODEREF id="scoreboards" />
 		</DESCENDANTS>
 
 	</NODE>
 
 	<NODE id="board">
-		<MATERIAL id="defaultMaterial" />
+		<MATERIAL id="wood" />
 		<TEXTURE id="board" />
 
 		<TRANSLATION x="0" y="0" z="9" />
@@ -675,6 +686,260 @@
 			d<LEAF type="rectangle" args="-0.5 0.5 0.5 -0.5" />
 		</DESCENDANTS>
 	
+	</NODE>
+
+	<!-- The scene lamps -->
+	<NODE id="lamps">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<DESCENDANTS>
+			<NODEREF id="lamp1" />
+			<NODEREF id="lamp2" />
+			<NODEREF id="lamp3" />
+			<NODEREF id="lamp4" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scene lamps -->
+	<NODE id="lamp1">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="-12" y="0" z="-10" />
+
+		<DESCENDANTS>
+			<NODEREF id="lamp" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scene lamps -->
+	<NODE id="lamp2">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="-12" y="0" z="18" />
+
+		<DESCENDANTS>
+			<NODEREF id="lamp" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scene lamps -->
+	<NODE id="lamp3">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="20" y="0" z="-10" />
+
+		<DESCENDANTS>
+			<NODEREF id="lamp" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scene lamps -->
+	<NODE id="lamp4">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="20" y="0" z="18" />
+
+		<DESCENDANTS>
+			<NODEREF id="lamp" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- Generic lamp -->
+	<NODE id="lamp">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="-10" z="0" />
+		<ROTATION axis="x" angle="-90" />
+
+		<DESCENDANTS>
+			<NODEREF id="lamp bulb" />
+			<NODEREF id="lamp support" />
+			<NODEREF id="lamp cover" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- The lamp's bulb -->
+	<NODE id="lamp bulb">
+	
+		<MATERIAL id="light yellow" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="13" />
+
+		<DESCENDANTS>
+			<LEAF type="sphere" args="1.5 20 20" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- The lamp's support-->
+	<NODE id="lamp support">
+	
+		<MATERIAL id="brown" />
+		<TEXTURE id="steel" />
+
+		<DESCENDANTS>
+			<LEAF type="cylinder" args="13 0.4 0.4 20 20 1 1" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- The lamp's cover-->
+	<NODE id="lamp cover">
+	
+		<MATERIAL id="defaultMaterial" />
+		<TEXTURE id="lamp cover" />
+
+		<TRANSLATION x="0" y="0" z="12" />
+
+		<DESCENDANTS>
+			<LEAF type="cylinder" args="4 3.5 1.5 20 20 0 0" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- Scoreboards -->
+	<NODE id="scoreboards">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<DESCENDANTS>
+			<NODEREF id="scoreboard1" />
+			<NODEREF id="scoreboard2" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scoreboards -->
+	<NODE id="scoreboard1">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="13.52" y="0" z="4.5" />
+		<ROTATION angle="180" axis="y" />
+
+		<DESCENDANTS>
+			<NODEREF id="scoreboard" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scoreboards -->
+	<NODE id="scoreboard2">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="-4.52" y="0" z="4.5" />
+
+		<DESCENDANTS>
+			<NODEREF id="scoreboard" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- A generic scoreboard -->
+	<NODE id="scoreboard">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<DESCENDANTS>
+			<NODEREF id="scoreboard box" />
+			<NODEREF id="button 1" />
+			<NODEREF id="button 2" />
+			<NODEREF id="button 3" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- The scoreboard box -->
+	<NODE id="scoreboard box">
+	
+		<MATERIAL id="brown" />
+		<TEXTURE id="dark wood" />
+
+		<TRANSLATION x="0" y="0.5" z="0" />
+		<SCALE sx="3" sy="3" sz="7" />
+
+		<DESCENDANTS>
+			<NODEREF id="cube" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scoreboard buttons -->
+	<NODE id="button 1">
+	
+		<MATERIAL id="brown" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="-2" />
+
+		<DESCENDANTS>
+			<NODEREF id="score button" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scoreboard buttons -->
+	<NODE id="button 2">
+	
+		<MATERIAL id="red" />
+		<TEXTURE id="null" />
+
+		<DESCENDANTS>
+			<NODEREF id="score button" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- One of the scoreboard buttons -->
+	<NODE id="button 3">
+	
+		<MATERIAL id="light yellow" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="0" z="2" />
+
+		<DESCENDANTS>
+			<NODEREF id="score button" />
+		</DESCENDANTS>
+
+	</NODE>
+
+	<!-- Generic score button -->
+	<NODE id="score button">
+	
+		<MATERIAL id="null" />
+		<TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="2.05" z="0" />
+
+		<DESCENDANTS>
+			<LEAF type="sphere" args="0.3 20 20" />
+		</DESCENDANTS>
+
 	</NODE>
 
 	<!-- Unit Cube -->

@@ -197,7 +197,7 @@
 
 	<NODE id="board base">
 		<MATERIAL id="null" />
-		<TEXTURE id="wood" />
+		<TEXTURE id="grey stripes" />
 
 		<TRANSLATION x="4.5" y="-0.01" z="4.5" />
 		<SCALE sx="13" sy="1" sz="13" />
