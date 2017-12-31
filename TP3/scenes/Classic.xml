@@ -58,7 +58,6 @@
 <!-- Textures -->
 <TEXTURES>
 
-     <!-- Tree leaves -->
     <TEXTURE id="board">
         <file path="images/board-matrix.jpg" />                
         <amplif_factor s="9" t="9" />                           
