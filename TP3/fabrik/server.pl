@@ -114,11 +114,25 @@ translateAI(smart, getGreedyPlay).
 decideResult(Side, Board, Result):-
 	gameIsWon(Side, Board),
 	gameWon(Side, Board, Result), !.
+
+decideResult(Side, Board, Result):-
+	decideComplexPossiblePlay(Side, Board, Result), !.
 %When the Board is full, other player can not play, so player wins
 decideResult(_Side, Board, Board):-
 	boardIsNotFull(Board), !.
 decideResult(Side, Board, Result):-
 	gameWon(Side, Board, Result), !.
+
+%When a piece play is not possible
+decideSimplePlayNotPossible(Side, Board, Result):-
+	\+ isPiecePlayPossible(Board),
+	gameLost(Side, Board, Result), !.
+decideSimplePlayNotPossible(_Side, Board, Board):- !.
+%When a piece play is not possible
+decideComplexPossiblePlay(Side, Board, Result):-
+	\+ isComplexPlayPossible(Side, Board),
+	gameWon(Side, Board, Result), !.
+	
 
 gameWon(black, Board, 'victory black'-Board) :- !.
 gameWon(white, Board, 'victory white'-Board) :- !.
@@ -148,21 +162,17 @@ parse_input(aiPlay(AI, Side, Board), Result):-
 	translateAI(AI, AIfunction),
 	call(AIfunction, Side, Board, NewBoard), !,
 	decideResult(Side, NewBoard, Result), !.
-% If piece play is not possible, player loses
 parse_input(aiPlay(_AI, Side, Board), Result):-
 	gameLost(Side, Board, Result), !.
 
-parse_input(moveWorker(Board, Row, Col, NewRow, NewCol), NewBoard):-
-	moveWorker(Board, Row, Col, NewRow, NewCol, NewBoard), !.
+parse_input(moveWorker(Side, Board, Row, Col, NewRow, NewCol), Result):-
+	moveWorker(Board, Row, Col, NewRow, NewCol, NewBoard), !,
+	decideSimplePlayNotPossible(Side, NewBoard, Result), !.
 
 % Setting piece in the board
 parse_input(setPiece(Side, Board, Row, Col), Result):-
-	isPiecePlayPossible(Board), !,
 	setPiece(Side, Row, Col, Board, NewBoard), !,
 	decideResult(Side, NewBoard, Result), !.
-% If piece play is not possible, player loses
-parse_input(setPiece(Side, Board, _Row, _Col), Result):-
-	gameLost(Side, Board, Result), !.
 
 %%%%%%%%%%%%%%% Server Tests %%%%%%%%%%%%%%%%%%%%%
 

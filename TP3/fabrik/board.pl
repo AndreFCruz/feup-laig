@@ -187,3 +187,9 @@ isPiecePlayPossible(Board) :-
         getIntersections(Board, R1, C1, R2, C2, PossiblePlays),
         length(PossiblePlays, Length),
         Length > 0, !.
+
+%Checks if any play is possible by all possible worker movements and respective setting pieces
+isComplexPlayPossible(Side, Board):-
+        getPossibleBoards(Side, Board, PossibleBoards),
+	length(PossibleBoards, Len),
+	Len > 0, !. 

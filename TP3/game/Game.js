@@ -391,7 +391,8 @@ class Game {
             if (this.pickedCell) {
                 this.movedWorkerThisTurn = true;
                 this.communication.getPrologRequest(
-                    'moveWorker(' + 
+                    'moveWorker(' +
+                    this.getPlayerSide() + ',' +
                     this.communication.parseBoardToPlog(this.board) + ',' +
                     workerRow + ',' +
                     workerCol+ ',' +
