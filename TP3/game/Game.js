@@ -508,7 +508,7 @@ class Game {
      * @return {null}
      */
     resetTimeOutGame() {
-        let winner = 'victory ' + (this.currentPlayer == 1 ? PLAYER1_SIDE : PLAYER2_SIDE);
+        let winner = 'victory ' + (this.scene.game.currentPlayer == 1 ? PLAYER2_SIDE : PLAYER1_SIDE);
         this.scene.game.resetGame(winner);
     }
 
