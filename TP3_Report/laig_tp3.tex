@@ -150,7 +150,20 @@ Ganha o jogo o jogador que consiga criar uma linha de pelo menos 5 pedras da sua
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textit{Instruções de Uso}}
 
+Como podemos ver pela figura 4, foram implementadas todas as funcionalidades requeridas no enunciado do trabalho. É possível fazer a mudança entre as diferentes cenas carregadas através de diferentes XML’s, sendo para tal apenas necessário mudar qual a cena a ser displayed usando a dropdown box presente no início da interface.
 
+\begin{figure}[p]
+\begin{center}
+\includegraphics[scale=0.5]{images/interface.png}
+\caption{Interface do Jogo}
+\end{center}
+\end{figure}
+
+Foram implementados também três diferentes modos de jogo: humano contra humano, humano contra computador e computador contra computador. Foram também implementadas duas dificuldades para os jogos de computador: dificuldade Dummy, caracterizada por jogadas aleatórias por parte do computador, e dificuldade Smart em que o computador, usando um algoritmo ganancioso por nós concebido, avalia todos os tabuleiros possíveis e escolhe o por ele considerado melhor.  Assim, é possível, no modo Singleplayer jogar contra um computador Smart ou Dummy. No modo computador contra computador, é possível escolher um jogo de entre as 4 combinações possíveis: Smart x Smart, Smart x Dummy, Dummy x Smart e Dummy x Dummy.
+
+Em relação ao grupo ‘Opções’ da interface, este permite ao utilizador interagir com o jogo, permitindo-lhe realizar as seguintes funcionalidades: anular a última jogada feita, sendo que se depois voltar a carregar anula a jogada anterior a essa e assim consequentemente; ver o filme de jogo, que repete em modo animação todas as jogada realizadas desde o início do jogo, sendo que esta funcionalidade pode ser ativada a qualquer momento; terminar com o jogo, terminando assim o jogo empatado, e, finalmente, escolher qual a cor do shader aplicado aos trabalhadores quando estes são clicados. Qualquer uma destas funcionalidades pode ser aplicada em qualquer modo, continuando o programa a fluir naturalmente.
+
+Em relação ao grupo ‘Câmara’ da interface, este permite ao utilizador variar o seu ponto de vista. É permitido fazer zoom in  ou zoom out da cena e é permitido, rodar a câmara entre 4 posições definidas. Fazer zoom out permite também ao utilizador ter uma melhor perceção da cena que o rodeia. De destacar que a transição entre posições é sempre feita com recurso a animações visualmente agradáveis e naturais.
 
 
 \newpage

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.22)  31 DEC 2017 22:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.22)  31 DEC 2017 22:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -582,19 +582,25 @@ File: images/fabrik_full_board.png Graphic file (type png)
 Package pdftex.def Info: images/fabrik_full_board.png used on input line 142.
 (pdftex.def)             Requested size: 85.36295pt x 85.36295pt.
  [5 <./images/fabrik_full_board.png>]
-(./laig_tp3.aux)
+<images/interface.png, id=35, 248.93pt x 612.2875pt>
+File: images/interface.png Graphic file (type png)
+
+<use images/interface.png>
+Package pdftex.def Info: images/interface.png used on input line 157.
+(pdftex.def)             Requested size: 124.46469pt x 306.143pt.
+ [6] [7 <./images/interface.png>] (./laig_tp3.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3908 strings out of 493014
- 53890 string characters out of 6133351
- 138000 words of memory out of 5000000
- 7385 multiletter control sequences out of 15000+600000
+ 3916 strings out of 493014
+ 54026 string characters out of 6133351
+ 139000 words of memory out of 5000000
+ 7392 multiletter control sequences out of 15000+600000
  9733 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,7n,43p,445b,272s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,7n,43p,746b,272s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
@@ -603,10 +609,10 @@ Here is how much of TeX's memory you used:
 sr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
 /local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on laig_tp3.pdf (5 pages, 275978 bytes).
+Output written on laig_tp3.pdf (7 pages, 365321 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+ 71 PDF objects out of 1000 (max. 8388607)
+ 43 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
