@@ -140,8 +140,8 @@ XMLscene.prototype.initCameras = function() {
     this.cameraSettings = {
         angle : CAMERA_START_ANGLE,
         targetAngle : CAMERA_START_ANGLE,
-        radius : 15 * Math.SQRT2,
-        targetRadius: 15 * Math.SQRT2 + 6,
+        radius : 15 * Math.SQRT2 + 2,
+        targetRadius: 15 * Math.SQRT2,
         height : 20,
         target: vec3.fromValues(4, 0, 4),
         vel: 5 // in radians per second
@@ -193,7 +193,7 @@ XMLscene.prototype.calculateCameraPos = function() {
 XMLscene.prototype.resetCamera = function() {
     this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,this.cameraSettings.target);
     this.cameraSettings.targetAngle = CAMERA_START_ANGLE;
-    this.cameraSettings.targetRadius = 15 * Math.SQRT2 + 6;
+    this.cameraSettings.targetRadius = 15 * Math.SQRT2;
 
     //this.interface.setActiveCamera(this.camera);
 }
