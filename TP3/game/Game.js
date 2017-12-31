@@ -211,8 +211,7 @@ class Game {
         switch (this.currentState) {
 
             case this.state.NO_GAME_RUNNING:
-                this.board= null;
-                this.boardChanged = false;
+                //Do nothing
                 break;
             case this.state.HUMAN_VS_HUMAN:
                 this.setWorkersHvsH();
@@ -493,7 +492,9 @@ class Game {
         if (msg[0] == 'victory') {
 
             let results = msg[1].split("-");
-            this.communication.forceStates(results[1]);
+            this.board = this.communication.parseBoardFromPlog(results[1]);
+            this.boardHistory.insertBoard(this.board);
+            this.handleMove();
             this.alert.showWinner(results[0] == PLAYER1_SIDE? 1 : 2);
 
         } else 

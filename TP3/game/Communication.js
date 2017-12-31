@@ -127,16 +127,4 @@ class Communication {
         return board;
     }
 
-    /**
-     * Force the change of states of the communication variables
-     * Useful for displaying the last animation of the game
-     * 
-     * @param {String} board - Board to be forced
-     * @return {null}
-     */
-    forceStates(board) {
-        this.parseBoardFromPlog(board);
-        this.boardChanged = true;
-    }
-
 }

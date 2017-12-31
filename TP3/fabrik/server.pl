@@ -149,7 +149,7 @@ parse_input(aiPlay(AI, Side, Board), Result):-
 	call(AIfunction, Side, Board, NewBoard), !,
 	decideResult(Side, NewBoard, Result), !.
 % If piece play is not possible, player loses
-parse_input(aiPlay(_AI, Side, _Board), Result):-
+parse_input(aiPlay(_AI, Side, Board), Result):-
 	gameLost(Side, Board, Result), !.
 
 parse_input(moveWorker(Board, Row, Col, NewRow, NewCol), NewBoard):-
