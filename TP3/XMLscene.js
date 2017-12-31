@@ -1,6 +1,7 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
 const CAMERA_START_ANGLE = 0;
+const CAMERA_START_RADIUS = 20 * Math.SQRT2;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -140,8 +141,8 @@ XMLscene.prototype.initCameras = function() {
     this.cameraSettings = {
         angle : CAMERA_START_ANGLE,
         targetAngle : CAMERA_START_ANGLE,
-        radius : 15 * Math.SQRT2 + 2,
-        targetRadius: 15 * Math.SQRT2,
+        radius : CAMERA_START_RADIUS + 1,
+        targetRadius: CAMERA_START_RADIUS,
         height : 20,
         target: vec3.fromValues(4, 0, 4),
         vel: 5 // in radians per second
@@ -194,7 +195,7 @@ XMLscene.prototype.calculateCameraPos = function() {
 XMLscene.prototype.resetCamera = function() {
     this.camera = new CGFcamera(0.4,0.1,500,this.cameraPos,this.cameraSettings.target);
     this.cameraSettings.targetAngle = CAMERA_START_ANGLE;
-    this.cameraSettings.targetRadius = 15 * Math.SQRT2;
+    this.cameraSettings.targetRadius = CAMERA_START_RADIUS;
 
     //this.interface.setActiveCamera(this.camera);
 }
