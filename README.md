@@ -5,7 +5,7 @@ Authors:
 * André Cruz – [@AndreFCruz](https://github.com/AndreFCruz)
 * Edgar Carneiro – [@EdgarACarneiro](https://github.com/EdgarACarneiro)
 
-# Project 3 - Fabrik
+## Project 3 - Fabrik
 ### Usage
 After cloning the repository, to start the javascript client simply run the ```start_client.sh``` script
 ```shell
@@ -31,5 +31,5 @@ Next, navigate to ```http://localhost:8080/TP3/``` on your favourite browser.
 * [User Manual](TP3_User_Manual_Full.pdf)
 * [Official Website](https://spielstein.com/games/fabrik/rules)
 
-# Projects 1 & 2
+## Projects 1 & 2
 ![tp2](https://user-images.githubusercontent.com/13498941/34483084-3de4e6b4-efb4-11e7-82a1-216de76dfd99.gif)
