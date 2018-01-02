@@ -1,7 +1,0 @@
-\select@language {portuguese}
-\contentsline {section}{\numberline {1}\textit {Set-Up}}{3}
-\contentsline {section}{\numberline {2}O Jogo \textit {Fabrik}}{4}
-\contentsline {subsection}{\numberline {2.1}Hist\IeC {\'o}ria}{4}
-\contentsline {subsection}{\numberline {2.2}Material}{4}
-\contentsline {subsection}{\numberline {2.3}Regras}{4}
-\contentsline {section}{\numberline {3}Instru\IeC {\c c}\IeC {\~o}es de Uso}{6}

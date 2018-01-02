@@ -10,6 +10,13 @@
 \usepackage{fancyhdr}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -118,7 +125,7 @@ O jogo - \textit{Fabrik} - foi recentemente desenvolvido por Dieter Stein, em ag
 \end{figure}
 
 \subsection{Regras}
-A implementação deste jogo foi baseada no manual de regras oficiais \cite{games_and_puzzles_by_dieter_stein}.
+A implementação deste jogo foi baseada no manual de regras oficiais, disponível em \href{https://spielstein.com/games/fabrik}{https://spielstein.com/games/fabrik}.
 
 As pretas (jogador que joga com peças de cor preta) começam por colocar um dos trabalhadores num espaço à sua escolha. De seguida, as brancas (jogador que joga com peças de cor branca) colocam o outro trabalhador num espaço livre. De seguida, as pretas decidem quem começa por jogar.
 
