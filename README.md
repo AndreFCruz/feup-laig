@@ -17,6 +17,8 @@ sh start_client.sh
 sh start_server.sh
 ```
 
+Next, navigate to ```http://localhost:8080/TP3/``` on your favourite browser.
+
 ### Full Game (AI vs AI)
 ![part of game](https://user-images.githubusercontent.com/13498941/34483242-0faa63ae-efb5-11e7-95c5-61b1a8d03953.gif)
 
