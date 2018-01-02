@@ -31,5 +31,8 @@ Next, navigate to ```http://localhost:8080/TP3/``` on your favourite browser.
 * [User Manual](TP3_User_Manual_Full.pdf)
 * [Official Website](https://spielstein.com/games/fabrik/rules)
 
+### Videos
+A couple videos depicting the Fabrik game in action: [AI vs AI](https://youtu.be/qEJ9NYvd9WE), [Full Game](https://youtu.be/7sAkZJNuWGQ), [Game Film](https://youtu.be/HmcvoYcAfPo) and [Two client instances on the same server](https://youtu.be/3soJRlQXfEw).
+
 ## Projects 1 & 2
 ![tp2](https://user-images.githubusercontent.com/13498941/34483084-3de4e6b4-efb4-11e7-82a1-216de76dfd99.gif)
