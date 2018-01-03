@@ -1,9 +1,8 @@
 # FEUP-LAIG
 This project was developed for "Graphical Applications Laboratory", a third year unit of the Master in Informatics and Computing Engineering, at FEUP.
 
-Authors:
-* André Cruz – [@AndreFCruz](https://github.com/AndreFCruz)
-* Edgar Carneiro – [@EdgarACarneiro](https://github.com/EdgarACarneiro)
+## Projects 1 & 2
+![tp2](https://user-images.githubusercontent.com/13498941/34483084-3de4e6b4-efb4-11e7-82a1-216de76dfd99.gif)
 
 ## Project 3 - Fabrik
 ### Usage
@@ -34,5 +33,6 @@ Next, navigate to ```http://localhost:8080/TP3/``` on your favourite browser.
 ### Videos
 A couple videos depicting the Fabrik game in action: [AI vs AI](https://youtu.be/qEJ9NYvd9WE), [Full Game](https://youtu.be/7sAkZJNuWGQ), [Game Film](https://youtu.be/HmcvoYcAfPo) and [Two client instances on the same server](https://youtu.be/3soJRlQXfEw).
 
-## Projects 1 & 2
-![tp2](https://user-images.githubusercontent.com/13498941/34483084-3de4e6b4-efb4-11e7-82a1-216de76dfd99.gif)
+## Authors
+* André Cruz – [@AndreFCruz](https://github.com/AndreFCruz)
+* Edgar Carneiro – [@EdgarACarneiro](https://github.com/EdgarACarneiro)
