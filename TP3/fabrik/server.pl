@@ -143,6 +143,7 @@ gameLost(white, Board, 'victory black'-Board) :- !.
 
 % For game beggining
 parse_input(init, Board):-
+	destroyRowColFacts,
 	genRowColFacts,
 	boardSize(N), !,
 	createBoard(Board, N), !.
