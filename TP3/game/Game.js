@@ -540,8 +540,11 @@ class Game {
      * @return {null}
      */
     resetTimeOutGame() {
-        let winner = 'victory ' + (this.scene.game.currentPlayer == 1 ? PLAYER2_SIDE : PLAYER1_SIDE);
-        this.scene.game.resetGame(winner);
+        let game = this.scene.game;
+        game.setCurrentState(game.state.NO_GAME_RUNNING);
+
+        // Using the given formula to switch the player
+        game.alert.showWinner(game.currentPlayer % 2 + 1);
     }
 
     /**
